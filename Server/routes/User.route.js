@@ -6,6 +6,6 @@ import UserController from '../controllers/User.controller.js'
 var jsonParser = bodyParser.json();
 const UserRoute = express.Router();
 
-UserRoute.get("/add", UserController.test)
+UserRoute.get("/add", UserController.add)
 export default UserRoute;
 
