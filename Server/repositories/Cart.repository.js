@@ -1,8 +1,8 @@
 import DB from "../configs/db.js"
-const UserRepository = {
-    async create(name, gender, email, phone, password, date_of_birth = "", address = "", avatar = "", role = "0", is_disable = "false") {
-        const query = `INSERT INTO user (name, gender,email,phone,password, date_of_birth, address, avatar, role,is_disable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        const values = [name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable];
+const CartRepository = {
+    async create(user_id) {
+        const query = `INSERT INTO cart (user_id) VALUES (?)`;
+        const values = [user_id];
         try {
             DB.pool().query(query, values);
             return true;
@@ -11,9 +11,9 @@ const UserRepository = {
             return false;
         }
     },
-    async update(id, name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable) {
-        const query = `UPDATE user SET name=?, gender=?, email=?, phone=?, password=?, date_of_birth=?, address=?, avatar=?, role=?, is_disable=? WHERE id=?`;
-        const values = [name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable, id];
+    async update(id, user_id) {
+        const query = `UPDATE cart SET user_id=? WHERE id=?`;
+        const values = [user_id, id];
 
         try {
             const [result] = await DB.pool().query(query, values);
@@ -28,7 +28,7 @@ const UserRepository = {
         }
     },
     async delete(id) {
-        const query = `DELETE FROM user WHERE id=?`;
+        const query = `DELETE FROM cart WHERE id=?`;
 
         try {
             await DB.pool().query(query, [id]);
@@ -40,7 +40,7 @@ const UserRepository = {
     },
 
     async findAll() {
-        const query = `SELECT * FROM user`;
+        const query = `SELECT * FROM order`;
 
         try {
             const [rows] = await DB.pool().query(query);
@@ -52,7 +52,7 @@ const UserRepository = {
     },
 
     async findOneByID(id) {
-        const query = `SELECT * FROM user WHERE id = ?`;
+        const query = `SELECT * FROM cart WHERE id = ?`;
         const value = [id];
 
         try {
@@ -67,4 +67,4 @@ const UserRepository = {
 
 }
 
-export default UserRepository;
+export default CartRepository;
