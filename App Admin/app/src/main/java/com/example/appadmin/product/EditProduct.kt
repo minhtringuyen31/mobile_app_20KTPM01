@@ -1,7 +1,8 @@
-package com.example.appadmin
+package com.example.appadmin.product
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.appadmin.R
 
 class EditProduct : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
