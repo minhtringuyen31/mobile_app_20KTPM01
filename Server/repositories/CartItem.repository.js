@@ -1,8 +1,8 @@
 import DB from "../configs/db.js"
-const UserRepository = {
-    async create(name, gender, email, phone, password, date_of_birth = "", address = "", avatar = "", role = "0", is_disable = "false") {
-        const query = `INSERT INTO user (name, gender,email,phone,password, date_of_birth, address, avatar, role,is_disable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        const values = [name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable];
+const CartItemRepository = {
+    async create(user_id, cart_id, product_id, quantity, size, price) {
+        const query = `INSERT INTO cart_item (user_id, cart_id, product_id, quantity, size, price) VALUES (?, ?, ?, ?, ?,?)`;
+        const values = [user_id, cart_id, product_id, quantity, size, price];
         try {
             DB.pool().query(query, values);
             return true;
@@ -11,9 +11,9 @@ const UserRepository = {
             return false;
         }
     },
-    async update(id, name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable) {
-        const query = `UPDATE user SET name=?, gender=?, email=?, phone=?, password=?, date_of_birth=?, address=?, avatar=?, role=?, is_disable=? WHERE id=?`;
-        const values = [name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable, id];
+    async update(id, user_id, cart_id, product_id, quantity, size, price) {
+        const query = `UPDATE cart_item SET user_id=?, cart_id=?, product_id=?, quantity=?, size=?,price=? WHERE id=?`;
+        const values = [user_id, cart_id, product_id, quantity, size, price, id];
 
         try {
             const [result] = await DB.pool().query(query, values);
@@ -28,7 +28,7 @@ const UserRepository = {
         }
     },
     async delete(id) {
-        const query = `DELETE FROM user WHERE id=?`;
+        const query = `DELETE FROM cart_item WHERE id=?`;
 
         try {
             await DB.pool().query(query, [id]);
@@ -40,7 +40,7 @@ const UserRepository = {
     },
 
     async findAll() {
-        const query = `SELECT * FROM user`;
+        const query = `SELECT * FROM cart_item`;
 
         try {
             const [rows] = await DB.pool().query(query);
@@ -52,7 +52,7 @@ const UserRepository = {
     },
 
     async findOneByID(id) {
-        const query = `SELECT * FROM user WHERE id = ?`;
+        const query = `SELECT * FROM cart_item WHERE id = ?`;
         const value = [id];
 
         try {
@@ -67,4 +67,4 @@ const UserRepository = {
 
 }
 
-export default UserRepository;
+export default CartItemRepository;

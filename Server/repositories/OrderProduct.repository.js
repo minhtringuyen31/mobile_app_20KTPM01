@@ -1,8 +1,8 @@
 import DB from "../configs/db.js"
-const UserRepository = {
-    async create(name, gender, email, phone, password, date_of_birth = "", address = "", avatar = "", role = "0", is_disable = "false") {
-        const query = `INSERT INTO user (name, gender,email,phone,password, date_of_birth, address, avatar, role,is_disable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-        const values = [name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable];
+const OrderProductRepository = {
+    async create(note, order_id, product_id, quantity,price) {
+        const query = `INSERT INTO order_product (note, order_id, product_id, quantity,price) VALUES (?, ?, ?, ?, ?)`;
+        const values = [note, order_id, product_id, quantity,price];
         try {
             DB.pool().query(query, values);
             return true;
@@ -11,9 +11,9 @@ const UserRepository = {
             return false;
         }
     },
-    async update(id, name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable) {
-        const query = `UPDATE user SET name=?, gender=?, email=?, phone=?, password=?, date_of_birth=?, address=?, avatar=?, role=?, is_disable=? WHERE id=?`;
-        const values = [name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable, id];
+    async update(id, note, order_id, product_id, quantity,price) {
+        const query = `UPDATE order_product SET note=?, order_id=?, product_id=?, quantity=?, price=? WHERE id=?`;
+        const values = [note, order_id, product_id, quantity, price, id];
 
         try {
             const [result] = await DB.pool().query(query, values);
@@ -28,7 +28,7 @@ const UserRepository = {
         }
     },
     async delete(id) {
-        const query = `DELETE FROM user WHERE id=?`;
+        const query = `DELETE FROM order_product WHERE id=?`;
 
         try {
             await DB.pool().query(query, [id]);
@@ -40,7 +40,7 @@ const UserRepository = {
     },
 
     async findAll() {
-        const query = `SELECT * FROM user`;
+        const query = `SELECT * FROM order_product`;
 
         try {
             const [rows] = await DB.pool().query(query);
@@ -52,7 +52,7 @@ const UserRepository = {
     },
 
     async findOneByID(id) {
-        const query = `SELECT * FROM user WHERE id = ?`;
+        const query = `SELECT * FROM order_product WHERE id = ?`;
         const value = [id];
 
         try {
@@ -67,4 +67,4 @@ const UserRepository = {
 
 }
 
-export default UserRepository;
+export default OrderProductRepository;
