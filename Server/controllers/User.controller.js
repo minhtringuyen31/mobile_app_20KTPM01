@@ -29,9 +29,9 @@ const UserController = {
         const id = req.params.id;
         const status = await UserServices.delete(id)
         if (status) {
-            res.status(200).send({ status: 1, message: "Success" })
+            res.status(200).send(status)
         } else {
-            res.status(404).send({ status: 0, message: "Failed" });
+            res.status(404).send(status);
         }
 
 
