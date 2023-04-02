@@ -29,7 +29,6 @@ const UserRepository = {
     },
     async delete(id) {
         const query = `DELETE FROM user WHERE id=?`;
-
         try {
             await DB.pool().query(query, [id]);
             return true;

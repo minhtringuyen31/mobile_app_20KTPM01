@@ -50,6 +50,7 @@ const CategoryRepository = {
             return false;
         }
     },
+    
 
     async findOneByID(id) {
         const query = `SELECT * FROM category WHERE id = ?`;
