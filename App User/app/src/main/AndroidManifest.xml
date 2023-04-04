@@ -11,8 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+
         <activity
-            android:name=".ProductListActivity"
+            android:name=".ProductDetail"
+            android:exported="false" />
+        <activity
+            android:name=".ProductList"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

@@ -3,10 +3,9 @@ package com.example.myapplication.pages
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.myapplication.R
-
-class ProductListActivity : AppCompatActivity() {
+class ProductDetail : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_product_list)
+        setContentView(R.layout.activity_product_detail)
     }
 }

@@ -1,4 +1,9 @@
 package com.example.myapplication.modals
 
-class Product {
-}
+import java.io.Serializable
+data class Product(
+    var name: String,
+    var price: String,
+    var image: Int,
+    var description: String
+):Serializable

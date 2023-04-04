@@ -7,4 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="transparent">#00000000</color>
+    <color name="yellow">#FF9A00</color>
+    <color name="hintTextColor">#787878</color>
+    <color name="pink">#F6DEDE</color>
+    <color name="youtube">#C64141</color>
+    <color name="gray">#e4e5e7</color>
+    <color name="darkGray">#3A3939</color>
+    <color name="brownHighland">#85372e</color>
 </resources>
