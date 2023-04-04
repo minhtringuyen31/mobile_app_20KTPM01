@@ -34,7 +34,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
-        android:text="TextView"
+        android:textColor="@color/brownHighland"
+        android:textSize="@dimen/_13sdp"
+        android:text="CÀ PHÊ TRUYỀN THỐNG"
         app:layout_constraintStart_toStartOf="@+id/listProductRV"
         app:layout_constraintTop_toBottomOf="@+id/listCategoryRV" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

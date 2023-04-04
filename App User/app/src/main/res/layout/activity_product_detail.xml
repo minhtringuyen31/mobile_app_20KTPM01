@@ -171,7 +171,7 @@
                     android:layout_margin="@dimen/_10sdp"
                     android:id="@+id/btnYoutube"
                     android:textColor="@color/white"
-                    android:background="@drawable/btn_bg3"
+                    android:background="@drawable/bg_category"
                     android:text="Add to cart"/>
 
             </LinearLayout>

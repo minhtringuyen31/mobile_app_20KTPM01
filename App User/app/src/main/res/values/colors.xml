@@ -14,5 +14,6 @@
     <color name="youtube">#C64141</color>
     <color name="gray">#e4e5e7</color>
     <color name="darkGray">#3A3939</color>
-    <color name="brownHighland">#85372e</color>
+    <color name="brownHighland">#53382c</color>
+    <color name="redHighland">#b22830</color>
 </resources>

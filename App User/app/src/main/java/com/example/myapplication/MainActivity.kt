@@ -13,25 +13,24 @@ import com.example.myapplication.pages.ProductListAdapter
 
 class MainActivity : AppCompatActivity() {
     private val listProduct = arrayListOf(
-        Product("Product 1", "35,000 đ",R.drawable.product1, "This is product 1"),
-        Product("Product 2", "35,000 đ",R.drawable.product2, "This is product 2"),
-        Product("Product 3", "35,000 đ",R.drawable.product3, "This is product 3"),
-        Product("Product 4", "35,000 đ", R.drawable.product4, "This is product 4"),
-        Product("Product 4", "35,000 đ", R.drawable.product5, "This is product 4"),
-        Product("Product 4", "35,000 đ", R.drawable.product6, "This is product 4"),
-        Product("Product 4", "35,000 đ", R.drawable.product7, "This is product 4"),
-        Product("Product 4", "35,000 đ", R.drawable.product8, "This is product 4"),
-        Product("Product 4", "35,000 đ", R.drawable.product9, "This is product 4"),
-        Product("Product 4", "35,000 đ", R.drawable.product10, "This is product 4"),
-        Product("Product 4", "35,000 đ", R.drawable.product11, "This is product 4")
+        Product("Product 1", "35,000 VNĐ",R.drawable.product1, "This is product 1"),
+        Product("Product 2", "35,000 VNĐ",R.drawable.product2, "This is product 2"),
+        Product("Product 3", "35,000 VNĐ",R.drawable.product3, "This is product 3"),
+        Product("Product 4", "35,000 VNĐ", R.drawable.product4, "This is product 4"),
+        Product("Product 4", "35,000 VNĐ", R.drawable.product5, "This is product 4"),
+        Product("Product 4", "35,000 VNĐ", R.drawable.product6, "This is product 4"),
+        Product("Product 4", "35,000 VNĐ", R.drawable.product7, "This is product 4"),
+        Product("Product 4", "35,000 VNĐ", R.drawable.product8, "This is product 4"),
+        Product("Product 4", "35,000 VNĐ", R.drawable.product9, "This is product 4"),
+        Product("Product 4", "35,000 VNĐ", R.drawable.product10, "This is product 4"),
+        Product("Product 4", "35,000 VNĐ", R.drawable.product11, "This is product 4")
     )
     private val listCategory = arrayListOf(
-        Category("CÀ PHÊ", "LINK"),
-        Category("BÁNH", "LINK"),
-        Category("TRÀ", "LINK"),
-        Category("PHINDI", "LINK"),
-        Category("ĐÁ XAY", "LINK"),
-        Category("THỨC UỐNG KHÁC","LINK")
+        Category("CÀ PHÊ", R.drawable.category_coffee),
+        Category("TRÀ", R.drawable.category_tea),
+        Category("PHINDI", R.drawable.category_coffee),
+        Category("FREEZE", R.drawable.category_freeze),
+        Category("KHÁC",R.drawable.category_other)
     )
     private var productRecyclerView: RecyclerView? = null
     private var categoryRecyclerView: RecyclerView? = null
@@ -49,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         productRecyclerView = findViewById(R.id.listProductRV)
         var adapter1 = ProductListAdapter(listProduct)
         productRecyclerView!!.adapter = adapter1
-        productRecyclerView!!.layoutManager = GridLayoutManager(this,2)
+        productRecyclerView!!.layoutManager = LinearLayoutManager(this)
 //        productRecyclerView!!.addItemDecoration(
 //            DividerItemDecoration(
 //                this,
