@@ -10,5 +10,7 @@
     <color name="border">#f1e9e4</color>
     <color name="gray">#e4e5e7</color>
     <color name="red">#810000</color>
+    <color name="light_red">#FFF0F0</color>
+
 
 </resources>

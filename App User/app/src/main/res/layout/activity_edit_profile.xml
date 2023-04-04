@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pages.EditProfile">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="219dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:text="EDIT YOUR PROFILE"
+                    android:textAlignment="center"
+                    android:textColor="@color/red"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="350dp"
+                android:layout_height="200dp"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                app:srcCompat="@drawable/editprofile" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/fg_email2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_bg"
+            android:drawableLeft="@drawable/baseline_search_24"
+            android:drawableTint="@color/red"
+            android:ems="10"
+            android:hint="Full Name"
+            android:inputType="textPersonName"
+            android:padding="10dp" />
+
+        <EditText
+            android:id="@+id/fg_email9"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_bg"
+            android:drawableLeft="@drawable/baseline_email_24"
+            android:drawableTint="@color/red"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textPersonName"
+            android:padding="10dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/fg_email5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_bg"
+                android:drawableLeft="@drawable/baseline_wc_24"
+                android:drawableTint="@color/red"
+                android:ems="10"
+                android:hint="Gender"
+                android:inputType="textPersonName"
+                android:padding="10dp" />
+
+            <EditText
+                android:id="@+id/fg_email14"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="35dp"
+                android:layout_marginEnd="35dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_bg"
+                android:drawableLeft="@drawable/baseline_today_24"
+                android:drawableTint="@color/red"
+                android:ems="10"
+                android:hint="Date of birth"
+                android:inputType="text|date"
+                android:padding="10dp" />
+
+        </LinearLayout>
+
+        <EditText
+            android:id="@+id/fg_email12"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_bg"
+            android:drawableLeft="@drawable/baseline_phone_24"
+            android:drawableTint="@color/red"
+            android:ems="10"
+            android:hint="Phone"
+            android:inputType="textPersonName"
+            android:padding="10dp" />
+
+        <EditText
+            android:id="@+id/fg_email15"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="35dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/edit_text_bg"
+            android:drawableLeft="@drawable/baseline_add_location_alt_24"
+            android:drawableTint="@color/red"
+            android:ems="10"
+            android:hint="Address"
+            android:inputType="textPersonName"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button_canceledit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/edit_text_bg"
+                android:text="cancel"
+                android:textColor="@color/red" />
+
+            <Button
+                android:id="@+id/button_saveedit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/button_sign_custom"
+                android:text="save"
+                android:textColor="@color/light_red" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView17"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
