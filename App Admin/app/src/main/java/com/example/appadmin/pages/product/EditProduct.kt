@@ -1,4 +1,4 @@
-package com.example.appadmin.product
+package com.example.appadmin.pages.product
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.example.appadmin.product
+package com.example.appadmin.pages.product
 
 import android.content.Context
 import android.content.Intent
@@ -23,7 +23,7 @@ class ProductAdapter(private val context: Context, private val items: List<Produ
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ProductAdapter.ViewHolder {
+    ): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val contactView = inflater.inflate(R.layout.custom_product, parent, false)
@@ -34,7 +34,7 @@ class ProductAdapter(private val context: Context, private val items: List<Produ
         return items.size
     }
 
-    override fun onBindViewHolder(holder: ProductAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: Product = items[position]
         val imageView = holder.iconImageView
         imageView.setImageResource(R.drawable.profile)

@@ -1,4 +1,4 @@
-package com.example.appadmin.dashboard
+package com.example.appadmin.pages.dashboard
 
 import android.content.Context
 import android.content.Intent
@@ -10,10 +10,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appadmin.DashboardItems
 import com.example.appadmin.R
-import com.example.appadmin.account.Accounts
-import com.example.appadmin.category.Categories
-import com.example.appadmin.order.Orders
-import com.example.appadmin.product.Products
+import com.example.appadmin.pages.account.Accounts
+import com.example.appadmin.pages.category.Categories
+import com.example.appadmin.pages.order.Orders
+import com.example.appadmin.pages.product.Products
 
 class DashboardAdapter(private val context: Context, private val items: List<DashboardItems>) :
     RecyclerView.Adapter<DashboardAdapter.ViewHolder>() {
@@ -26,7 +26,7 @@ class DashboardAdapter(private val context: Context, private val items: List<Das
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): DashboardAdapter.ViewHolder {
+    ): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val contactView = inflater.inflate(R.layout.custom_dashboard_item, parent, false)

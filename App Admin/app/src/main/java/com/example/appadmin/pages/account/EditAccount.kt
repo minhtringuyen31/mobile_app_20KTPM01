@@ -1,4 +1,4 @@
-package com.example.appadmin.account
+package com.example.appadmin.pages.account
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.appadmin.dashboard.Dashboard
+import com.example.appadmin.pages.dashboard.Dashboard
 import com.example.appadmin.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

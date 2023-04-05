@@ -1,4 +1,4 @@
-package com.example.appadmin.account
+package com.example.appadmin.pages.account
 
 import android.content.Context
 import android.content.Intent
@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appadmin.Account
 import com.example.appadmin.Product
 import com.example.appadmin.R
-import com.example.appadmin.product.EditProduct
-import com.example.appadmin.product.ProductAdapter
+import com.example.appadmin.pages.product.EditProduct
+import com.example.appadmin.pages.product.ProductAdapter
 
 class AccountAdapter(private val context: Context, private val items: List<Account>) :
     RecyclerView.Adapter<AccountAdapter.ViewHolder>() {
@@ -26,7 +26,7 @@ class AccountAdapter(private val context: Context, private val items: List<Accou
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): AccountAdapter.ViewHolder {
+    ): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val contactView = inflater.inflate(R.layout.custom_account, parent, false)
@@ -37,7 +37,7 @@ class AccountAdapter(private val context: Context, private val items: List<Accou
         return items.size
     }
 
-    override fun onBindViewHolder(holder: AccountAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: Account = items[position]
         val imageView = holder.iconImageView
         imageView.setImageResource(R.drawable.profile)

@@ -1,4 +1,4 @@
-package com.example.appadmin.dashboard
+package com.example.appadmin.pages.dashboard
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -17,6 +17,8 @@ class Dashboard : AppCompatActivity() {
         dashboardItems.add(DashboardItems("Category", R.drawable.baseline_category_24))
         dashboardItems.add(DashboardItems("Account", R.drawable.baseline_account_circle_24))
         dashboardItems.add(DashboardItems("Order", R.drawable.baseline_shopping_cart_24))
+        dashboardItems.add(DashboardItems("Rating", R.drawable.baseline_star_rate_24))
+        dashboardItems.add(DashboardItems("Promotion", R.drawable.baseline_discount_24))
 
         val adapter = DashboardAdapter(this, dashboardItems)
 

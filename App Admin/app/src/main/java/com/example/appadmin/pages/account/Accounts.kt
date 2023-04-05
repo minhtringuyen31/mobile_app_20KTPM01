@@ -1,4 +1,4 @@
-package com.example.appadmin.account
+package com.example.appadmin.pages.account
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.appadmin.Account
 import com.example.appadmin.Product
 import com.example.appadmin.R
-import com.example.appadmin.product.ProductAdapter
+import com.example.appadmin.pages.product.ProductAdapter
 
 class Accounts : AppCompatActivity() {
     private val accountItems = ArrayList<Account>()

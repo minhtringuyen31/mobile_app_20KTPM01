@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".product.EditProduct">
+    tools:context=".pages.product.EditProduct">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -55,6 +55,12 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toTopOf="@id/flexEditProduct"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+
+
 
 
     </ScrollView>

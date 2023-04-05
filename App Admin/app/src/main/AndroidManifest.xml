@@ -12,25 +12,25 @@
         android:theme="@style/Theme.AppAdmin"
         tools:targetApi="31">
         <activity
-            android:name=".category.Categories"
+            android:name=".pages.category.Categories"
             android:exported="false" />
         <activity
-            android:name=".order.Orders"
+            android:name=".pages.order.Orders"
             android:exported="false" />
         <activity
-            android:name=".account.EditAccount"
+            android:name=".pages.account.EditAccount"
             android:exported="false" />
         <activity
-            android:name=".account.Accounts"
+            android:name=".pages.account.Accounts"
             android:exported="false" />
         <activity
-            android:name=".product.EditProduct"
+            android:name=".pages.product.EditProduct"
             android:exported="false" />
         <activity
-            android:name=".product.Products"
+            android:name=".pages.product.Products"
             android:exported="false" />
         <activity
-            android:name=".dashboard.Dashboard"
+            android:name=".pages.dashboard.Dashboard"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

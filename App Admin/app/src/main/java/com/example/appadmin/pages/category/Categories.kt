@@ -1,4 +1,4 @@
-package com.example.appadmin.category
+package com.example.appadmin.pages.category
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
