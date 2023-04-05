@@ -49,7 +49,10 @@
             android:name=".pages.Homepage"
             android:exported="false" />
         <activity
-            android:name=".pages.ProductListActivity"
+            android:name=".pages.ProductList"
+            android:exported="false" />
+        <activity
+            android:name=".pages.ProductDetail"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

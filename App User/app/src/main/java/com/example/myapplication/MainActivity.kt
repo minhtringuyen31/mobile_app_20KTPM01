@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar
 import com.example.myapplication.pages.Checkout
 import com.example.myapplication.pages.Homepage
 import com.example.myapplication.pages.Login
+import com.example.myapplication.pages.ProductList
 import com.example.myapplication.utils.Utils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -24,23 +25,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //Bottom sheet
-        // some code
-        val view = findViewById<View>(android.R.id.content)
-
-
-        val myIntent: Intent = Intent(this, Login::class.java)
-        startActivity(myIntent)
-        val context: Context = this
-        appContext = context;
-
-
-
-
-//
-//
-
-
+        val intent = Intent(
+            this@MainActivity,
+            ProductList::class.java
+        )
+        startActivity(intent)
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         var inflater: MenuInflater = getMenuInflater();

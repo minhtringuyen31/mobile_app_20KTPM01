@@ -55,3 +55,10 @@ class Category  {
         return "Category(id='$id', name='$name', pathImage='$pathImage')"
     }
 }
+
+//import java.io.Serializable
+//data class Category(
+//    var name: String,
+//    var image: Int,
+//):Serializable
+

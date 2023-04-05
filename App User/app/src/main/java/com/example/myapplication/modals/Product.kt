@@ -1,5 +1,6 @@
 package com.example.myapplication.modals
 
+
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
@@ -218,3 +219,10 @@ class Product:AppCompatActivity{
 
 
 }
+//import java.io.Serializable
+//data class Product(
+//    var name: String,
+//    var price: String,
+//    var image: Int,
+//    var description: String
+//):Serializable
