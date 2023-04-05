@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="_120sdp">120dp</dimen>
+    <dimen name="_10sdp">10dp</dimen>
+    <dimen name="_5sdp">5dp</dimen>
+    <dimen name="_15sdp">15dp</dimen>
+    <dimen name="_11ssp">11dp</dimen>
+    <dimen name="_10ssp">10sp</dimen>
+    <dimen name="_13ssp">13sp</dimen>
+    <dimen name="_70sdp">70dp</dimen>
+    <dimen name="_160sdp">160dp</dimen>
+    <dimen name="_3sdp">3dp</dimen>
+    <dimen name="_7sdp">7dp</dimen>
+
+    <dimen name="_100sdp">100dp</dimen>
+
+</resources>

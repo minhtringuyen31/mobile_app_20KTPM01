@@ -136,7 +136,8 @@ class ProductListAdapter(
         productName.text = product.getName()
         productPrice.text = product.getPrice().toString()
         productDescription.text = product.getDescription()
-//        productImage.setImageResource(product.image)
+//        productImage.setImageResource(product.getDecodeImage())
+
         productImage.setImageBitmap(product.getDecodeImage())
     }
 }

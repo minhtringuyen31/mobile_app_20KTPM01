@@ -9,10 +9,7 @@ import android.view.MenuInflater
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
-import com.example.myapplication.pages.Checkout
-import com.example.myapplication.pages.Homepage
-import com.example.myapplication.pages.Login
-import com.example.myapplication.pages.ProductList
+import com.example.myapplication.pages.*
 import com.example.myapplication.utils.Utils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -27,8 +24,10 @@ class MainActivity : AppCompatActivity() {
 
         val intent = Intent(
             this@MainActivity,
-            ProductList::class.java
+           ProductList::class.java
         )
+        appContext  = this;
+
         startActivity(intent)
     }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

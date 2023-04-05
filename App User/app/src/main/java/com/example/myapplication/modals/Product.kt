@@ -203,6 +203,7 @@ class Product:AppCompatActivity{
     }
     fun getDecodeImage(): Bitmap? {
         try {
+            println(this.getImage()!!)
             val assetManager =  MainActivity.appContext.resources.assets
             val inputStream = assetManager.open(this.getImage()!!)
             val bitmap = BitmapFactory.decodeStream(inputStream)
