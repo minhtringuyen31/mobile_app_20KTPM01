@@ -23,9 +23,9 @@
             app:layout_scrollFlags="scroll|enterAlways|enterAlwaysCollapsed">
 
             <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/productDetailImageIV"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_300sdp"
-                android:id="@+id/imgItem"
                 android:scaleType="centerCrop"
                 app:layout_collapseMode="parallax"
                 android:src="@drawable/product10"

@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.modals.Category
 import com.example.myapplication.modals.Product
 import com.example.myapplication.pages.CategoryListAdapter
+import com.example.myapplication.pages.ProductDetail
+import com.example.myapplication.pages.ProductList
 import com.example.myapplication.pages.ProductListAdapter
 
 class MainActivity : AppCompatActivity() {
@@ -37,24 +40,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_main)
-        setContentView(R.layout.activity_product_list)
+        setContentView(R.layout.activity_main)
 
-        categoryRecyclerView = findViewById(R.id.listCategoryRV)
-        var adapter2 = CategoryListAdapter(listCategory)
-        categoryRecyclerView!!.adapter = adapter2
-        categoryRecyclerView!!.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false
+        val intent = Intent(
+            this@MainActivity,
+            ProductList::class.java
         )
-
-        productRecyclerView = findViewById(R.id.listProductRV)
-        var adapter1 = ProductListAdapter(listProduct)
-        productRecyclerView!!.adapter = adapter1
-        productRecyclerView!!.layoutManager = LinearLayoutManager(this)
-//        productRecyclerView!!.addItemDecoration(
-//            DividerItemDecoration(
-//                this,
-//                DividerItemDecoration.VERTICAL
-//
-//            )
-//        )
+        startActivity(intent)
     }
 }
