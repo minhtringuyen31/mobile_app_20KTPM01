@@ -1,5 +1,7 @@
 import mysql2 from 'mysql2';
-console.log(process.env.PORT_WIN)
+import dotenv from 'dotenv'
+dotenv.config()
+console.log(process.env.WIN_PORT)
 const _connection = mysql2.createPool({
   host: 'localhost',
   user: 'root',
