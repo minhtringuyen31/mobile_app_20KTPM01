@@ -51,7 +51,8 @@
                 android:layout_gravity="start"
                 android:background="@drawable/btn_bg2"
                 android:id="@+id/imgToolbarBtnBack"
-                android:src="@drawable/ic_back"/>
+                android:src="@drawable/ic_back"
+                android:contentDescription="TODO" />
 
             <ImageButton
                 android:layout_width="wrap_content"
@@ -61,7 +62,8 @@
                 android:layout_gravity="end"
                 android:background="@drawable/btn_bg2"
                 android:id="@+id/imgToolbarBtnFav"
-                android:src="@drawable/ic_fav_unfill"/>
+                android:src="@drawable/ic_fav_unfill"
+                android:contentDescription="TODO" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
@@ -124,6 +126,7 @@
         android:layout_height="wrap_content">
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_nav"
+            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_60sdp"
             android:layout_alignParentBottom="true">
@@ -153,6 +156,8 @@
                         android:layout_marginLeft="@dimen/_10sdp"
                         android:layout_marginRight="@dimen/_10sdp"
                         android:text="1"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
                         android:textSize="@dimen/_17ssp" />
 
                     <Button

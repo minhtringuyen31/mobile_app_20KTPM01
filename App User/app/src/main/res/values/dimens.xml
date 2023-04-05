@@ -12,7 +12,10 @@
     <dimen name="_160sdp">160dp</dimen>
     <dimen name="_3sdp">3dp</dimen>
     <dimen name="_7sdp">7dp</dimen>
-
+    <dimen name="_60sdp">60dp</dimen>
+    <dimen name="_300sdp">300dp</dimen>
     <dimen name="_100sdp">100dp</dimen>
+    <dimen name="_16sdp">16dp</dimen>
+
 
 </resources>

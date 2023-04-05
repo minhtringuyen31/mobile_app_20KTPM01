@@ -72,7 +72,7 @@ class ProductList : AppCompatActivity() {
                 ProductDetail::class.java
             )
             intent.putExtra("name", product.getName())
-//            intent.putExtra("image", product.image)
+            intent.putExtra("image", product.getImage())
             intent.putExtra("price", product.getPrice())
             intent.putExtra("description", product.getDescription())
             startActivity(intent)

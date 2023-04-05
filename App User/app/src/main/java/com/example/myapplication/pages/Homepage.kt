@@ -1,5 +1,7 @@
 package com.example.myapplication.pages
 
+import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.Color
 import android.graphics.Rect
 import android.os.Bundle
@@ -9,12 +11,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
-import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.Category
 import com.example.myapplication.modals.Product
@@ -24,8 +24,7 @@ import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnima
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
 import com.smarteist.autoimageslider.SliderViewAdapter
-import kotlinx.coroutines.*
-
+import java.io.ByteArrayOutputStream
 
 
 class MyListProduct(private val context: Homepage, private val data: List<Product>) : RecyclerView.Adapter<MyListProduct.ViewHolder>() {
@@ -44,7 +43,16 @@ class MyListProduct(private val context: Homepage, private val data: List<Produc
         holder.imageView.setImageBitmap(data[position].getDecodeImage())
         holder.name.text = data[position].getName();
         holder.itemView.setOnClickListener {
-            // xu li khi an vao cac categories
+            val intent = Intent(
+                context,
+                ProductDetail::class.java
+            )
+            intent.putExtra("name", data[position].getName())
+            intent.putExtra("image", data[position].getImage())
+            intent.putExtra("price",data[position].getPrice())
+
+            intent.putExtra("description", data[position].getDescription())
+            context.startActivity(intent)
         }
     }
     override fun getItemCount(): Int {
@@ -92,7 +100,11 @@ class MyListCategories(private val context: Homepage, private val data: List<Cat
         holder.imageView.setImageBitmap(data[position].getDecodeImage())
         holder.name.text = data[position].getName();
         holder.itemView.setOnClickListener {
-            // xu li khi an vao cac categories
+            val intent = Intent(
+                context,
+                ProductList::class.java
+            )
+            context.startActivity(intent)
         }
     }
 

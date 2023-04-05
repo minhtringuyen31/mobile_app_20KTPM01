@@ -6,13 +6,15 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <include
-        android:id="@+id/myToolBar"
-        layout="@layout/header_toolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <include layout="@layout/footer_navigation"/>
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:src="@drawable/imagebackground"
+        android:layout_height="match_parent">
+    </ImageView>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

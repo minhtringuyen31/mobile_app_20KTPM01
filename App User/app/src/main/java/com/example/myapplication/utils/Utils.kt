@@ -1,6 +1,7 @@
 package com.example.myapplication.utils
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.DisplayMetrics
@@ -10,6 +11,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.myapplication.R
+import com.example.myapplication.pages.EditProfile
+import com.example.myapplication.pages.Homepage
+import com.example.myapplication.pages.Profile
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.GsonBuilder
 import de.hdodenhof.circleimageview.CircleImageView
@@ -49,8 +53,11 @@ class Utils : AppCompatActivity() {
             val avatar: CircleImageView = view.findViewById(R.id.avatarUser)
             val search_icon: View = view.findViewById(R.id.search_icon)
             avatar.setOnClickListener {
-                Toast.makeText(context,
-                    "Clicked Avatar User", Toast.LENGTH_LONG).show();
+                val intent = Intent(
+                    context,
+                    Profile::class.java
+                )
+                context.startActivity(intent)
 
             }
             search_icon.setOnClickListener{
@@ -64,21 +71,35 @@ class Utils : AppCompatActivity() {
             navigationView.setOnNavigationItemSelectedListener { item ->
                 when (item.itemId) {
                     R.id.icon_home -> {
-                        Toast.makeText(context,
-                            "Press Home", Toast.LENGTH_LONG).show();
+                        val intent = Intent(
+                            context,
+                            Homepage::class.java
+                        )
+                        context.startActivity(intent)
                     }
                     R.id.icon_oder -> {
-                        Toast.makeText(context,
-                            "Press Order", Toast.LENGTH_LONG).show();
+
+                        val intent = Intent(
+                            context,
+                            Homepage::class.java
+                        )
+                        context.startActivity(intent)
                     }
                     R.id.icon_activity -> {
-                        Toast.makeText(context,
-                            "Press Activity", Toast.LENGTH_LONG).show();
+
+                        val intent = Intent(
+                            context,
+                            Homepage::class.java
+                        )
+                        context.startActivity(intent)
 
                     }
                     R.id.icon_other -> {
-                        Toast.makeText(context,
-                            "Press other", Toast.LENGTH_LONG).show();
+                        val intent = Intent(
+                            context,
+                            Profile::class.java
+                        )
+                        context.startActivity(intent)
 
                     }
                 }

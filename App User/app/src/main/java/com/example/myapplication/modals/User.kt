@@ -14,7 +14,6 @@ class User:AppCompatActivity{
     private var avatar: String="Default"
     private var role: String="Default"
     private var is_disable: Boolean=false
-
     constructor(
         name: String,
         gender: String,

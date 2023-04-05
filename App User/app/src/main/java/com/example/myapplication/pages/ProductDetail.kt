@@ -1,9 +1,12 @@
 package com.example.myapplication.pages
 
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.Product
 import java.util.logging.Logger
@@ -30,9 +33,12 @@ class ProductDetail : AppCompatActivity() {
         var productDetailName  =  intent.getStringExtra("name").toString()
         var productDetailPrice =  intent.getStringExtra("price").toString()
         var productDetailDescription = intent.getStringExtra("description").toString()
-        var productDetailImage = R.drawable.product3
+        var productDetailImage = intent.getStringExtra("image")
 
-        setProductDetail(productDetailName, productDetailPrice, productDetailDescription, productDetailImage)
+        val assetManager =  MainActivity.appContext.resources.assets
+        val inputStream = assetManager.open(productDetailImage!!)
+        val bitmapImage = BitmapFactory.decodeStream(inputStream)
+        setProductDetail(productDetailName, productDetailPrice, productDetailDescription, bitmapImage)
     }
     private fun initUI(){
         productDetailImage = findViewById(R.id.productDetailImageIV)
@@ -40,11 +46,11 @@ class ProductDetail : AppCompatActivity() {
         productDetailPrice = findViewById(R.id.productDetailPriceTV)
         productDetailDescription = findViewById((R.id.productDetailDescriptionTV))
     }
-    private fun setProductDetail(productName: String, productPrice: String, productDescription: String, productImage: Int){
+    private fun setProductDetail(productName: String, productPrice: String, productDescription: String, productImage: Bitmap){
         productDetailName!!.text = productName
         productDetailPrice!!.text = productPrice
         productDetailDescription!!.text = productDescription
-        productDetailImage!!.setImageResource(productImage)
+        productDetailImage!!.setImageBitmap(productImage)
     }
 }
 

@@ -28,7 +28,6 @@ class Category  {
         try {
             val assetManager = MainActivity.appContext.resources.assets
             val inputStream = assetManager.open(this.getPathImage())
-
             val bitmap = BitmapFactory.decodeStream(inputStream)
             return bitmap;
         } catch (e: java.lang.Exception) {
