@@ -4,9 +4,9 @@ import express from 'express';
 const router = express.Router();
 
 router.post('/create', CategoryAdminController.create)
-router.post('/update/:id', CategoryAdminController.update)
-router.post('/delete/:id', CategoryAdminController.delete)
-router.post('/:id', CategoryAdminController.findOne)
-router.post('/', CategoryAdminController.findAll)
+router.put('/update/:id', CategoryAdminController.update)
+router.delete('/delete/:id', CategoryAdminController.delete)
+router.get('/:id', CategoryAdminController.findOne)
+router.get('/', CategoryAdminController.findAll)
 
 export default router;

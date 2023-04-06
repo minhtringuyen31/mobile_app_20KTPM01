@@ -4,9 +4,9 @@ import express from 'express';
 const router = express.Router();
 
 router.post('/create', OrderAdminController.create)
-router.post('/update/:id', OrderAdminController.update)
-router.post('/delete/:id', OrderAdminController.delete)
-router.post('/:id', OrderAdminController.findOne)
-router.post('/', OrderAdminController.findAll)
+router.put('/update/:id', OrderAdminController.update)
+router.delete('/delete/:id', OrderAdminController.delete)
+router.get('/:id', OrderAdminController.findOne)
+router.get('/', OrderAdminController.findAll)
 
 export default router;
