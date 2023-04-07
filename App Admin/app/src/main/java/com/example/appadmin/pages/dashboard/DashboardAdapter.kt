@@ -10,14 +10,17 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appadmin.DashboardItems
 import com.example.appadmin.R
-import com.example.appadmin.pages.account.Accounts
+import com.example.appadmin.pages.user.Users
 import com.example.appadmin.pages.category.Categories
 import com.example.appadmin.pages.order.Orders
 import com.example.appadmin.pages.product.Products
+import com.example.appadmin.pages.promotion.Promotions
+import com.example.appadmin.pages.rating.Ratings
 
 class DashboardAdapter(private val context: Context, private val items: List<DashboardItems>) :
     RecyclerView.Adapter<DashboardAdapter.ViewHolder>() {
-    private lateinit var intent : Intent
+    private lateinit var intent: Intent
+
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         val iconImageView = listItemView.findViewById<ImageView>(R.id.dashboardItemImage)
         val nameTextView = listItemView.findViewById<TextView>(R.id.dashboardItemTv)
@@ -52,10 +55,16 @@ class DashboardAdapter(private val context: Context, private val items: List<Das
                     intent = Intent(context, Categories::class.java)
                 }
                 2 -> {
-                    intent = Intent(context, Accounts::class.java)
+                    intent = Intent(context, Users::class.java)
                 }
                 3 -> {
                     intent = Intent(context, Orders::class.java)
+                }
+                4 -> {
+                    intent = Intent(context, Ratings::class.java)
+                }
+                5 -> {
+                    intent = Intent(context, Promotions::class.java)
                 }
             }
             context.startActivity(intent)

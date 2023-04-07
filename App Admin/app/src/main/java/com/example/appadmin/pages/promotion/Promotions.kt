@@ -1,12 +1,12 @@
-package com.example.appadmin.pages.account
+package com.example.appadmin.pages.promotion
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.appadmin.R
 
-class EditAccount : AppCompatActivity() {
+class Promotions : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_account)
+        setContentView(R.layout.activity_promotion)
     }
 }

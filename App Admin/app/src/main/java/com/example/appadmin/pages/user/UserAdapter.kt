@@ -1,4 +1,4 @@
-package com.example.appadmin.pages.account
+package com.example.appadmin.pages.user
 
 import android.content.Context
 import android.content.Intent
@@ -9,13 +9,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appadmin.Account
-import com.example.appadmin.Product
 import com.example.appadmin.R
-import com.example.appadmin.pages.product.EditProduct
-import com.example.appadmin.pages.product.ProductAdapter
 
-class AccountAdapter(private val context: Context, private val items: List<Account>) :
-    RecyclerView.Adapter<AccountAdapter.ViewHolder>() {
+class UserAdapter(private val context: Context, private val items: List<Account>) :
+    RecyclerView.Adapter<UserAdapter.ViewHolder>() {
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
         val iconImageView = listItemView.findViewById<ImageView>(R.id.accountImage)
         val nameTextView = listItemView.findViewById<TextView>(R.id.accountName)
@@ -29,7 +26,7 @@ class AccountAdapter(private val context: Context, private val items: List<Accou
     ): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val contactView = inflater.inflate(R.layout.custom_account, parent, false)
+        val contactView = inflater.inflate(R.layout.custom_user, parent, false)
         return ViewHolder(contactView)
     }
 
@@ -48,7 +45,7 @@ class AccountAdapter(private val context: Context, private val items: List<Accou
         val dateTv = holder.createdTextView
         dateTv.text = item.dob
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, EditAccount::class.java)
+            val intent = Intent(context, EditUser::class.java)
             intent.putExtra("product_detail", item.toString())
             context.startActivity(intent)
         }

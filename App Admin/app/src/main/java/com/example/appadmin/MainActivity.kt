@@ -6,8 +6,11 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.appadmin.controllers.UserController
 import com.example.appadmin.pages.dashboard.Dashboard
 import com.example.appadmin.databinding.ActivityMainBinding
+import com.example.appadmin.modals.User
+import com.example.appadmin.utils.Utils
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -17,6 +20,14 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        Utils.activeRetrofit()
+        val userController = UserController()
+        val items = userController.getAllUser()
+        if (items != null) {
+            for (i in items) {
+                i.printUser()
+            }
+        }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
