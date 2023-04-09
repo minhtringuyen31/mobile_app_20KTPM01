@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appadmin.Product
 import com.example.appadmin.R
+import com.example.appadmin.modals.Product
 
 class ProductAdapter(private val context: Context, private val items: List<Product>) :
     RecyclerView.Adapter<ProductAdapter.ViewHolder>() {
@@ -39,11 +39,11 @@ class ProductAdapter(private val context: Context, private val items: List<Produ
         val imageView = holder.iconImageView
         imageView.setImageResource(R.drawable.profile)
         val nameTv = holder.nameTextView
-        nameTv.text = item.name
+        nameTv.text = item.getName()
         val descTv = holder.descTextView
-        descTv.text = item.description
+        descTv.text = item.getDescription()
         val dateTv = holder.createdTextView
-        dateTv.text = item.releaseDate
+        dateTv.text = item.getReleaseDate()
         holder.itemView.setOnClickListener {
             val intent = Intent(context, EditProduct::class.java)
             intent.putExtra("product_detail", item.toString())

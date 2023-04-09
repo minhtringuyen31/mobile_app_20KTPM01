@@ -1,145 +1,81 @@
 package com.example.appadmin.controllers
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.appadmin.modals.User
 import com.example.appadmin.services.UserService
 import com.example.appadmin.utils.Utils
-import com.google.gson.GsonBuilder
-import retrofit2.Call
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import kotlinx.coroutines.launch
+import retrofit2.create
 
-class UserController {
-    fun getUser(id: Int): User? {
-        var user: User? = null
-        try {
-            val gson = GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
-            val retrofit = Retrofit.Builder()
-                .baseUrl(Utils.URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build().create(UserService::class.java)
-            val call = retrofit.getUser(id)
+class UserController : ViewModel() {
+    fun getUser(id: Int): LiveData<User> {
+        val _user = MutableLiveData<User>()
+        viewModelScope.launch {
+            try {
+                val response = Utils.getRetrofit().create(UserService::class.java).getUser(id)
+                _user.value = response
+            } catch (e: Exception) {
 
-            call.enqueue(object : retrofit2.Callback<User> {
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    user = response.body()
-                }
-
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                    println("Lỗi")
-                    println(t)
-                }
-            })
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
+            }
         }
-        return user
+        return _user
     }
 
-    fun getAllUser(): List<User>? {
-        var users: List<User>? = null
-        try {
-            val gson = GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
-            val retrofit = Retrofit.Builder()
-                .baseUrl(Utils.URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build().create(UserService::class.java)
-            val call = retrofit.getAllUser()
-
-            call.enqueue(object : retrofit2.Callback<List<User>> {
-                override fun onResponse(
-                    call: Call<List<User>>,
-                    response: Response<List<User>>
-                ) {
-                    users = response.body()
-                }
-
-                override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                    println("Lỗi")
-                    println(t)
-                }
-            })
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
+    fun getAllUser(): LiveData<List<User>> {
+        val _user = MutableLiveData<List<User>>()
+        viewModelScope.launch {
+            try {
+                val response = Utils.getRetrofit().create(UserService::class.java).getAllUser()
+                _user.value = response
+            } catch (e: Exception) {
+                // handle error
+            }
         }
-        return users
+        return _user
     }
 
-    fun createUser(userNew: User): User? {
-        var user: User? = null
-        try {
-            val gson = GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
-            val retrofit = Retrofit.Builder()
-                .baseUrl(Utils.URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build().create(UserService::class.java)
-            val call = retrofit.createUser(userNew)
+    fun createUser(userNew: User): LiveData<User> {
+        val _user = MutableLiveData<User>()
+        viewModelScope.launch {
+            try {
+                val response =
+                    Utils.getRetrofit().create(UserService::class.java).createUser(userNew)
+                _user.value = response
+            } catch (e: Exception) {
 
-            call.enqueue(object : retrofit2.Callback<User> {
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    user = response.body()
-                }
-
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                    println("Lỗi")
-                    println(t)
-                }
-            })
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
+            }
         }
-        return user
+        return _user
     }
 
-    fun updateUser(id: Int, userNew: User): User? {
-        var user: User? = null
-        try {
-            val gson = GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
-            val retrofit = Retrofit.Builder()
-                .baseUrl(Utils.URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build().create(UserService::class.java)
-            val call = retrofit.updateUser(id, userNew)
+    fun updateUser(id: Int, userNew: User): LiveData<User> {
+        val _user = MutableLiveData<User>()
+        viewModelScope.launch {
+            try {
+                val response =
+                    Utils.getRetrofit().create(UserService::class.java).updateUser(id, userNew)
+                _user.value = response
+            } catch (e: Exception) {
 
-            call.enqueue(object : retrofit2.Callback<User> {
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    user = response.body()
-                }
-
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                    println("Lỗi")
-                    println(t)
-                }
-            })
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
+            }
         }
-        return user
+        return _user
     }
 
-    fun deleteUser(id: Int): Boolean {
-        var status = false
-        try {
-            val gson = GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
-            val retrofit = Retrofit.Builder()
-                .baseUrl(Utils.URL)
-                .addConverterFactory(GsonConverterFactory.create(gson))
-                .build().create(UserService::class.java)
-            val call = retrofit.deleteUser(id)
+    fun deleteUser(id: Int): LiveData<Boolean> {
+        val _user = MutableLiveData<Boolean>()
+        viewModelScope.launch {
+            try {
+                val response = Utils.getRetrofit().create(UserService::class.java).deleteUser(id)
+                _user.value = response
+                println(response)
+            } catch (e: Exception) {
 
-            call.enqueue(object : retrofit2.Callback<Boolean> {
-                override fun onResponse(call: Call<Boolean>, response: Response<Boolean>) {
-                    status = response.body() == true
-                }
-
-                override fun onFailure(call: Call<Boolean>, t: Throwable) {
-                    println("Lỗi")
-                    println(t)
-                }
-            })
-        } catch (e: java.lang.Exception) {
-            e.printStackTrace()
+            }
         }
-        return status
+        return _user
     }
 }

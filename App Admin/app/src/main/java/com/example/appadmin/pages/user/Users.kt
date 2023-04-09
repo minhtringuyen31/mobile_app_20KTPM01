@@ -2,35 +2,30 @@ package com.example.appadmin.pages.user
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.lifecycle.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appadmin.Account
 import com.example.appadmin.R
+import com.example.appadmin.controllers.UserController
 
 class Users : AppCompatActivity() {
-    private val accountItems = ArrayList<Account>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user)
 
-        accountItems.add(Account("0", "0", "0", "0", "0", "0", "0", false, "0", "0"))
-        accountItems.add(Account("0", "0", "0", "0", "0", "0", "0", false, "0", "0"))
-        accountItems.add(Account("0", "0", "0", "0", "0", "0", "0", false, "0", "0"))
-        accountItems.add(Account("0", "0", "0", "0", "0", "0", "0", false, "0", "0"))
-        accountItems.add(Account("0", "0", "0", "0", "0", "0", "0", false, "0", "0"))
-        accountItems.add(Account("0", "0", "0", "0", "0", "0", "0", false, "0", "0"))
-        accountItems.add(Account("0", "0", "0", "0", "0", "0", "0", false, "0", "0"))
-        accountItems.add(Account("0", "0", "0", "0", "0", "0", "0", false, "0", "0"))
-        accountItems.add(Account("0", "0", "0", "0", "0", "0", "0", false, "0", "0"))
-        accountItems.add(Account("0", "0", "0", "0", "0", "0", "0", false, "0", "0"))
-        accountItems.add(Account("0", "0", "0", "0", "0", "0", "0", false, "0", "0"))
+        val rvUser = findViewById<RecyclerView>(R.id.accountRV)
+//        rvUser.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val llm = LinearLayoutManager(this)
+        llm.orientation = LinearLayoutManager.VERTICAL
+        rvUser.layoutManager = llm
 
-        val adapter = UserAdapter(this, accountItems)
+        val userViewModel = ViewModelProvider(this)[UserController::class.java]
+        userViewModel.getAllUser().observe(this) {
+            val users = it
 
-        val rvProduct = findViewById<RecyclerView>(R.id.accountRV)
+            val adapter = UserAdapter(this, users)
 
-        rvProduct.adapter = adapter
-
-        rvProduct.layoutManager = LinearLayoutManager(this)
+            rvUser.adapter = adapter
+        }
     }
 }

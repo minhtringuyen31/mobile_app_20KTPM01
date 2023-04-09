@@ -20,14 +20,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Utils.activeRetrofit()
-        val userController = UserController()
-        val items = userController.getAllUser()
-        if (items != null) {
-            for (i in items) {
-                i.printUser()
-            }
-        }
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
