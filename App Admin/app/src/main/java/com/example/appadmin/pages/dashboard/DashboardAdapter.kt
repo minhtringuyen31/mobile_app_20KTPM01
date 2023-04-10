@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.appadmin.DashboardItems
 import com.example.appadmin.R
+import com.example.appadmin.modals.DashboardItems
 import com.example.appadmin.pages.user.Users
 import com.example.appadmin.pages.category.Categories
 import com.example.appadmin.pages.order.Orders

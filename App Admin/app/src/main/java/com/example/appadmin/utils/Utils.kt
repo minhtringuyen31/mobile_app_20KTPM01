@@ -9,7 +9,7 @@ class Utils : AppCompatActivity() {
     companion object {
         const val URL = "http://10.0.2.2:3000/api/users/"
 
-        fun activeRetrofit(): Retrofit {
+        fun getRetrofit(): Retrofit {
             val gson = GsonBuilder()
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")
                 .create()

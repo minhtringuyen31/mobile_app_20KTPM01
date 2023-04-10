@@ -1,24 +1,23 @@
 package com.example.appadmin.services
 
-import retrofit2.Call
 import retrofit2.http.*
 import com.example.appadmin.modals.User
 
 interface UserService {
     @GET("user/{id}")
-    fun getUser(@Path("id") userId: Int): Call<User>
+    suspend fun getUser(@Path("id") userId: Int): User
 
     @GET("user/")
-    fun getAllUser(): Call<List<User>>
+    suspend fun getAllUser(): List<User>
 
     @POST("user/create")
-    fun createUser(@Body user: User): Call<User>
+    suspend fun createUser(@Body user: User): User
 
     @PUT("user/update/{id}")
-    fun updateUser(@Path("id") userId: Int, @Body user: User): Call<User>
+    suspend fun updateUser(@Path("id") userId: Int, @Body user: User): User
 
     @DELETE("user/delete/{id}")
-    fun deleteUser(@Path("id") userId: Int): Call<Boolean>
+    suspend fun deleteUser(@Path("id") userId: Int): Boolean
 
 
 }

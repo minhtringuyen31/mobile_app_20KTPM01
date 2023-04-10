@@ -16,4 +16,16 @@ class Product(
     private var updatedAt: String? = null,
     private var releaseDate: String? = null,
     private var sales: Int? = 0
-)
+) {
+    fun getName(): String? {
+        return this.name
+    }
+
+    fun getDescription(): String? {
+        return this.description
+    }
+
+    fun getReleaseDate(): String? {
+        return this.releaseDate
+    }
+}

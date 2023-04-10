@@ -7,11 +7,19 @@
         <deviceKey>
           <Key>
             <type value="VIRTUAL_DEVICE_PATH" />
+<<<<<<< HEAD
             <value value="$USER_HOME$/.android/avd/Pixel_6_Pro_API_33.avd" />
+=======
+            <value value="C:\Users\ACER\.android\avd\Project_Phone.avd" />
+>>>>>>> da657d56ab5df01f02a2aa42a3fecd04ade4003e
           </Key>
         </deviceKey>
       </Target>
     </targetSelectedWithDropDown>
+<<<<<<< HEAD
     <timeTargetWasSelectedWithDropDown value="2023-04-07T10:20:59.394456Z" />
+=======
+    <timeTargetWasSelectedWithDropDown value="2023-04-08T08:41:51.867828600Z" />
+>>>>>>> da657d56ab5df01f02a2aa42a3fecd04ade4003e
   </component>
 </project>
