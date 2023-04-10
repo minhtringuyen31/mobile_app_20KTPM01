@@ -20,16 +20,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        Utils.activeRetrofit()
-        val userController = UserController()
-        val items = userController.getAllUser()
-        if (items != null) {
-            for (i in items) {
-                i.printUser()
-            }
-        }
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val userController = UserController()
+        val items = userController.getAllUser()
+        println(items)
+//        if (items != null) {
+//            for (i in items) {
+//                i.printUser()
+//            }
+//        }
 
         binding.loginButton.setOnClickListener {
             if (binding.username.text.toString() == "user" && binding.password.text.toString() == "1234") {

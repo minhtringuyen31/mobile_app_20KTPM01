@@ -5,7 +5,7 @@ const PromotionRepository = {
         const values = [name, description, discount, start_date, end_date];
         try {
             DB.pool().query(query, values);
-            return true;  
+            return true;
         } catch (error) {
             console.error(error);
             return false;

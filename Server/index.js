@@ -18,13 +18,14 @@ import ProductAdminRouter from './routes/admin/Product.admin.route.js';
 import PromotionAdminRouter from './routes/admin/Promotion.admin.route.js';
 import RatingAdminRouter from './routes/admin/Rating.admin.route.js';
 import UserAdminRouter from './routes/admin/User.admin.route.js';
-
+import AuthenRoute from './routes/Authen.route.js';
 dotenv.config();
 const app = express();
 const port = 3000;
 DB.pool(); // mọi người nhớ đổi port database nhé. Port Database của Mac với Win
 DB.connection();
 app.use(express.json());
+
 app.use('/api/users', UserRoute);
 app.use('/api/products', ProductRoute);
 app.use('/api/orders', OrderRoute);
@@ -34,6 +35,7 @@ app.use('/api/carts', CartRoute);
 app.use('/api/cartitems', CartItemRoute);
 app.use('/api/ratings', RatingRoute);
 app.use('/api/promotions', PromotionRoute);
+app.use('/api/authen', AuthenRoute);
 
 app.use('/api/admin/category', CategoryAdminRouter);
 app.use('/api/admin/order', OrderAdminRouter);

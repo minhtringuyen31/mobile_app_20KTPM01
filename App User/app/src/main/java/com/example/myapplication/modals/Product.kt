@@ -6,198 +6,157 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.MainActivity
 
-class Product:AppCompatActivity{
-    private var id: String? = null
-    private var name: String? = null
-    private var description: String? = null
-    private var price: Double? = null
-    private var size: String? = null
-    private var price_S: Double? = null
-    private var price_M: Double? = null
-    private var price_L: Double? = null
-    private var note: String? = null
-    private var image: String? = null
-    private var status: Boolean? = null
-    private var category_id: String? = null
-    private var updatedAt: String? = null
-    private var releaseDate: String? = null
-    private var sales: Int? = 0
+class Product( private  var id: Int,
+               private  var name: String,
+               private  var description: String,
+               private  var size: String,
+               private var price_S:Int,
+               private var price_M:Int,
+               private var price_L: Int,
+               private  var image: String,
+               private var status: Int,
+               private  var category_id: Int,
+               private var update_date:String,
+               private var release_date:String,
+               private var sales: Int,
+               private var is_disable: Int,
+){
 
-    constructor(
-        id: String?,
-        name: String?,
-        description: String?,
-        price: Double?,
-        size: String?,
-        price_S: Double?,
-        price_M: Double?,
-        price_L: Double?,
-        note: String?,
-        image: String?,
-        status: Boolean?,
-        category_id: String?,
-        updatedAt: String?,
-        releaseDate: String?,
-        sales: Int?
-    ) {
-        this.id = id
-        this.name = name
-        this.description = description
-        this.price = price
-        this.size = size
-        this.price_S = price_S
-        this.price_M = price_M
-        this.price_L = price_L
-        this.note = note
-        this.image = image
-        this.status = status
-        this.category_id = category_id
-        this.updatedAt = updatedAt
-        this.releaseDate = releaseDate
-        this.sales = sales
-    }
 
-    fun getId(): String? {
+
+    fun getId(): Int {
         return id
     }
 
-    fun setId(id: String?) {
+    fun getDisable(): Int {
+        return is_disable
+    }
+    fun setDisable(status: Int) {
+        this.is_disable = status
+    }
+
+    fun setId(id: Int) {
         this.id = id
     }
 
-    fun getName(): String? {
+    fun getName(): String {
         return name
     }
 
-    fun setName(name: String?) {
+    fun setName(name: String) {
         this.name = name
     }
 
-    fun getDescription():String?
+    fun getDescription():String
     {
         return description;
     }
-    fun setDescription(description:String?)
+    fun setDescription(description:String)
     {
         this.description=description;
     }
 
-    fun getPrice():Double?
-    {
-        return price;
-    }
 
-    fun setPrice(price :Double?)
-    {
-        this.price=price;
-    }
 
-    fun getSize():String?
+    fun getSize():String
     {
         return size;
     }
 
-    fun setSize(size:String?)
+    fun setSize(size:String)
     {
         this.size=size;
     }
 
-    fun getPrice_S():Double?
+    fun getPrice_S():Int
     {
         return price_S;
     }
 
-    fun setPrice_S(price_S :Double?)
+    fun setPrice_S(price_S :Int)
     {
         this.price_S=price_S;
     }
 
-    fun getPrice_M():Double?
+    fun getPrice_M():Int
     {
         return price_M;
     }
 
-    fun setPrice_M(price_M :Double?)
+    fun setPrice_M(price_M :Int)
     {
         this.price_M=price_M;
     }
 
-    fun getPrice_L():Double?
+    fun getPrice_L():Int
     {
         return price_L;
     }
 
-    fun setPrice_L(price_L :Double?)
+    fun setPrice_L(price_L :Int)
     {
         this.price_L=price_L;
     }
 
-    fun getNote():String?
-    {
-        return note;
-    }
 
-    fun setNote(note:String?)
-    {
-        this.note=note;
-    }
-
-    fun getImage():String?
+    fun getImage():String
     {
         return image;
     }
 
-    fun setImage(image:String?)
+    fun setImage(image:String)
     {
         this.image=image;
     }
 
-    fun getStatus():Boolean?
+    fun getStatus():Int
     {
         return status;
     }
 
-    fun setStatus(status:Boolean?)
+    fun setStatus(status:Int)
     {
-        this.status=status;
+        if (status != null) {
+            this.status=status
+        };
     }
 
-    fun getCategory_id():String?
+    fun getCategory_id():Int
     {
         return category_id;
     }
 
-    fun setCategory_id(category_id:String?)
+    fun setCategory_id(category_id:Int)
     {
         this.category_id=category_id;
     }
 
-    fun getUpdatedAt():String?
+    fun getUpdatedAt():String
     {
-        return updatedAt;
+        return update_date ;
     }
 
-    fun setUpdatedAt(updatedAt:String?)
+    fun setUpdatedAt(updatedAt:String)
     {
-        this.updatedAt=updatedAt;
+        this.update_date=updatedAt;
     }
 
-    fun getReleaseDate():String?
+    fun getReleaseDate():String
     {
-        return releaseDate;
+        return release_date;
     }
 
-    fun setReleaseDate(releaseDate:String?)
+    fun setReleaseDate(releaseDate:String)
     {
-        this.releaseDate=releaseDate;
+        this.release_date=releaseDate;
     }
 
-    fun getSales():Int?
+    fun getSales():Int
     {
         return sales;
     }
 
-    fun setSales(sales:Int?)
+    fun setSales(sales:Int)
     {
         this.sales=sales;
     }
@@ -218,12 +177,9 @@ class Product:AppCompatActivity{
         return null;
     }
 
+    override fun toString(): String {
+        return "Product(id=$id, name='$name', description='$description', size='$size', price_S=$price_S, price_M=$price_M, price_L=$price_L, image='$image', status=$status, category_id=$category_id, update_date='$update_date', release_date='$release_date', sales=$sales, is_disable=$is_disable)"
+    }
+
 
 }
-//import java.io.Serializable
-//data class Product(
-//    var name: String,
-//    var price: String,
-//    var image: Int,
-//    var description: String
-//):Serializable

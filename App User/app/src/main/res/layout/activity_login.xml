@@ -72,7 +72,7 @@
                     android:padding="8dp">
 
                     <EditText
-                        android:id="@+id/signup_email"
+                        android:id="@+id/login_phone"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginTop="32dp"
@@ -81,7 +81,7 @@
                         android:drawablePadding="10dp"
                         android:drawableTint="@color/red"
                         android:ems="10"
-                        android:hint="Email"
+                        android:hint="Phone"
                         android:inputType="textPersonName"
                         android:padding="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -90,7 +90,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <EditText
-                        android:id="@+id/signup_pass"
+                        android:id="@+id/login_pass"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginTop="32dp"
@@ -105,7 +105,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.497"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/signup_email" />
+                        app:layout_constraintTop_toBottomOf="@+id/login_phone" />
 
                     <TextView
                         android:id="@+id/route_forgotpassword"
@@ -119,7 +119,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.973"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/signup_pass" />
+                        app:layout_constraintTop_toBottomOf="@+id/login_pass" />
 
                     <Button
                         android:id="@+id/button_login"

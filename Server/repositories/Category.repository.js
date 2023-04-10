@@ -1,8 +1,8 @@
 import DB from "../configs/db.js"
 const CategoryRepository = {
-    async create(name) {
-        const query = `INSERT INTO category (name) VALUES (?)`;
-        const values = [name];
+    async create(name,image) {
+        const query = `INSERT INTO category (name,image) VALUES (?,?)`;
+        const values = [name,image];
         try {
             DB.pool().query(query, values);
             return true;
@@ -13,7 +13,7 @@ const CategoryRepository = {
     },
     async update(id, name) {
         const query = `UPDATE category SET name=? WHERE id=?`;
-        const values = [name,id];
+        const values = [name, id];
 
         try {
             const [result] = await DB.pool().query(query, values);
@@ -40,7 +40,7 @@ const CategoryRepository = {
     },
 
     async findAll() {
-        const query = `SELECT * FROM order`;
+        const query = `SELECT * FROM category`;
 
         try {
             const [rows] = await DB.pool().query(query);
@@ -50,7 +50,7 @@ const CategoryRepository = {
             return false;
         }
     },
-    
+
 
     async findOneByID(id) {
         const query = `SELECT * FROM category WHERE id = ?`;

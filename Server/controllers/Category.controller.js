@@ -1,8 +1,10 @@
 import CategoryService from "../services/Category.service.js"
+
 const CategoryController = {
     async create(req, res) {
         const { name } = req.body;
-        const newCategory = await CategoryService.create(name);
+        const file = req.file || '';
+        const newCategory = await CategoryService.create(name, file);
         if (newCategory) {
             res.status(200).send(newCategory)
         } else {
@@ -48,6 +50,16 @@ const CategoryController = {
             res.status(200).send(categories)
         } else {
             res.status(404).send({ status: 0, message: "Failed" });
+        }
+
+    },
+    async uploadImage(req, res) {
+        try {
+            const file = req.file;
+            console.log(file);
+            res.status(200).json("ok")
+        } catch (error) {
+            res.status(404).json("sai")
         }
 
     },

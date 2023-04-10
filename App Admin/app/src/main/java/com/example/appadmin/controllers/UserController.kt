@@ -52,6 +52,8 @@ class UserController {
                     response: Response<List<User>>
                 ) {
                     users = response.body()
+                    println( response.body())
+
                 }
 
                 override fun onFailure(call: Call<List<User>>, t: Throwable) {

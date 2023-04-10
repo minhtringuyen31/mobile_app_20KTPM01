@@ -35,7 +35,7 @@
                     android:layout_height="@dimen/_100sdp"
                     android:layout_gravity="center"
                     android:background="@color/white"
-                    android:src="@drawable/product10" />
+                     />
             </androidx.cardview.widget.CardView>
 
             <TextView

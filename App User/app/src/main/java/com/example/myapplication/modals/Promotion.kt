@@ -1,43 +1,24 @@
 package com.example.myapplication.modals
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import androidx.appcompat.app.AppCompatActivity
-import com.example.myapplication.MainActivity
-
-
-class Promotion :AppCompatActivity{
-    private var id:String ="";
-     private var name:String="";
-    private  var description:String="";
-    private var discount:Double? = null;
-     private var image:String="";
-     private var beginDay:String="";
-    private var endDay:String="";
-
-    constructor(
-        id: String,
-        name: String,
-        description: String,
-        discount: Double?,
-        image: String,
-        beginDay: String,
-        endDay: String
-    ) {
-        this.id = id
-        this.name = name
-        this.description = description
-        this.discount = discount
-        this.image = image
-        this.beginDay = beginDay
-        this.endDay = endDay
-    }
-
-    fun setID(id:String){
+class Promotion( private var id:Int,
+                 private var name:String,
+                 private  var description:String,
+                 private var discount:Double,
+                 private var image:String,
+                 private var start_date:String,
+                 private var end_date:String,
+                 private var is_disable:Int,){
+    fun setID(id:Int){
         this.id=id;
     }
     fun setName(name:String){
         this.name=name;
+    }
+    fun getDisable():Int{
+        return this.id;
+    }
+    fun setDisable(status:Int){
+        this.is_disable=status;
     }
     fun setDescription(description:String)
     {
@@ -47,15 +28,15 @@ class Promotion :AppCompatActivity{
         this.discount=discount;
     }
     fun setBeginDay(begin:String){
-        this.beginDay=begin;
+        this.start_date=begin;
     }
     fun setEndDay(end:String){
-        this.endDay=end;
+        this.end_date=end;
     }
     fun setImage(image:String){
         this.image=image;
     }
-    fun getID():String
+    fun getID():Int
     {
         return this.id;
     }
@@ -66,32 +47,17 @@ class Promotion :AppCompatActivity{
         return  this.image;
     }
     fun getBeginDay():String{
-        return this.beginDay;
+        return this.start_date;
     }
     fun getEndDay():String{
-        return this.endDay;
+        return this.end_date;
     }
     fun getDiscount():Double{
-        return this.discount!!;
-    }
-    fun getDecodeImage(): Bitmap? {
-        try {
-            val assetManager =  MainActivity.appContext.resources.assets
-
-            val inputStream = assetManager.open(this.getImage())
-
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            return bitmap;
-        } catch (e: java.lang.Exception) {
-            // handler
-            e.printStackTrace()
-        } finally {
-            // optional finally block
-        }
-
-        return null;
+        return this.discount;
     }
 
-
+    override fun toString(): String {
+        return "Promotion(id=$id, name='$name', description='$description', discount=$discount, image='$image', start_date='$start_date', end_date='$end_date', is_disable=$is_disable)"
+    }
 
 }
