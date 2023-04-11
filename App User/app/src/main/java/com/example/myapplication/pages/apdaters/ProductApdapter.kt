@@ -1,19 +1,21 @@
 package com.example.myapplication.pages.apdaters
 
-import android.content.Intent
+
 import android.graphics.Rect
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
-import com.example.myapplication.modals.Category
 import com.example.myapplication.modals.Product
-import com.example.myapplication.pages.ProductDetail
 import com.example.myapplication.pages.fragments.Homepage
+import com.example.myapplication.pages.fragments.ProductDetail
+
 
 class ProductApdapter(private val context: Homepage, private val products: ArrayList<Product>) :
     RecyclerView.Adapter<ProductApdapter.ViewHolder>() {
@@ -30,20 +32,23 @@ class ProductApdapter(private val context: Homepage, private val products: Array
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(holder.itemView)
-            .load(products[position].getImage())
+            .load(products[position].getImage()).fitCenter()
             .into(holder.imageView)
         holder.name.text = products[position].getName();
         holder.itemView.setOnClickListener {
-            val intent = Intent(
-                view.context,
-                ProductDetail::class.java
-            )
-            intent.putExtra("name", products[position].getName())
-            intent.putExtra("image", products[position].getImage())
-            intent.putExtra("price", products[position].getPrice_M())
 
-            intent.putExtra("description", products[position].getDescription())
-            view.context.startActivity(intent)
+            val bundle = Bundle()
+            bundle.putString("name", products[position].getName())
+            bundle.putString("image", products[position].getImage())
+            bundle.putString("price", products[position].getPrice_M().toString())
+            bundle.putString("description", products[position].getDescription())
+            val productDetail = ProductDetail()
+            productDetail.arguments = bundle
+            (view.context as FragmentActivity).supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.flFragment, productDetail).addToBackStack(null)
+                .commit()
+
         }
     }
 
@@ -56,6 +61,7 @@ class ProductApdapter(private val context: Homepage, private val products: Array
             addAll(products)
         }
     }
+
 
 
 }

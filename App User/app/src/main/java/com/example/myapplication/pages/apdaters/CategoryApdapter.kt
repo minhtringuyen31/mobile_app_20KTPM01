@@ -1,17 +1,21 @@
 package com.example.myapplication.pages.apdaters
 
 import android.content.Intent
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.Category
-import com.example.myapplication.pages.ProductList
 import com.example.myapplication.pages.fragments.Homepage
+import com.example.myapplication.pages.fragments.Order
+import com.example.myapplication.pages.fragments.ProductDetail
 
 class CategoryApdapter(private val context: Homepage, private val categories: ArrayList<Category>) :
     RecyclerView.Adapter<CategoryApdapter.ViewHolder>() {
@@ -31,17 +35,20 @@ class CategoryApdapter(private val context: Homepage, private val categories: Ar
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         Glide.with(holder.itemView)
-            .load(categories[position].getPathImage())
+            .load(categories[position].getImage()).fitCenter()
             .into(holder.imageView)
         //Glide và picasso
         holder.name.text = categories[position].getName();
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(
-                view.context ,
-                ProductList::class.java
-            )
-            view.context.startActivity(intent)
+
+
+            val categoryList = Order()
+            (view.context as FragmentActivity).supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.flFragment, categoryList).addToBackStack(null)
+                .commit()
+
 
         }
     }

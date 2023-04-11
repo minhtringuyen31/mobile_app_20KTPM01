@@ -12,6 +12,7 @@
         android:id="@+id/showPromotions"
         android:layout_width="match_parent"
         android:layout_height="150dp"
+        android:scaleType="fitXY"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/app_name" />
 

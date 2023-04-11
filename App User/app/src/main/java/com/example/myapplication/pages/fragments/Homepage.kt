@@ -3,14 +3,17 @@ package com.example.myapplication.pages.fragments
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStore
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.andremion.counterfab.CounterFab
 import com.example.myapplication.R
 import com.example.myapplication.modals.Category
 import com.example.myapplication.modals.Product
@@ -20,12 +23,14 @@ import com.example.myapplication.pages.apdaters.GridSpacingItemDecoration
 import com.example.myapplication.pages.apdaters.ProductApdapter
 import com.example.myapplication.pages.apdaters.PromotionApdapter
 import com.example.myapplication.utils.Utils
+import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.CategoryViewModel
 import com.example.myapplication.viewmodels.ProductViewModel
 import com.example.myapplication.viewmodels.PromotionViewModel
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -52,6 +57,7 @@ class Homepage : Fragment() {
     private lateinit var categoryViewModel: CategoryViewModel
     private lateinit var promotionViewModel: PromotionViewModel
     private lateinit var productViewModel: ProductViewModel
+    private val appModel: AppViewModel by activityViewModels()
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,21 +68,48 @@ class Homepage : Fragment() {
         }
 
 
-
-
     }
-        private fun initUI(view: View) {
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        val view= inflater.inflate(R.layout.fragment_homepage, container, false);
+
+        appModel.setUpViewModel(view,this);
+        promotionViewModel = appModel.getPromotionViewModel();
+        categoryViewModel =  appModel.getCategoryViewModel();
+        productViewModel =  appModel.getProductViewModel();
+        initUI(view); // Khởi tạo UI , cung cấp data rỗng cho apdapter để render --> Chưa có dữ liệu
+        setUpObserver(view); // Quan sát kết quả trả về từ API rồi gán giá trị cho apdapter
+        return view;
+    }
+
+    companion object {
+        /**
+         * Use this factory method to create a new instance of
+         * this fragment using the provided parameters.
+         *
+         * @param param1 Parameter 1.
+         * @param param2 Parameter 2.
+         * @return A new instance of fragment Homepage.
+         */
+        // TODO: Rename and change types and number of parameters
+        @JvmStatic
+        fun newInstance(param1: String, param2: String) =
+            Homepage().apply {
+                arguments = Bundle().apply {
+                    putString(ARG_PARAM1, param1)
+                    putString(ARG_PARAM2, param2)
+                }
+            }
+    }
+    private fun initUI(view: View) {
         var screenWidth = context?.let { Utils.getScreenWidth(it) }
         //Product
         recyclerViewProduct = view.findViewById(R.id.showProduct)
         productAdapter = ProductApdapter(this, arrayListOf())
-            if (screenWidth != null) {
-                recyclerViewProduct.addItemDecoration(
-                    GridSpacingItemDecoration(
-                        2, (screenWidth / 28.8).toInt(), true
-                    )
-                )
-            }
         layoutManager = GridLayoutManager(context, 2)
         recyclerViewProduct.layoutManager = layoutManager
         recyclerViewProduct.adapter = productAdapter
@@ -84,7 +117,7 @@ class Homepage : Fragment() {
         if (screenWidth!! <= 1440) {
             recyclerViewProduct.addItemDecoration(
                 GridSpacingItemDecoration(
-                    2, (screenWidth / 28.8).toInt(), true
+                    2, (screenWidth /10).toInt(), true
                 )
             )
             layoutManager = GridLayoutManager(context, 2)
@@ -118,18 +151,25 @@ class Homepage : Fragment() {
         sliderViewPromotion.autoCycleDirection = SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH
         sliderViewPromotion.indicatorSelectedColor = Color.WHITE
         sliderViewPromotion.indicatorUnselectedColor = Color.GRAY
-        sliderViewPromotion.scrollTimeInSec = 4
+        sliderViewPromotion.scrollTimeInSec = 2
+
+        val counterFab = view.findViewById(R.id.fabTwo) as CounterFab
+        counterFab.count = 1 // Set the count value to show on badge
+
+        counterFab.increase() // Increase the current count value by 1
+
+        counterFab.decrease() // Decrease the current count value by 1
 
     }
 
-    private fun setUpViewModel(view: View) {
-        categoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
-        categoryViewModel.getCategories();
-        productViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
-        productViewModel.getProducts();
-        promotionViewModel = ViewModelProvider(this)[PromotionViewModel::class.java]
-        promotionViewModel.getPromotions();
-    }
+//    private fun setUpViewModel(view: View) {
+//        categoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
+//        categoryViewModel.getCategories();
+//        productViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
+//        productViewModel.getProducts();
+//        promotionViewModel = ViewModelProvider(this)[PromotionViewModel::class.java]
+//        promotionViewModel.getPromotions();
+//    }
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setUpObserver(view: View) {
@@ -183,37 +223,5 @@ class Homepage : Fragment() {
 
     }
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val view= inflater.inflate(R.layout.fragment_homepage, container, false);
-        initUI(view); // Khởi tạo UI , cung cấp data rỗng cho apdapter để render --> Chưa có dữ liệu
-        setUpViewModel(view) // call API
-        setUpObserver(view); // Quan sát kết quả trả về từ API rồi gán giá trị cho apdapter
-        return view;
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Homepage.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            Homepage().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
-    }
 
 }

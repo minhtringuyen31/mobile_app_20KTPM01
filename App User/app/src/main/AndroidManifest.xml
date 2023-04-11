@@ -15,9 +15,7 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".pages.InitApp"
-            android:exported="false" />
+
         <activity
             android:name=".pages.Profile"
             android:exported="false" />
@@ -47,12 +45,6 @@
             android:exported="false" />
         <activity
             android:name=".pages.Checkout"
-            android:exported="false" />
-        <activity
-            android:name=".pages.ProductList"
-            android:exported="false" />
-        <activity
-            android:name=".pages.ProductDetail"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

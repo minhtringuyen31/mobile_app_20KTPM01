@@ -1,8 +1,5 @@
 package com.example.myapplication.modals
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import com.example.myapplication.MainActivity
 
 class Category(
     private var id: Int,
@@ -21,7 +18,7 @@ class Category(
         this.image=path;
     }
 
-    fun getPathImage():String{
+    fun getImage():String{
         return this.image;
     }
 

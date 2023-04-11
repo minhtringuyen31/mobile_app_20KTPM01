@@ -68,10 +68,10 @@
                     android:id="@+id/imageSlider"
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
-                    app:sliderAnimationDuration="600"
+                    app:sliderAnimationDuration="300"
                     app:sliderAutoCycleDirection="back_and_forth"
                     app:sliderAutoCycleEnabled="true"
-                    app:sliderIndicatorAnimationDuration="600"
+                    app:sliderIndicatorAnimationDuration="300"
                     app:sliderIndicatorGravity="center_horizontal|bottom"
                     app:sliderIndicatorMargin="15dp"
                     app:sliderIndicatorOrientation="horizontal"
@@ -102,46 +102,63 @@
                     android:id="@+id/showProduct"
 
                     android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager">
+                    android:layout_height="wrap_content">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
-                <!--            <TextView-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:text="Voucher"-->
-                <!--                android:textStyle="bold"-->
-                <!--                android:textSize="16sp"-->
-                <!--                android:textColor="@color/black"-->
-                <!--                android:layout_marginTop="5dp"-->
-                <!--                android:layout_marginBottom="10dp"-->
-                <!--                android:layout_height="wrap_content">-->
+<!--                            <TextView-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:text="Voucher"-->
+<!--                                android:textStyle="bold"-->
+<!--                                android:textSize="16sp"-->
+<!--                                android:textColor="@color/black"-->
+<!--                                android:layout_marginTop="5dp"-->
+<!--                                android:layout_marginBottom="10dp"-->
+<!--                                android:layout_height="wrap_content">-->
 
-                <!--            </TextView>-->
-                <!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                            </TextView>-->
+<!--                            <androidx.recyclerview.widget.RecyclerView-->
 
-                <!--                android:id="@+id/showPromotionBorder"-->
-                <!--                android:layout_width="match_parent"-->
-                <!--                android:layout_height="wrap_content"-->
-                <!--              -->
-                <!--                android:clipToPadding="false"-->
-                <!--                android:horizontalSpacing="10dp"-->
-                <!--                android:orientation="horizontal"-->
-                <!--                android:padding="10dp"-->
-                <!--                android:verticalSpacing="10dp"-->
-                <!--                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-                <!--                >-->
+<!--                                android:id="@+id/showPromotionBorder"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:clipToPadding="false"-->
+<!--                                android:horizontalSpacing="10dp"-->
+<!--                                android:orientation="horizontal"-->
+<!--                                android:padding="10dp"-->
+<!--                                android:verticalSpacing="10dp"-->
+<!--                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+<!--                                >-->
 
-                <!--            </androidx.recyclerview.widget.RecyclerView>-->
+<!--                            </androidx.recyclerview.widget.RecyclerView>-->
 
 
             </LinearLayout>
 
 
+
+
+
         </LinearLayout>
 
+
     </ScrollView>
+
+    <com.andremion.counterfab.CounterFab
+        android:id="@+id/fabTwo"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="20dp"
+        android:src="@drawable/baseline_add_shopping_cart_24"
+        android:tint="@color/white"
+        app:backgroundTint="@color/red"
+        app:badgeBackgroundColor="@color/redHighland"
+        app:backgroundTintMode="add"
+        app:badgePosition="RightTop"
+
+        app:badgeTextColor="@color/white" />
 
 
 

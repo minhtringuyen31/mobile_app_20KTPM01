@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.myapplication.R
 import com.example.myapplication.pages.Profile
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.GsonBuilder
 import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Retrofit
@@ -61,6 +62,7 @@ class Utils : AppCompatActivity() {
             windowManager.defaultDisplay.getMetrics(displayMetrics)
             return displayMetrics.heightPixels
         }
+
 
 
 

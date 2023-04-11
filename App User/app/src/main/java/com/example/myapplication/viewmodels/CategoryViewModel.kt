@@ -42,7 +42,7 @@ class CategoryViewModel :ViewModel(){
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = Utils.getRetrofit().create(CategoryService::class.java).getCategory(id);
-                println("View: $response")
+                println("Init app catgory: $response")
                 _category.postValue(response)
             } catch (e: Exception) {
                 // handle error

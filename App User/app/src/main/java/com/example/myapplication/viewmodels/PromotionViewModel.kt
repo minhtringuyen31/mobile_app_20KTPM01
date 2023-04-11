@@ -19,7 +19,7 @@ class PromotionViewModel :ViewModel(){
             try {
                 val response = Utils.getRetrofit().create(PromotionService::class.java).getAllPromotion()
                 _promotions.postValue(response) // để đảm bảo rằng các giá trị được cập nhật trên luồng phụ (background thread).
-                println("View: $response")
+                println("Init app promotion: $response")
             } catch (e: Exception) {
                 // handle error
             }

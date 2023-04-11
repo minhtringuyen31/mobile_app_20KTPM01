@@ -11,7 +11,7 @@
                 android:right="0.5dp"
                 android:top="0.5dp" />
 
-            <solid android:color="#50CCCCCC" />
+            <solid android:color="#fff8e4" />
 
             <corners android:radius="10dp" />
         </shape>
@@ -24,7 +24,7 @@
                 android:right="0.5dp"
                 android:top="0.5dp" />
 
-            <solid android:color="#50CCCCCC" />
+            <solid android:color="#fff8e4" />
 
             <corners android:radius="10dp" />
         </shape>
@@ -36,12 +36,12 @@
 
             <stroke
                 android:width="1dp"
-                android:color="@color/white" />
+                android:color="@color/gray" />
 
 
             <gradient
-                android:startColor="#f0f3f4"
-                android:endColor="#f3f4ef"
+                android:startColor="#FFF3D2"
+                android:endColor="#FFF3D2"
                 android:type="linear"
                 android:angle="0" />
         </shape>

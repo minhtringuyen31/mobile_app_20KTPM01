@@ -34,6 +34,7 @@ class ProductViewModel: ViewModel(){
 //                val response=Utils.getRetrofit().create(ProductService::class.java).getAllProduct()
                 _products.postValue(response)
 //                println("View: $response")
+                println("Init app product: $response")
             } catch (e: Exception) {
                 println("View: $e")
             }
