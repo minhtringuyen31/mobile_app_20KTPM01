@@ -15,9 +15,23 @@ const UserServices = {
     },
     async findAll() {
         return  await UserRepository.findAll();
-    }
+    },
     // Cần method gì thì tự implements !! 
     //
+    async signup(email,password){
+        return await UserRepository.signup(email,password);
+
+    },
+    async findEmail(email) {
+        return await UserRepository.findOneByEmail(email);
+    },
+    async changepass(password){
+        return await UserRepository.changepass(password)
+    },
+    async editprofile(name,email,gender,date_of_birth,phone,address){
+        return await UserRepository.editprofile(name,email,gender,date_of_birth,phone,address)
+    }
+
 
 
 
