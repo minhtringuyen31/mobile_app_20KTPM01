@@ -47,9 +47,9 @@ const UserController = {
         }
 
     },
-    async findEmail(req, res) {
-        const email = req.params.email;
-        const user = await UserServices.findEmail(email)
+    async findPhone(req, res) {
+        const phone = req.params.phone;
+        const user = await UserServices.findPhone(phone)
         if (user) {
             res.status(200).send(user);
         }
@@ -83,16 +83,20 @@ const UserController = {
     async loginPost(req, res) {
         try{
 
-            const check = await UserServices.findEmail({email: req.body.email}).lean()
+            const check = await UserServices.findPhone( req.body.phone)
+            // console.log(checkphone)
+            if(!check) 
+                res.status(200).json({ message: "phone do not exist!" })
             
-            if(!check) res.status(200).json({ message: "Email does not exist!" })
             else {
-                console.log(req.body)
+                ////console.log(req.body)
+                //console.log(check.password)
                 if(check.password === req.body.password) {
                     res.status(200).json({check, message: "Login success!"})
                 }
                 else res.status(200).json({ message: "Wrong password!" })
             }
+            //console.log(req.body)
         }
         catch (error) {
             res.status(400).json({ message: "Wrong detail!" })
@@ -107,9 +111,9 @@ const UserController = {
 
     //POST /signup
     async signupPost(req, res) {
-        const { email, password, confirmpass } = req.body
+        const { phone, password, confirmpass } = req.body
 
-        if (!email || typeof email !== 'string') res.status(400).json({message: "Empty email!"})
+        if (!phone || typeof phone !== 'string') res.status(400).json({message: "Empty phone!"})
 
         if (!password || typeof password !== 'string') res.status(400).json({message: "Empty password!"})
 
@@ -117,20 +121,20 @@ const UserController = {
         
         try {
             const data =  {
-                email,
+                phone,
                 password,
                 confirmpass
             }
             
-            const checkEmail = await UserServices.findEmail({email: req.body.email}).lean()
+            const checkphone = await UserServices.findPhone( req.body.phone)
             
-            if(checkEmail) 
-                res.status(200).json({ message: "Email has been used!" })
+            if(checkphone) 
+                res.status(200).json({ message: "phone has been used!" })
             else if (password!=confirmpass){
                     res.status(200).json({message:"Password and confirm password is not equal!"})
                 }
             else {
-                await UserServices.signup(email,password)
+                await UserServices.signup(phone,password)
                 res.status(200).json({data, message: "Signup success!"})
             }
         }
@@ -149,12 +153,13 @@ const UserController = {
     //POST / changepassword
     async changepassPost(req, res) {
         try{
+            const id = req.params.id;
             const {  newpassword, confirmpass } = req.body
-            
+            console.log(req.body)
             if(newpassword!=confirmpass) res.status(200).json({ message: "New password and confirm password is not equal!" })
             else {
                 console.log(req.body)   
-                await UserServices.changepass(newpassword)
+                await UserServices.changepass(id,newpassword)
                 res.status(200).json({newpassword, message: "Change password success!"})    
             }
         }
@@ -170,13 +175,14 @@ const UserController = {
     //POST / editprofile
     async editprofilePost(req, res) {
         try{
-            const {  name,email,gender,date_of_birth,phone,address } = req.body
+            const id = req.params.id;
+            const {  name,email,gender,date_of_birth,address } = req.body
             
-            if(!name||!email||!gender||!date_of_birth||!phone||!address) res.status(200).json({ message: "One or more empty input data!" })
+            if(!name||!email||!gender||!date_of_birth||!address) res.status(200).json({ message: "One or more empty input data!" })
             else {
                 console.log(req.body)   
-                await UserServices.editprofile(name,email,gender,date_of_birth,phone,address)
-                res.status(200).json({newpassword, message: "Edit profile success!"})    
+                await UserServices.editprofile(id,name,email,gender,date_of_birth,address)
+                res.status(200).json({ message: "Edit profile success!"})    
             }
         }
         catch (error) {

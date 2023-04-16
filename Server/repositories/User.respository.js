@@ -1,7 +1,7 @@
 import DB from "../configs/db.js"
 const UserRepository = {
     async create(name, gender, email, phone, password, date_of_birth = "", address = "", avatar = "", role = "0", is_disable = "false") {
-        const query = `INSERT INTO user (name, gender,email,phone,password, date_of_birth, address, avatar, role,is_disable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const query = `INSERT INTO user (name, gender,email,password, date_of_birth, address, avatar, role,is_disable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         const values = [name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable];
         try {
             DB.pool().query(query, values);
@@ -63,12 +63,13 @@ const UserRepository = {
         }
     },
     ///
-    async findOneByEmail(email) {
-        const query = `SELECT * FROM user WHERE email = ?`;
-        const value = [email];
-
+    async findOneByPhone(phone) {
+        const query = `SELECT * FROM user WHERE phone = ?`;
+        const value = [phone];
+        
         try {
             const [rows] = await DB.pool().query(query, value);
+           
             return rows[0];
         } catch (error) {
             console.error(error);
@@ -77,9 +78,9 @@ const UserRepository = {
     },
 
 
-    async signup( email, password) {
-        const query = `INSERT INTO user (email,password) VALUES (?, ?)`;
-        const values = [email, password];
+    async signup( phone, password) {
+        const query = `INSERT INTO user (phone,password) VALUES (?, ?)`;
+        const values = [phone, password];
         try {
             DB.pool().query(query, values);
             return true;
@@ -89,9 +90,9 @@ const UserRepository = {
         }
     },
 
-    async changepass(password){
-        const query='UPDATE user SET password=?'
-        const values=password
+    async changepass(id,password){
+        const query='UPDATE user SET password=? WHERE id=?'
+        const values=[password,id]
         try {
             const [result] = await DB.pool().query(query, values);
             if (result.affectedRows > 0) {
@@ -105,9 +106,9 @@ const UserRepository = {
         }
     },
 
-    async editprofile(name,email,gender,date_of_birth,phone,address){
-        const query = `UPDATE user SET name=?, gender=?, email=?, phone=?, date_of_birth=? WHERE id=?`;
-        const values = [name, gender, email, phone, date_of_birth, address];// co id hong ?
+    async editprofile(id,name,email,gender,date_of_birth,address){
+        const query = `UPDATE user SET name=?, gender=?, email=?, date_of_birth=?, address=? WHERE id=?`;
+        const values = [name, gender, email, date_of_birth, address,id];
 
         try {
             const [result] = await DB.pool().query(query, values);

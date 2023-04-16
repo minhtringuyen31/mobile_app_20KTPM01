@@ -14,22 +14,22 @@ const UserServices = {
         return await UserRepository.findOneByID(id);
     },
     async findAll() {
-        return  await UserRepository.findAll();
+        return await UserRepository.findAll();
     },
     // Cần method gì thì tự implements !! 
     //
-    async signup(email,password){
-        return await UserRepository.signup(email,password);
+    async signup(phone,password){
+        return await UserRepository.signup(phone,password);
 
     },
-    async findEmail(email) {
-        return await UserRepository.findOneByEmail(email);
+    async findPhone(phone) {
+        return await UserRepository.findOneByPhone(phone);
     },
-    async changepass(password){
-        return await UserRepository.changepass(password)
+    async changepass(id,password){
+        return await UserRepository.changepass(id,password)
     },
-    async editprofile(name,email,gender,date_of_birth,phone,address){
-        return await UserRepository.editprofile(name,email,gender,date_of_birth,phone,address)
+    async editprofile(id,name,email,gender,date_of_birth,address){
+        return await UserRepository.editprofile(id,name,email,gender,date_of_birth,address)
     }
 
 
