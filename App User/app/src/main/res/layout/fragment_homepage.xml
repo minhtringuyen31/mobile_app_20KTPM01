@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="70dp"
+    android:id="@+id/homepageFragment"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".pages.fragments.Homepage">
 
@@ -18,19 +20,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/myToolBar">
 
-            <SearchView
+<!--            <SearchView-->
+<!--                app:submitBackground="@null"-->
+<!--                android:layout_marginHorizontal="10dp"-->
+<!--                android:id="@+id/searchView"-->
+<!--                android:background="@drawable/custom_rounded_search"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:queryBackground="@null"-->
+<!--                android:iconifiedByDefault="false"-->
+<!--                android:queryHint="Search for your specific coffee type"-->
+<!--                android:layout_height="wrap_content">-->
 
-                android:layout_marginHorizontal="10dp"
-                android:id="@+id/searchView"
-
-                android:background="@drawable/custom_rounded_search"
-                android:layout_width="match_parent"
-                android:queryBackground="@null"
-                android:iconifiedByDefault="false"
-                android:queryHint="Search for your specific coffee type"
-                android:layout_height="wrap_content">
-
-            </SearchView>
+<!--            </SearchView>-->
 
             <LinearLayout
                 android:paddingHorizontal="10dp"
@@ -141,16 +142,15 @@
 
         </LinearLayout>
 
-
     </ScrollView>
 
     <com.andremion.counterfab.CounterFab
         android:id="@+id/fabTwo"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_margin="20dp"
+        android:layout_marginBottom="75dp"
+        android:layout_marginEnd="25dp"
         android:src="@drawable/baseline_add_shopping_cart_24"
         android:tint="@color/white"
         app:backgroundTint="@color/red"

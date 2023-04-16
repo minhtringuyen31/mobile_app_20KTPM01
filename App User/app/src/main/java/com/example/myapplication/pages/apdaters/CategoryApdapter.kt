@@ -1,7 +1,6 @@
 package com.example.myapplication.pages.apdaters
 
-import android.content.Intent
-import android.os.Bundle
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,12 +9,10 @@ import android.widget.TextView
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.Category
 import com.example.myapplication.pages.fragments.Homepage
 import com.example.myapplication.pages.fragments.Order
-import com.example.myapplication.pages.fragments.ProductDetail
 
 class CategoryApdapter(private val context: Homepage, private val categories: ArrayList<Category>) :
     RecyclerView.Adapter<CategoryApdapter.ViewHolder>() {
@@ -38,7 +35,7 @@ class CategoryApdapter(private val context: Homepage, private val categories: Ar
             .load(categories[position].getImage()).fitCenter()
             .into(holder.imageView)
         //Glide và picasso
-        holder.name.text = categories[position].getName();
+        holder.name.text = categories[position].getName()
 
         holder.itemView.setOnClickListener {
 
@@ -59,7 +56,7 @@ class CategoryApdapter(private val context: Homepage, private val categories: Ar
 
     fun addCategory(categories: ArrayList<Category>) {
         this.categories.apply {
-            clear();
+            clear()
             addAll(categories)
         }
     }

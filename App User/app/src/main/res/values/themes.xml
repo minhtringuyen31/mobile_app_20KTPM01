@@ -17,6 +17,14 @@
         <item name="shapeAppearanceOverlay" >@style/custom_card_view</item>
 
     </style>
+
+    <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
+    </style>
+
+    <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
     <style name="custom_card_view" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">48dp</item>

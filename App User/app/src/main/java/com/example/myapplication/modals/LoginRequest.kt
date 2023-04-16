@@ -1,6 +1,5 @@
 package com.example.myapplication.modals
 
-import kotlin.properties.Delegates
 
 class LoginRequest {
     private lateinit var phone:String;

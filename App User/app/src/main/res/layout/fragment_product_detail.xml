@@ -118,6 +118,168 @@
                 android:paddingStart="@dimen/_10sdp"
                 android:text="Thức uống chinh phục những thực khách khó tính! Sự kết hợp độc đáo giữa trà Ô long, hạt sen thơm bùi và củ năng giòn tan. Thêm vào chút sữa sẽ để vị thêm ngọt ngào."
                 android:textSize="@dimen/_10ssp" />
+
+            <LinearLayout
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/custom_rounded_search"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_margin="5dp"
+                    android:layout_height="wrap_content"
+                    android:text="Size"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/black">
+                </TextView>
+                <RadioGroup
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/groupradio"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <!-- In RadioGroup create the 1 Radio Button-->
+                    <!-- like this we will add some more Radio Button-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/priceL_radio"
+                            android:layout_width="0dp"
+                            android:checked="true"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="L"
+                            android:textSize="20sp"
+                            tools:ignore="TouchTargetSizeCheck" />
+                        <TextView
+                            android:id="@+id/priceL"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical|end"
+                            android:text="45.000đ">
+
+                        </TextView>
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/gray">
+
+                    </TextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/priceM_radio"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="M"
+                            android:textSize="20sp"
+                            tools:ignore="TouchTargetSizeCheck" />
+                        <TextView
+                            android:id="@+id/priceM"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical|end"
+                            android:text="35.000đ">
+
+                        </TextView>
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/gray">
+
+                    </TextView>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <RadioButton
+                            android:id="@+id/priceS_radio"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="S"
+                            android:textSize="20sp"
+                            tools:ignore="TouchTargetSizeCheck" />
+                        <TextView
+                            android:id="@+id/priceS"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_height="fill_parent"
+                            android:gravity="center_vertical|end"
+                            android:text="25.000đ">
+
+
+                        </TextView>
+
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/gray">
+
+                    </TextView>
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+
+            <ListView
+                android:id="@+id/checkboxlistView"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/custom_rounded_search" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_margin="10dp"
+                android:layout_height="40dp">
+                <ImageView
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/baseline_note_add_24">
+                </ImageView>
+                <EditText
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="wrap_content"
+                    android:padding="3dp"
+                    android:hint="Thêm ghi chú"
+                    android:background="@null"
+                    android:layout_height="wrap_content">
+
+                </EditText>
+            </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
@@ -174,7 +336,7 @@
                     android:layout_weight="5"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_10sdp"
-                    android:id="@+id/btnYoutube"
+                    android:id="@+id/btnAddtoCart"
                     android:textColor="@color/white"
                     android:background="@drawable/bg_category"
                     android:text="Add to cart"/>
@@ -182,4 +344,5 @@
             </LinearLayout>
         </com.google.android.material.bottomnavigation.BottomNavigationView>
     </RelativeLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

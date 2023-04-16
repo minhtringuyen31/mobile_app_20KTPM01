@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:padding="7dp"
+        android:layout_height="wrap_content">
+        <CheckBox
+            android:id="@+id/checkbox"
+            android:layout_width="0dp"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_weight="0.2"
+            android:layout_height="wrap_content">
+
+        </CheckBox>
+        <TextView
+            android:id="@+id/nameTopping"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:gravity="center_vertical|start"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:text="Kem Phô Mai Machhiato">
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/priceTopping"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|end"
+            android:text="10.000đ">
+
+        </TextView>
+
+    </LinearLayout>
+
+</LinearLayout>

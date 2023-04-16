@@ -2,7 +2,7 @@ import ProductService from "../services/Product.service.js"
 const ProductController = {
     async create(req, res) {
 
-        const {name, description, size, price_S, price_M, price_L, image, status, category_id, update_date, release_date, sales} = req.body;
+        const { name, description, size, price_S, price_M, price_L, image, status, category_id, update_date, release_date, sales } = req.body;
         const newProduct = await ProductService.create(name, description, size, price_S, price_M, price_L, image, status, category_id, update_date, release_date, sales);
         if (newProduct) {
             res.status(200).send(newProduct)
@@ -13,7 +13,7 @@ const ProductController = {
     },
     async update(req, res) {
         const id = req.params.id;
-        const {name, description, size, price_S, price_M, price_L, image, status, category_id, update_date, release_date, sales} = req.body;
+        const { name, description, size, price_S, price_M, price_L, image, status, category_id, update_date, release_date, sales } = req.body;
         const updateProduct = await ProductService.update(id, name, description, size, price_S, price_M, price_L, image, status, category_id, update_date, release_date, sales);
         if (updateProduct) {
             res.status(200).send(updateProduct)
@@ -24,7 +24,7 @@ const ProductController = {
     },
     async delete(req, res) {
         const id = req.params.id;
-        const status = await  ProductService.delete(id);
+        const status = await ProductService.delete(id);
         if (status) {
             res.status(200).send({ status: 1, message: "Success" })
         } else {
@@ -35,7 +35,7 @@ const ProductController = {
     },
     async findOne(req, res) {
         const id = req.params.id;
-        const product =  awaitProductService.findOne(id);
+        const product = await ProductService.findOne(id);
         if (product) {
             res.status(200).send(product)
         } else {

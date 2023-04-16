@@ -7,30 +7,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStore
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andremion.counterfab.CounterFab
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
+import com.example.myapplication.modals.CartItem
 import com.example.myapplication.modals.Category
 import com.example.myapplication.modals.Product
 import com.example.myapplication.modals.Promotion
-import com.example.myapplication.pages.apdaters.CategoryApdapter
-import com.example.myapplication.pages.apdaters.GridSpacingItemDecoration
-import com.example.myapplication.pages.apdaters.ProductApdapter
-import com.example.myapplication.pages.apdaters.PromotionApdapter
+import com.example.myapplication.pages.apdaters.*
+import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
+import com.example.myapplication.pages.apdaters.interfaces.OnItemClickProductHomepage
 import com.example.myapplication.utils.Utils
-import com.example.myapplication.viewmodels.AppViewModel
-import com.example.myapplication.viewmodels.CategoryViewModel
-import com.example.myapplication.viewmodels.ProductViewModel
-import com.example.myapplication.viewmodels.PromotionViewModel
+import com.example.myapplication.viewmodels.*
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
-
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -42,7 +38,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Homepage.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Homepage : Fragment() {
+class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -54,10 +50,10 @@ class Homepage : Fragment() {
     private lateinit var categoryAdapter: CategoryApdapter
     private lateinit var productAdapter: ProductApdapter
     private lateinit var promotionAdapter: PromotionApdapter
-    private lateinit var categoryViewModel: CategoryViewModel
-    private lateinit var promotionViewModel: PromotionViewModel
-    private lateinit var productViewModel: ProductViewModel
+    private lateinit var counterFab :CounterFab
+    private lateinit var view:View
     private val appModel: AppViewModel by activityViewModels()
+    private val productCartViewModel:ProductCartViewModel by activityViewModels()
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,19 +69,19 @@ class Homepage : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        val view= inflater.inflate(R.layout.fragment_homepage, container, false);
-
-        appModel.setUpViewModel(view,this);
-        promotionViewModel = appModel.getPromotionViewModel();
-        categoryViewModel =  appModel.getCategoryViewModel();
-        productViewModel =  appModel.getProductViewModel();
-        initUI(view); // Khởi tạo UI , cung cấp data rỗng cho apdapter để render --> Chưa có dữ liệu
-        setUpObserver(view); // Quan sát kết quả trả về từ API rồi gán giá trị cho apdapter
-        return view;
+        view= inflater.inflate(R.layout.fragment_homepage, container, false)
+        setUpViewModel()
+        initUI(view) // Khởi tạo UI , cung cấp data rỗng cho apdapter để render --> Chưa có dữ liệu
+        setUpObserver(view) // Quan sát kết quả trả về từ API rồi gán giá trị cho apdapter
+        return view
     }
 
+    private  fun setUpViewModel(){
+        (activity as MainActivity).showToolbarAndNavigationBar(true)
+        appModel.setUpViewModel(view,this)
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of
@@ -106,18 +102,17 @@ class Homepage : Fragment() {
             }
     }
     private fun initUI(view: View) {
-        var screenWidth = context?.let { Utils.getScreenWidth(it) }
+        val screenWidth = context?.let { Utils.getScreenWidth(it) }
         //Product
         recyclerViewProduct = view.findViewById(R.id.showProduct)
-        productAdapter = ProductApdapter(this, arrayListOf())
+        productAdapter = ProductApdapter(this, arrayListOf(),this,this)
         layoutManager = GridLayoutManager(context, 2)
         recyclerViewProduct.layoutManager = layoutManager
         recyclerViewProduct.adapter = productAdapter
-        var screenHeight = context?.let { Utils.getScreenHeight(it) }
         if (screenWidth!! <= 1440) {
             recyclerViewProduct.addItemDecoration(
                 GridSpacingItemDecoration(
-                    2, (screenWidth /10).toInt(), true
+                    2, (screenWidth /10), true
                 )
             )
             layoutManager = GridLayoutManager(context, 2)
@@ -143,7 +138,7 @@ class Homepage : Fragment() {
         recyclerViewCategory.adapter = categoryAdapter
 
         //Promotion
-        sliderViewPromotion = view.findViewById<SliderView>(R.id.imageSlider)!!
+        sliderViewPromotion = view.findViewById(R.id.imageSlider)!!
         promotionAdapter = PromotionApdapter(this, arrayListOf())
         sliderViewPromotion.setSliderAdapter(promotionAdapter)
         sliderViewPromotion.setIndicatorAnimation(IndicatorAnimationType.WORM) //set indicator animation by using IndicatorAnimationType. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
@@ -152,75 +147,91 @@ class Homepage : Fragment() {
         sliderViewPromotion.indicatorSelectedColor = Color.WHITE
         sliderViewPromotion.indicatorUnselectedColor = Color.GRAY
         sliderViewPromotion.scrollTimeInSec = 2
-
-        val counterFab = view.findViewById(R.id.fabTwo) as CounterFab
-        counterFab.count = 1 // Set the count value to show on badge
-
-        counterFab.increase() // Increase the current count value by 1
-
-        counterFab.decrease() // Decrease the current count value by 1
+        counterFab = view.findViewById(R.id.fabTwo) as CounterFab
 
     }
-
-//    private fun setUpViewModel(view: View) {
-//        categoryViewModel = ViewModelProvider(this)[CategoryViewModel::class.java]
-//        categoryViewModel.getCategories();
-//        productViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
-//        productViewModel.getProducts();
-//        promotionViewModel = ViewModelProvider(this)[PromotionViewModel::class.java]
-//        promotionViewModel.getPromotions();
-//    }
-
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "SuspiciousIndentation")
     private fun setUpObserver(view: View) {
         //Category
-        categoryViewModel.categories.observe(viewLifecycleOwner) {
-            val categories = it as ArrayList<Category>
-            if (categories.isEmpty()) {
-                categoryAdapter = CategoryApdapter(this, ArrayList<Category>())
-                recyclerViewCategory.adapter = categoryAdapter
-            } else {
-                categoryAdapter.apply {
-                    addCategory(categories)
-                    notifyDataSetChanged();
-
-                }
-            }
-        }
+       appModel.getCategoryViewModel().categories.observe(viewLifecycleOwner) {
+           val categoryList = it as ArrayList<Category>
+           categoryAdapter.addCategory(categoryList)
+           categoryAdapter.notifyDataSetChanged()
+           println("Loading category")
+       }
 
         //Product
-        productViewModel.products.observe(viewLifecycleOwner) {
+        appModel.getProductViewModel().products.observe(viewLifecycleOwner) {
             val products = it as ArrayList<Product>
-            if (products.isEmpty()) {
-                productAdapter = ProductApdapter(this, ArrayList<Product>())
-                recyclerViewCategory.adapter = categoryAdapter
-            } else {
-                productAdapter.apply {
-                    addProducts(products)
-                    notifyDataSetChanged();
-
-                }
-            }
-
+            productAdapter.addProducts(products)
+            productAdapter.notifyDataSetChanged()
+            println("Loading product")
         }
 
         //Promotion
-        promotionViewModel.promotions.observe(viewLifecycleOwner) {
+        appModel.getPromotionViewMode().promotions.observe(viewLifecycleOwner) {
             val promotions = it as ArrayList<Promotion>
-            if (promotions.isEmpty()) {
-                promotionAdapter = PromotionApdapter(this, ArrayList<Promotion>())
-                sliderViewPromotion.setSliderAdapter(promotionAdapter)
-            } else {
-                promotionAdapter.apply {
-                    addPromotions(promotions)
+            promotionAdapter.addPromotions(promotions)
+            promotionAdapter.notifyDataSetChanged()
+            println("Loading promotion")
+        }
+        appModel.getCartItemViewModel().cartItems.observe(viewLifecycleOwner){
+            counterFab.count= it.size
+            println("Loading cart")
+        }
 
-                    notifyDataSetChanged();
-
-                }
-            }
+        counterFab.setOnClickListener {
+            (view.context as FragmentActivity).supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.flFragment, Cart()).addToBackStack(null)
+                .commit()
 
         }
 
+    }
+
+    override fun onItemClick(position: Int, product: Product) {
+//      appModel.addtoCart(product)
+        // on below line we are creating a new bottom sheet dialog.
+
+        val bundle = Bundle()
+        bundle.putString("id",product.getId().toString())
+        bundle.putString("name",product.getName())
+        bundle.putString("image", product.getImage())
+        bundle.putString("price_S", product.getPrice_S().toString())
+        bundle.putString("price_M", product.getPrice_M().toString())
+        bundle.putString("price_L", product.getPrice_L().toString())
+        bundle.putString("description",product.getDescription())
+        bundle.putString("category_id",product.getCategory_id().toString())
+        val bottomSheetDialogFragment = BottomSheetCartItem()
+        bottomSheetDialogFragment.arguments=bundle
+        bottomSheetDialogFragment.show((activity as FragmentActivity).supportFragmentManager, bottomSheetDialogFragment.tag)
+
+
+    }
+
+    override fun onCartItemClick(position: Int, cartItem: CartItem) {
+
+    }
+
+    override fun onCartItemClickUpdate(position: Int, cartItem: CartItem) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onItemClickHompage(position: Int, product: Product) {
+            productCartViewModel.setId(product.getId())
+            productCartViewModel.setName(product.getName())
+            productCartViewModel.setImage(product.getImage())
+            productCartViewModel.setDescription(product.getDescription())
+            productCartViewModel.setPriceL(product.getPrice_L().toDouble())
+            productCartViewModel.setPriceM(product.getPrice_M().toDouble())
+            productCartViewModel.setPriceS(product.getPrice_S().toDouble())
+            productCartViewModel.setCategoryId(product.getCategory_id())
+
+        (view.context as FragmentActivity).supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.flFragment, ProductDetail()).addToBackStack(null)
+                .commit()
     }
 
 

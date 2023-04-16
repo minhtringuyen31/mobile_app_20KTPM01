@@ -14,8 +14,8 @@ class ProductViewModel: ViewModel(){
 
     private val _products = MutableLiveData<ArrayList<Product>>()
     val products: LiveData<ArrayList<Product>> = _products
-//    private val _product = MutableLiveData<Product>()
-//    val product: LiveData<Product> = _product
+    private val _product = MutableLiveData<Product>()
+    val product: LiveData<Product> = _product
 //
 //    private val _status = MutableLiveData<Int>()
 //    val status: LiveData<Int> = _status
@@ -35,23 +35,24 @@ class ProductViewModel: ViewModel(){
                 _products.postValue(response)
 //                println("View: $response")
                 println("Init app product: $response")
+                println("Current viewmodel: ${Thread.currentThread().name}")
             } catch (e: Exception) {
                 println("View: $e")
             }
         }
     }
 
-//    fun getProduct(id:Int) {
-//        viewModelScope.launch {
-//            try {
-//                val response = Utils.getRetrofit().create(ProductService::class.java).getProduct(id);
-//                println("View: $response")
-//                _product.value = response
-//            } catch (e: Exception) {
-//                // handle error
-//            }
-//        }
-//    }
+    fun getProduct(id:Int) {
+        viewModelScope.launch {
+            try {
+                val response = Utils.getRetrofit().create(ProductService::class.java).getProduct(id);
+                println("View: $response")
+                _product.value = response
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+    }
 //    fun deleteProduct(id:Int) {
 //        viewModelScope.launch {
 //            try {

@@ -3,7 +3,6 @@ package com.example.myapplication.modals
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.MainActivity
 
 class Product( private  var id: Int,
@@ -159,22 +158,6 @@ class Product( private  var id: Int,
     fun setSales(sales:Int)
     {
         this.sales=sales;
-    }
-    fun getDecodeImage(): Bitmap? {
-        try {
-
-            val assetManager =  MainActivity.appContext.resources.assets
-            val inputStream = assetManager.open(this.getImage()!!)
-            val bitmap = BitmapFactory.decodeStream(inputStream)
-            return bitmap;
-        } catch (e: java.lang.Exception) {
-            // handler
-            e.printStackTrace()
-        } finally {
-            // optional finally block
-        }
-
-        return null;
     }
 
     override fun toString(): String {

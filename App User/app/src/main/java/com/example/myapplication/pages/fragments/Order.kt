@@ -1,6 +1,5 @@
 package com.example.myapplication.pages.fragments
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -34,23 +33,19 @@ private const val ARG_PARAM2 = "param2"
  */
 class Order : Fragment() {
     // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
     private val appModel: AppViewModel by activityViewModels()
-
-    private var currentCategory: TextView? = null
-    private var productListAdapter : ProductListAdapter?= null
-    private var categoryListAdapter : CategoryListAdapter?= null
-    private var productRecyclerView: RecyclerView? = null
-    private var categoryRecyclerView: RecyclerView? = null
+    private lateinit var currentCategory: TextView
+    private lateinit var productListAdapter : ProductListAdapter
+    private lateinit var categoryListAdapter : CategoryListAdapter
+    private lateinit var productRecyclerView: RecyclerView
+    private lateinit var categoryRecyclerView: RecyclerView
     private lateinit var categoryViewModel: CategoryViewModel
     private lateinit var productViewModel: ProductViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
+
         }
     }
 
@@ -58,21 +53,23 @@ class Order : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-       val view =inflater.inflate(R.layout.fragment_order, container, false);
+       val view =inflater.inflate(R.layout.fragment_order, container, false)
 
-        appModel.setUpViewModel(view,this);
-        categoryViewModel =  appModel.getCategoryViewModel();
-        productViewModel =  appModel.getProductViewModel();
-
+        setUpViewModel(view)
         initUI(view)
-        (activity as MainActivity).setSelectedIcon(1);
+        setUpObserve(view)
+
+
+        return view
+    }
+    private fun setUpObserve(view:View){
         categoryViewModel.categories.observe(viewLifecycleOwner) {
             val categories = it as ArrayList<Category>
             if (categories.isEmpty()) {
 
-                setUpCategoryRecyclerAdapter(view, arrayListOf());
+                setUpCategoryRecyclerAdapter(view, arrayListOf())
             } else {
-                setUpCategoryRecyclerAdapter(view,categories);
+                setUpCategoryRecyclerAdapter(view,categories)
             }
         }
 
@@ -80,39 +77,44 @@ class Order : Fragment() {
         productViewModel.products.observe(viewLifecycleOwner) {
             val products = it as ArrayList<Product>
             if (products.isEmpty()) {
-                setUpProductRecyclerAdapter(view, arrayListOf(),true);
+                setUpProductRecyclerAdapter(view, arrayListOf(),true)
 
 
             } else {
-                setUpProductRecyclerAdapter(view,products,true);
+                setUpProductRecyclerAdapter(view,products,true)
 
 
             }
 
         }
 
+    }
+    private fun setUpViewModel(view: View){
+        appModel.setUpViewModel(view,this)
+        categoryViewModel =  appModel.getCategoryViewModel()
+        productViewModel =  appModel.getProductViewModel()
 
-
-        return view;
     }
     private fun initUI(view:View){
+        (activity as MainActivity).setSelectedIcon(1)
+        (activity as MainActivity).showToolbarAndNavigationBar(true)
         currentCategory = view.findViewById(R.id.currentCategoryTV)
         categoryRecyclerView = view.findViewById(R.id.listCategoryRV)
         productRecyclerView = view.findViewById(R.id.listProductRV)
 
-        val isLinearLayoutManager: Boolean = true
+        val isLinearLayoutManager = true
 //        setUpProductRecyclerAdapter(view,listProduct,isLinearLayoutManager!!)
-        if (isLinearLayoutManager as Boolean)
-            productRecyclerView?.layoutManager = LinearLayoutManager(context)
+        if (isLinearLayoutManager)
+            productRecyclerView.layoutManager = LinearLayoutManager(context)
         else
-            productRecyclerView?.layoutManager = GridLayoutManager(context, 2)
+            productRecyclerView.layoutManager = GridLayoutManager(context, 2)
 
     }
 
     private fun setUpProductRecyclerAdapter(view:View,data: ArrayList<Product>, isLinearLayoutManager: Boolean) {
-        productListAdapter = ProductListAdapter(data, isLinearLayoutManager!!)
-        productRecyclerView!!.adapter = productListAdapter
-        productListAdapter!!.onItemClick = { product ->
+        productListAdapter = ProductListAdapter(data, isLinearLayoutManager)
+        productRecyclerView.adapter = productListAdapter
+        productListAdapter.onItemClick = { product ->
             val bundle = Bundle()
             bundle.putString("name", product.getName())
             bundle.putString("image", product.getImage())
@@ -129,10 +131,10 @@ class Order : Fragment() {
 
     private fun setUpCategoryRecyclerAdapter(view: View, data: ArrayList<Category>) {
         categoryListAdapter = CategoryListAdapter(data)
-        categoryRecyclerView?.adapter = categoryListAdapter
-        categoryRecyclerView?.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        categoryListAdapter?.onItemClick = { category ->
-            currentCategory?.text = category.getName()
+        categoryRecyclerView.adapter = categoryListAdapter
+        categoryRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        categoryListAdapter.onItemClick = { category ->
+            currentCategory.text = category.getName()
             //Handle set product by category type
 
             (view.context as FragmentActivity).supportFragmentManager

@@ -1,19 +1,19 @@
 import CartItemService from "../services/CartItem.service.js"
 const CartItemController = {
     async create(req, res) {
-        const { user_id, cart_id, product_id, quantity, size, price } = req.body;
-        const newCartItem =  await CartItemService.create(user_id, cart_id, product_id, quantity, size, price);
+        const { user_id, cart_id, product_id, quantity, size, price,topping } = req.body;
+        const newCartItem = await CartItemService.create(user_id, cart_id, product_id, quantity, size, price,topping);
         if (newCartItem) {
             res.status(200).send(newCartItem)
         } else {
             res.status(404).send({ status: 0, message: "Failed" });
         }
 
-    },
+    },  
     async update(req, res) {
-        const id = req.params.id;
-        const { user_id, cart_id, product_id, quantity, size, price } = req.body;
-        const updateCartItem = await CartItemService.update(id, user_id, cart_id, product_id, quantity, size, price);
+        const id = req.params.id;   
+        const { user_id, cart_id, product_id, quantity, size, price ,topping} = req.body;
+        const updateCartItem = await CartItemService.update(id, user_id, cart_id, product_id, quantity, size, price,topping);
         if (updateCartItem) {
             res.status(200).send(updateCartItem)
         } else {

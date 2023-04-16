@@ -35,7 +35,7 @@ class PromotionApdapter(private val context: Homepage, private val promotions: A
 
     fun addPromotions(promotions: ArrayList<Promotion>) {
         this.promotions.apply {
-            clear();
+            clear()
             addAll(promotions)
         }
     }

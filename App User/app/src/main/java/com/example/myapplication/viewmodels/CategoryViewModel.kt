@@ -44,6 +44,7 @@ class CategoryViewModel :ViewModel(){
                 val response = Utils.getRetrofit().create(CategoryService::class.java).getCategory(id);
                 println("Init app catgory: $response")
                 _category.postValue(response)
+                println("Current viewmodel: ${Thread.currentThread().name}")
             } catch (e: Exception) {
                 // handle error
             }

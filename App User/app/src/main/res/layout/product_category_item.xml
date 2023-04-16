@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="80dp"
     android:layout_height="wrap_content"
     android:layout_marginStart="@dimen/_7sdp"
     android:layout_marginBottom="@dimen/_10sdp"
@@ -12,6 +12,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/_5sdp"
         app:cardCornerRadius="@dimen/_5sdp">
     <ImageView
@@ -27,14 +28,16 @@
 
     <TextView
         android:id="@+id/categoryName"
-        android:layout_width="wrap_content"
+
+        android:layout_width="60dp"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
+        android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/_5sdp"
         android:layout_marginEnd="@dimen/_5sdp"
         android:layout_marginBottom="@dimen/_5sdp"
         android:text="TextView"
         android:textColor="@color/white"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="@+id/categoryImageIV"
         app:layout_constraintStart_toStartOf="@+id/categoryImageIV"
         app:layout_constraintTop_toBottomOf="@+id/categoryImageIV" />

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:background="@drawable/rounded_dialog"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="40dp"
+    app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+    tools:context=".pages.fragments.BottomSheetCartItem">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <ScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:elevation="16dp"
+                android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/name_product_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Cà Phê"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:gravity="center_horizontal"
+                    >
+                </TextView>
+            </androidx.appcompat.widget.Toolbar>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/gray"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:background="@drawable/custom_rounded_search"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_margin="5dp"
+                        android:layout_height="wrap_content"
+                        android:text="Size"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black">
+                    </TextView>
+                    <RadioGroup
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/groupradio"
+                        android:layout_marginBottom="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <!-- In RadioGroup create the 1 Radio Button-->
+                        <!-- like this we will add some more Radio Button-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/priceL_radio"
+                                android:layout_width="0dp"
+                                android:checked="true"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="L"
+                                android:textSize="20sp"
+                                tools:ignore="TouchTargetSizeCheck" />
+                            <TextView
+                                android:id="@+id/priceL"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:layout_height="fill_parent"
+                                android:gravity="center_vertical|end"
+                                android:text="45.000đ">
+
+                            </TextView>
+
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/gray">
+
+                        </TextView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/priceM_radio"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="M"
+                                android:textSize="20sp"
+                                tools:ignore="TouchTargetSizeCheck" />
+                            <TextView
+                                android:id="@+id/priceM"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:layout_height="fill_parent"
+                                android:gravity="center_vertical|end"
+                                android:text="35.000đ">
+
+                            </TextView>
+
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/gray">
+
+                        </TextView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <RadioButton
+                                android:id="@+id/priceS_radio"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="S"
+                                android:textSize="20sp"
+                                tools:ignore="TouchTargetSizeCheck" />
+                            <TextView
+                                android:id="@+id/priceS"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+
+                                android:textColor="@color/black"
+                                android:textStyle="bold"
+                                android:layout_height="fill_parent"
+                                android:gravity="center_vertical|end"
+                                android:text="25.000đ">
+
+
+                            </TextView>
+
+                        </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/gray">
+
+                        </TextView>
+
+                    </RadioGroup>
+
+                </LinearLayout>
+
+
+                <ListView
+                    android:id="@+id/checkboxlistView"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/custom_rounded_search" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:layout_margin="10dp"
+                    android:layout_height="40dp">
+                    <ImageView
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/baseline_note_add_24">
+                    </ImageView>
+                    <EditText
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:padding="3dp"
+                        android:hint="Thêm ghi chú"
+                        android:background="@null"
+                        android:layout_height="wrap_content">
+
+                    </EditText>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:orientation="horizontal">
+                        <Button
+                            android:id="@+id/minus_btn"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/circle_btn"
+                            android:text="-"
+                            android:textSize="@dimen/_17ssp" />
+
+                        <TextView
+                            android:id="@+id/text_quantity"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_marginRight="@dimen/_10sdp"
+                            android:text="1"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:textSize="@dimen/_17ssp" />
+
+                        <Button
+                            android:id="@+id/plus_btn"
+                            android:layout_width="@dimen/_40sdp"
+                            android:layout_height="@dimen/_40sdp"
+                            android:background="@drawable/circle_btn"
+                            android:text="+"
+                            android:textSize="@dimen/_17ssp" />
+                    </LinearLayout>
+
+                    <Button
+                        android:layout_width="0dp"
+                        android:layout_weight="7"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
+                        android:id="@+id/btnPrice"
+                        android:textColor="@color/white"
+                        android:background="@drawable/bg_category"
+                        android:text="Add to cart - 25.0000đ"/>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

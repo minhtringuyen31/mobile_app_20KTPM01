@@ -15,7 +15,6 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
         <activity
             android:name=".pages.Profile"
             android:exported="false" />

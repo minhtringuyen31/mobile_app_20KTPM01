@@ -19,6 +19,7 @@ import PromotionAdminRouter from './routes/admin/Promotion.admin.route.js';
 import RatingAdminRouter from './routes/admin/Rating.admin.route.js';
 import UserAdminRouter from './routes/admin/User.admin.route.js';
 import AuthenRoute from './routes/Authen.route.js';
+import ToppingRoute from './routes/Topping.route.js';
 dotenv.config();
 const app = express();
 const port = 3000;
@@ -36,7 +37,7 @@ app.use('/api/cartitems', CartItemRoute);
 app.use('/api/ratings', RatingRoute);
 app.use('/api/promotions', PromotionRoute);
 app.use('/api/authen', AuthenRoute);
-
+app.use('/api/toppings', ToppingRoute);
 app.use('/api/admin/category', CategoryAdminRouter);
 app.use('/api/admin/order', OrderAdminRouter);
 app.use('/api/admin/product', ProductAdminRouter);
@@ -50,3 +51,4 @@ app.listen(port, () => {
 // Ví dụ 1 luồng chạy User để mọi người dễ hiểu
 // --> Khi npm start chương trình sẽ chạy tuần tự từ trên xuống dưới nên sẽ vào db() rồi app.use()
 // app.use để định nghĩa đường dẫn
+

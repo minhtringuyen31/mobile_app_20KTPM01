@@ -13,16 +13,21 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.modals.Product
+import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
+import com.example.myapplication.pages.apdaters.interfaces.OnItemClickProductHomepage
 import com.example.myapplication.pages.fragments.Homepage
 import com.example.myapplication.pages.fragments.ProductDetail
 
 
-class ProductApdapter(private val context: Homepage, private val products: ArrayList<Product>) :
+class ProductApdapter(private val context: Homepage, private val products: ArrayList<Product>,private val listener: OnItemClickListener,private val listerItemClick: OnItemClickProductHomepage) :
     RecyclerView.Adapter<ProductApdapter.ViewHolder>() {
+
     lateinit var view:View
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView = view.findViewById(R.id.image_product) as ImageView
         val name = view.findViewById(R.id.name_product) as TextView
+        val icon_add_to_cart =view.findViewById<ImageView>(R.id.icon_add_to_cart)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -34,22 +39,20 @@ class ProductApdapter(private val context: Homepage, private val products: Array
         Glide.with(holder.itemView)
             .load(products[position].getImage()).fitCenter()
             .into(holder.imageView)
-        holder.name.text = products[position].getName();
-        holder.itemView.setOnClickListener {
+        holder.name.text = products[position].getName()
 
-            val bundle = Bundle()
-            bundle.putString("name", products[position].getName())
-            bundle.putString("image", products[position].getImage())
-            bundle.putString("price", products[position].getPrice_M().toString())
-            bundle.putString("description", products[position].getDescription())
-            val productDetail = ProductDetail()
-            productDetail.arguments = bundle
-            (view.context as FragmentActivity).supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.flFragment, productDetail).addToBackStack(null)
-                .commit()
+        holder.itemView.setOnClickListener {
+            listerItemClick.onItemClickHompage(position,products[position])
 
         }
+
+
+
+        holder.icon_add_to_cart.setOnClickListener {
+            listener.onItemClick(position, products[position])
+        }
+
+
     }
 
     override fun getItemCount(): Int {
@@ -57,7 +60,7 @@ class ProductApdapter(private val context: Homepage, private val products: Array
     }
     fun addProducts(products: ArrayList<Product>) {
         this.products.apply {
-            clear();
+            clear()
             addAll(products)
         }
     }
@@ -65,6 +68,7 @@ class ProductApdapter(private val context: Homepage, private val products: Array
 
 
 }
+
 
 class GridSpacingItemDecoration(
     private val spanCount: Int,

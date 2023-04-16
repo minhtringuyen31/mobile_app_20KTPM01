@@ -1,7 +1,6 @@
 package com.example.myapplication.services
 
 import com.example.myapplication.modals.LoginRequest
-import com.example.myapplication.modals.User
 import retrofit2.http.Body
 import retrofit2.http.POST
 
