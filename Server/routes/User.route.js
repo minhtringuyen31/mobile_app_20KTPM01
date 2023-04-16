@@ -13,8 +13,8 @@ UserRoute.get("/:id", UserController.findOne)
 UserRoute.get("/", UserController.findAll)
 UserRoute.post("/login",UserController.loginPost)
 UserRoute.post("/signup",UserController.signupPost)
-UserRoute.post("/changepassword",UserController.changepassPost)
-UserRoute.post("/editprofile",UserController.editprofilePost)
+UserRoute.post("/changepassword/:id",UserController.changepassPost)
+UserRoute.post("/editprofile/:id",UserController.editprofilePost)
 
 export default UserRoute;
 
