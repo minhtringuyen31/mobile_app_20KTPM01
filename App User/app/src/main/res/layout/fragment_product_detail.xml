@@ -277,9 +277,13 @@
                     android:hint="Thêm ghi chú"
                     android:background="@null"
                     android:layout_height="wrap_content">
-
                 </EditText>
+
             </LinearLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listRatingRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

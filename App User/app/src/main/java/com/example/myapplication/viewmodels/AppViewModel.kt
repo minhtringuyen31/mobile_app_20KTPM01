@@ -30,6 +30,7 @@ class AppViewModel:ViewModel() {
                  toppingViewModel.getToppings()
                  cartItemViewModel = ViewModelProvider(viewModelStoreOwner)[CartItemViewModel::class.java]
                  cartItemViewModel.getItemsCart()
+
                  println("Current view-model: ${Thread.currentThread().name}")
              }
          }

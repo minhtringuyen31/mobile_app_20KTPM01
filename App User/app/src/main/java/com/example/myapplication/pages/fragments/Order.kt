@@ -58,8 +58,6 @@ class Order : Fragment() {
         setUpViewModel(view)
         initUI(view)
         setUpObserve(view)
-
-
         return view
     }
     private fun setUpObserve(view:View){
@@ -73,16 +71,13 @@ class Order : Fragment() {
             }
         }
 
-
         productViewModel.products.observe(viewLifecycleOwner) {
             val products = it as ArrayList<Product>
             if (products.isEmpty()) {
                 setUpProductRecyclerAdapter(view, arrayListOf(),true)
 
-
             } else {
                 setUpProductRecyclerAdapter(view,products,true)
-
 
             }
 
@@ -137,14 +132,26 @@ class Order : Fragment() {
             currentCategory.text = category.getName()
             //Handle set product by category type
 
-            (view.context as FragmentActivity).supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.flFragment, Order()).addToBackStack(null)
-                .commit()
+            productViewModel.products.observe(viewLifecycleOwner) {
+                val products = it as ArrayList<Product>
+                var productsWithCategoryOne = it as ArrayList<Product>
+                productsWithCategoryOne = products.filter { it.getCategory_id() == category.getId() } as ArrayList<Product>
+                if (productsWithCategoryOne.isEmpty()) {
+                    setUpProductRecyclerAdapter(view, arrayListOf(),true)
 
+                } else {
+                    setUpProductRecyclerAdapter(view,productsWithCategoryOne,true)
+                }
+            }
+
+//            (view.context as FragmentActivity).supportFragmentManager
+//                .beginTransaction()
+//                .replace(R.id.flFragment, Order()).addToBackStack(null)
+//                .commit()
 
         }
     }
+
 
     companion object {
         /**
