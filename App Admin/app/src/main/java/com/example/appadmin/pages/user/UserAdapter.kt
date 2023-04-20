@@ -55,8 +55,7 @@ class UserAdapter(private val context: Context, private val items: List<User>) :
             disableIv.setImageResource(R.drawable.baseline_disable_24)
         }
         holder.itemView.setOnClickListener {
-            println(item)
-            val intent = Intent(context, EditUser::class.java)
+            val intent = Intent(context, UserDetail::class.java)
             intent.putExtra("user_id", item.getId()!!.toString())
             context.startActivity(intent)
         }

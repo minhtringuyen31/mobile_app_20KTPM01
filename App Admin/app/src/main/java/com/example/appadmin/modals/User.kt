@@ -37,6 +37,10 @@ class User(
         return this.email
     }
 
+    fun getPassword() :String? {
+        return this.password
+    }
+
     fun getPhone(): String? {
         return this.phone
     }
