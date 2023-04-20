@@ -28,7 +28,7 @@ class CategoryListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val categoryView = inflater.inflate(R.layout.product_category_item, parent, false)
+        val categoryView = inflater.inflate(R.layout.item_product_category, parent, false)
         return ViewHolder(categoryView)
     }
 
