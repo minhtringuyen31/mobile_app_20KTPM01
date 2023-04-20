@@ -3,17 +3,17 @@ const RatingController = {
     async create(req, res) {
         const { user_id, product_id, score, comment, create_at } = req.body;
         const newRating = await RatingService.create(user_id, product_id, score, comment, create_at);
-        if(newRating){
+        if (newRating) {
             res.send(newRating)
-        }else{
+        } else {
             res.status(404).send({ status: 0, message: "Failed" });
         }
 
     },
     async update(req, res) {
         const id = req.params.id;
-        const {user_id, product_id, score, comment, create_at } = req.body;
-        const updateRating = await RatingService.update(id,user_id, product_id, score, comment, create_at);
+        const { user_id, product_id, score, comment, create_at } = req.body;
+        const updateRating = await RatingService.update(id, user_id, product_id, score, comment, create_at);
         if (updateRating) {
             res.send(newRating)
         } else {
@@ -31,9 +31,9 @@ const RatingController = {
 
 
     },
-    async findOne(req, res) {
+    async findRating(req, res) {
         const id = req.params.id;
-        const rating = await RatingService.findOne(id);
+        const rating = await RatingService.findRating(id);
         if (rating) {
             res.status(200).send(rating)
         } else {
@@ -48,7 +48,7 @@ const RatingController = {
         } else {
             res.status(404).send({ status: 0, message: "Failed" });
         }
-       
+
     },
     test(req, res) {
         res.send("Test API from Rating")
