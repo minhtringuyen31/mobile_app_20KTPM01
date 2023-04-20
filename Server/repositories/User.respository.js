@@ -1,4 +1,5 @@
 import DB from "../configs/db.js"
+import crypto from "crypto"
 const UserRepository = {
     async create(name, gender, email, phone, password, date_of_birth = "", address = "", avatar = "", role = "0", is_disable = "false") {
         const query = `INSERT INTO user (name, gender,email,password, date_of_birth, address, avatar, role,is_disable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -79,8 +80,16 @@ const UserRepository = {
 
 
     async signup( phone, password) {
-        const query = `INSERT INTO user (phone,password) VALUES (?, ?)`;
-        const values = [phone, password];
+        const query = `INSERT INTO user (phone,password,name) VALUES (?, ?,?)`;
+        const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        const randomBytes = crypto.randomBytes(8);
+        const result = new Array(8);
+
+        for (let i = 0; i < 8; i++) {
+            result[i] = chars[randomBytes[i] % 8];
+        }
+        const name=result.join('')
+        const values = [phone, password,name];
         try {
             DB.pool().query(query, values);
             return true;
@@ -91,6 +100,7 @@ const UserRepository = {
     },
 
     async changepass(id,password){
+        console.log("repo  "+ id + password)
         const query='UPDATE user SET password=? WHERE id=?'
         const values=[password,id]
         try {
@@ -118,6 +128,7 @@ const UserRepository = {
                 return false;
             }
         } catch (error) {
+
             console.error(error);
             return false;
         }
