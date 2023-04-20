@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.appadmin.R
 import com.example.appadmin.modals.User
+import com.example.appadmin.pages.product.ProductDetail
 
 class UserAdapter(private val context: Context, private val items: List<User>) :
     RecyclerView.Adapter<UserAdapter.ViewHolder>() {
@@ -55,8 +56,8 @@ class UserAdapter(private val context: Context, private val items: List<User>) :
             disableIv.setImageResource(R.drawable.baseline_disable_24)
         }
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, UserDetail::class.java)
-            intent.putExtra("user_id", item.getId()!!.toString())
+            val intent = Intent(context, ProductDetail::class.java)
+            intent.putExtra("product_id", item.getId()!!.toString())
             context.startActivity(intent)
         }
     }

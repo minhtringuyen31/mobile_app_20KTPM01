@@ -10,9 +10,9 @@ class Product(
     private var price_L: Double? = null,
     private var note: String? = null,
     private var image: String? = null,
-    private var status: Boolean? = null,
-    private var category_id: String? = null,
-    private var updated_date: String? = null,
+    private var status: Int? = null,
+    private var category_id: Int? = null,
+    private var update_date: String? = null,
     private var release_date: String? = null,
     private var sales: Int? = 0,
     private var is_disable: Int? = 0
@@ -53,16 +53,16 @@ class Product(
         return this.image
     }
 
-    fun getStatus(): Boolean? {
+    fun getStatus(): Int? {
         return this.status
     }
 
-    fun getCategoryId(): String? {
+    fun getCategoryId(): Int? {
         return this.category_id
     }
 
-    fun getUpdatedDate(): String? {
-        return this.updated_date
+    fun getUpdateDate(): String? {
+        return this.update_date
     }
 
     fun getReleaseDate(): String? {
@@ -78,7 +78,7 @@ class Product(
     }
 
     override fun toString(): String {
-        return "Product(id=$id, name=$name, description=$description, size=$size, price_S=$price_S, price_M=$price_M, price_L=$price_L, note=$note, image=$image, status=$status, category_id=$category_id, updated_date=$updated_date, release_date=$release_date, sales=$sales, is_disable=$is_disable)"
+        return "Product(id=$id, name=$name, description=$description, size=$size, price_S=$price_S, price_M=$price_M, price_L=$price_L, note=$note, image=$image, status=$status, category_id=$category_id, updated_date=$update_date, release_date=$release_date, sales=$sales, is_disable=$is_disable)"
     }
 
     fun setSales(sales: Int) {
@@ -93,15 +93,15 @@ class Product(
         this.release_date = release_date
     }
 
-    fun setUpdatedDate(updated_date: String) {
-        this.updated_date = updated_date
+    fun setUpdateDate(updated_date: String) {
+        this.update_date = updated_date
     }
 
-    fun setCategoryId(category_id: String) {
+    fun setCategoryId(category_id: Int) {
         this.category_id = category_id
     }
 
-    fun setStatus(status: Boolean) {
+    fun setStatus(status: Int) {
         this.status = status
     }
 
