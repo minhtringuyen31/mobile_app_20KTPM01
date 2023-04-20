@@ -8,7 +8,6 @@ import com.example.appadmin.modals.User
 import com.example.appadmin.services.UserService
 import com.example.appadmin.utils.Utils
 import kotlinx.coroutines.launch
-import retrofit2.create
 
 class UserController : ViewModel() {
     fun getUser(id: Int): LiveData<User> {
@@ -72,7 +71,32 @@ class UserController : ViewModel() {
             try {
                 val response = Utils.getRetrofit().create(UserService::class.java).deleteUser(id)
                 _user.value = response
-                println(response)
+            } catch (e: Exception) {
+
+            }
+        }
+        return _user
+    }
+
+    fun disableUser(id: Int): LiveData<Boolean> {
+        val _user = MutableLiveData<Boolean>()
+        viewModelScope.launch {
+            try {
+                val response = Utils.getRetrofit().create(UserService::class.java).disableUser(id)
+                _user.value = response
+            } catch (e: Exception) {
+
+            }
+        }
+        return _user
+    }
+
+    fun enableUser(id: Int): LiveData<Boolean> {
+        val _user = MutableLiveData<Boolean>()
+        viewModelScope.launch {
+            try {
+                val response = Utils.getRetrofit().create(UserService::class.java).enableUser(id)
+                _user.value = response
             } catch (e: Exception) {
 
             }

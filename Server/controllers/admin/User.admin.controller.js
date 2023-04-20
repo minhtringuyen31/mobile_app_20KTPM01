@@ -1,6 +1,22 @@
 import UserServices from '../../services/User.service.js';
 
 const UserAdminController = {
+  disable: async (req, res) => {
+    const userDisable = await UserServices.changeIsDisable(req.params.id, 1);
+    if (userDisable) {
+      res.status(200).send(userDisable);
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
+  enable: async (req, res) => {
+    const userEnable = await UserServices.changeIsDisable(req.params.id, 0);
+    if (userEnable) {
+      res.status(200).send(userEnable);
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
   create: async (req, res) => {
     const {
       name,

@@ -9,15 +9,16 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.andremion.counterfab.CounterFab
 import com.bumptech.glide.Glide
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
-import com.example.myapplication.modals.CartItem
-import com.example.myapplication.modals.Topping
-import com.example.myapplication.viewmodels.AppViewModel
-import com.example.myapplication.viewmodels.CountItemInBottomSheet
-import com.example.myapplication.viewmodels.ProductCartViewModel
+import com.example.myapplication.modals.*
+import com.example.myapplication.pages.apdaters.CategoryListAdapter
+import com.example.myapplication.pages.apdaters.RatingListAdapter
+import com.example.myapplication.viewmodels.*
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -64,6 +65,10 @@ class ProductDetail : Fragment() {
     private  var priceS_text:Double=0.0
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
 
+    private lateinit var ratingRecyclerView: RecyclerView
+//    private lateinit var ratingViewModel: RatingViewModel
+    private lateinit var ratingListAdapter: RatingListAdapter
+
     private val appModel: AppViewModel by activityViewModels()
     private lateinit var topping:String
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -79,7 +84,6 @@ class ProductDetail : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
-
         val view=inflater.inflate(R.layout.fragment_product_detail, container, false)
         setUpViewModel()
         initUI(view)
@@ -89,8 +93,10 @@ class ProductDetail : Fragment() {
         return view
     }
     private  fun setUpViewModel(){
-        appModel.setUpToppingViewModel(this)
 
+        appModel.setUpRatingViewMode(this, productCartViewModel.getId())
+        println( productCartViewModel.getId())
+        appModel.setUpToppingViewModel(this)
         itemCount= ViewModelProvider(this)[CountItemInBottomSheet::class.java]
     }
     private fun initUI(view:View){
@@ -117,6 +123,7 @@ class ProductDetail : Fragment() {
         toppingListView.isFocusable = false
         toppingListView.isFocusableInTouchMode = false
 
+
         name= productCartViewModel.getName()
         priceS_text=  productCartViewModel.getPriceS()
         description  = productCartViewModel.getDescription()
@@ -130,6 +137,9 @@ class ProductDetail : Fragment() {
         product_id=productCartViewModel.getId()
         setProductDetail(name,priceL_text.toString() , description, image)
 
+        ratingRecyclerView = view.findViewById(R.id.listRatingRV)
+
+//        ratingRecyclerView.layoutManager = LinearLayoutManager(context)
 
     }
     private fun updatePriceTotal() {
@@ -143,8 +153,6 @@ class ProductDetail : Fragment() {
     }
 
     private fun setUpObserve(view:View){
-
-
         backHomepage.setOnClickListener {
             getFragmentManager()?.popBackStack()
         }
@@ -183,7 +191,6 @@ class ProductDetail : Fragment() {
 
         }
 
-
         plusBtn.setOnClickListener {
             itemCount.count = itemCount.count + 1
             displayCount()
@@ -212,7 +219,6 @@ class ProductDetail : Fragment() {
 
                 }
             }
-
         }
 
         toppingListView.onItemClickListener =
@@ -268,7 +274,28 @@ class ProductDetail : Fragment() {
 
         }
 
+        appModel.getRatingViewModel().ratings.observe(viewLifecycleOwner){
+            val ratings = it as ArrayList<Rating>
+            if (ratings.isEmpty()) {
+                println("Empty response")
+                setUpRatingRecyclerAdapter(view, arrayListOf())
 
+            } else {
+                println("Response"  + ratings)
+                setUpRatingRecyclerAdapter(view, ratings)
+
+            }
+        }
+    }
+
+    private fun setUpRatingRecyclerAdapter(view: View, data: ArrayList<Rating>) {
+        ratingListAdapter = RatingListAdapter(data)
+        ratingRecyclerView.adapter = ratingListAdapter
+        ratingRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        ratingListAdapter.onItemClick = { rating ->
+           //Handle rating item on click listener
+
+        }
     }
     private fun setProductDetail(productName: String, productPrice: String, productDescription: String, productImage: String){
         productDetailName.text = productName

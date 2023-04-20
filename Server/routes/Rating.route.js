@@ -9,7 +9,7 @@ RatingRoute.get("/testAPI", RatingController.test)
 RatingRoute.post("/create", RatingController.create)
 RatingRoute.post("/update/:id", RatingController.update)
 RatingRoute.delete("/delete/:id", RatingController.delete)
-RatingRoute.get("/:id", RatingController.findOne)
+RatingRoute.get("/:id", RatingController.findRating)
 RatingRoute.get("/", RatingController.findAll)
 export default RatingRoute;
 
