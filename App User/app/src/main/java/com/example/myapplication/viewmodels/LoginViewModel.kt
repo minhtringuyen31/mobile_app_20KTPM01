@@ -18,9 +18,11 @@ class LoginViewModel:ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                  val response = Utils.getRetrofit().create(AuthenService::class.java).loginUser(request);
+                println(response)
                 Resource.loading(data = null)
                 if(response.getStatusUser()==1){
                     _loginResult.postValue( Resource.success(data=response))
+
 
                 }
                 else

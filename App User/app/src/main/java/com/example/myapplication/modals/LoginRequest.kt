@@ -2,8 +2,11 @@ package com.example.myapplication.modals
 
 
 class LoginRequest {
-    private lateinit var phone:String;
-    private lateinit var password:String;
+    private  var phone:String ?= null;
+    private  var password:String?=null;
+    private  var token:String?=null;
+    private  var userID:Int=-1;
+    private  var role:Int=0;
     private var status =0;
 
     constructor(phone: String, password: String, status: Int) {
@@ -16,7 +19,7 @@ class LoginRequest {
     }
 
     override fun toString(): String {
-        return "LoginRequest(phone='$phone', password='$password', status=$status)"
+        return "LoginRequest(phone=$phone, password=$password, token=$token, userID=$userID, role=$role, status=$status)"
     }
 
 

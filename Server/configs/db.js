@@ -7,7 +7,7 @@ const _connection = mysql2.createPool({
   host: 'localhost',
   user: 'root',
   password: 'root',
-  database: 'mobile_coffee',
+  database: 'project_app_database',
   port: process.env.MAC_PORT,
 });
 const DB = {

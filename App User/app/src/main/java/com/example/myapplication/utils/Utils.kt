@@ -18,11 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Utils : AppCompatActivity() {
     companion object {
-<<<<<<< HEAD
-        private const val  URL="http://172.16.0.135:3000/api/"
-=======
-        private const val  URL="http://172.16.0.27:3000/api/"
->>>>>>> fc7b12a1d7072b5ba424ef9a1dd88c3d09227f61
+        private const val  URL="http://172.20.10.2:3000/api/"
         fun getRetrofit(): Retrofit {
             val gson = GsonBuilder()
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")
