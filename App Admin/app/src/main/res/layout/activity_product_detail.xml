@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pages.user.EditUser">
+    tools:context=".pages.product.ProductDetail">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -14,14 +14,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/accountEditImage"
+            android:id="@+id/productEditImage"
             android:layout_width="200dp"
             android:layout_height="140dp"
             android:layout_marginTop="30dp"
             app:cardCornerRadius="40dp">
 
             <ImageView
-                android:id="@+id/editUserAvatar"
+                android:id="@+id/detailProductAvatar"
                 android:layout_width="200dp"
                 android:layout_height="140dp"
                 android:adjustViewBounds="true"
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="30dp"
-        app:layout_constraintBottom_toBottomOf="@+id/guideline"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
         <LinearLayout
@@ -58,22 +58,20 @@
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:gravity="fill_vertical"
-                    android:text="Họ và tên:"
+                    android:text="Tên sản phẩm:"
                     android:textAlignment="textStart"
                     android:textColor="#000000"
                     android:textSize="15sp"
                     tools:ignore="RtlCompat" />
 
-                <EditText
-                    android:id="@+id/editUserName"
+                <TextView
+                    android:id="@+id/detailProductName"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/nameTv"
-                    android:autofillHints="0"
-                    android:background="@null"
                     android:gravity="fill_vertical"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
@@ -91,145 +89,85 @@
                 android:background="@drawable/border_layout">
 
                 <TextView
-                    android:id="@+id/emailTv"
+                    android:id="@+id/descTv"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:gravity="fill_vertical"
-                    android:text="Email:"
+                    android:text="Mô tả:"
                     android:textAlignment="textStart"
                     android:textColor="#000000"
                     android:textSize="15sp"
                     tools:ignore="RtlCompat" />
-
-                <EditText
-                    android:id="@+id/editUserEmail"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginEnd="0dp"
-                    android:layout_toEndOf="@+id/emailTv"
-                    android:autofillHints="0"
-                    android:background="@null"
-                    android:gravity="fill_vertical"
-                    android:textAlignment="textEnd"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    tools:ignore="RtlCompat" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/relativeScroll7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/border_layout">
 
                 <TextView
-                    android:id="@+id/passwordTv"
-                    android:layout_width="100dp"
-                    android:layout_height="60dp"
-                    android:gravity="fill_vertical"
-                    android:text="Mật khẩu:"
-                    android:textAlignment="textStart"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    tools:ignore="RtlCompat" />
-
-                <EditText
-                    android:id="@+id/editUserPassword"
+                    android:id="@+id/detailProductDesc"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
-                    android:layout_toEndOf="@+id/passwordTv"
-                    android:hint="123456"
-                    android:inputType="textPassword"
-                    android:background="@null"
+                    android:layout_toEndOf="@+id/descTv"
                     android:gravity="fill_vertical"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
                     android:textSize="15sp"
+                    android:maxLines="3"
+                    android:ellipsize="end"
                     tools:ignore="RtlCompat" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:id="@+id/relativeScroll8"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/border_layout">
-
-                <TextView
-                    android:id="@+id/confirmPasswordTv"
-                    android:layout_width="140dp"
-                    android:layout_height="60dp"
-                    android:gravity="fill_vertical"
-                    android:text="Xác nhận mật khẩu:"
-                    android:textAlignment="textStart"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    tools:ignore="RtlCompat" />
-
-                <EditText
-                    android:id="@+id/editUserConfirmPassword"
-                    android:layout_width="0dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginStart="0dp"
-                    android:layout_marginEnd="0dp"
-                    android:layout_toEndOf="@+id/confirmPasswordTv"
-                    android:hint="123456"
-                    android:inputType="textPassword"
-                    android:background="@null"
-                    android:gravity="fill_vertical"
-                    android:textAlignment="textEnd"
-                    android:textColor="#000000"
-                    android:textSize="15sp"
-                    tools:ignore="RtlCompat" />
-            </RelativeLayout>
-
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/relativeScroll3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:showDividers="middle"
                 android:background="@drawable/border_layout">
 
                 <TextView
-                    android:id="@+id/genderTv"
-                    android:layout_width="100dp"
+                    android:id="@+id/priceSTv"
+                    android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:gravity="fill_vertical"
-                    android:text="Giới tính:"
+                    android:text="Size S:"
+                    android:layout_weight="1"
                     android:textAlignment="textStart"
                     android:textColor="#000000"
                     android:textSize="15sp"
                     tools:ignore="RtlCompat" />
 
-                <EditText
-                    android:id="@+id/editUserGender"
+                <TextView
+                    android:id="@+id/priceMTv"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
-                    android:layout_alignParentEnd="true"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
-                    android:layout_toEndOf="@+id/genderTv"
-                    android:autofillHints="0"
-                    android:background="@null"
                     android:gravity="fill_vertical"
-                    android:textAlignment="textEnd"
+                    android:textAlignment="textStart"
+                    android:layout_weight="1"
                     android:textColor="#000000"
                     android:textSize="15sp"
+                    android:text="Size M:"
                     tools:ignore="RtlCompat" />
-            </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/priceLTv"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:gravity="fill_vertical"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:layout_weight="1"
+                    android:textSize="15sp"
+                    android:text="Size L:"
+                    tools:ignore="RtlCompat" />
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/relativeScroll4"
@@ -245,22 +183,20 @@
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:gravity="fill_vertical"
-                    android:text="Điện thoại:"
+                    android:text="Loại mặt hàng:"
                     android:textAlignment="textStart"
                     android:textColor="#000000"
                     android:textSize="15sp"
                     tools:ignore="RtlCompat" />
 
-                <EditText
-                    android:id="@+id/editUserPhone"
+                <TextView
+                    android:id="@+id/detailProductCategory"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/phoneTv"
-                    android:autofillHints="0"
-                    android:background="@null"
                     android:gravity="fill_vertical"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
@@ -282,22 +218,20 @@
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:gravity="fill_vertical"
-                    android:text="Ngày sinh:"
+                    android:text="Ngày tạo:"
                     android:textAlignment="textStart"
                     android:textColor="#000000"
                     android:textSize="15sp"
                     tools:ignore="RtlCompat" />
 
-                <EditText
-                    android:id="@+id/editUserDob"
+                <TextView
+                    android:id="@+id/detailProductReleaseDate"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/dobTv"
-                    android:autofillHints="0"
-                    android:background="@null"
                     android:gravity="fill_vertical"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
@@ -319,22 +253,55 @@
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:gravity="fill_vertical"
-                    android:text="Địa chỉ:"
+                    android:text="Ngày cập nhật:"
                     android:textAlignment="textStart"
                     android:textColor="#000000"
                     android:textSize="15sp"
                     tools:ignore="RtlCompat" />
 
-                <EditText
-                    android:id="@+id/editUserAddress"
+                <TextView
+                    android:id="@+id/detailProductUpdateDate"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/addressTv"
-                    android:autofillHints="0"
-                    android:background="@null"
+                    android:gravity="fill_vertical"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeScroll7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_layout">
+
+                <TextView
+                    android:id="@+id/salesTv"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:gravity="fill_vertical"
+                    android:text="Số lượng bán:"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+
+                <TextView
+                    android:id="@+id/detailProductSales"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_toEndOf="@+id/salesTv"
                     android:gravity="fill_vertical"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
@@ -355,22 +322,40 @@
         app:layout_constraintTop_toTopOf="@+id/guideline">
 
         <Button
-            android:id="@+id/editUser_saveBtn"
+            android:id="@+id/detailProduct_editBtn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_margin="20dp"
+            android:layout_margin="5dp"
             android:layout_weight="1"
             android:backgroundTint="#2196F3"
-            android:text="Lưu thay đổi" />
+            android:text="Chỉnh sửa" />
 
         <Button
-            android:id="@+id/editUser_cancelBtn"
+            android:id="@+id/detailProduct_statusBtn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_margin="20dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="#9C27B0"
+            android:text="Còn hàng" />
+
+        <Button
+            android:id="@+id/detailProduct_disableBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:backgroundTint="#E91EAF"
+            android:text="khóa" />
+
+        <Button
+            android:id="@+id/detailProduct_cancelBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_margin="5dp"
             android:layout_weight="1"
             android:backgroundTint="#FF5722"
-            android:text="Thoát" />
+            android:text="Quay lại" />
 
     </LinearLayout>
 

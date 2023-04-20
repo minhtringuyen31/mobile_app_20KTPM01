@@ -30,6 +30,7 @@ class ProductController : ViewModel() {
                 val response =
                     Utils.getRetrofit().create(ProductService::class.java).getAllProduct()
                 _products.value = response
+                println(response[0].getId())
             } catch (e: Exception) {
                 // handle error
             }
