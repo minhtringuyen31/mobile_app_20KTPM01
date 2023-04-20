@@ -31,8 +31,7 @@
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:numStars="5"
-            android:rating="3.5"/>
+            android:numStars="5" />
     </LinearLayout>
     <TextView
         android:id="@+id/ratingDescriptionTV"
@@ -43,6 +42,17 @@
         android:text="Sản phẩm tốt"
         android:textColor="@color/brownHighland"
         android:textSize="@dimen/_10ssp" />
+
+    <TextView
+        android:id="@+id/ratingDatePostTV"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/_33sdp"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:fontFamily="@font/gilroy_light"
+        android:text="02-02-2023 11:11"
+        android:textColor="@color/brownHighland"
+        android:textSize="@dimen/_9ssp" />
 
 </LinearLayout>
 

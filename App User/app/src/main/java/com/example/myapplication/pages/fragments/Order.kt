@@ -42,6 +42,7 @@ class Order : Fragment() {
     private lateinit var categoryViewModel: CategoryViewModel
     private lateinit var productViewModel: ProductViewModel
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
