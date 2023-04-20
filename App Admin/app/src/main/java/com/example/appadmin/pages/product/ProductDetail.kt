@@ -14,6 +14,8 @@ import com.example.appadmin.R
 import com.example.appadmin.controllers.CategoryController
 import com.example.appadmin.controllers.ProductController
 import com.example.appadmin.modals.Product
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class ProductDetail : AppCompatActivity() {
     private lateinit var product: Product
@@ -127,9 +129,11 @@ class ProductDetail : AppCompatActivity() {
                     }
             }
             findViewById<TextView>(R.id.detailProductReleaseDate).text =
-                it.getReleaseDate().toString().split("T")[0]
+                LocalDateTime.parse(it.getReleaseDate().toString(), DateTimeFormatter.ISO_DATE_TIME)
+                    .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
             findViewById<TextView>(R.id.detailProductUpdateDate).text =
-                it.getUpdateDate().toString().split("T")[0]
+                LocalDateTime.parse(it.getUpdateDate().toString(), DateTimeFormatter.ISO_DATE_TIME)
+                    .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
             Glide.with(this).load(it.getImage()).fitCenter()
                 .into(findViewById(R.id.detailProductAvatar))
             findViewById<TextView>(R.id.detailProductSales).text = it.getSales().toString()
