@@ -1,6 +1,24 @@
 import CategoryServices from '../../services/Category.service.js';
 
 const CategoryAdminController = {
+  disable: async (req, res) => {
+    const id = req.params.id;
+    const status = await CategoryServices.changeIsDisable(id, 1);
+    if (status) {
+      res.status(200).send({ status: 1, message: 'Success' });
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
+  enable: async (req, res) => {
+    const id = req.params.id;
+    const status = await CategoryServices.changeIsDisable(id, 0);
+    if (status) {
+      res.status(200).send({ status: 1, message: 'Success' });
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
   create: async (req, res) => {
     const { category } = req.body;
     const newCategory = CategoryServices.create(category);

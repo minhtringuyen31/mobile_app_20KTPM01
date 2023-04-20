@@ -6,17 +6,23 @@ import com.example.appadmin.modals.Category
 
 interface CategoryService {
     @GET("category/{id}")
-    fun getCategory(@Path("id") categoryId: Int): Call<Category>
+    suspend fun getCategory(@Path("id") categoryId: Int): Category
 
     @GET("category/")
-    fun getAllCategory(): Call<List<Category>>
+    suspend fun getAllCategory(): List<Category>
 
     @POST("category/create")
-    fun createCategory(@Body category: Category): Call<Category>
+    suspend fun createCategory(@Body category: Category): Category
 
     @PUT("category/update/{id}")
-    fun updateCategory(@Path("id") categoryId: Int, @Body category: Category): Call<Category>
+    suspend fun updateCategory(@Path("id") categoryId: Int, @Body category: Category): Category
 
     @DELETE("category/delete/{id}")
-    fun deleteCategory(@Path("id") categoryId: Int): Call<Boolean>
+    suspend fun deleteCategory(@Path("id") categoryId: Int): Boolean
+
+    @PUT("category/disable/{id}")
+    suspend fun disableCategory(@Path("id") categoryId: Int): Boolean
+
+    @PUT("category/enable/{id}")
+    suspend fun enableCategory(@Path("id") categoryId: Int): Boolean
 }

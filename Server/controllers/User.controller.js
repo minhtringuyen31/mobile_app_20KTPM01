@@ -1,5 +1,6 @@
 import UserServices from "../services/User.service.js"
 import  bcrypt from 'bcrypt';
+
 const UserController = {
     async create(req, res) {
         const { name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable } = req.body
@@ -136,9 +137,7 @@ const UserController = {
                     res.status(200).json({message:"Password and confirm password is not equal!"})
                 }
             else {
-                
                 const hashedPassword = await bcrypt.hash(password, 6);
-              
                 await UserServices.signup(phone, hashedPassword)
                 res.status(200).json(data)
             }
@@ -164,14 +163,17 @@ const UserController = {
             console.log("id " + id)
             
 
-            console.log("id " + req.body.newpassword+ req.body.confirmpass)
+            //console.log("id " + req.body.newpassword+ req.body.confirmpass)
 
             //const data= {  newpassword, confirmpass } 
             console.log(req.body)
             if(newpassword!=confirmpass) res.status(200).json({ message: "New password and confirm password is not equal!" })
             else {
-                console.log(req.body)   
-                await UserServices.changepass(id,newpassword)
+                //console.log(req.body)   
+                const hashedPassword = await bcrypt.hash(newpassword, 6);
+                
+                await UserServices.changepass(id,hashedPassword)
+                console.log(hashedPassword)
                 res.status(200).json({newpassword,confirmpass})    
             }   
         }

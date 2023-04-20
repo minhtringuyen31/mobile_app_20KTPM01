@@ -13,11 +13,9 @@ class AppViewModel:ViewModel() {
     private  lateinit var productViewModel: ProductViewModel
     private lateinit  var toppingViewModel:ToppingViewModel
     private  lateinit var cartItemViewModel:CartItemViewModel
+    private lateinit var ratingViewModel: RatingViewModel
 
      fun setUpViewModel(view: View,viewModelStoreOwner: ViewModelStoreOwner) {
-
-
-
          viewModelScope.launch {
              withContext(Dispatchers.Main) {
                  categoryViewModel = ViewModelProvider(viewModelStoreOwner)[CategoryViewModel::class.java]
@@ -30,6 +28,8 @@ class AppViewModel:ViewModel() {
                  toppingViewModel.getToppings()
                  cartItemViewModel = ViewModelProvider(viewModelStoreOwner)[CartItemViewModel::class.java]
                  cartItemViewModel.getItemsCart()
+
+
                  println("Current view-model: ${Thread.currentThread().name}")
              }
          }
@@ -74,8 +74,17 @@ class AppViewModel:ViewModel() {
                 println("Current view-model: ${Thread.currentThread().name}")
             }
         }
+    }
 
+    fun setUpRatingViewMode(viewModelStoreOwner: ViewModelStoreOwner, productId:Int){
 
+        viewModelScope.launch {
+            withContext(Dispatchers.Main){
+                ratingViewModel = ViewModelProvider(viewModelStoreOwner)[RatingViewModel::class.java]
+                ratingViewModel.getRating(productId)
+                println("Current view-model: ${Thread.currentThread().name}")
+            }
+        }
     }
     fun setUpToppingViewModel(viewModelStoreOwner: ViewModelStoreOwner){
         viewModelScope.launch {
@@ -116,7 +125,9 @@ class AppViewModel:ViewModel() {
         cartItemViewModel.deleteCartItem(id)
     }
 
-
+    fun getRatingViewModel(): RatingViewModel{
+        return this.ratingViewModel
+    }
 
 }
 

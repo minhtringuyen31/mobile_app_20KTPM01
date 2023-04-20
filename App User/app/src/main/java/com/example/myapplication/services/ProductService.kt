@@ -8,6 +8,9 @@ interface ProductService {
     @GET("products/{id}")
     suspend fun getProduct(@Path("id") productId: Int): Product
 
+    @GET("products/{categoryId}")
+    suspend fun getProductByCategory(@Path("categoryId") categoryId: Int) : ArrayList<Product>
+
     @GET("products/")
     suspend fun getAllProduct(): ArrayList<Product>
 

@@ -53,6 +53,17 @@ class ProductViewModel: ViewModel(){
             }
         }
     }
+    fun getProductByCategory(categoryId : Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = Utils.getRetrofit().create(ProductService::class.java)
+                    .getProductByCategory(categoryId)
+                _products.postValue(response)
+            } catch (e: Exception){
+                println("View: $e")
+            }
+        }
+    }
 //    fun deleteProduct(id:Int) {
 //        viewModelScope.launch {
 //            try {

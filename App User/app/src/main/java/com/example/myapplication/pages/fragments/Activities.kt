@@ -5,7 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.example.myapplication.R
+import com.google.android.material.tabs.TabLayout
+import androidx.viewpager2.widget.ViewPager2
+import com.example.myapplication.pages.apdaters.ViewPagerAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -17,10 +22,13 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Activities.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Activities : Fragment() {
+class Activities : Fragment(){
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private var tabLayout : TabLayout?=null
+    private var viewPager : ViewPager2? = null
+    private var viewPagerAdapter: ViewPagerAdapter? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,7 +44,39 @@ class Activities : Fragment() {
     ): View? {
         val view=inflater.inflate(R.layout.fragment_activities, container, false)
         // Inflate the layout for this fragment
+
+        initUI(view)
         return view;
+    }
+
+    fun initUI(view: View){
+        tabLayout = view.findViewById(R.id.tabLayout)
+        viewPager = view.findViewById(R.id.viewPager)
+
+        viewPagerAdapter = ViewPagerAdapter(this)
+        viewPager?.adapter = viewPagerAdapter
+        val tabLayoutMediator = TabLayoutMediator(tabLayout!!, viewPager!!,
+            TabLayoutMediator.TabConfigurationStrategy{ tab, position ->
+                when (position){
+                    0 ->tab.text = "Đang diễn ra"
+                    1 ->tab.text = "Lịch sử đặt hàng"
+                }
+            })
+        tabLayoutMediator.attach()
+
+//        tabLayout?.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener{
+//            override fun onTabSelected(tab: TabLayout.Tab?) {
+//                Toast.makeText(this@Activities, "Tab ${tab?.text} selected", Toast.LENGTH_SHORT).show()
+//            }
+//
+//            override fun onTabReselected(tab: TabLayout.Tab?) {
+//                Toast.makeText(this@Activities, "Tab ${tab?.text} reselected", Toast.LENGTH_SHORT).show()
+//            }
+//
+//            override fun onTabUnselected(tab: TabLayout.Tab?) {
+//                Toast.makeText(this@Activities, "Tab ${tab?.text} unselected", Toast.LENGTH_SHORT).show()
+//            }
+//        })
     }
 
     companion object {

@@ -54,7 +54,6 @@ class UserDetail : AppCompatActivity() {
         }
         findViewById<Button>(R.id.detailUser_disableBtn).setOnClickListener {
             val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-            val isDisable = findViewById<Button>(R.id.detailUser_disableBtn)
 
             builder.setMessage("Bạn có muốn thay đổi trạng thái tài khoản này không?")
 
@@ -69,28 +68,15 @@ class UserDetail : AppCompatActivity() {
             builder.setNegativeButton(
                 "Có"
             ) { dialog, id ->
-                var setDisable = 0
 
                 if (user.getIsDisable() == 0) {
-                    setDisable = 1
-                } else {
-                    setDisable = 0
-                }
-                val disableUser = User(
-                    user.getId(),
-                    user.getName(),
-                    user.getGender(),
-                    user.getEmail(),
-                    user.getPhone(),
-                    user.getPassword(),
-                    user.getDob(),
-                    user.getAddress(),
-                    user.getAvatar(),
-                    user.getRole(),
-                    setDisable
-                )
-                userViewModel.updateUser(userId, disableUser).observe(this) {
+                    userViewModel.disableUser(user.getId()!!).observe(this) {
 
+                    }
+                } else {
+                    userViewModel.enableUser(user.getId()!!).observe(this) {
+
+                    }
                 }
                 val intent = Intent(this, Users::class.java)
                 startActivity(intent)

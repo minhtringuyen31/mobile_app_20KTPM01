@@ -33,9 +33,9 @@ class ProductListAdapter(
         val inflater = LayoutInflater.from(context)
         var productView: View? = null
         if (isLinearLayoutManager) {
-            productView = inflater.inflate(R.layout.product_list_linear_layout_item, parent, false)
+            productView = inflater.inflate(R.layout.item_product_list_linear_layout, parent, false)
         } else {
-            productView = inflater.inflate(R.layout.product_list_grid_layout_item, parent, false)
+            productView = inflater.inflate(R.layout.item_product_list_grid_layout, parent, false)
         }
         return ViewHolder(productView)
     }

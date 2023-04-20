@@ -28,7 +28,7 @@
             android:layout_weight="1"
             android:layout_margin="20dp"
             android:backgroundTint="#2196F3"
-            android:text="Add User" />
+            android:text="Thêm tài khoản" />
 
         <Button
             android:id="@+id/backUserBtn"

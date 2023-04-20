@@ -25,16 +25,15 @@ class Users : AppCompatActivity() {
             val intent = Intent(this, Dashboard::class.java)
             startActivity(intent)
         }
-//        rvUser.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        val llm = LinearLayoutManager(this)
-        llm.orientation = LinearLayoutManager.VERTICAL
-        rvUser.layoutManager = llm
+        rvUser.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 
         val userViewModel = ViewModelProvider(this)[UserController::class.java]
         userViewModel.getAllUser().observe(this) {
             val users = it
 
             val adapter = UserAdapter(this, users)
+
+            println("Hi")
 
             rvUser.adapter = adapter
         }
