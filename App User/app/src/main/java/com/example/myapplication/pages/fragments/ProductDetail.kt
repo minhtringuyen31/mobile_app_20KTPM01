@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.andremion.counterfab.CounterFab
@@ -259,6 +260,12 @@ class ProductDetail : Fragment() {
             ).show()
             val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
             myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
+
+            (view.context as FragmentActivity).supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.flFragment, Homepage()).addToBackStack(null)
+                .commit()
+
         }
 
 

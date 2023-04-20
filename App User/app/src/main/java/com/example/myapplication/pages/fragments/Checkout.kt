@@ -5,7 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ListView
+import android.widget.TextView
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.LifecycleOwner
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
+import com.example.myapplication.pages.apdaters.CheckoutApdater
+import com.example.myapplication.viewmodels.AppViewModel
+import com.example.myapplication.viewmodels.ProductCartViewModel
+import com.google.android.material.bottomsheet.BottomSheetDialog
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +30,10 @@ class Checkout : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private lateinit var btnShowBottomSheet: TextView
+    private val appModel: AppViewModel by activityViewModels()
+    private lateinit var checkoutAdapter:CheckoutApdater
+    private lateinit var itemCheckoutListView: ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +47,48 @@ class Checkout : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        val view=inflater.inflate(R.layout.fragment_checkout, container, false)
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_checkout, container, false)
+
+        initUI(view);
+        setupObserve()
+        return view;
+    }
+    fun initUI(view:View){
+
+        itemCheckoutListView = view.findViewById(R.id.listItemCheckout)
+        checkoutAdapter = CheckoutApdater(arrayListOf(),this,view.context)
+        itemCheckoutListView.adapter=checkoutAdapter
+        btnShowBottomSheet = view.findViewById(R.id.method_payment);
+
+        // adding on click listener for our button.
+        btnShowBottomSheet.setOnClickListener {
+
+            // on below line we are creating a new bottom sheet dialog.
+            val dialog = BottomSheetDialog(view.context)
+
+            // on below line we are inflating a layout file which we have created.
+            val viewitem = layoutInflater.inflate(R.layout.payment_method_layout, null)
+
+            // on below line we are setting
+            // content view to our view.
+            dialog.setContentView(viewitem)
+
+            // on below line we are calling
+            // a show method to display a dialog.
+            dialog.show()
+        }
+    }
+    fun setUpViewModel(){
+
+    }
+    fun setupObserve(){
+        appModel.getCartItemViewModel().cartItems.observe(viewLifecycleOwner){
+            val items=it
+            checkoutAdapter.apply {
+                addItems(items)
+            }
+        }
     }
 
     companion object {

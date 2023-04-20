@@ -1,7 +1,7 @@
 import DB from "../configs/db.js"
 const UserRepository = {
     async create(name, gender, email, phone, password, date_of_birth = "", address = "", avatar = "", role = "0", is_disable = "false") {
-        const query = `INSERT INTO user (name, gender,email,password, date_of_birth, address, avatar, role,is_disable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+        const query = `INSERT INTO user (name, gender,email,phone,password, date_of_birth, address, avatar, role,is_disable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         const values = [name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable];
         try {
             DB.pool().query(query, values);

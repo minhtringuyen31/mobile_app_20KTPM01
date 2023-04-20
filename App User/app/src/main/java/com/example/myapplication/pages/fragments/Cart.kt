@@ -78,6 +78,13 @@ class Cart : Fragment(), OnItemClickListener {
                 cartAdapter.addCartItem(cartItem)
                 cartAdapter.notifyDataSetChanged()
         }
+        btnPlaceOrder.setOnClickListener {
+            (view.context as FragmentActivity).supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.flFragment, Checkout()).addToBackStack(null)
+                .commit()
+
+        }
     }
 
     companion object {
@@ -105,8 +112,9 @@ class Cart : Fragment(), OnItemClickListener {
     @SuppressLint("NotifyDataSetChanged")
     override fun onCartItemClick(position: Int, cartItem: CartItem) {
         appModel.removeItemCart(cartItem.getId())
-        appModel.setUpCartItemViewModel(this)
         cartAdapter.notifyItemRemoved(position);
+        appModel.setUpCartItemViewModel(this)
+        cartAdapter.notifyDataSetChanged()
         Toast.makeText(
             activity, "Delete successfully",
             Toast.LENGTH_LONG).show()

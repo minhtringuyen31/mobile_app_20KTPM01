@@ -25,16 +25,15 @@
         android:id="@+id/cartItemRecylView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1">
-
     </View>
     <TextView
         android:id="@+id/btnPlaceOrder"
-        android:layout_margin="15dp"
+
+        android:layout_marginBottom="70dp"
         android:layout_width="match_parent"
         android:text="PLACE ORDER"
         android:textStyle="bold"
