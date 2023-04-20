@@ -1,7 +1,7 @@
 package com.example.appadmin.modals
 
 class Product(
-    private var id: String? = null,
+    private var id: Int? = null,
     private var name: String? = null,
     private var description: String? = null,
     private var size: String? = null,
@@ -17,7 +17,7 @@ class Product(
     private var sales: Int? = 0,
     private var is_disable: Int? = 0
 ) {
-    fun getId(): String? {
+    fun getId(): Int? {
         return this.id
     }
 
@@ -137,7 +137,7 @@ class Product(
         this.name = name
     }
 
-    fun setId(id: String) {
+    fun setId(id: Int) {
         this.id = id
     }
 
