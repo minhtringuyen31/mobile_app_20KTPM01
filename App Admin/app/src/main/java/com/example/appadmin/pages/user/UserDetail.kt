@@ -72,25 +72,13 @@ class UserDetail : AppCompatActivity() {
                 var setDisable = 0
 
                 if (user.getIsDisable() == 0) {
-                    setDisable = 1
-                } else {
-                    setDisable = 0
-                }
-                val disableUser = User(
-                    user.getId(),
-                    user.getName(),
-                    user.getGender(),
-                    user.getEmail(),
-                    user.getPhone(),
-                    user.getPassword(),
-                    user.getDob(),
-                    user.getAddress(),
-                    user.getAvatar(),
-                    user.getRole(),
-                    setDisable
-                )
-                userViewModel.updateUser(userId, disableUser).observe(this) {
+                    userViewModel.disableUser(user.getId()!!).observe(this) {
 
+                    }
+                } else {
+                    userViewModel.enableUser(user.getId()!!).observe(this) {
+
+                    }
                 }
                 val intent = Intent(this, Users::class.java)
                 startActivity(intent)
