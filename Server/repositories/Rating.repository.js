@@ -13,7 +13,7 @@ const RatingRepository = {
     },
     async update(id, user_id, product_id, score, comment, create_at) {
         const query = `UPDATE rating SET user_id=?, product_id=?, score=?, comment=?, create_at=? WHERE id=?`;
-        const values = [user_id, product_id, score, comment, create_at,id];
+        const values = [user_id, product_id, score, comment, create_at, id];
 
         try {
             const [result] = await DB.pool().query(query, values);
@@ -51,13 +51,13 @@ const RatingRepository = {
         }
     },
 
-    async findOneByID(id) {
-        const query = `SELECT * FROM rating WHERE id = ?`;
+    async findRatingByProductID(id) {
+        const query = `SELECT * FROM rating WHERE product_id = ?`;
         const value = [id];
 
         try {
             const [rows] = await DB.pool().query(query, value);
-            return rows[0];
+            return rows;
         } catch (error) {
             console.error(error);
             return false;

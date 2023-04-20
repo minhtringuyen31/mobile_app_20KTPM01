@@ -25,7 +25,9 @@ class Category(
     fun getName():String{
         return this.name
     }
-
+    fun getId():Int{
+        return this.id
+    }
 
 
 
