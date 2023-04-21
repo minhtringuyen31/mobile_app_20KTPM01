@@ -8,5 +8,6 @@ router.put('/update/:id', OrderAdminController.update)
 router.delete('/delete/:id', OrderAdminController.delete)
 router.get('/:id', OrderAdminController.findOne)
 router.get('/', OrderAdminController.findAll)
+router.put('/status/:id', OrderAdminController.status)
 
 export default router;

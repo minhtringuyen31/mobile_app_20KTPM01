@@ -57,7 +57,7 @@ class EditUser : AppCompatActivity() {
 
         findViewById<Button>(R.id.editUser_saveBtn).setOnClickListener {
 
-            if (password == confirmPassword) {
+            if (password.text.toString() == confirmPassword.text.toString()) {
                 val userViewModel = ViewModelProvider(this)[UserController::class.java]
                 val newUser = User(
                     1,
@@ -73,9 +73,10 @@ class EditUser : AppCompatActivity() {
                     0
                 )
                 userViewModel.updateUser(userId, newUser).observe(this) {
-                    val intent = Intent(this, Users::class.java)
-                    startActivity(intent)
+
                 }
+                val intent = Intent(this, Users::class.java)
+                startActivity(intent)
             } else {
                 val builder: AlertDialog.Builder = AlertDialog.Builder(this)
                 builder.setMessage("Mật khẩu không đồng nhất!!!")
