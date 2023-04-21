@@ -48,7 +48,6 @@ class Login : AppCompatActivity() {
                             intent.putExtra("status","1")
                             startActivity(intent)
 
-
                         }
                         Status.ERROR -> {
 

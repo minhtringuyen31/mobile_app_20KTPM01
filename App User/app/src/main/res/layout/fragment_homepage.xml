@@ -149,13 +149,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginBottom="75dp"
         android:layout_marginEnd="25dp"
+        android:layout_marginBottom="75dp"
         android:src="@drawable/baseline_add_shopping_cart_24"
         android:tint="@color/white"
         app:backgroundTint="@color/red"
-        app:badgeBackgroundColor="@color/redHighland"
         app:backgroundTintMode="add"
+        app:badgeBackgroundColor="@color/redHighland"
         app:badgePosition="RightTop"
 
         app:badgeTextColor="@color/white" />
