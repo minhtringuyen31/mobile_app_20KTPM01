@@ -29,7 +29,6 @@ class UserController : ViewModel() {
             try {
                 val response = Utils.getRetrofit().create(UserService::class.java).getAllUser()
                 _user.value = response
-                println(response)
             } catch (e: Exception) {
                 // handle error
             }

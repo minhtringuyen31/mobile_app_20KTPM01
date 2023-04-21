@@ -16,6 +16,36 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".pages.topping.ToppingDetail"
+            android:exported="false" />
+        <activity
+            android:name=".pages.topping.EditTopping"
+            android:exported="false" />
+        <activity
+            android:name=".pages.topping.AddTopping"
+            android:exported="false" />
+        <activity
+            android:name=".pages.topping.Toppings"
+            android:exported="false" />
+        <activity
+            android:name=".pages.promotion.PromotionDetail"
+            android:exported="false" />
+        <activity
+            android:name=".pages.promotion.AddPromotion"
+            android:exported="false" />
+        <activity
+            android:name=".pages.category.CategoryDetail"
+            android:exported="false" />
+        <activity
+            android:name=".pages.category.AddCategory"
+            android:exported="false" />
+        <activity
+            android:name=".pages.product.ProductDetail"
+            android:exported="false" />
+        <activity
+            android:name=".pages.product.AddProduct"
+            android:exported="false" />
+        <activity
             android:name=".pages.user.UserDetail"
             android:exported="false" />
         <activity

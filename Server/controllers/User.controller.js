@@ -1,4 +1,6 @@
 import UserServices from "../services/User.service.js"
+import  bcrypt from 'bcrypt';
+
 const UserController = {
     async create(req, res) {
         const { name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable } = req.body
@@ -47,17 +49,17 @@ const UserController = {
         }
 
     },
-    async findPhone(req, res) {
-        const phone = req.params.phone;
-        const user = await UserServices.findPhone(phone)
-        if (user) {
-            res.status(200).send(user);
-        }
-        else {
-            res.status(404).send({ status: 0, message: "Failed" });
-        }
+    // async findPhone(req, res) {
+    //     const phone = req.params.phone;
+    //     const user = await UserServices.findPhone(phone)
+    //     if (user) {
+    //         res.status(200).send(user);
+    //     }
+    //     else {
+    //         res.status(404).send({ status: 0, message: "Failed" });
+    //     }
 
-    },
+    // },
     async findAll(req, res) {
         const users = await UserServices.findAll()
         if (users) {
@@ -111,6 +113,7 @@ const UserController = {
 
     //POST /signup
     async signupPost(req, res) {
+    //console.log(req.body)
         const { phone, password, confirmpass } = req.body
 
         if (!phone || typeof phone !== 'string') res.status(400).json({message: "Empty phone!"})
@@ -134,8 +137,9 @@ const UserController = {
                     res.status(200).json({message:"Password and confirm password is not equal!"})
                 }
             else {
-                await UserServices.signup(phone,password)
-                res.status(200).json({data, message: "Signup success!"})
+                const hashedPassword = await bcrypt.hash(password, 6);
+                await UserServices.signup(phone, hashedPassword)
+                res.status(200).json(data)
             }
         }
         catch(error) {
@@ -152,16 +156,26 @@ const UserController = {
 
     //POST / changepassword
     async changepassPost(req, res) {
+       
         try{
+            const  {  newpassword, confirmpass } = req.body
             const id = req.params.id;
-            const {  newpassword, confirmpass } = req.body
+            console.log("id " + id)
+            
+
+            //console.log("id " + req.body.newpassword+ req.body.confirmpass)
+
+            //const data= {  newpassword, confirmpass } 
             console.log(req.body)
             if(newpassword!=confirmpass) res.status(200).json({ message: "New password and confirm password is not equal!" })
             else {
-                console.log(req.body)   
-                await UserServices.changepass(id,newpassword)
-                res.status(200).json({newpassword, message: "Change password success!"})    
-            }
+                //console.log(req.body)   
+                const hashedPassword = await bcrypt.hash(newpassword, 6);
+                
+                await UserServices.changepass(id,hashedPassword)
+                console.log(hashedPassword)
+                res.status(200).json({newpassword,confirmpass})    
+            }   
         }
         catch (error) {
             res.status(400).json({ message: "Wrong detail!" })
@@ -182,7 +196,7 @@ const UserController = {
             else {
                 console.log(req.body)   
                 await UserServices.editprofile(id,name,email,gender,date_of_birth,address)
-                res.status(200).json({ message: "Edit profile success!"})    
+                res.status(200).json({  name,email,gender,date_of_birth,address })// { message: "Edit profile success!"})    
             }
         }
         catch (error) {
@@ -190,6 +204,28 @@ const UserController = {
         }
     },
 
+    //GET /sendOTP
+    async sendOTPGet(req,res){
+        res.render("sendOTP")
+    }
+
+    //POST / sendOTP
+    // async sendOTPPost(req,res){
+    //     try{
+    //         const check = await UserServices.findPhone( req.body.phone)
+    //         // console.log(checkphone)
+    //         if(!check) 
+    //             res.status(200).json({ message: "Phone do not exist!" })
+            
+    //         else {
+
+    //         }
+
+    //     }
+    //     catch(error){
+    //         res.status(400).json({ message: "Wrong detail!" })
+    //     }
+    // }
 
 
 }
