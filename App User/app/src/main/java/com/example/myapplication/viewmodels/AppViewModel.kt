@@ -14,6 +14,7 @@ class AppViewModel:ViewModel() {
     private lateinit  var toppingViewModel:ToppingViewModel
     private  lateinit var cartItemViewModel:CartItemViewModel
     private lateinit var ratingViewModel: RatingViewModel
+    private lateinit var orderViewModel:OrderViewModel
 
      fun setUpViewModel(view: View,viewModelStoreOwner: ViewModelStoreOwner) {
          viewModelScope.launch {
@@ -75,6 +76,20 @@ class AppViewModel:ViewModel() {
             }
         }
     }
+
+    fun setUpOrderViewModel(viewModelStoreOwner: ViewModelStoreOwner){
+        viewModelScope.launch {
+            withContext(Dispatchers.Main) {
+                orderViewModel = ViewModelProvider(viewModelStoreOwner)[OrderViewModel::class.java]
+                orderViewModel.getAllOrder()
+
+            }
+        }
+    }
+    fun getOrderViewModel():OrderViewModel{
+        return orderViewModel;
+    }
+
 
     fun setUpRatingViewMode(viewModelStoreOwner: ViewModelStoreOwner, productId:Int){
 

@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import ToppingController from '../controllers/Topping.controller.js'
-var jsonParser = bodyParser.json();
 const ToppingRoute = express.Router();
 
 // Ở đây mọi người có thể sử dụng,get,post,delete,update --> Tuỳ vào mục đích để sử dụng

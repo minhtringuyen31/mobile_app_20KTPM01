@@ -1,16 +1,16 @@
 package com.example.myapplication.pages.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.viewpager.widget.ViewPager
 import com.example.myapplication.R
-import com.google.android.material.tabs.TabLayout
-import androidx.viewpager2.widget.ViewPager2
 import com.example.myapplication.pages.apdaters.ViewPagerAdapter
-import com.google.android.material.tabs.TabLayoutMediator
+import com.example.myapplication.pages.fragments.OnGoingOrder
+import com.google.android.material.tabs.TabLayout
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -27,7 +27,7 @@ class Activities : Fragment(){
     private var param1: String? = null
     private var param2: String? = null
     private var tabLayout : TabLayout?=null
-    private var viewPager : ViewPager2? = null
+    private var viewPager : ViewPager? = null
     private var viewPagerAdapter: ViewPagerAdapter? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,35 +48,42 @@ class Activities : Fragment(){
         initUI(view)
         return view;
     }
+    private fun setupViewPager(viewPager: ViewPager) {
+        val adapter = ViewPagerAdapter(childFragmentManager)
+        adapter.addFragment(OnGoingOrder(), "On Going ")
+        adapter.addFragment(HistoryOrder(), "History Order")
+
+        viewPager.adapter = adapter
+    }
 
     fun initUI(view: View){
         tabLayout = view.findViewById(R.id.tabLayout)
         viewPager = view.findViewById(R.id.viewPager)
+        viewPager?.offscreenPageLimit = 2;
+        viewPager?.let { setupViewPager(it) }
 
-        viewPagerAdapter = ViewPagerAdapter(this)
-        viewPager?.adapter = viewPagerAdapter
-        val tabLayoutMediator = TabLayoutMediator(tabLayout!!, viewPager!!,
-            TabLayoutMediator.TabConfigurationStrategy{ tab, position ->
-                when (position){
-                    0 ->tab.text = "Đang diễn ra"
-                    1 ->tab.text = "Lịch sử đặt hàng"
-                }
-            })
-        tabLayoutMediator.attach()
+        tabLayout?.setupWithViewPager(viewPager)
 
-//        tabLayout?.addOnTabSelectedListener(object:TabLayout.OnTabSelectedListener{
-//            override fun onTabSelected(tab: TabLayout.Tab?) {
-//                Toast.makeText(this@Activities, "Tab ${tab?.text} selected", Toast.LENGTH_SHORT).show()
-//            }
+//        (view.context as FragmentActivity).supportFragmentManager
+//            .beginTransaction()
+//            .replace(R.id.flFragment, OnGoingOrder()).addToBackStack(null)
+//            .commit()
+
 //
-//            override fun onTabReselected(tab: TabLayout.Tab?) {
-//                Toast.makeText(this@Activities, "Tab ${tab?.text} reselected", Toast.LENGTH_SHORT).show()
-//            }
-//
-//            override fun onTabUnselected(tab: TabLayout.Tab?) {
-//                Toast.makeText(this@Activities, "Tab ${tab?.text} unselected", Toast.LENGTH_SHORT).show()
-//            }
-//        })
+//        btnOn.setOnClickListener {
+//            (view.context as FragmentActivity).supportFragmentManager
+//                .beginTransaction()
+//                .replace(R.id.flFragment, OnGoingOrder()).addToBackStack(null)
+//                .commit()
+//        }
+//        btnHis.setOnClickListener {
+//            (view.context as FragmentActivity).supportFragmentManager
+//                .beginTransaction()
+//                .replace(R.id.flFragment, HistoryOrder()).addToBackStack(null)
+//                .commit()
+//        }
+
+
     }
 
     companion object {

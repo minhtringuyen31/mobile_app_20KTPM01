@@ -1,4 +1,4 @@
-package com.example.myapplication.pages
+package com.example.myapplication.pages.activities.order
 
 import android.os.Bundle
 import android.widget.TextView

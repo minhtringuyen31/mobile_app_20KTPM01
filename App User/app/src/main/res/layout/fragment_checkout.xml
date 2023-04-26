@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/gray"
     android:fillViewport="true"
-    tools:context=".pages.Checkout">
+    tools:context=".pages.activities.order.Checkout">
 
 
     <LinearLayout
@@ -481,6 +481,7 @@
 
             </LinearLayout>
             <TextView
+                android:id="@+id/btnPlaceOrderLast"
                 android:layout_margin="15dp"
                 android:layout_width="match_parent"
                 android:text="PLACE ORDER"

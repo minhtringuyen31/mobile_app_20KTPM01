@@ -1,12 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pages.fragments.OnGoingOrder">
-
+    android:layout_marginTop="10dp"
+    android:layout_marginHorizontal="10dp"
+    tools:context=".pages.fragments.OnGoingOrder"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:text="On going"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content">
+    </TextView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/onGoingOderListRV"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</FrameLayout>
+        android:layout_height="wrap_content" />
+</LinearLayout>

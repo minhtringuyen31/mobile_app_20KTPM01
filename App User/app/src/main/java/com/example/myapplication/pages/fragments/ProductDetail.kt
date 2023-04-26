@@ -35,7 +35,7 @@ class ProductDetail : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private var item= arrayOf(1.0, 1.0, 1.0)
+    private var item= arrayOf(1.0, 0.0, 1.0)
     private lateinit var productDetailImage : ImageView
     private lateinit var productDetailName : TextView
     private lateinit var productDetailPrice  : TextView

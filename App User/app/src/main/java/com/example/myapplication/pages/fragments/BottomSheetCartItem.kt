@@ -33,7 +33,7 @@ private const val ARG_PARAM2 = "param2"
     private var param1: String? = null
     private var param2: String? = null
 
-    private var item= arrayOf(1.0, 1.0, 1.0)
+    private var item= arrayOf(1.0, 0.0, 1.0)
     private lateinit var toppingApdapter:ToppingApdapter
     private lateinit var  toppingListView:ListView
     private val appModel: AppViewModel by activityViewModels()
@@ -88,7 +88,7 @@ private const val ARG_PARAM2 = "param2"
         text_quantity.text = itemCount.count.toString()
     }
     private fun updatePriceTotal() {
-        btnAddtoCart.text = "Add to cart - " + itemCount.total + " + đ"
+        btnAddtoCart.text = "Add to cart - " + itemCount.total + "đ"
     }
     private fun initUI(view:View){
         // Initializing the elements from the main layout file

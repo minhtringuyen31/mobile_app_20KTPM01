@@ -1,12 +1,12 @@
-package com.example.myapplication.pages
+package com.example.myapplication.pages.activities.store
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.myapplication.R
 
-class Order_History : AppCompatActivity() {
+class IntroductionStore : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_order_history)
+        setContentView(R.layout.activity_introduction_store)
     }
 }

@@ -18,7 +18,6 @@ const Authen = ()=>{
                 const [rows] = await DB.pool().query('SELECT * FROM user WHERE id = ?', [
                     jwtPayload.sub,
                 ]);
-                console.log(rows)
                 if (!rows.length) {
                     return done(null, false);
                 }

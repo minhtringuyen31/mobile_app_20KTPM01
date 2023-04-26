@@ -9,10 +9,13 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.pages.apdaters.CheckoutApdater
 import com.example.myapplication.viewmodels.AppViewModel
+import com.example.myapplication.viewmodels.CategoryViewModel
+import com.example.myapplication.viewmodels.CheckoutViewModel
 import com.example.myapplication.viewmodels.ProductCartViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
@@ -34,6 +37,9 @@ class Checkout : Fragment() {
     private val appModel: AppViewModel by activityViewModels()
     private lateinit var checkoutAdapter:CheckoutApdater
     private lateinit var itemCheckoutListView: ListView
+    private lateinit var btnCheckout:TextView;
+    private lateinit var  checkoutViewModel:CheckoutViewModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,6 +56,7 @@ class Checkout : Fragment() {
         val view=inflater.inflate(R.layout.fragment_checkout, container, false)
         // Inflate the layout for this fragment
 
+        setUpViewModel();
         initUI(view);
         setupObserve()
         return view;
@@ -60,6 +67,7 @@ class Checkout : Fragment() {
         checkoutAdapter = CheckoutApdater(arrayListOf(),this,view.context)
         itemCheckoutListView.adapter=checkoutAdapter
         btnShowBottomSheet = view.findViewById(R.id.method_payment);
+        btnCheckout = view.findViewById(R.id.btnPlaceOrderLast)
 
         // adding on click listener for our button.
         btnShowBottomSheet.setOnClickListener {
@@ -79,15 +87,20 @@ class Checkout : Fragment() {
             dialog.show()
         }
     }
-    fun setUpViewModel(){
+    private fun setUpViewModel(){
+        checkoutViewModel =ViewModelProvider(this)[CheckoutViewModel::class.java]
 
     }
-    fun setupObserve(){
+    private fun setupObserve(){
         appModel.getCartItemViewModel().cartItems.observe(viewLifecycleOwner){
             val items=it
             checkoutAdapter.apply {
                 addItems(items)
             }
+        }
+        btnCheckout.setOnClickListener {
+
+//            checkoutViewModel.
         }
     }
 

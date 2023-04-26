@@ -21,16 +21,21 @@ import UserAdminRouter from './routes/admin/User.admin.route.js';
 import AuthenRoute from './routes/Authen.route.js';
 import ToppingRoute from './routes/Topping.route.js';
 import Authen from './middlewares/Authentication.js';
+import SocketListener from './utils/socket.js';
+
+import http from "http";
+import { Server } from "socket.io";
 
 dotenv.config();
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
 const port = 3000;
 DB.pool(); // mọi người nhớ đổi port database nhé. Port Database của Mac với Win
 DB.connection();
 app.use(express.json());
 
-
-
+SocketListener.start(io);
 app.use('/api/users', UserRoute);
 app.use('/api/products', ProductRoute);
 app.use('/api/orders', OrderRoute);
@@ -49,9 +54,16 @@ app.use('/api/admin/promotion', PromotionAdminRouter);
 app.use('/api/admin/rating', RatingAdminRouter);
 app.use('/api/admin/user', UserAdminRouter);
 app.use(Authen)
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
-});
+app.get("/", (req, res) => {
+  res.send("Hello World");
+})
+
+
+server.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+})
+
+
 // Ví dụ 1 luồng chạy User để mọi người dễ hiểu
 // --> Khi npm start chương trình sẽ chạy tuần tự từ trên xuống dưới nên sẽ vào db() rồi app.use()
 // app.use để định nghĩa đường dẫn

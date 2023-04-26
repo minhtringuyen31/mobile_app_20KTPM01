@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.myapplication.R
-import com.example.myapplication.pages.Profile
+import com.example.myapplication.pages.activities.user.Profile
 import com.google.gson.GsonBuilder
 import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Retrofit
@@ -18,7 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class Utils : AppCompatActivity() {
     companion object {
-        private const val  URL="http://172.20.10.2:3000/api/"
+        private const val  URL="http://10.0.2.2:3000/api/"//"http://192.168.1.139:3000/api/"
         fun getRetrofit(): Retrofit {
             val gson = GsonBuilder()
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")

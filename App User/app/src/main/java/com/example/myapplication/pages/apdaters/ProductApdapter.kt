@@ -27,6 +27,7 @@ class ProductApdapter(private val context: Homepage, private val products: Array
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView = view.findViewById(R.id.image_product) as ImageView
         val name = view.findViewById(R.id.name_product) as TextView
+        val price = view.findViewById(R.id.price_product) as TextView
         val icon_add_to_cart =view.findViewById<ImageView>(R.id.icon_add_to_cart)
     }
 
@@ -40,7 +41,7 @@ class ProductApdapter(private val context: Homepage, private val products: Array
             .load(products[position].getImage()).fitCenter()
             .into(holder.imageView)
         holder.name.text = products[position].getName()
-
+        holder.price.text = products[position].getPrice_L().toString() + " đ"
         holder.itemView.setOnClickListener {
             listerItemClick.onItemClickHompage(position,products[position])
 

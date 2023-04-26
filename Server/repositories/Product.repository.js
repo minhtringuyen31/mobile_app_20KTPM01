@@ -37,7 +37,7 @@ const ProductRepository = {
     release_date,
     sales
   ) {
-    const query = `INSERT INTO product (name, description, size, price_S, price_M, price_L, note, image, status, category_id, update_date, release_date, sales) VALUES (?, ?, ?, ?, ?,?,?, ?, ?, ?, ?,?)`;
+    const query = `INSERT INTO product (name, description, size, price_S, price_M, price_L, note, image, status, category_id, update_date, release_date, sales) VALUES (?, ?, ?, ?, ?,?,?, ?, ?, ?, ?,?,?)`;
     const values = [
       name,
       description,

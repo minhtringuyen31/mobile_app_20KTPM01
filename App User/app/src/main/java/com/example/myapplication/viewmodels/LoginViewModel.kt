@@ -1,5 +1,7 @@
 package com.example.myapplication.viewmodels
 
+import android.content.SharedPreferences
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,10 +12,14 @@ import com.example.myapplication.utils.Resource
 import com.example.myapplication.utils.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
+
 
 class LoginViewModel:ViewModel() {
     private var _loginResult: MutableLiveData<Resource<LoginRequest>> = MutableLiveData()
     val statusLogin: LiveData<Resource<LoginRequest>> = _loginResult
+
+
     fun loginUser(request: LoginRequest) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -30,6 +36,30 @@ class LoginViewModel:ViewModel() {
 
                     _loginResult.postValue( Resource.error(data=null, message = "No Found!"))
                 }
+
+            } catch (e: Exception) {
+                _loginResult.postValue( Resource.error(data = null, message ="Error Occurred!"))
+            }
+        }
+    }
+
+    fun signIn(idToken:String){
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                    val response =Utils.getRetrofit().create(AuthenService::class.java).signIn(idToken)
+                    Resource.loading(data = null)
+                    if(response.getStatusUser()==1){
+                        _loginResult.postValue( Resource.success(data=response))
+
+
+                    }
+                    else
+                    {
+
+                        _loginResult.postValue( Resource.error(data=null, message = "No Found!"))
+                    }
+
+
 
             } catch (e: Exception) {
                 _loginResult.postValue( Resource.error(data = null, message ="Error Occurred!"))

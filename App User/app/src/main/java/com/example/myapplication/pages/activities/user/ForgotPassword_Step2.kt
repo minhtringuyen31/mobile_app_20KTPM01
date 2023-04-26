@@ -1,12 +1,12 @@
-package com.example.myapplication.pages
+package com.example.myapplication.pages.activities.user
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.myapplication.R
 
-class IntroductionStore : AppCompatActivity() {
+class ForgotPassword_Step2 : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_introduction_store)
+        setContentView(R.layout.activity_forgot_password_step2)
     }
 }

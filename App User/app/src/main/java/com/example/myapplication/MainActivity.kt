@@ -5,14 +5,14 @@ import android.view.MenuInflater
 import android.view.View
 import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import com.example.myapplication.pages.fragments.*
+import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var toolbar:Toolbar
+    private lateinit var toolbar:AppBarLayout
     private lateinit var bottomNavigationView:BottomNavigationView
     private lateinit var currentFragment: FrameLayout
 
@@ -72,6 +72,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.icon_oder -> {
 
                     setCurrentFragment(Order(),"Order")
+
+                    // Build a GoogleSignInClient with the options specified by gso.
+
                 }
                 R.id.icon_activity -> {
 
