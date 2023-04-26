@@ -1,6 +1,16 @@
 import OrderServices from '../../services/Order.service.js';
 
 const OrderAdminController = {
+  status: async (req, res) => {
+    const id = req.params.id;
+    const status = req.body.status;
+    const changeStatus = await OrderServices.changeStatus(id, status);
+    if (changeStatus) {
+      res.status(200).send(changeStatus);
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
   create: async (req, res) => {
     const {
       user_id,

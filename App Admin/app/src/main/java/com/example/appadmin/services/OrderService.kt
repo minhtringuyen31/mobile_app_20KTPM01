@@ -6,17 +6,20 @@ import com.example.appadmin.modals.Order
 
 interface OrderService {
     @GET("order/{id}")
-    fun getOrder(@Path("id") orderId: Int): Call<Order>
+    suspend fun getOrder(@Path("id") orderId: Int): Order
 
     @GET("order/")
-    fun getAllOrder(): Call<List<Order>>
+    suspend fun getAllOrder(): List<Order>
 
     @POST("order/create")
-    fun createOrder(@Body order: Order): Call<Order>
+    suspend fun createOrder(@Body order: Order): Order
 
     @PUT("order/update/{id}")
-    fun updateOrder(@Path("id") orderId: Int, @Body order: Order): Call<Order>
+    suspend fun updateOrder(@Path("id") orderId: Int, @Body order: Order): Order
 
     @DELETE("order/delete/{id}")
-    fun deleteOrder(@Path("id") orderId: Int): Call<Boolean>
+    suspend fun deleteOrder(@Path("id") orderId: Int): Boolean
+
+    @PUT("order/status/{id}")
+    suspend fun updateStatus(@Path("id") orderId: Int, @Body status: String): Order
 }
