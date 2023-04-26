@@ -15,7 +15,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var toolbar:AppBarLayout
     private lateinit var bottomNavigationView:BottomNavigationView
     private lateinit var currentFragment: FrameLayout
-
+    //config activities
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()

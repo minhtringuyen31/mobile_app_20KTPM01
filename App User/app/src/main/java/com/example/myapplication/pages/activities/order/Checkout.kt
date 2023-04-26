@@ -12,6 +12,7 @@ class Checkout : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_checkout)
 
+
         btnShowBottomSheet = findViewById(R.id.method_payment);
 
         // adding on click listener for our button.
