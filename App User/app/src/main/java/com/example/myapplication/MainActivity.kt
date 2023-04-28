@@ -1,14 +1,21 @@
 package com.example.myapplication
+
+
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.myapplication.pages.fragments.*
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 
 class MainActivity : AppCompatActivity() {
@@ -58,7 +65,6 @@ class MainActivity : AppCompatActivity() {
                 bottomNavigationView.visibility = View.VISIBLE
             }
             false->{
-
                 bottomNavigationView.visibility = View.GONE
             }
         }
@@ -70,23 +76,16 @@ class MainActivity : AppCompatActivity() {
                     setCurrentFragment(Homepage(),"Homepage")
                 }
                 R.id.icon_oder -> {
-
                     setCurrentFragment(Order(),"Order")
-
                     // Build a GoogleSignInClient with the options specified by gso.
-
                 }
                 R.id.icon_activity -> {
-
                     setCurrentFragment(Activities(),"Activities")
-
                 }
                 R.id.icon_other -> {
                     showToolbarAndNavigationBar(false)
                     showNavigationBar(true)
                     setCurrentFragment(Others(),"Order")
-
-
                 }
             }
             true

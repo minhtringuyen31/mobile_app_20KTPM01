@@ -1,10 +1,12 @@
 package com.example.myapplication.pages.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
@@ -16,8 +18,8 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.*
-import com.example.myapplication.pages.apdaters.CategoryListAdapter
 import com.example.myapplication.pages.apdaters.RatingListAdapter
+import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
 
 
@@ -49,7 +51,7 @@ class ProductDetail : Fragment() {
     private lateinit var priceS_radio:RadioButton
     private lateinit var priceM_radio:RadioButton
     private lateinit var plusBtn:Button
-    private var category_id= 0
+    private var category_id: Int = 0
     private lateinit var minusBtn:Button
     private lateinit var priceL_radio:RadioButton
     private lateinit var itemCount: CountItemInBottomSheet
@@ -99,6 +101,7 @@ class ProductDetail : Fragment() {
         appModel.setUpToppingViewModel(this)
         itemCount= ViewModelProvider(this)[CountItemInBottomSheet::class.java]
     }
+    @SuppressLint("SetTextI18n")
     private fun initUI(view:View){
         (activity as MainActivity).showToolbarAndNavigationBar(false)
         plusBtn = view.findViewById(R.id.plus_btn)
@@ -118,7 +121,7 @@ class ProductDetail : Fragment() {
         priceS = view.findViewById(R.id.priceS)
         btnAddtoCart = view.findViewById(R.id.btnAddtoCart)
         toppingListView = view.findViewById<View>(R.id.checkboxlistView) as ListView
-        toppingApdapter = BottomSheetCartItem.ToppingApdapter(arrayListOf(), view.context)
+        toppingApdapter = BottomSheetCartItem.ToppingApdapter(arrayListOf(), view.context,productCartViewModel.getTopping())
         toppingListView.adapter = toppingApdapter
         toppingListView.isFocusable = false
         toppingListView.isFocusableInTouchMode = false
@@ -131,19 +134,32 @@ class ProductDetail : Fragment() {
         priceL_text=  productCartViewModel.getPriceL()
         priceM_text= productCartViewModel.getPriceM()
         category_id = productCartViewModel.getCategoryId()
-        priceL.text=priceL_text.toString()
-        priceM.text=priceM_text.toString()
-        priceS.text=priceS_text.toString()
+        priceL.text= Utils.formatCurrency(  productCartViewModel.getPriceL()) + " đ"
+        priceM.text = Utils.formatCurrency(  productCartViewModel.getPriceM())+ " đ"
+        priceS.text = Utils.formatCurrency(  productCartViewModel.getPriceS())+ " đ"
         product_id=productCartViewModel.getId()
         setProductDetail(name,priceL_text.toString() , description, image)
-
+        val quantity=  productCartViewModel.getQuantiTy()
+        itemCount.count=quantity
+        displayCount()
+        if(productCartViewModel.getNameFragment()=="cart"){
+           
+            item[0]=productCartViewModel.getPrice()
+        }
+        else {
+            item[0]=productCartViewModel.getPriceL()
+        }
+        itemCount.total=calculateTotalPrice()
+        updatePriceTotal()
         ratingRecyclerView = view.findViewById(R.id.listRatingRV)
 
-//        ratingRecyclerView.layoutManager = LinearLayoutManager(context)
 
+        println(productCartViewModel.getTopping());
     }
+    @SuppressLint("SetTextI18n")
     private fun updatePriceTotal() {
-        btnAddtoCart.text = "Add to cart - " + itemCount.total.toString() + " đ"
+
+        btnAddtoCart.text = "Add to cart - " +  Utils.formatCurrency( itemCount.total) + " đ"
     }
     private fun displayCount() {
         text_quantity.text = itemCount.count.toString()
@@ -153,44 +169,35 @@ class ProductDetail : Fragment() {
     }
 
     private fun setUpObserve(view:View){
-        backHomepage.setOnClickListener {
-            getFragmentManager()?.popBackStack()
-        }
-        iconFaverite.setOnClickListener {
-            println("Favorite icon")
-        }
+
         priceL_radio.setOnClickListener {
             priceL_radio.isChecked = true
             priceM_radio.isChecked = false
             priceS_radio.isChecked = false
-            item[0]=priceL.text.toString().toDouble()
+            item[0]=Utils.getDigitInString(priceL.text.toString())
             itemCount.total = calculateTotalPrice()
             itemCount.size="L"
             updatePriceTotal()
         }
-
         priceM_radio.setOnClickListener {
             priceL_radio.isChecked = false
             priceM_radio.isChecked = true
-            priceL_radio.isChecked = false
-            item[0]=priceM.text.toString().toDouble()
+            priceS_radio.isChecked = false
+            item[0]=Utils.getDigitInString(priceM.text.toString())
             itemCount.total = calculateTotalPrice()
             itemCount.size="M"
             updatePriceTotal()
-
         }
-
         priceS_radio.setOnClickListener {
             priceL_radio.isChecked = false
             priceM_radio.isChecked = false
             priceS_radio.isChecked = true
-            item[0]=priceS.text.toString().toDouble()
+            item[0]=Utils.getDigitInString(priceS.text.toString())
+            println(Utils.getDigitInString(priceS.text.toString()))
             itemCount.total = calculateTotalPrice()
             itemCount.size="S"
             updatePriceTotal()
-
         }
-
         plusBtn.setOnClickListener {
             itemCount.count = itemCount.count + 1
             displayCount()
@@ -201,51 +208,49 @@ class ProductDetail : Fragment() {
         }
         minusBtn.setOnClickListener {
             itemCount.count = itemCount.count - 1
+            if( itemCount.count<=1){
+                itemCount.count =1 
+            }
             displayCount()
             item[2]= itemCount.count.toDouble()
             itemCount.total = calculateTotalPrice()
             updatePriceTotal()
         }
         appModel.getToppingViewModel().toppings.observe(viewLifecycleOwner){
-
             val toppings=it
-
             if(toppings!=null){
                 toppingApdapter.apply {
                     toppingApdapter.addToppings(toppings.filter { it-> it.getCategoryID() == category_id } as ArrayList<Topping>)
-                    toppingApdapter.setSelectedTopping(topping);
-
                     notifyDataSetChanged()
-
                 }
             }
-        }
 
+        }
         toppingListView.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, position, id -> // Handle item click here
                 val checkboxTopping = adapterView.getItemAtPosition(position) as Topping
                 checkboxTopping.setChecked(if (checkboxTopping.getChecked()==1) 0 else 1)
+                println(checkboxTopping)
                 if(checkboxTopping.getChecked()==1) {
-                    adapterView.findViewById<CheckBox>(R.id.checkbox).isChecked=true
-                    item[1]+=checkboxTopping.getPrice()
+                    adapterView[position].findViewById<CheckBox>(R.id.checkbox).isChecked=true
+                    item[1]+=Utils.getDigitInString(checkboxTopping.getPrice().toInt().toString())
                     itemCount.nameTopping=  itemCount.nameTopping+"-"+checkboxTopping.getName()
-                    checkboxTopping.setChecked(1)
-                    itemCount.total=calculateTotalPrice()
-                    updatePriceTotal()
                 } else {
-                    adapterView.findViewById<CheckBox>(R.id.checkbox).isChecked=false
-                    item[1]=0.0
-                    itemCount.nameTopping="EMPTY"
-                    itemCount.total=calculateTotalPrice()
-                    updatePriceTotal()
-                    checkboxTopping.setChecked(0)
+                    adapterView[position].findViewById<CheckBox>(R.id.checkbox).isChecked=false
+                    var checkNegative= item[1]
+                    checkNegative-=Utils.getDigitInString(checkboxTopping.getPrice().toInt().toString())
+                    if(item[1]<=0) {
+                        item[1] =0.0
+                    }
+                    else {
+                        item[1]=checkNegative
+                    }
+                    itemCount.nameTopping=""
                 }
+                itemCount.total=calculateTotalPrice()
+                updatePriceTotal()
             }
-
-
         btnAddtoCart.setOnClickListener {
-            // response from server when execute authentication include {user_id,email,phone,cart_id}
-            // and then store above information into share preference in android
             val cartItem = CartItem(
                 3,
                 1,
@@ -277,13 +282,26 @@ class ProductDetail : Fragment() {
         appModel.getRatingViewModel().ratings.observe(viewLifecycleOwner){
             val ratings = it as ArrayList<Rating>
             if (ratings.isEmpty()) {
-                println("Empty response")
                 setUpRatingRecyclerAdapter(view, arrayListOf())
 
             } else {
-                println("Response"  + ratings)
                 setUpRatingRecyclerAdapter(view, ratings)
 
+            }
+        }
+        backHomepage.setOnClickListener {
+            if(productCartViewModel.getNameFragment()=="cart"){
+                (view.context as FragmentActivity).supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.flFragment, Cart()).addToBackStack(null)
+                    .commit()
+            }
+            else
+            {
+                (view.context as FragmentActivity).supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.flFragment, Homepage()).addToBackStack(null)
+                    .commit()
             }
         }
     }
@@ -292,9 +310,9 @@ class ProductDetail : Fragment() {
         ratingListAdapter = RatingListAdapter(data)
         ratingRecyclerView.adapter = ratingListAdapter
         ratingRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        ratingListAdapter.onItemClick = { rating ->
-           //Handle rating item on click listener
-
+        ratingListAdapter.onItemClick = {
+            //Handle rating item on click listener
+            println(it)
         }
     }
     private fun setProductDetail(productName: String, productPrice: String, productDescription: String, productImage: String){

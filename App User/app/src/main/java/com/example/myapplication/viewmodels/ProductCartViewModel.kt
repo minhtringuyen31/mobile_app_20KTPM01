@@ -14,8 +14,22 @@ class ProductCartViewModel:ViewModel() {
     private lateinit var note:String
     private  var price:Double=0.0
     private var category_id:Int=0
+    private var quantity=0;
+    private var nameFragment:String="homepage";
     fun getId(): Int {
         return id
+    }
+    fun setNameFragment(name:String){
+        this.nameFragment= name;
+    }
+    fun getNameFragment():String{
+        return this.nameFragment;
+    }
+    fun setQuantiTy(quantity:Int){
+        this.quantity=quantity;
+    }
+    fun getQuantiTy():Int{
+        return this.quantity;
     }
     fun setImage(image:String){
         this.image=image

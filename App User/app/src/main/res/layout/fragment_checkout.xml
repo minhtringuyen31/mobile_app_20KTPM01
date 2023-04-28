@@ -27,13 +27,20 @@
                 android:paddingStart="10dp"
                 android:paddingEnd="10dp"
                 android:layout_height="wrap_content">
-                <View
+                <ImageView
+                    android:id="@+id/back_checkout"
                     android:layout_width="0dp"
-                    android:layout_weight="3"
-                    android:layout_height="0dp" />
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_back"
+                    android:contentDescription="Back Cart">
+                </ImageView>
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:text="Cart"
+
+                    android:text="Checkout"
+                    android:layout_width="0dp"
+                    android:layout_weight="20"
+                    android:gravity="center"
                     android:textColor="@color/black"
                     android:textStyle="bold"
                     android:textSize="20dp"
@@ -45,8 +52,9 @@
                     android:layout_weight="3"
                     android:layout_height="fill_parent">
                     <TextView
+                        android:id="@+id/cancelCheckout"
                         android:layout_width="fill_parent"
-                        android:text="Delete cart"
+                        android:text="Cancel"
                         android:gravity="right"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentEnd="true"
@@ -70,65 +78,6 @@
             android:layout_height="wrap_content">
 
             <LinearLayout
-                android:padding="5dp"
-
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:text="Method"
-                    android:layout_weight="1"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_height="wrap_content">
-                </TextView>
-                <View
-                    android:layout_width="0dp"
-                    android:layout_weight="8"
-                    android:layout_height="0dp">
-
-                </View>
-
-
-                <LinearLayout
-
-                    android:layout_weight="2"
-                    android:layout_width="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_gravity="center"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_weight="1"
-                        android:background="@drawable/custom_border_btn"
-                        android:textColor="@color/white"
-                        android:textAlignment="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Tại bàn" />
-
-
-                    <TextView
-                        android:layout_weight="1"
-                        android:textAlignment="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mang về" />
-
-                </LinearLayout>
-
-
-            </LinearLayout>
-
-            <View
-                android:padding="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:background="@color/black"
-                />
-            <LinearLayout
                 android:layout_width="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
@@ -147,6 +96,7 @@
                     </ImageView>
 
                     <TextView
+                        android:id="@+id/timeShip"
                         android:layout_width="wrap_content"
                         android:textStyle="bold"
                         android:layout_marginStart="5dp"
@@ -166,27 +116,27 @@
                         android:layout_width="wrap_content"
                         android:src="@drawable/baseline_arrow_forward_ios_24"
                         android:layout_height="wrap_content">
-
                     </ImageView>
             </LinearLayout>
 
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/add_Address"
                 android:layout_width="wrap_content"
                 android:orientation="horizontal"
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content">
-
                 <LinearLayout
+
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:padding="5dp"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    tools:ignore="InvalidId">
                     <ImageView
                         android:layout_width="wrap_content"
                         android:src="@drawable/baseline_add_home_24"
                         android:layout_height="wrap_content">
-
                     </ImageView>
 
                     <TextView
@@ -196,23 +146,27 @@
                         android:textColor="@color/black"
                         android:layout_height="wrap_content"
                         android:text="Address">
-
                     </TextView>
                     <View
                         android:layout_width="0dp"
                         android:layout_weight="5"
                         android:layout_height="0dp">
-
                     </View>
                     <ImageView
                         android:layout_weight="0"
                         android:layout_width="wrap_content"
                         android:src="@drawable/baseline_arrow_forward_ios_24"
                         android:layout_height="wrap_content">
-
                     </ImageView>
                 </LinearLayout>
             </LinearLayout>
+            <TextView
+                android:id="@+id/showAddress"
+                android:visibility="invisible"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="">
+            </TextView>
 
                 <View
                 android:padding="5dp"
@@ -226,7 +180,6 @@
                 android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
                 <ImageView
                     android:layout_width="wrap_content"
                     android:src="@drawable/baseline_note_add_24"
@@ -247,7 +200,6 @@
                 android:padding="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-
                 android:background="@color/black"
                 />
 
@@ -263,7 +215,6 @@
 
             <LinearLayout
                 android:padding="5dp"
-
                 android:layout_width="wrap_content"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
@@ -279,14 +230,13 @@
                     android:layout_width="0dp"
                     android:layout_weight="8"
                     android:layout_height="0dp">
-
                 </View>
                 <TextView
+                    android:id="@+id/addItems"
                     android:layout_weight="1"
                     android:textStyle="bold"
                     android:textColor="@color/red"
                     android:textAlignment="center"
-
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add items" />
@@ -312,7 +262,7 @@
             android:layout_width="match_parent"
             android:layout_margin="10dp"
             android:background="@color/gray"
-            android:layout_height="180dp" />
+            android:layout_height="100dp" />
         <LinearLayout
             android:padding="10dp"
             android:layout_margin="10dp"
@@ -342,6 +292,7 @@
 
                 </View>
                 <TextView
+                    android:id="@+id/subTotalCheckout"
                     android:layout_weight="1"
                     android:background="@drawable/custom_border_btn"
                     android:textColor="@color/white"
@@ -384,8 +335,8 @@
 
                 </View>
                 <TextView
+                    android:id="@+id/addDiscount"
                     android:layout_weight="1"
-
                     android:textColor="@color/red"
                     android:textAlignment="center"
                     android:textStyle="bold"
@@ -429,6 +380,7 @@
 
                 </View>
                 <TextView
+                    android:id="@+id/totalCheckout"
                     android:layout_weight="1"
 
                     android:textColor="@color/red"
@@ -453,16 +405,16 @@
 
             android:layout_width="match_parent"
             android:orientation="vertical"
-
             android:background="@color/white"
+            android:padding="5dp"
             android:layout_height="wrap_content">
             <LinearLayout
-                android:layout_width="wrap_content"
+               android:paddingHorizontal="5dp"
+                android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:layout_marginLeft="15dp"
-
                     android:layout_width="wrap_content"
                     android:src="@drawable/baseline_payment_24"
                     android:layout_height="match_parent">
@@ -470,18 +422,23 @@
                 <TextView
                     android:id="@+id/method_payment"
                     android:padding="10dp"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:text="Method Payment"
                     android:textStyle="bold"
                     android:textColor="@color/red"
                     android:layout_height="wrap_content">
-
                 </TextView>
-
-
+                <TextView
+                    android:id="@+id/methodSelected"
+                    android:layout_weight="5"
+                    android:gravity="right"
+                    android:layout_width="0dp"
+                    android:text="Please select method payment"
+                    android:layout_height="wrap_content">
+                </TextView>
             </LinearLayout>
             <TextView
-                android:id="@+id/btnPlaceOrderLast"
+                android:id="@+id/btnPlaceOrderCheckout"
                 android:layout_margin="15dp"
                 android:layout_width="match_parent"
                 android:text="PLACE ORDER"

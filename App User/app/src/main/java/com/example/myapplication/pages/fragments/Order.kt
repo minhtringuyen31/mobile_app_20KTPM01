@@ -19,6 +19,7 @@ import com.example.myapplication.modals.Category
 import com.example.myapplication.modals.Product
 import com.example.myapplication.pages.apdaters.CategoryListAdapter
 import com.example.myapplication.pages.apdaters.ProductListAdapter
+import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.CategoryViewModel
 import com.example.myapplication.viewmodels.ProductCartViewModel
@@ -103,8 +104,6 @@ class Order : Fragment() {
         categoryRecyclerView = view.findViewById(R.id.listCategoryRV)
         productRecyclerView = view.findViewById(R.id.listProductRV)
         searchView = view.findViewById(R.id.searchView)
-
-
         val isLinearLayoutManager = true
 //        setUpProductRecyclerAdapter(view,listProduct,isLinearLayoutManager!!)
         if (isLinearLayoutManager)
@@ -113,7 +112,6 @@ class Order : Fragment() {
             productRecyclerView.layoutManager = GridLayoutManager(context, 2)
 
     }
-
     private fun setUpProductRecyclerAdapter(view:View,data: ArrayList<Product>, isLinearLayoutManager: Boolean) {
         productListAdapter = ProductListAdapter(data, isLinearLayoutManager)
         productRecyclerView.adapter = productListAdapter
@@ -127,13 +125,16 @@ class Order : Fragment() {
             productCartViewModel.setPriceM(product.getPrice_M().toDouble())
             productCartViewModel.setPriceS(product.getPrice_S().toDouble())
             productCartViewModel.setCategoryId(product.getCategory_id())
-
             (view.context as FragmentActivity).supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.flFragment, ProductDetail()).addToBackStack(null)
                 .commit()
         }
 
+        handleSearch(view,data,isLinearLayoutManager)
+
+    }
+    private  fun handleSearch(view:View,data: ArrayList<Product>, isLinearLayoutManager: Boolean){
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             // Override onQueryTextSubmit method which is call when submit query is searched
             @SuppressLint("NotifyDataSetChanged")
@@ -142,7 +143,7 @@ class Order : Fragment() {
                 // using the filter method with the query as its argument
                 val regex = ".*${query.replace(" ", ".*")}.*".toRegex(RegexOption.IGNORE_CASE)
                 val result =data.filter {
-                    it.getName().matches(regex)
+                    Utils.removeAccent(it.getName()).matches(regex)
                 }
                 productListAdapter = ProductListAdapter(result as ArrayList<Product>, isLinearLayoutManager)
                 productRecyclerView.adapter = productListAdapter
@@ -171,7 +172,7 @@ class Order : Fragment() {
 
                 val regex = ".*${newText.replace(" ", ".*")}.*".toRegex(RegexOption.IGNORE_CASE)
                 val result =data.filter {
-                    it.getName().matches(regex)
+                    Utils.removeAccent(it.getName()).matches(regex)
                 }
 
                 productListAdapter = ProductListAdapter(result as ArrayList<Product>, isLinearLayoutManager)
@@ -194,7 +195,6 @@ class Order : Fragment() {
                 return false;
             }
         })
-
     }
 
     private fun setUpCategoryRecyclerAdapter(view: View, data: ArrayList<Category>) {
@@ -217,14 +217,8 @@ class Order : Fragment() {
                 }
             }
 
-//            (view.context as FragmentActivity).supportFragmentManager
-//                .beginTransaction()
-//                .replace(R.id.flFragment, Order()).addToBackStack(null)
-//                .commit()
-
         }
     }
-
 
     companion object {
         /**

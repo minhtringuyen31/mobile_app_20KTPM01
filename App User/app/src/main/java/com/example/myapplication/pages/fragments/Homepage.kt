@@ -62,8 +62,6 @@ class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
-
     }
 
     override fun onCreateView(
@@ -193,7 +191,6 @@ class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
     override fun onItemClick(position: Int, product: Product) {
 //      appModel.addtoCart(product)
         // on below line we are creating a new bottom sheet dialog.
-
         val bundle = Bundle()
         bundle.putString("id",product.getId().toString())
         bundle.putString("name",product.getName())
@@ -227,7 +224,10 @@ class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
             productCartViewModel.setPriceM(product.getPrice_M().toDouble())
             productCartViewModel.setPriceS(product.getPrice_S().toDouble())
             productCartViewModel.setCategoryId(product.getCategory_id())
-
+            productCartViewModel.setQuantiTy(1)
+            productCartViewModel.setTopping("");
+            productCartViewModel.setNameFragment("homepage")
+            productCartViewModel.setNameFragment("homepage")
         (view.context as FragmentActivity).supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.flFragment, ProductDetail()).addToBackStack(null)

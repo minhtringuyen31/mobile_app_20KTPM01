@@ -1,22 +1,27 @@
 package com.example.myapplication.pages.fragments
 
+import android.annotation.SuppressLint
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ListView
 import android.widget.TextView
+import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.pages.apdaters.CheckoutApdater
+import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
-import com.example.myapplication.viewmodels.CategoryViewModel
 import com.example.myapplication.viewmodels.CheckoutViewModel
-import com.example.myapplication.viewmodels.ProductCartViewModel
 import com.google.android.material.bottomsheet.BottomSheetDialog
 
 // TODO: Rename parameter arguments, choose names that match
@@ -29,7 +34,11 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Checkout.newInstance] factory method to
  * create an instance of this fragment.
  */
+
+
+
 class Checkout : Fragment() {
+
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -38,7 +47,21 @@ class Checkout : Fragment() {
     private lateinit var checkoutAdapter:CheckoutApdater
     private lateinit var itemCheckoutListView: ListView
     private lateinit var btnCheckout:TextView;
-    private lateinit var  checkoutViewModel:CheckoutViewModel
+    private lateinit var checkoutViewModel:CheckoutViewModel
+    private lateinit var cancelCheckout:TextView;
+    private lateinit var back_checkout:ImageView
+    private lateinit var addressCheckout:LinearLayout;
+    private lateinit var timeCheckout:TextView;
+    private lateinit var subTotal:TextView
+    private lateinit var total:TextView;
+    private lateinit var addItem:TextView
+    private lateinit var discount:TextView;
+    private var subtotal=0.0
+    private lateinit var showAddress:TextView;
+    private lateinit var methodSelected:TextView;
+
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,19 +78,29 @@ class Checkout : Fragment() {
     ): View? {
         val view=inflater.inflate(R.layout.fragment_checkout, container, false)
         // Inflate the layout for this fragment
-
+        (activity as MainActivity).showToolbarAndNavigationBar(false)
         setUpViewModel();
         initUI(view);
         setupObserve()
+
         return view;
     }
     fun initUI(view:View){
-
+        showAddress = view.findViewById(R.id.showAddress)
+        cancelCheckout = view.findViewById(R.id.cancelCheckout)
+        addressCheckout= view.findViewById(R.id.add_Address)
+        back_checkout = view.findViewById(R.id.back_checkout)
+        timeCheckout= view.findViewById(R.id.timeShip)
+        subTotal= view.findViewById(R.id.subTotalCheckout)
+        total= view.findViewById(R.id.totalCheckout)
+        addItem= view.findViewById(R.id.addItems)
+        discount= view.findViewById(R.id.addDiscount)
         itemCheckoutListView = view.findViewById(R.id.listItemCheckout)
         checkoutAdapter = CheckoutApdater(arrayListOf(),this,view.context)
         itemCheckoutListView.adapter=checkoutAdapter
         btnShowBottomSheet = view.findViewById(R.id.method_payment);
-        btnCheckout = view.findViewById(R.id.btnPlaceOrderLast)
+        btnCheckout = view.findViewById(R.id.btnPlaceOrderCheckout)
+        methodSelected= view.findViewById(R.id.methodSelected)
 
         // adding on click listener for our button.
         btnShowBottomSheet.setOnClickListener {
@@ -77,10 +110,20 @@ class Checkout : Fragment() {
 
             // on below line we are inflating a layout file which we have created.
             val viewitem = layoutInflater.inflate(R.layout.payment_method_layout, null)
-
+            val momo = viewitem.findViewById<LinearLayout>(R.id.momo);
+            val paypal = viewitem.findViewById<LinearLayout>(R.id.paypal);
+            momo.setOnClickListener {
+                methodSelected.text= "Momo"
+                dialog.dismiss()
+            }
+            paypal.setOnClickListener {
+                methodSelected.text= "Paypal"
+                dialog.dismiss()
+            }
             // on below line we are setting
             // content view to our view.
             dialog.setContentView(viewitem)
+
 
             // on below line we are calling
             // a show method to display a dialog.
@@ -91,16 +134,82 @@ class Checkout : Fragment() {
         checkoutViewModel =ViewModelProvider(this)[CheckoutViewModel::class.java]
 
     }
+
+    @SuppressLint("SetTextI18n")
     private fun setupObserve(){
+
         appModel.getCartItemViewModel().cartItems.observe(viewLifecycleOwner){
             val items=it
+
+            items.forEach{
+                subtotal+=it.getPrice();
+            }
+
+            checkoutViewModel.subTotal.value=subtotal;
+            subTotal.text= Utils.formatCurrency(checkoutViewModel.subTotal.value!!) + " đ"
+            total.text =  Utils.formatCurrency( (checkoutViewModel.subTotal.value!!-(checkoutViewModel.subTotal.value!!*checkoutViewModel.getPercentVoucher()))) + " đ"
             checkoutAdapter.apply {
                 addItems(items)
+
             }
         }
+        if(checkoutViewModel.getAddress().isNotEmpty()){
+            showAddress.visibility = View.VISIBLE
+        }
+        back_checkout.setOnClickListener {
+            fragmentManager?.popBackStack()
+        }
         btnCheckout.setOnClickListener {
+            //call api and wait admin confirm
+        }
 
-//            checkoutViewModel.
+        cancelCheckout.setOnClickListener {
+            //call api and delete Order
+        }
+        addressCheckout.setOnClickListener {
+          var dialog = view?.let { it1 -> CustomDialog(it1.context) }
+            dialog?.setUpDialog();
+        }
+
+        timeCheckout.setOnClickListener{
+
+        }
+        checkoutViewModel.subTotal.observe(viewLifecycleOwner){
+
+        }
+        println(checkoutViewModel.getAddress());
+
+        addItem.setOnClickListener {
+            (view?.context as FragmentActivity).supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.flFragment, Order()).addToBackStack(null)
+                .commit()
+        }
+        discount.setOnClickListener {
+                // Replace fragment or activity Promotio
+        }
+    }
+   inner class CustomDialog(context: Context) {
+        var dialog: Dialog = Dialog(context);
+        fun setUpDialog(){
+            dialog.setContentView(R.layout.custom_dialog_input_address)
+            dialog.window!!.setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+            dialog.setCancelable(false)
+            dialog.window!!.attributes.windowAnimations = R.style.CustomBottomSheetDialogTheme
+
+            var okay_text = dialog.findViewById<TextView>(R.id.add_Address)
+
+            var edtAddress = dialog.findViewById<EditText>(R.id.addressUser)
+            okay_text.setOnClickListener(View.OnClickListener {
+                dialog.dismiss()
+
+                checkoutViewModel.setAddress(edtAddress.text.toString())
+                showAddress.text=edtAddress.text
+            })
+            dialog.show()
         }
     }
 

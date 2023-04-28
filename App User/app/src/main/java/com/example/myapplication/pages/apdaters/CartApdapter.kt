@@ -11,6 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.modals.CartItem
 import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
+import com.example.myapplication.utils.Utils
 
 
 class CartApdapter(
@@ -35,7 +36,11 @@ class CartApdapter(
         return ViewHolder(view)
     }
 
-
+     fun deleteItem(position: Int) {
+        productList.removeAt(position)
+        notifyItemRemoved(position)
+        notifyItemRangeChanged(position, productList.size)
+    }
     override fun getItemCount(): Int {
         return productList.size
     }
@@ -47,7 +52,8 @@ class CartApdapter(
         val productPrice = holder.productPriceTV
         val productDescription = holder.productDescriptionTV
         productName.text = product.getName()
-        productPrice.text = product.getPrice().toString()
+
+        productPrice.text = Utils.formatCurrency(product.getPrice())
         productDescription.text = product.getDescription()
         Glide.with(holder.itemView)
             .load( product.getImage()).fitCenter()

@@ -1,11 +1,13 @@
 package com.example.myapplication.pages.fragments
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
@@ -13,6 +15,7 @@ import com.andremion.counterfab.CounterFab
 import com.example.myapplication.R
 import com.example.myapplication.modals.CartItem
 import com.example.myapplication.modals.Topping
+import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.CountItemInBottomSheet
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
@@ -88,15 +91,17 @@ private const val ARG_PARAM2 = "param2"
         text_quantity.text = itemCount.count.toString()
     }
     private fun updatePriceTotal() {
-        btnAddtoCart.text = "Add to cart - " + itemCount.total + "đ"
+
+        btnAddtoCart.text = "Add to cart - " +  Utils.formatCurrency( itemCount.total) + " đ"
     }
+    @SuppressLint("SetTextI18n")
     private fun initUI(view:View){
         // Initializing the elements from the main layout file
         itemCount= ViewModelProvider(this)[CountItemInBottomSheet::class.java]
         plusBtn = view.findViewById(R.id.plus_btn)
         minusBtn=view.findViewById(R.id.minus_btn)
         toppingListView = view.findViewById<View>(R.id.checkboxlistView) as ListView
-        toppingApdapter = ToppingApdapter(arrayListOf(), view.context)
+        toppingApdapter = ToppingApdapter(arrayListOf(), view.context,"")
         toppingListView.adapter = toppingApdapter
         text_quantity = view.findViewById(R.id.text_quantity)
         priceSRadio = view.findViewById(R.id.priceS_radio)
@@ -110,14 +115,15 @@ private const val ARG_PARAM2 = "param2"
 
         arguments?.let {
             product_id = it.getString("id")?.toInt()!!
-            priceL.text= it.getString("price_L")
-            priceM.text = it.getString("price_M")
-            priceS.text = it.getString("price_S")
+            priceL.text= Utils.formatCurrency(  it.getString("price_L")!!.toDouble()) + " đ"
+            priceM.text = Utils.formatCurrency(  it.getString("price_M")!!.toDouble())+ " đ"
+            priceS.text = Utils.formatCurrency(  it.getString("price_S")!!.toDouble())+ " đ"
             name = it.getString("name")!!
             image= it.getString("image")!!
             category_id = it.getString("category_id")!!.toInt()
             description = it.getString("description")!!
-            itemCount.total= priceL.text.toString().toDouble()
+            item[0]=it.getString("price_L").toString().toDouble()
+            itemCount.total=calculateTotalPrice()
             updatePriceTotal()
             nameBottom.text = name
         }
@@ -133,7 +139,7 @@ private const val ARG_PARAM2 = "param2"
             priceL_radio.isChecked = true
             priceMRadio.isChecked = false
             priceSRadio.isChecked = false
-            item[0]=priceL.text.toString().toDouble()
+            item[0]=Utils.getDigitInString(priceL.text.toString())
             itemCount.total = calculateTotalPrice()
             itemCount.size="L"
             updatePriceTotal()
@@ -142,8 +148,8 @@ private const val ARG_PARAM2 = "param2"
         priceMRadio.setOnClickListener {
             priceL_radio.isChecked = false
             priceMRadio.isChecked = true
-            priceL_radio.isChecked = false
-            item[0]=priceM.text.toString().toDouble()
+            priceSRadio.isChecked = false
+            item[0]=Utils.getDigitInString(priceM.text.toString())
             itemCount.total = calculateTotalPrice()
             itemCount.size="M"
             updatePriceTotal()
@@ -154,7 +160,8 @@ private const val ARG_PARAM2 = "param2"
             priceL_radio.isChecked = false
             priceMRadio.isChecked = false
             priceSRadio.isChecked = true
-            item[0]=priceS.text.toString().toDouble()
+            item[0]=Utils.getDigitInString(priceS.text.toString())
+            println(Utils.getDigitInString(priceS.text.toString()))
             itemCount.total = calculateTotalPrice()
             itemCount.size="S"
             updatePriceTotal()
@@ -172,6 +179,9 @@ private const val ARG_PARAM2 = "param2"
         }
         minusBtn.setOnClickListener {
             itemCount.count = itemCount.count - 1
+            if( itemCount.count<=1){
+                itemCount.count =1
+            }
             displayCount()
             item[2]= itemCount.count.toDouble()
             itemCount.total = calculateTotalPrice()
@@ -191,27 +201,36 @@ private const val ARG_PARAM2 = "param2"
         toppingListView.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, position, id -> // Handle item click here
                 val checkboxTopping = adapterView.getItemAtPosition(position) as Topping
+
                 checkboxTopping.setChecked(if (checkboxTopping.getChecked()==1) 0 else 1)
+                println(checkboxTopping)
                 if(checkboxTopping.getChecked()==1) {
-                    adapterView.findViewById<CheckBox>(R.id.checkbox).isChecked=true
-                    item[1]+=checkboxTopping.getPrice()
+                    adapterView[position].findViewById<CheckBox>(R.id.checkbox).isChecked=true
+                    item[1]+=Utils.getDigitInString(checkboxTopping.getPrice().toInt().toString())
                     itemCount.nameTopping=  itemCount.nameTopping+"-"+checkboxTopping.getName()
-                    checkboxTopping.setChecked(1)
-                    itemCount.total=calculateTotalPrice()
-                    updatePriceTotal()
+
                 } else {
-                    adapterView.findViewById<CheckBox>(R.id.checkbox).isChecked=false
-                     item[1]=0.0
+                    adapterView[position].findViewById<CheckBox>(R.id.checkbox).isChecked=false
+                    var checkNegative= item[1]
+                    checkNegative-=Utils.getDigitInString(checkboxTopping.getPrice().toInt().toString())
+                    if(item[1]<=0) {
+                        item[1] =0.0
+                    }
+                    else {
+                        item[1]=checkNegative
+                    }
                     itemCount.nameTopping=""
-                    itemCount.total=calculateTotalPrice()
-                    updatePriceTotal()
-                    checkboxTopping.setChecked(0)
+
+
                 }
+                itemCount.total=calculateTotalPrice()
+                updatePriceTotal()
             }
 
         btnAddtoCart.setOnClickListener {
             // response from server when execute authentication include {user_id,email,phone,cart_id}
             //and then store above information into share preference in android
+            println(    itemCount.nameTopping)
             val cartItem = CartItem(
                 3,
                 1,
@@ -228,11 +247,12 @@ private const val ARG_PARAM2 = "param2"
             appModel.addtoCart(cartItem)
             Toast.makeText(
                 activity, "Add to cart success",
-                Toast.LENGTH_LONG
+                Toast.LENGTH_SHORT
             ).show()
-            dismiss()
             val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
             myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
+            dismiss()
+
         }
 
 
@@ -241,7 +261,7 @@ private const val ARG_PARAM2 = "param2"
         return (item[0]+item[1])*item[2]
     }
 
-    class ToppingApdapter(private val toppings: ArrayList<Topping>, mContext: Context) :
+    class ToppingApdapter(private val toppings: ArrayList<Topping>, mContext: Context,private var checkedItem:String) :
         ArrayAdapter<Any?>(mContext, R.layout.item_topping, toppings as ArrayList<*>) {
         private class ViewHolder {
             lateinit var checkBox: CheckBox
@@ -255,7 +275,7 @@ private const val ARG_PARAM2 = "param2"
         }
 
         override fun getItem(position: Int): Topping {
-            return toppings[position] as Topping
+            return toppings[position]
         }
 
         override fun getView(
@@ -285,8 +305,15 @@ private const val ARG_PARAM2 = "param2"
 
             val item: Topping = getItem(position)
             viewHolder.txtName.text = item.getName()
-            viewHolder.txtPrice.text = item.getPrice().toString()
-            viewHolder.checkBox.isChecked = item.getChecked() != (0 ?: false)
+            viewHolder.txtPrice.text = Utils.formatCurrency(item.getPrice()) + " đ"
+
+            println(checkedItem.contains( item.getName(),ignoreCase = true))
+            print(checkedItem)
+            viewHolder.checkBox.isChecked = item.getChecked() != 0
+            if(checkedItem.contains( item.getName(),ignoreCase = true)){
+                viewHolder.checkBox.isChecked = true
+            }
+
             return result
         }
         fun addToppings(promotions: ArrayList<Topping>) {
@@ -296,15 +323,7 @@ private const val ARG_PARAM2 = "param2"
                 notifyDataSetChanged()
             }
         }
-        fun setSelectedTopping(name:String){
-            for(item in toppings){
-                println(item.getName())
-                if( name.contains(item.getName())&&name.isNotEmpty()){
-                    item.setChecked(1)
-                    notifyDataSetChanged()
-                }
-            }
-        }
+
     }
 
 
