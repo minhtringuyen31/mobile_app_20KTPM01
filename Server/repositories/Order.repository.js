@@ -15,8 +15,12 @@ const OrderRepository = {
         const query = `INSERT INTO orders (user_id, order_date, shipping_address, total, status, promotion_id, payment_method_id) VALUES (?, ?, ?, ?, ?,?,?)`;
         const values = [user_id, order_date, shipping_address, total, status, promotion_id, payment_method_id];
         try {
-            DB.pool().query(query, values);
-            return true;
+
+            const [result] = await DB.pool().query(query, values);
+            const insertedId = result.insertId;
+            const [ordersResult] = await DB.pool().query(`SELECT * FROM orders WHERE id = ?`, [insertedId]);
+            const insertedOrder = ordersResult[0];
+            return insertedOrder;
         } catch (error) {
             console.error(error);
             return false;

@@ -1,13 +1,11 @@
-package com.example.myapplication.viewmodels
+package com.example.myapplication.viewmodels.authen
 
 import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.modals.LoginRequest
 import com.example.myapplication.modals.SignupRequest
-import com.example.myapplication.services.AuthenService
 import com.example.myapplication.services.UserService
 import com.example.myapplication.utils.Resource
 import com.example.myapplication.utils.Utils

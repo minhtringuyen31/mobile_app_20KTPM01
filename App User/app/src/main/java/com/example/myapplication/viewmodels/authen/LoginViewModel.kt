@@ -1,7 +1,5 @@
-package com.example.myapplication.viewmodels
+package com.example.myapplication.viewmodels.authen
 
-import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +10,6 @@ import com.example.myapplication.utils.Resource
 import com.example.myapplication.utils.Utils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.Retrofit
 
 
 class LoginViewModel:ViewModel() {

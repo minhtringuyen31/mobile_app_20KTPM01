@@ -1,4 +1,4 @@
-package com.example.myapplication.viewmodels
+package com.example.myapplication.viewmodels.order
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,8 +11,8 @@ import kotlinx.coroutines.launch
 
 class CheckoutViewModel:ViewModel() {
 
-     var subTotal:MutableLiveData<Double> = MutableLiveData<Double>(0.0);
-     var total:MutableLiveData<Double> = MutableLiveData<Double>(0.0);
+    var subTotal:MutableLiveData<Double> = MutableLiveData<Double>(0.0);
+    var total:MutableLiveData<Double> = MutableLiveData<Double>(0.0);
     private  var address:String="Please enter your address"
     private var time:String="Current time"
     private var discount:String="None"

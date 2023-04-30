@@ -11,7 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
 import com.example.myapplication.modals.ChangePassRequest
 import com.example.myapplication.utils.Status
-import com.example.myapplication.viewmodels.ChangePassViewModel
+import com.example.myapplication.viewmodels.user.ChangePassViewModel
 
 
 class ChangePassword : AppCompatActivity() {

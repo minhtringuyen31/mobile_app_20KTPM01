@@ -1,11 +1,10 @@
-package com.example.myapplication.viewmodels
+package com.example.myapplication.viewmodels.user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.modals.ChangePassRequest
-import com.example.myapplication.modals.SignupRequest
 import com.example.myapplication.services.UserService
 import com.example.myapplication.utils.Resource
 import com.example.myapplication.utils.Utils

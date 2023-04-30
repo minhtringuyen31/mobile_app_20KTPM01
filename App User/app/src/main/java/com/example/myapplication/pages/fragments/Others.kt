@@ -15,7 +15,7 @@ import com.example.myapplication.R
 import com.example.myapplication.pages.activities.user.ChangePassword
 import com.example.myapplication.pages.activities.user.EditProfile
 import com.example.myapplication.pages.activities.user.Login
-import com.example.myapplication.viewmodels.UserViewModel
+import com.example.myapplication.viewmodels.user.UserViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -61,10 +61,10 @@ class Others : Fragment() {
         view = inflater.inflate(R.layout.fragment_others, container, false)
         UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
         initUI(view)
+
         val sharedPreferences: SharedPreferences =
-            view.context.getSharedPreferences("my_preference_name", MODE_PRIVATE)
+            view.context.getSharedPreferences("user", MODE_PRIVATE)
         val userID = sharedPreferences.getString("userID", "")
-        println("UserID : "+userID)
         if (userID != null) {
             UserProfile.getUser(userID.toInt())
         };
@@ -107,13 +107,13 @@ class Others : Fragment() {
             gsc = GoogleSignIn.getClient(view.context, gso);
             val account = GoogleSignIn.getLastSignedInAccount(view.context)
             gsc.signOut();
-
+            val preferences: SharedPreferences = view.context.getSharedPreferences("user", 0)
+            preferences.edit().remove("userID").apply()
             val intent = Intent(
                 view.context,
                 Login::class.java
             )
             startActivity(intent)
-
         }
     }
         companion object {

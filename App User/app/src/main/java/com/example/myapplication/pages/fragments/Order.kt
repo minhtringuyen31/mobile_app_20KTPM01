@@ -21,9 +21,9 @@ import com.example.myapplication.pages.apdaters.CategoryListAdapter
 import com.example.myapplication.pages.apdaters.ProductListAdapter
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
-import com.example.myapplication.viewmodels.CategoryViewModel
-import com.example.myapplication.viewmodels.ProductCartViewModel
-import com.example.myapplication.viewmodels.ProductViewModel
+import com.example.myapplication.viewmodels.category.CategoryViewModel
+import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
+import com.example.myapplication.viewmodels.product.ProductViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -156,7 +156,6 @@ class Order : Fragment() {
                     productCartViewModel.setPriceM(product.getPrice_M().toDouble())
                     productCartViewModel.setPriceS(product.getPrice_S().toDouble())
                     productCartViewModel.setCategoryId(product.getCategory_id())
-
                     (view.context as FragmentActivity).supportFragmentManager
                         .beginTransaction()
                         .replace(R.id.flFragment, ProductDetail()).addToBackStack(null)
@@ -164,9 +163,6 @@ class Order : Fragment() {
                 }
                 return false;
             }
-
-            // This method is overridden to filter the adapter according
-            // to a search query when the user is typing search
             @SuppressLint("NotifyDataSetChanged")
             override fun onQueryTextChange(newText: String): Boolean {
 
@@ -196,15 +192,12 @@ class Order : Fragment() {
             }
         })
     }
-
     private fun setUpCategoryRecyclerAdapter(view: View, data: ArrayList<Category>) {
         categoryListAdapter = CategoryListAdapter(data)
         categoryRecyclerView.adapter = categoryListAdapter
         categoryRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         categoryListAdapter.onItemClick = { category ->
             currentCategory.text = category.getName()
-            //Handle set product by category type
-
             productViewModel.products.observe(viewLifecycleOwner) {
                 val products = it as ArrayList<Product>
                 var productsWithCategoryOne = it as ArrayList<Product>

@@ -20,8 +20,7 @@ import com.example.myapplication.modals.Product
 import com.example.myapplication.pages.apdaters.CartApdapter
 import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
 import com.example.myapplication.viewmodels.AppViewModel
-import com.example.myapplication.viewmodels.CheckoutViewModel
-import com.example.myapplication.viewmodels.ProductCartViewModel
+import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -93,7 +92,7 @@ class Cart : Fragment(), OnItemClickListener {
 
             (view.context as FragmentActivity).supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.flFragment, Checkout()).addToBackStack(null)
+                .replace(R.id.flFragment, Checkout(),"checkout").addToBackStack(null)
                 .commit()
 
         }

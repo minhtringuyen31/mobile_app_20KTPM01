@@ -193,7 +193,6 @@ private const val ARG_PARAM2 = "param2"
                 toppingApdapter.apply {
                     toppingApdapter.addToppings(toppings.filter { it-> it.getCategoryID() == category_id } as ArrayList<Topping>)
                     notifyDataSetChanged()
-
                 }
             }
 
@@ -201,7 +200,6 @@ private const val ARG_PARAM2 = "param2"
         toppingListView.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, position, id -> // Handle item click here
                 val checkboxTopping = adapterView.getItemAtPosition(position) as Topping
-
                 checkboxTopping.setChecked(if (checkboxTopping.getChecked()==1) 0 else 1)
                 println(checkboxTopping)
                 if(checkboxTopping.getChecked()==1) {
@@ -213,24 +211,13 @@ private const val ARG_PARAM2 = "param2"
                     adapterView[position].findViewById<CheckBox>(R.id.checkbox).isChecked=false
                     var checkNegative= item[1]
                     checkNegative-=Utils.getDigitInString(checkboxTopping.getPrice().toInt().toString())
-                    if(item[1]<=0) {
-                        item[1] =0.0
-                    }
-                    else {
-                        item[1]=checkNegative
-                    }
+                    if(item[1]<=0) { item[1] =0.0 } else { item[1]=checkNegative }
                     itemCount.nameTopping=""
-
-
                 }
                 itemCount.total=calculateTotalPrice()
                 updatePriceTotal()
             }
-
         btnAddtoCart.setOnClickListener {
-            // response from server when execute authentication include {user_id,email,phone,cart_id}
-            //and then store above information into share preference in android
-            println(    itemCount.nameTopping)
             val cartItem = CartItem(
                 3,
                 1,
@@ -252,10 +239,7 @@ private const val ARG_PARAM2 = "param2"
             val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
             myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
             dismiss()
-
         }
-
-
     }
     private fun calculateTotalPrice(): Double {
         return (item[0]+item[1])*item[2]
@@ -267,17 +251,13 @@ private const val ARG_PARAM2 = "param2"
             lateinit var checkBox: CheckBox
             lateinit var txtName: TextView
             lateinit var txtPrice: TextView
-
         }
-
         override fun getCount(): Int {
             return toppings.size
         }
-
         override fun getItem(position: Int): Topping {
             return toppings[position]
         }
-
         override fun getView(
             position: Int,
             convertView: View?,
@@ -306,14 +286,12 @@ private const val ARG_PARAM2 = "param2"
             val item: Topping = getItem(position)
             viewHolder.txtName.text = item.getName()
             viewHolder.txtPrice.text = Utils.formatCurrency(item.getPrice()) + " đ"
-
             println(checkedItem.contains( item.getName(),ignoreCase = true))
             print(checkedItem)
             viewHolder.checkBox.isChecked = item.getChecked() != 0
             if(checkedItem.contains( item.getName(),ignoreCase = true)){
                 viewHolder.checkBox.isChecked = true
             }
-
             return result
         }
         fun addToppings(promotions: ArrayList<Topping>) {

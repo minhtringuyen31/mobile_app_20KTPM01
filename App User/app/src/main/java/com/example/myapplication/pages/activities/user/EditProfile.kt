@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
 import com.example.myapplication.modals.EditInfoRequest
 import com.example.myapplication.utils.Status
-import com.example.myapplication.viewmodels.EditInfoViewModel
+import com.example.myapplication.viewmodels.user.EditInfoViewModel
 
 class EditProfile : AppCompatActivity() {
     private lateinit var button_saveedit:Button;

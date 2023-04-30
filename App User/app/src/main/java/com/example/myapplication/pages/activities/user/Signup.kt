@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
 import com.example.myapplication.modals.SignupRequest
 import com.example.myapplication.utils.Status
-import com.example.myapplication.viewmodels.SignupViewModel
+import com.example.myapplication.viewmodels.authen.SignupViewModel
 class Signup : AppCompatActivity() {
     private lateinit var button_signup:Button
     private  lateinit var signup_phone:EditText

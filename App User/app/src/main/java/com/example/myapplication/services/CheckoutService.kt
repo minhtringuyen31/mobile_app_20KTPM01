@@ -6,18 +6,18 @@ import com.example.myapplication.modals.Promotion
 import retrofit2.http.*
 
 interface CheckoutService {
-    @GET("orderProduct/{id}")
-    suspend fun getOrderProduct(@Path("id") promotionId: Int): OrderProduct
+    @GET("orderProducts/{id}")
+    suspend fun getOrderProduct(@Path("id") orderProductID: Int): OrderProduct
 
-    @GET("orderProduct/")
+    @GET("orderProducts/")
     suspend fun getAllOrderProduct(): ArrayList<OrderProduct>
 
-    @POST("orderProduct/update/{id}")
-    suspend fun updateOrderProduct(@Path("id") promotionId: Int, @Body promotion: OrderProduct): OrderProduct
+    @POST("orderProducts/update/{id}")
+    suspend fun updateOrderProduct(@Path("id") orderProductID: Int, @Body orderProduct: OrderProduct): OrderProduct
 
-    @DELETE("orderProduct/delete/{id}")
-    suspend fun deleteOrderProduct(@Path("id") promotionId: Int): Int
+    @DELETE("orderProducts/delete/{id}")
+    suspend fun deleteOrderProduct(@Path("id") orderProductID: Int): Int
 
-    @POST("orderProduct/create/")
-    suspend fun createOrderProduct(@Body promotion: OrderProduct): OrderProduct
+    @POST("orderProducts/create/")
+    suspend fun createOrderProduct(@Body orderProduct: OrderProduct): OrderProduct
 }

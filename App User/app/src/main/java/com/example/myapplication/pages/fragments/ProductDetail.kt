@@ -21,6 +21,7 @@ import com.example.myapplication.modals.*
 import com.example.myapplication.pages.apdaters.RatingListAdapter
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
+import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -80,7 +81,6 @@ class ProductDetail : Fragment() {
             param2 = it.getString(ARG_PARAM2)
         }
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -125,8 +125,6 @@ class ProductDetail : Fragment() {
         toppingListView.adapter = toppingApdapter
         toppingListView.isFocusable = false
         toppingListView.isFocusableInTouchMode = false
-
-
         name= productCartViewModel.getName()
         priceS_text=  productCartViewModel.getPriceS()
         description  = productCartViewModel.getDescription()
@@ -152,13 +150,9 @@ class ProductDetail : Fragment() {
         itemCount.total=calculateTotalPrice()
         updatePriceTotal()
         ratingRecyclerView = view.findViewById(R.id.listRatingRV)
-
-
-        println(productCartViewModel.getTopping());
     }
     @SuppressLint("SetTextI18n")
     private fun updatePriceTotal() {
-
         btnAddtoCart.text = "Add to cart - " +  Utils.formatCurrency( itemCount.total) + " đ"
     }
     private fun displayCount() {
@@ -167,7 +161,6 @@ class ProductDetail : Fragment() {
     private fun calculateTotalPrice(): Double {
         return (item[0]+item[1])*item[2]
     }
-
     private fun setUpObserve(view:View){
 
         priceL_radio.setOnClickListener {
@@ -230,7 +223,6 @@ class ProductDetail : Fragment() {
             AdapterView.OnItemClickListener { adapterView, view, position, id -> // Handle item click here
                 val checkboxTopping = adapterView.getItemAtPosition(position) as Topping
                 checkboxTopping.setChecked(if (checkboxTopping.getChecked()==1) 0 else 1)
-                println(checkboxTopping)
                 if(checkboxTopping.getChecked()==1) {
                     adapterView[position].findViewById<CheckBox>(R.id.checkbox).isChecked=true
                     item[1]+=Utils.getDigitInString(checkboxTopping.getPrice().toInt().toString())
@@ -239,12 +231,7 @@ class ProductDetail : Fragment() {
                     adapterView[position].findViewById<CheckBox>(R.id.checkbox).isChecked=false
                     var checkNegative= item[1]
                     checkNegative-=Utils.getDigitInString(checkboxTopping.getPrice().toInt().toString())
-                    if(item[1]<=0) {
-                        item[1] =0.0
-                    }
-                    else {
-                        item[1]=checkNegative
-                    }
+                    if(item[1]<=0) {item[1] =0.0 } else { item[1]=checkNegative }
                     itemCount.nameTopping=""
                 }
                 itemCount.total=calculateTotalPrice()
@@ -267,18 +254,16 @@ class ProductDetail : Fragment() {
             appModel.addtoCart(cartItem)
             Toast.makeText(
                 activity, "Add to cart success",
-                Toast.LENGTH_LONG
+                Toast.LENGTH_SHORT
             ).show()
             val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
             myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
-
             (view.context as FragmentActivity).supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.flFragment, Homepage()).addToBackStack(null)
                 .commit()
 
         }
-
         appModel.getRatingViewModel().ratings.observe(viewLifecycleOwner){
             val ratings = it as ArrayList<Rating>
             if (ratings.isEmpty()) {
@@ -286,7 +271,6 @@ class ProductDetail : Fragment() {
 
             } else {
                 setUpRatingRecyclerAdapter(view, ratings)
-
             }
         }
         backHomepage.setOnClickListener {
@@ -296,8 +280,7 @@ class ProductDetail : Fragment() {
                     .replace(R.id.flFragment, Cart()).addToBackStack(null)
                     .commit()
             }
-            else
-            {
+            else {
                 (view.context as FragmentActivity).supportFragmentManager
                     .beginTransaction()
                     .replace(R.id.flFragment, Homepage()).addToBackStack(null)
@@ -311,8 +294,7 @@ class ProductDetail : Fragment() {
         ratingRecyclerView.adapter = ratingListAdapter
         ratingRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         ratingListAdapter.onItemClick = {
-            //Handle rating item on click listener
-            println(it)
+
         }
     }
     private fun setProductDetail(productName: String, productPrice: String, productDescription: String, productImage: String){

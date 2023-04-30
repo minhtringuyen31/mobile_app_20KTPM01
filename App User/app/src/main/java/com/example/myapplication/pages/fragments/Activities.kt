@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.example.myapplication.R
 import com.example.myapplication.pages.apdaters.ViewPagerAdapter
-import com.example.myapplication.pages.fragments.OnGoingOrder
 import com.google.android.material.tabs.TabLayout
 
 

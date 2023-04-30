@@ -68,6 +68,7 @@
             </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
+
         <LinearLayout
             android:padding="10dp"
             android:layout_margin="10dp"
@@ -98,12 +99,11 @@
                     <TextView
                         android:id="@+id/timeShip"
                         android:layout_width="wrap_content"
-                        android:textStyle="bold"
+                        android:layout_height="20dp"
                         android:layout_marginStart="5dp"
+                        android:text="Today | 8:35 "
                         android:textColor="@color/black"
-                        android:layout_height="wrap_content"
-                        android:text="Today | 8:35 ">
-
+                        android:textStyle="bold">
                     </TextView>
                     <View
                         android:layout_width="0dp"

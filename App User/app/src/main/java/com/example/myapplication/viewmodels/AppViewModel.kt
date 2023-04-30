@@ -3,6 +3,13 @@ package com.example.myapplication.viewmodels
 import android.view.View
 import androidx.lifecycle.*
 import com.example.myapplication.modals.*
+import com.example.myapplication.viewmodels.cart.CartItemViewModel
+import com.example.myapplication.viewmodels.category.CategoryViewModel
+import com.example.myapplication.viewmodels.order.OrderViewModel
+import com.example.myapplication.viewmodels.product.ProductViewModel
+import com.example.myapplication.viewmodels.product.RatingViewModel
+import com.example.myapplication.viewmodels.product.ToppingViewModel
+import com.example.myapplication.viewmodels.promotion.PromotionViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -11,10 +18,10 @@ class AppViewModel:ViewModel() {
     private  lateinit var  categoryViewModel: CategoryViewModel
     private lateinit  var promotionViewModel: PromotionViewModel
     private  lateinit var productViewModel: ProductViewModel
-    private lateinit  var toppingViewModel:ToppingViewModel
-    private  lateinit var cartItemViewModel:CartItemViewModel
+    private lateinit  var toppingViewModel: ToppingViewModel
+    private  lateinit var cartItemViewModel: CartItemViewModel
     private lateinit var ratingViewModel: RatingViewModel
-    private lateinit var orderViewModel:OrderViewModel
+    private lateinit var orderViewModel: OrderViewModel
 
      fun setUpViewModel(view: View,viewModelStoreOwner: ViewModelStoreOwner) {
          viewModelScope.launch {
@@ -86,7 +93,7 @@ class AppViewModel:ViewModel() {
             }
         }
     }
-    fun getOrderViewModel():OrderViewModel{
+    fun getOrderViewModel(): OrderViewModel {
         return orderViewModel;
     }
 
@@ -114,25 +121,24 @@ class AppViewModel:ViewModel() {
     }
 
 
-    fun getCategoryViewModel():CategoryViewModel{
+    fun getCategoryViewModel(): CategoryViewModel {
         return this.categoryViewModel
     }
 
-    fun getProductViewModel():ProductViewModel{
+    fun getProductViewModel(): ProductViewModel {
         return this.productViewModel
     }
 
 
-    fun getPromotionViewMode():PromotionViewModel{
+    fun getPromotionViewMode(): PromotionViewModel {
         return this.promotionViewModel
     }
-    fun getToppingViewModel():ToppingViewModel{
+    fun getToppingViewModel(): ToppingViewModel {
         return this.toppingViewModel
     }
-    fun getCartItemViewModel():CartItemViewModel{
+    fun getCartItemViewModel(): CartItemViewModel {
         return this.cartItemViewModel
     }
-
     fun addtoCart(cartItem:CartItem) {
         cartItemViewModel.createCartItem(cartItem)
     }
@@ -140,7 +146,7 @@ class AppViewModel:ViewModel() {
         cartItemViewModel.deleteCartItem(id)
     }
 
-    fun getRatingViewModel(): RatingViewModel{
+    fun getRatingViewModel(): RatingViewModel {
         return this.ratingViewModel
     }
 

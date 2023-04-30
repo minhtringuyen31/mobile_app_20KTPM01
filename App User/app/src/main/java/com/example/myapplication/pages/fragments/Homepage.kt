@@ -24,6 +24,7 @@ import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
 import com.example.myapplication.pages.apdaters.interfaces.OnItemClickProductHomepage
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
+import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
@@ -53,7 +54,7 @@ class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
     private lateinit var counterFab :CounterFab
     private lateinit var view:View
     private val appModel: AppViewModel by activityViewModels()
-    private val productCartViewModel:ProductCartViewModel by activityViewModels()
+    private val productCartViewModel: ProductCartViewModel by activityViewModels()
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {

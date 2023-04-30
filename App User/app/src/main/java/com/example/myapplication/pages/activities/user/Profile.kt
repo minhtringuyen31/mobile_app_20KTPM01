@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import com.example.myapplication.R
-import com.example.myapplication.viewmodels.UserViewModel
+import com.example.myapplication.viewmodels.user.UserViewModel
 
 class Profile : AppCompatActivity() {
     private lateinit var profile_name:TextView

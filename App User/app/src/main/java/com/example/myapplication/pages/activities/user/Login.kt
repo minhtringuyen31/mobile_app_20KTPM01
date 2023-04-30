@@ -1,18 +1,22 @@
 package com.example.myapplication.pages.activities.user
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
+
 import android.widget.*
+
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
+
 import com.example.myapplication.modals.LoginRequest
 import com.example.myapplication.socket.SocketHandler
 import com.example.myapplication.utils.Status
-import com.example.myapplication.viewmodels.LoginViewModel
-import com.example.myapplication.viewmodels.SignupViewModel
+import com.example.myapplication.viewmodels.authen.LoginViewModel
+import com.example.myapplication.viewmodels.authen.SignupViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -35,7 +39,10 @@ class Login : AppCompatActivity() {
     private var account:GoogleSignInAccount ? = null
     private lateinit var mSocket:Socket
 
-
+//    verride fun onNewIntent(intent: Intent?) {
+//        super.onNewIntent(intent)
+//        ZaloPaySDK.getInstance().onResult(intent)
+//    }o
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -44,6 +51,8 @@ class Login : AppCompatActivity() {
         login_phone = findViewById(R.id.login_phone)
         login_pass = findViewById(R.id.login_pass)
         loginGG = findViewById(R.id.login_gg)
+
+
 
         SocketHandler.setSocket()
         SocketHandler.establishConnection()
@@ -57,6 +66,10 @@ class Login : AppCompatActivity() {
 //            }
 //        }
 
+
+
+
+
          gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
              .requestIdToken("315513977204-r4d598sk0sv9fifrhefveulu7ksi8fsg.apps.googleusercontent.com")
             .requestEmail()
@@ -67,12 +80,15 @@ class Login : AppCompatActivity() {
         if(account!=null){
 
             gotoHomePage();
+
+
         }
         loginGG.setOnClickListener {
-
-            gotoSignIn()
+           gotoSignIn()
 
         }
+
+
 
         buttonLogin.setOnClickListener {
             val loginRequest =
@@ -92,7 +108,7 @@ class Login : AppCompatActivity() {
                             intent.putExtra("status","1")
                             startActivity(intent)
                             val sharedPreferences =
-                                getSharedPreferences("my_preference_name", MODE_PRIVATE)
+                                getSharedPreferences("user", MODE_PRIVATE)
                             val editor = sharedPreferences.edit()
                             editor.putString("userID", resource.data?.getUserID().toString())
                             editor.apply()
@@ -154,7 +170,7 @@ class Login : AppCompatActivity() {
                                     intent.putExtra("status","1")
                                     startActivity(intent)
                                     val sharedPreferences =
-                                        getSharedPreferences("my_preference_name", MODE_PRIVATE)
+                                        getSharedPreferences("user", MODE_PRIVATE)
                                     val editor = sharedPreferences.edit()
                                     editor.putString("userID", resource.data?.getUserID().toString())
                                     editor.apply()
