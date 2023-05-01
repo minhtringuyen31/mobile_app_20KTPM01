@@ -22,6 +22,7 @@ const CartItemController = {
 
     },
     async delete(req, res) {
+        req.app.io.emit("server-send-message", "Hello");
         const id = req.params.id;
         const status = await CartItemService.delete(id);
         if (status) {

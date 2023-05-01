@@ -43,7 +43,6 @@ class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private lateinit var recyclerViewProduct: RecyclerView
     private lateinit var recyclerViewCategory: RecyclerView
@@ -76,7 +75,6 @@ class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
         setUpObserver(view) // Quan sát kết quả trả về từ API rồi gán giá trị cho apdapter
         return view
     }
-
     private  fun setUpViewModel(){
         (activity as MainActivity).showToolbarAndNavigationBar(true)
         appModel.setUpViewModel(view,this)

@@ -37,7 +37,7 @@
                 </ImageView>
                 <TextView
 
-                    android:text="Checkout"
+                    android:text="Thanh toán"
                     android:layout_width="0dp"
                     android:layout_weight="20"
                     android:gravity="center"
@@ -54,7 +54,7 @@
                     <TextView
                         android:id="@+id/cancelCheckout"
                         android:layout_width="fill_parent"
-                        android:text="Cancel"
+                        android:text="Huỷ"
                         android:gravity="right"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentEnd="true"
@@ -101,7 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_marginStart="5dp"
-                        android:text="Today | 8:35 "
+                        android:text="Hôm nay | Trong 15 phút "
                         android:textColor="@color/black"
                         android:textStyle="bold">
                     </TextView>
@@ -119,6 +119,48 @@
                     </ImageView>
             </LinearLayout>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:padding="5dp"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/baseline_phone_24"
+                        android:layout_height="wrap_content">
+
+                    </ImageView>
+                    <TextView
+                        android:id="@+id/phoneUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_marginStart="5dp"
+                        android:text="Số điện thoại"
+                        android:textColor="@color/black"
+                        android:textStyle="bold">
+                    </TextView>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="5"
+                        android:layout_height="0dp">
+
+                    </View>
+                    <TextView
+                        android:id="@+id/updatePhone"
+                        android:layout_weight="0"
+                        android:text="Cập nhật"
+                        android:layout_width="wrap_content"
+                        android:src="@drawable/baseline_arrow_forward_ios_24"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/add_Address"
@@ -138,14 +180,13 @@
                         android:src="@drawable/baseline_add_home_24"
                         android:layout_height="wrap_content">
                     </ImageView>
-
                     <TextView
                         android:layout_width="wrap_content"
                         android:textStyle="bold"
                         android:layout_marginStart="5dp"
                         android:textColor="@color/black"
                         android:layout_height="wrap_content"
-                        android:text="Address">
+                        android:text="Địa chỉ">
                     </TextView>
                     <View
                         android:layout_width="0dp"
@@ -189,7 +230,7 @@
                 <EditText
                     android:background="@null"
                     android:layout_marginStart="5dp"
-                    android:hint="Special instruction for order"
+                    android:hint="Ghi chú cho đơn hàng"
                     android:layout_width="match_parent"
                     android:textSize="14sp"
                     android:layout_height="wrap_content">
@@ -220,7 +261,7 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="Item(s)"
+                    android:text="Sản phẩm"
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -239,7 +280,7 @@
                     android:textAlignment="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add items" />
+                    android:text="Thêm sản phẩm" />
 
 
 
@@ -279,7 +320,7 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="Sub Total"
+                    android:text="Tạm tính"
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -322,7 +363,7 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="Discount"
+                    android:text="Khuyến mãi"
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -342,7 +383,7 @@
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add discount" />
+                    android:text="Thêm khuyến mãi" />
             </LinearLayout>
 
 
@@ -367,7 +408,7 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="Total"
+                    android:text="Tổng cộng"
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -406,10 +447,9 @@
             android:layout_width="match_parent"
             android:orientation="vertical"
             android:background="@color/white"
-            android:padding="5dp"
             android:layout_height="wrap_content">
             <LinearLayout
-               android:paddingHorizontal="5dp"
+                android:paddingHorizontal="5dp"
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
@@ -423,17 +463,19 @@
                     android:id="@+id/method_payment"
                     android:padding="10dp"
                     android:layout_width="wrap_content"
-                    android:text="Method Payment"
+                    android:text="Phương thức thanh toán"
                     android:textStyle="bold"
                     android:textColor="@color/red"
                     android:layout_height="wrap_content">
                 </TextView>
                 <TextView
+                    android:paddingEnd="5dp"
                     android:id="@+id/methodSelected"
-                    android:layout_weight="5"
+                    android:layout_weight="3"
                     android:gravity="right"
+                    android:textSize="10dp"
                     android:layout_width="0dp"
-                    android:text="Please select method payment"
+                    android:text="Chọn phương thức thanh toán"
                     android:layout_height="wrap_content">
                 </TextView>
             </LinearLayout>
@@ -441,7 +483,7 @@
                 android:id="@+id/btnPlaceOrderCheckout"
                 android:layout_margin="15dp"
                 android:layout_width="match_parent"
-                android:text="PLACE ORDER"
+                android:text="Thanh toán"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:textColor="@color/white"

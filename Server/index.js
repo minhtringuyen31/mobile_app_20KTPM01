@@ -36,6 +36,7 @@ DB.connection();
 app.use(express.json());
 
 SocketListener.start(io);
+app.io = io
 app.use('/api/users', UserRoute);
 app.use('/api/products', ProductRoute);
 app.use('/api/orders', OrderRoute);
@@ -54,9 +55,6 @@ app.use('/api/admin/promotion', PromotionAdminRouter);
 app.use('/api/admin/rating', RatingAdminRouter);
 app.use('/api/admin/user', UserAdminRouter);
 app.use(Authen)
-app.get("/", (req, res) => {
-  res.send("Hello World");
-})
 
 
 server.listen(port, () => {

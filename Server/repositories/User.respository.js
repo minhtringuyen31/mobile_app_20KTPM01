@@ -1,5 +1,6 @@
 import DB from "../configs/db.js"
 import crypto from 'crypto'
+import CartServices from "../services/Cart.service.js";
 const UserRepository = {
     async create(name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable) {
         const query = `INSERT INTO user (name, gender,email,phone,password, date_of_birth, address, avatar, role,is_disable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
@@ -100,7 +101,6 @@ const UserRepository = {
         const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         const randomBytes = crypto.randomBytes(8);
         const result = new Array(8);
-
         for (let i = 0; i < 8; i++) {
             result[i] = chars[randomBytes[i] % 8];
         }
@@ -108,7 +108,11 @@ const UserRepository = {
         console.log(name);
         const values = [phone, password, name];
         try {
-            await DB.pool().query(query, values);
+            const [result] = await DB.pool().query(query, values);
+            const insertedId = result.insertId;
+            const [userResult] = await DB.pool().query(`SELECT * FROM user WHERE id = ?`, [insertedId]);
+            const insertedUser = userResult[0];
+            await CartServices.create(insertedUser.id)
             return true;
         } catch (error) {
             console.error(error);

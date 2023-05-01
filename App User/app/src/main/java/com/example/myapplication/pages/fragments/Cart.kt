@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +22,9 @@ import com.example.myapplication.pages.apdaters.CartApdapter
 import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -82,12 +86,10 @@ class Cart : Fragment(), OnItemClickListener {
                 val cartItem = it as ArrayList<CartItem>
                 cartAdapter.addCartItem(cartItem)
                 cartAdapter.notifyDataSetChanged()
-
                 if(cartItem.isEmpty()){
                     emptyList.visibility = view.visibility
                 }
         }
-
         btnPlaceOrder.setOnClickListener {
 
             (view.context as FragmentActivity).supportFragmentManager
@@ -135,7 +137,19 @@ class Cart : Fragment(), OnItemClickListener {
 
         cartAdapter.deleteItem(position);
         appModel.removeItemCart(cartItem.getId())
+        val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
+        val gson = Gson()
+        val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
+        val carts=sharedPreferences.getString("productID", null)
+        var dataItem = gson.fromJson<ArrayList<Int>>(carts, type);
 
+        if (dataItem == null) {
+            dataItem = ArrayList<Int>()
+        }
+        dataItem.removeIf {
+            it==cartItem.getProductId()
+        };
+        sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
         if(cartAdapter.itemCount==0){
             emptyList.visibility = view.visibility
         }

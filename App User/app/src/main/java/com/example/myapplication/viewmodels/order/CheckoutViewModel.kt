@@ -13,7 +13,7 @@ class CheckoutViewModel:ViewModel() {
 
     var subTotal:MutableLiveData<Double> = MutableLiveData<Double>(0.0);
     var total:MutableLiveData<Double> = MutableLiveData<Double>(0.0);
-    private  var address:String="Please enter your address"
+    private  var address:String="None"
     private var time:String="Current time"
     private var discount:String="None"
     private var percentVoucher:Double=0.0;

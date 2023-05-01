@@ -37,12 +37,8 @@ class Login : AppCompatActivity() {
     private lateinit var gsc:GoogleSignInClient
     private lateinit var signupViewModel: SignupViewModel
     private var account:GoogleSignInAccount ? = null
-    private lateinit var mSocket:Socket
 
-//    verride fun onNewIntent(intent: Intent?) {
-//        super.onNewIntent(intent)
-//        ZaloPaySDK.getInstance().onResult(intent)
-//    }o
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -54,9 +50,6 @@ class Login : AppCompatActivity() {
 
 
 
-        SocketHandler.setSocket()
-        SocketHandler.establishConnection()
-        mSocket = SocketHandler.getSocket()
 
 //        mSocket.on("send-data") { args ->
 //            if (args[0] != null) {
@@ -65,7 +58,6 @@ class Login : AppCompatActivity() {
 //
 //            }
 //        }
-
 
 
 
@@ -174,7 +166,6 @@ class Login : AppCompatActivity() {
                                     val editor = sharedPreferences.edit()
                                     editor.putString("userID", resource.data?.getUserID().toString())
                                     editor.apply()
-                                    mSocket.emit("login",resource.data?.getUserID().toString())
 
 
                                 }

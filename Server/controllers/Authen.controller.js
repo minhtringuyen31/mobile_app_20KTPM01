@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
 import UserServices from "../services/User.service.js"
 import { OAuth2Client } from 'google-auth-library';
+import CartServices from '../services/Cart.service.js';
 const client = new OAuth2Client("315513977204-r4d598sk0sv9fifrhefveulu7ksi8fsg.apps.googleusercontent.com");
 const AuthenController = {
     async login(req, res) {
@@ -15,7 +16,6 @@ const AuthenController = {
             }
             const user = rows[0];
             const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-            // const passwordIsValid = req.body.password == user.password ? 1 : 0
             if (!passwordIsValid) {
                 return res.status(401).json({ message: 'Invalid email or password' });
             }
@@ -47,7 +47,7 @@ const AuthenController = {
 
 
     },
-    async verify(req, res) {
+    async LoginGG(req, res) {
         //
         const ticket = await client.verifyIdToken({
             idToken: req.params.id,
@@ -63,6 +63,7 @@ const AuthenController = {
         if (!user) {
             // 
             user = await UserServices.create(payload.name, null, payload.email, null, null, null, null, payload.picture, 0, 0)
+            await CartServices.create(user.id)
             const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET, {
                 expiresIn: '365d',
             });

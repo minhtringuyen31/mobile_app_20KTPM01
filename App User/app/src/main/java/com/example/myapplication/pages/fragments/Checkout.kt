@@ -14,7 +14,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
@@ -24,21 +25,21 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.checkout.CreateOrder
 import com.example.myapplication.modals.CartItem
-import com.example.myapplication.modals.OrderProduct
 import com.example.myapplication.pages.apdaters.CheckoutApdater
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.order.CheckoutViewModel
 import com.example.myapplication.viewmodels.order.OrderViewModel
-import com.github.florent37.singledateandtimepicker.SingleDateAndTimePicker
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import org.json.JSONObject
 import vn.zalopay.sdk.Environment
 import vn.zalopay.sdk.ZaloPayError
 import vn.zalopay.sdk.ZaloPaySDK
 import vn.zalopay.sdk.listeners.PayOrderListener
-import java.text.SimpleDateFormat
+import java.lang.reflect.Type
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -82,6 +83,10 @@ class Checkout : Fragment() {
     private lateinit var view:View
     private  var cartItemCallAPI:ArrayList<CartItem> = ArrayList<CartItem>()
     private lateinit var orderViewModel: OrderViewModel
+    private lateinit var adddressAdapter:AddressApdapter
+    private var selectedAddressBoolean:Boolean=true;
+    private lateinit var phoneUser:TextView;
+    private lateinit var updatePhone:TextView;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,9 +120,7 @@ class Checkout : Fragment() {
                     println("Error parsing date: $e")
                 }
             }.display()
-
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -144,23 +147,25 @@ class Checkout : Fragment() {
         total= view.findViewById(R.id.totalCheckout)
         addItem= view.findViewById(R.id.addItems)
         discount= view.findViewById(R.id.addDiscount)
+        updatePhone=view.findViewById(R.id.updatePhone)
         itemCheckoutListView = view.findViewById(R.id.listItemCheckout)
         checkoutAdapter = CheckoutApdater(arrayListOf(),this,view.context)
         itemCheckoutListView.adapter=checkoutAdapter
         btnShowBottomSheet = view.findViewById(R.id.method_payment)
         btnCheckout = view.findViewById(R.id.btnPlaceOrderCheckout)
         methodSelected= view.findViewById(R.id.methodSelected)
+        phoneUser = view.findViewById(R.id.phoneUser)
         btnShowBottomSheet.setOnClickListener {
             val dialog = BottomSheetDialog(view.context)
             val viewitem = layoutInflater.inflate(R.layout.payment_method_layout, null)
             val momo = viewitem.findViewById<LinearLayout>(R.id.momo)
             val paypal = viewitem.findViewById<LinearLayout>(R.id.paypal)
             momo.setOnClickListener {
-                methodSelected.text= "Momo"
+                methodSelected.text= "ZaloPay"
                 dialog.dismiss()
             }
             paypal.setOnClickListener {
-                methodSelected.text= "ZaloPay"
+                methodSelected.text= "Paypal"
                 dialog.dismiss()
             }
             dialog.setContentView(viewitem)
@@ -194,14 +199,33 @@ class Checkout : Fragment() {
         back_checkout.setOnClickListener {
             fragmentManager?.popBackStack()
         }
+        val sharedPreferences = view.context.getSharedPreferences("phone", AppCompatActivity.MODE_PRIVATE)
+        val phoneShare= sharedPreferences.getString("phoneUser","Số điện thoại")
+        if(phoneShare!="Số điện thoại")
+        {
+            phoneUser.text=phoneShare
+        }
+        else{
+            phoneUser.setOnClickListener {
+                val dialog = CustomDialog(view.context)
+                dialog.setUpDialogPhone()
+            }
+        }
+        updatePhone.setOnClickListener {
+            val dialog = CustomDialog(view.context)
+            dialog.setUpDialogPhone()
+        }
+
         btnCheckout.setOnClickListener {
-            val orderApi = CreateOrder()
-            try {
-                val data: JSONObject = orderApi.createOrder("1000")
-                val code = data.getString("returncode")
-                if (code == "1") {
-                    val myActivity = activity as MainActivity
-                    ZaloPaySDK.getInstance().payOrder(myActivity, data.getString("zptranstoken"), "demozpdk://app", object :
+            if(checkoutViewModel.getAddress()!="None")
+            {
+                val orderApi = CreateOrder()
+                try {
+                    val data: JSONObject = orderApi.createOrder("1000")
+                    val code = data.getString("returncode")
+                    if (code == "1") {
+                        val myActivity = activity as MainActivity
+                        ZaloPaySDK.getInstance().payOrder(myActivity, data.getString("zptranstoken"), "demozpdk://app", object :
                             PayOrderListener {
                             override fun onPaymentSucceeded(
                                 transactionId: String,
@@ -249,10 +273,23 @@ class Checkout : Fragment() {
                                     .show()
                             }
                         })
+                    }
+                } catch (e: java.lang.Exception) {
+                    e.printStackTrace()
                 }
-            } catch (e: java.lang.Exception) {
-                e.printStackTrace()
             }
+            else
+            {
+                SweetAlertDialog(view.context, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("Hãy chọn địa chỉ giao hàng ")
+                    .setContentText("Vui lòng kiểm tra lại")
+                    .setConfirmText("Đồng ý")
+                    .setConfirmClickListener { sDialog ->
+                        sDialog.dismissWithAnimation()
+                    }
+                    .show()
+            }
+
         }
 
         cancelCheckout.setOnClickListener {
@@ -289,30 +326,165 @@ class Checkout : Fragment() {
         }
     }
     fun handleNewIntent(intent: Intent?) {
-        // handle the new intent here
-        println("Di vao day"+intent)
         ZaloPaySDK.getInstance().onResult(intent)
     }
    inner class CustomDialog(context: Context) {
         private var dialog: Dialog = Dialog(context)
+       private lateinit var addressListView:ListView
+       private lateinit var closeButton:ImageView
+       private lateinit var selectedAddress:TextView;
+       private lateinit var closeButtonPhone:ImageView
+       private lateinit var selectedPhone:TextView;
+        @SuppressLint("SuspiciousIndentation")
         fun setUpDialog(){
+
             dialog.setContentView(R.layout.custom_dialog_input_address)
-            dialog.window!!.setLayout(
+            addressListView =dialog.findViewById(R.id.listAddress)
+            closeButton = dialog.findViewById(R.id.closeDialogAddress)
+            adddressAdapter = AddressApdapter(arrayListOf(),dialog.context)
+            selectedAddress= dialog.findViewById(R.id.selectAddress)
+
+
+                dialog.window!!.setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
-            dialog.setCancelable(false)
+            dialog.setCancelable(true)
             dialog.window!!.attributes.windowAnimations = R.style.CustomBottomSheetDialogTheme
+            closeButton.setOnClickListener {
+                dialog.dismiss()
+            }
+            val sharedPreferences = dialog.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
+            val gson = Gson()
+            val type: Type = object : TypeToken<ArrayList<String>>() {}.type
+            val carts=sharedPreferences.getString("nameAddress", null)
+            println(carts)
+            var dataItem = gson.fromJson<ArrayList<String>>(carts, type);
+            if (dataItem == null) {
+                dataItem = ArrayList<String>()
+            }
+            adddressAdapter.addAddress(dataItem);
+            addressListView.adapter=adddressAdapter;
             val okay_text = dialog.findViewById<TextView>(R.id.add_Address)
             val edtAddress = dialog.findViewById<EditText>(R.id.addressUser)
             okay_text.setOnClickListener(View.OnClickListener {
-                dialog.dismiss()
-                checkoutViewModel.setAddress(edtAddress.text.toString())
-                showAddress.text=edtAddress.text
+
+                dataItem.add(edtAddress.text.toString())
+                adddressAdapter.addAddress(dataItem)
+                sharedPreferences.edit().putString("nameAddress", gson.toJson(dataItem)).apply()
+                edtAddress.text.clear()
             })
+            selectedAddress.setOnClickListener {
+                dialog.dismiss()
+            }
+            addressListView.onItemClickListener =
+                AdapterView.OnItemClickListener { adapterView, view, position, id -> // Handle item click here
+                    val checkBoxAddress = adapterView.getItemAtPosition(position) as String
+                    checkoutViewModel.setAddress(checkBoxAddress)
+                    adapterView[position].findViewById<CheckBox>(R.id.checkboxAddress).isChecked=selectedAddressBoolean
+                    selectedAddressBoolean = !selectedAddressBoolean
+                }
+
             dialog.show()
         }
+
+       fun setUpDialogPhone(){
+           dialog.setContentView(R.layout.custom_dialog_phone)
+           closeButtonPhone = dialog.findViewById(R.id.closeDialogPhone)
+           selectedPhone= dialog.findViewById(R.id.selectPhone)
+
+           dialog.window!!.setLayout(
+               ViewGroup.LayoutParams.MATCH_PARENT,
+               ViewGroup.LayoutParams.WRAP_CONTENT
+           )
+           dialog.setCancelable(true)
+           dialog.window!!.attributes.windowAnimations = R.style.CustomBottomSheetDialogTheme
+           closeButtonPhone.setOnClickListener {
+               dialog.dismiss()
+           }
+           val sharedPreferences = dialog.context.getSharedPreferences("phone", AppCompatActivity.MODE_PRIVATE)
+           val edtPhone = dialog.findViewById<EditText>(R.id.addphone)
+           selectedPhone.setOnClickListener(View.OnClickListener {
+               sharedPreferences.edit().putString("phoneUser",edtPhone.text.toString()).apply()
+                phoneUser.text=edtPhone.text.toString();
+               edtPhone.text.clear()
+               dialog.dismiss()
+           })
+           dialog.show()
+       }
     }
+
+    inner class AddressApdapter(private val address: ArrayList<String>, mContext: Context) :
+        ArrayAdapter<Any?>(mContext, R.layout.item_address, address as ArrayList<*>) {
+        private  var selectedPostion=-1
+        private inner class ViewHolder {
+            lateinit var checkBox: CheckBox
+            lateinit var txtName: TextView
+            lateinit var iconDelete: ImageView
+
+        }
+        override fun getCount(): Int {
+            return address.size
+        }
+        override fun getItem(position: Int): String {
+            return address[position]
+        }
+        override fun getView(
+            position: Int,
+            convertView: View?,
+            parent: ViewGroup
+        ): View {
+            var convertView = convertView
+            val viewHolder: ViewHolder
+            val result: View
+            if (convertView == null) {
+                viewHolder = ViewHolder()
+                convertView =
+                    LayoutInflater.from(parent.context).inflate(R.layout.item_address, parent, false)
+                viewHolder.txtName =
+                    convertView.findViewById(R.id.nameAddress)
+                viewHolder.checkBox =
+                    convertView.findViewById(R.id.checkboxAddress)
+                viewHolder.iconDelete = convertView.findViewById(R.id.iconDeleteAddres)
+                result = convertView
+                convertView.tag = viewHolder
+            } else {
+                viewHolder = convertView.tag as ViewHolder
+                result = convertView
+            }
+            val item: String = getItem(position)
+            viewHolder.txtName.text = item
+            viewHolder.checkBox.isChecked = false
+            viewHolder.checkBox.isChecked= position==0;
+            viewHolder.iconDelete.setOnClickListener {
+                val sharedPreferences = context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
+                val gson = Gson()
+                val type: Type = object : TypeToken<ArrayList<String>>() {}.type
+                val carts=sharedPreferences.getString("nameAddress", null)
+                var dataItem = gson.fromJson<ArrayList<String>>(carts, type);
+                if (dataItem == null) {
+                    dataItem = ArrayList<String>()
+                }
+                dataItem.removeIf {
+                    it == item
+                }
+                adddressAdapter.addAddress(dataItem)
+                sharedPreferences.edit().putString("nameAddress", gson.toJson(dataItem)).apply()
+            }
+
+
+            return result
+        }
+        fun addAddress(addressParam: ArrayList<String>) {
+            this.address.apply {
+                clear()
+                addAll(addressParam)
+                notifyDataSetChanged()
+            }
+        }
+
+    }
+
     companion object {
         /**
          * Use this factory method to create a new instance of

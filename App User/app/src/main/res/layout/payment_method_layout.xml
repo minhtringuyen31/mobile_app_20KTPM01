@@ -40,7 +40,7 @@
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     app:cardCornerRadius="20dp"
-                    android:src="@drawable/momo_payment" />
+                    android:src="@drawable/zalo" />
             </androidx.cardview.widget.CardView>
 
             <TextView

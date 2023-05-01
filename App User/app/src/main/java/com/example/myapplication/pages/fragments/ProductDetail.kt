@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -22,6 +23,9 @@ import com.example.myapplication.pages.apdaters.RatingListAdapter
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
 import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -238,30 +242,55 @@ class ProductDetail : Fragment() {
                 updatePriceTotal()
             }
         btnAddtoCart.setOnClickListener {
-            val cartItem = CartItem(
-                3,
-                1,
-                product_id,
-                itemCount.count,
-                itemCount.size,
-                itemCount.total,
-                itemCount.nameTopping,
-                name,
-                description,
-                image,
-                category_id
-            )
-            appModel.addtoCart(cartItem)
-            Toast.makeText(
-                activity, "Add to cart success",
-                Toast.LENGTH_SHORT
-            ).show()
-            val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
-            myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
-            (view.context as FragmentActivity).supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.flFragment, Homepage()).addToBackStack(null)
-                .commit()
+
+            val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
+
+            val gson = Gson()
+            val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
+            val carts=sharedPreferences.getString("productID", null)
+            var dataItem = gson.fromJson<ArrayList<Int>>(carts, type);
+
+            if (dataItem == null) {
+                dataItem = ArrayList<Int>()
+            }
+            if(dataItem.contains(product_id)&&dataItem.isNotEmpty()){
+                Toast.makeText(
+                    activity, "Sản phẩm đã tồn tại trong giỏ hàng",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+            else{
+                val sharedPreferencesUser = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
+                val userID = sharedPreferencesUser.getString("userID", "")
+                val cartItem = CartItem(
+                    userID!!.toInt(),
+                    userID!!.toInt(),
+                    product_id,
+                    itemCount.count,
+                    itemCount.size,
+                    itemCount.total,
+                    itemCount.nameTopping,
+                    name,
+                    description,
+                    image,
+                    category_id
+                )
+                appModel.addtoCart(cartItem)
+                Toast.makeText(
+                    activity, "Thêm thành công vào giỏ hàng",
+                    Toast.LENGTH_SHORT
+                ).show()
+                val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
+                myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
+                (view.context as FragmentActivity).supportFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.flFragment, Order(),"Order").addToBackStack(null)
+                    .commit()
+                val tempData = carts;
+                dataItem.add(product_id);
+                sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
+            }
+
 
         }
         appModel.getRatingViewModel().ratings.observe(viewLifecycleOwner){

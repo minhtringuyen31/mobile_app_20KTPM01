@@ -8,15 +8,9 @@
     android:orientation="vertical"
     tools:context=".pages.fragments.HistoryOrder">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="History order"
-        android:textColor="@color/black"
-        android:textSize="20dp"
-        android:textStyle="bold" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:layout_marginTop="10dp"
         android:id="@+id/historyOderListRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

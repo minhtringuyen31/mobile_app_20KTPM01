@@ -9,12 +9,17 @@ import android.widget.FrameLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.myapplication.pages.fragments.*
+import com.example.myapplication.socket.SocketHandler
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import io.socket.client.Socket
+import java.io.IOException
+
 class MainActivity : AppCompatActivity() {
     private lateinit var toolbar:AppBarLayout
     private lateinit var bottomNavigationView:BottomNavigationView
     private lateinit var currentFragment: FrameLayout
+    private lateinit var mSocket: Socket
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -24,11 +29,21 @@ class MainActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.myToolBar)
         bottomNavigationView = findViewById(R.id.bottom_nav)
         currentFragment= findViewById(R.id.flFragment)
-        println("Current thread: ${Thread.currentThread().name}")
-
+        SocketHandler.setSocket()
+        SocketHandler.establishConnection()
+        mSocket = SocketHandler.getSocket()
+                mSocket.on("server-send-message") { args ->
+            if (args[0] != null) {
+                val counter = args[0]
+                println(counter)
+            }
+        }
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("user", MODE_PRIVATE)
         val userID = sharedPreferences.getString("userID", "")
         if (userID != null&& userID.isNotEmpty()) {
+
+            mSocket.emit("login",userID)
+
             setCurrentFragment(Homepage(),"Homepage")
             activeNavigationBar()
         }else
@@ -36,17 +51,12 @@ class MainActivity : AppCompatActivity() {
             if(status.toString()=="1"){
                 showToolbarAndNavigationBar(true)
                 setCurrentFragment(Homepage(),"Homepage")
-
             }else {
                 showToolbarAndNavigationBar(false)
                 setCurrentFragment(splashApp(),"splashApp")
             }
             activeNavigationBar()
         }
-
-
-
-
     }
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
@@ -100,7 +110,6 @@ class MainActivity : AppCompatActivity() {
             true
         }
     }
-
     fun setSelectedIcon(index:Int){
         bottomNavigationView.menu.getItem(index).isChecked = true
     }
@@ -114,7 +123,15 @@ class MainActivity : AppCompatActivity() {
         replace(R.id.flFragment,fragment,tag)
         commit()
     }
-
+    override fun onDestroy() {
+        super.onDestroy()
+        // Đóng kết nối socket ở đây
+        try {
+            mSocket.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+    }
 
 
 }
