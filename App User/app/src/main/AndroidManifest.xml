@@ -16,16 +16,16 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".OrderDetail"
+            android:name=".pages.OrderDetail"
             android:exported="false" />
         <activity
-            android:name=".RatingActivity"
+            android:name=".pages.RatingActivity"
             android:exported="false" />
-        <activity
-            android:name=".RatingProduct"
-            android:exported="false"
-            android:label="@string/title_activity_rating_product"
-            android:theme="@style/Theme.MyApplication.NoActionBar" />
+<!--        <activity-->
+<!--            android:name=".RatingProduct"-->
+<!--            android:exported="false"-->
+<!--            android:label="@string/title_activity_rating_product"-->
+<!--            android:theme="@style/Theme.MyApplication.NoActionBar" />-->
         <activity
             android:name=".pages.Profile"
             android:exported="false" />

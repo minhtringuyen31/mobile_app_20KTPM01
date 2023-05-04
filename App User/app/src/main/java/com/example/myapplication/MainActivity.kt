@@ -21,23 +21,23 @@ class MainActivity : AppCompatActivity() {
         supportActionBar?.hide()
         val intentStatus = intent
         val status=intentStatus.getStringExtra("status")
-//        setContentView(R.layout.activity_main)
-        setContentView(R.layout.activity_rating)
-//        toolbar = findViewById(R.id.myToolBar)
-//        bottomNavigationView = findViewById(R.id.bottom_nav)
-//        currentFragment= findViewById(R.id.flFragment)
-//        println("Current thread: ${Thread.currentThread().name}")
-//        if(status.toString()=="1"){
-//            showToolbarAndNavigationBar(true)
-//            setCurrentFragment(Homepage(),"Homepage")
-//
-//        }else
-//        {
-//            showToolbarAndNavigationBar(false)
-//            setCurrentFragment(splashApp(),"splashApp")
-//
-//        }
-//        activeNavigationBar()
+        setContentView(R.layout.activity_main)
+//        setContentView(R.layout.activity_rating)
+        toolbar = findViewById(R.id.myToolBar)
+        bottomNavigationView = findViewById(R.id.bottom_nav)
+        currentFragment= findViewById(R.id.flFragment)
+        println("Current thread: ${Thread.currentThread().name}")
+        if(status.toString()=="1"){
+            showToolbarAndNavigationBar(true)
+            setCurrentFragment(Homepage(),"Homepage")
+
+        }else
+        {
+            showToolbarAndNavigationBar(false)
+            setCurrentFragment(splashApp(),"splashApp")
+
+        }
+        activeNavigationBar()
 
     }
     fun showToolbarAndNavigationBar(status:Boolean){
