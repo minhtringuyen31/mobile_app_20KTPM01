@@ -51,9 +51,9 @@ const OrderRepository = {
         }
     },
 
-    async findOneByID(id) {
-        const query = `SELECT * FROM orders WHERE id = ?`;
-        const value = [id];
+    async findAllByUserId(userId) {
+        const query = `SELECT * FROM orders WHERE user_id = ?`;
+        const value = [userId];
 
         try {
             const [rows] = await DB.pool().query(query, value);

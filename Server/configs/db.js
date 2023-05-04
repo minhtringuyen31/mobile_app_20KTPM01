@@ -7,7 +7,7 @@ console.log(process.env.WIN_PORT)
 const _connection = mysql2.createPool({
   host: 'localhost',
   user: 'root',
-  password: '',
+  password: '123456',
   database: 'mobile_coffee',
   port: process.env.WIN_PORT,
 });

@@ -1,8 +1,8 @@
 import DB from "../configs/db.js"
 const OrderProductRepository = {
-    async create(note, order_id, product_id, quantity,price) {
+    async create(note, order_id, product_id, quantity, price) {
         const query = `INSERT INTO order_product (note, order_id, product_id, quantity,price) VALUES (?, ?, ?, ?, ?)`;
-        const values = [note, order_id, product_id, quantity,price];
+        const values = [note, order_id, product_id, quantity, price];
         try {
             DB.pool().query(query, values);
             return true;
@@ -11,7 +11,7 @@ const OrderProductRepository = {
             return false;
         }
     },
-    async update(id, note, order_id, product_id, quantity,price) {
+    async update(id, note, order_id, product_id, quantity, price) {
         const query = `UPDATE order_product SET note=?, order_id=?, product_id=?, quantity=?, price=? WHERE id=?`;
         const values = [note, order_id, product_id, quantity, price, id];
 
@@ -51,7 +51,7 @@ const OrderProductRepository = {
         }
     },
 
-    async findOneByID(id) {
+    async findAllByUserID(id) {
         const query = `SELECT * FROM order_product WHERE id = ?`;
         const value = [id];
 

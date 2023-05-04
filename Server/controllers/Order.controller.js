@@ -71,7 +71,7 @@ const OrderController = {
     }
   },
   async findAll(req, res) {
-    const orders = await OrdertService.findAll();   
+    const orders = await OrdertService.findAll();
     if (orders) {
       res.status(200).send(orders);
     } else {
