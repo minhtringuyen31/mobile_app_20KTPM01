@@ -25,15 +25,20 @@ class RatingViewModel : ViewModel(){
         }
     }
 
-    fun postRating(productId: Int){
+    fun postRating(rating: Rating){
         viewModelScope.launch(Dispatchers.IO){
             try{
-                val response = Utils.getRetrofit().create(RatingService::class.java).postRating(productId)
-
-
+                val response = Utils.getRetrofit().create(RatingService::class.java).postRating(rating)
+                println(response)
             } catch (e:Exception) {
                 println("Views: $e")
             }
+        }
+    }
+
+    companion object {
+        fun getInstance(): RatingViewModel {
+            return RatingViewModel()
         }
     }
 }

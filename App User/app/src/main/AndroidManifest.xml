@@ -3,10 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:hardwareAccelerated="true"
         android:icon="@mipmap/ic_launcher"
@@ -16,42 +18,57 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".pages.Profile"
+            android:name=".Admin.MainActivityAdmin"
             android:exported="false" />
         <activity
-            android:name=".pages.EditProfile"
+            android:name=".pages.activities.user.Profile"
             android:exported="false" />
         <activity
-            android:name=".pages.IntroductionStore"
+            android:name=".pages.activities.user.EditProfile"
             android:exported="false" />
         <activity
-            android:name=".pages.ChangePassword"
+            android:name=".pages.activities.store.IntroductionStore"
             android:exported="false" />
         <activity
-            android:name=".pages.ForgotPassword_Step2"
+            android:name=".pages.activities.user.ChangePassword"
             android:exported="false" />
         <activity
-            android:name=".pages.ForgotPassword_Step1"
+            android:name=".pages.activities.user.ForgotPassword_Step2"
             android:exported="false" />
         <activity
-            android:name=".pages.Signup"
+            android:name=".pages.activities.user.ForgotPassword_Step1"
             android:exported="false" />
         <activity
-            android:name=".pages.Login"
+            android:name=".pages.activities.user.Signup"
             android:exported="false" />
         <activity
-            android:name=".pages.Order_History"
+            android:name=".pages.activities.user.Login"
             android:exported="false" />
         <activity
-            android:name=".pages.Checkout"
+            android:name=".pages.activities.order.Order_History"
+            android:exported="false" />
+        <activity
+            android:name=".pages.activities.order.Checkout"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:label="The coffee shop"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="app"
+                    android:scheme="demozpdk" />
             </intent-filter>
         </activity>
     </application>

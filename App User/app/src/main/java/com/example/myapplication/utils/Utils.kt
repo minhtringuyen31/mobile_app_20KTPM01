@@ -15,10 +15,13 @@ import com.google.gson.GsonBuilder
 import de.hdodenhof.circleimageview.CircleImageView
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.text.DecimalFormat
+import java.text.Normalizer
+import java.text.NumberFormat
+import java.util.regex.Pattern
 
 class Utils : AppCompatActivity() {
     companion object {
-
         private const val  URL="http://10.0.23.81:3000/api/"
         fun getRetrofit(): Retrofit {
             val gson = GsonBuilder()
@@ -59,6 +62,20 @@ class Utils : AppCompatActivity() {
             val displayMetrics = DisplayMetrics()
             windowManager.defaultDisplay.getMetrics(displayMetrics)
             return displayMetrics.heightPixels
+        }
+
+        fun formatCurrency(total: Double): String {
+            val formatter: NumberFormat = DecimalFormat("#,###")
+            return formatter.format(total);
+        }
+        fun getDigitInString(target: String): Double {
+            return target.filter { it.isDigit() }.toDouble();
+        }
+
+        fun removeAccent(s: String): String {
+            val temp: String = Normalizer.normalize(s, Normalizer.Form.NFD)
+            val pattern: Pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+")
+            return pattern.matcher(temp).replaceAll("")
         }
 
 

@@ -33,6 +33,21 @@ class OrderViewModel :ViewModel(){
             }
         }
     }
+
+    fun getAllOnGoingOrder() {
+        // App 2 thread; MainThread(UI Thread) và Background Thread --> ANR
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = Utils.getRetrofit().create(OrderService::class.java).getAllOnGoingOrder()
+                _orderProduct.postValue(response) // để đảm bảo rằng các giá trị được cập nhật trên luồng phụ (background thread).
+                println(response)
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+    }
+
+
     fun createOrderProduct(orderProduct: OrderProduct) {
         viewModelScope.launch {
             try {

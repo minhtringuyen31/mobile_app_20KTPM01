@@ -25,6 +25,8 @@ class Activities : Fragment(){
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+
     private var tabLayout : TabLayout?=null
     private var viewPager : ViewPager? = null
     private var viewPagerAdapter: ViewPagerAdapter? =null

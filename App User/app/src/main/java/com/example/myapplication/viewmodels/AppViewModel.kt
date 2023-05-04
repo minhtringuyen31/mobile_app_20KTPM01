@@ -3,6 +3,7 @@ package com.example.myapplication.viewmodels
 import android.view.View
 import androidx.lifecycle.*
 import com.example.myapplication.modals.*
+import com.example.myapplication.pages.fragments.OnGoingOrder
 import com.example.myapplication.viewmodels.cart.CartItemViewModel
 import com.example.myapplication.viewmodels.category.CategoryViewModel
 import com.example.myapplication.viewmodels.order.OrderViewModel
@@ -22,6 +23,7 @@ class AppViewModel:ViewModel() {
     private  lateinit var cartItemViewModel: CartItemViewModel
     private lateinit var ratingViewModel: RatingViewModel
     private lateinit var orderViewModel: OrderViewModel
+
 
      fun setUpViewModel(view: View,viewModelStoreOwner: ViewModelStoreOwner) {
          viewModelScope.launch {
@@ -89,7 +91,6 @@ class AppViewModel:ViewModel() {
             withContext(Dispatchers.Main) {
                 orderViewModel = ViewModelProvider(viewModelStoreOwner)[OrderViewModel::class.java]
                 orderViewModel.getAllOrder()
-
             }
         }
     }
@@ -97,9 +98,7 @@ class AppViewModel:ViewModel() {
         return orderViewModel;
     }
 
-
     fun setUpRatingViewMode(viewModelStoreOwner: ViewModelStoreOwner, productId:Int){
-
         viewModelScope.launch {
             withContext(Dispatchers.Main){
                 ratingViewModel = ViewModelProvider(viewModelStoreOwner)[RatingViewModel::class.java]

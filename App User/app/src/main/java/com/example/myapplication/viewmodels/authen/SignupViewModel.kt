@@ -22,22 +22,22 @@ class SignupViewModel: ViewModel() {
             try {
                 println(request)
                 val response = Utils.getRetrofit().create(UserService::class.java).SignUp(request)
-                    Resource.loading(data = null)
+                Resource.loading(data = null)
 
-                    if(response.getPhone()!=null){
-                        println("test"+response)
-                        _signup.postValue( Resource.success(data=response))
-                    }
-                    else
-                    {
-                        _signup.postValue( Resource.error(data=null, message = "No Found!"))
-                    }
+                if(response.getPhone()!=null){
+                    println("test"+response)
+                    _signup.postValue( Resource.success(data=response))
+                }
+                else
+                {
+                    _signup.postValue( Resource.error(data=null, message = "No Found!"))
+                }
 
             }
             catch (e:java.lang.Exception){
                 _signup.postValue( Resource.error(data = null, message ="Error Occurred!"))
             }
-            }
         }
+    }
 
 }

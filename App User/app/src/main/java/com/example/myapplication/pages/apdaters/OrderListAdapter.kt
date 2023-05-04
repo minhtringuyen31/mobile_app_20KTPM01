@@ -7,12 +7,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.modals.CartItem
 import com.example.myapplication.modals.Order
 
-class OnGoingOrderListAdapter(
+class OrderListAdapter(
     private var orderList: ArrayList<Order>
-): RecyclerView.Adapter<OnGoingOrderListAdapter.ViewHolder>() {
+): RecyclerView.Adapter<OrderListAdapter.ViewHolder>() {
     var onItemClick:((Order)-> Unit)? = null
     inner class ViewHolder(listItemView: View): RecyclerView.ViewHolder(listItemView){
         val orderId : TextView = listItemView.findViewById(R.id.orderIdTV)
@@ -48,12 +47,16 @@ class OnGoingOrderListAdapter(
         val orderPrice = holder.orderPrice
 
         orderId.text = onGoingOrder.getId().toString()
+        orderAddressShipping.text = onGoingOrder.getShippingAddress()
+        orderDate.text = onGoingOrder.getOrderDate()
+        orderPrice.text = onGoingOrder.getTotal().toString()
+
 //        orderAddressShipping.text = onGoingOrder.getShippingAddress()
-//        if(onGoingOrder.getStatus() == 0){
-//            orderStatus.text = "Sản phẩm đang được giao"
-//        } else {
-//            orderStatus.text = "Sản phẩm đã giao thành công"
-//        }
+        if(onGoingOrder.getStatus() == 0){
+            orderStatus.text = "Sản phẩm đang được giao"
+        } else {
+            orderStatus.text = "Sản phẩm đã giao thành công"
+        }
 //        orderDate.text = onGoingOrder.getOrderDate()
 //        orderPrice.text = onGoingOrder.getTotal().toString()
     }
