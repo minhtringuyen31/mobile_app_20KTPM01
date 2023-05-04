@@ -18,9 +18,12 @@ import ProductAdminRouter from './routes/admin/Product.admin.route.js';
 import PromotionAdminRouter from './routes/admin/Promotion.admin.route.js';
 import RatingAdminRouter from './routes/admin/Rating.admin.route.js';
 import UserAdminRouter from './routes/admin/User.admin.route.js';
+import ToppingAdminRouter from './routes/admin/Topping.admin.route.js';
+import OrderProductAdminRouter from './routes/admin/OrderProduct.admin.route.js';
+
 import AuthenRoute from './routes/Authen.route.js';
 import ToppingRoute from './routes/Topping.route.js';
-import Authen from './middlewares/Authentication.js';
+import Authentication from './middlewares/Authentication.js';
 import SocketListener from './utils/socket.js';
 
 import http from "http";
@@ -54,7 +57,9 @@ app.use('/api/admin/product', ProductAdminRouter);
 app.use('/api/admin/promotion', PromotionAdminRouter);
 app.use('/api/admin/rating', RatingAdminRouter);
 app.use('/api/admin/user', UserAdminRouter);
-app.use(Authen)
+app.use('/api/admin/topping', ToppingAdminRouter);
+app.use('/api/admin/order_product', OrderProductAdminRouter);
+app.use(Authentication)
 
 
 server.listen(port, () => {

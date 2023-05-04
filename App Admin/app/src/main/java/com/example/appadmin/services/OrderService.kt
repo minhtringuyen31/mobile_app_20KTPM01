@@ -21,5 +21,5 @@ interface OrderService {
     suspend fun deleteOrder(@Path("id") orderId: Int): Boolean
 
     @PUT("order/status/{id}")
-    suspend fun updateStatus(@Path("id") orderId: Int, @Body status: String): Order
+    suspend fun updateStatus(@Path("id") orderId: Int, @Body status: Int): Order
 }
