@@ -6,11 +6,14 @@ import retrofit2.http.POST
 import retrofit2.http.Path
 
 interface RatingService {
-    @GET("ratings/{id}")
-    suspend fun getRating(@Path("id") productId: Int): ArrayList<Rating>
+    @GET("ratings/{productId}")
+    suspend fun getRating(@Path("productId") productId: Int): ArrayList<Rating>
 
     @GET("rating/")
     suspend fun getAllRating(): ArrayList<Rating>
+
+    @POST("rating/{productId}")
+    suspend fun postRating(@Path("productId") productId: Int): Rating
 
     @POST("rating/delete/{id}")
     suspend fun deleteRating(@Path("id") ratingId: Int): Rating

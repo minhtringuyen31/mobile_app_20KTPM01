@@ -18,6 +18,4 @@ class LoginRequest {
     override fun toString(): String {
         return "LoginRequest(phone='$phone', password='$password', status=$status)"
     }
-
-
 }

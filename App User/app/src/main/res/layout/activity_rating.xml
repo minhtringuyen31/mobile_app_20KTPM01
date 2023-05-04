@@ -117,18 +117,19 @@
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
+
       <EditText
-          android:padding="10dp"
-          android:gravity="top"
-          android:id="@+id/myEditText"
+          android:id="@+id/commentRatingTV"
           android:layout_width="match_parent"
           android:layout_height="150dp"
-          android:text="Bạn nghĩ gì về chất lượng và hình thức sản phẩm?"
-          android:textSize="12dp"
-          android:maxLines="10"
-          android:scrollbars="vertical"
+          android:background="@drawable/edit_text_rating"
+          android:gravity="top"
+          android:hint="Bạn nghĩ gì về chất lượng và hình thức sản phẩm?"
           android:inputType="textMultiLine"
-          android:background="@drawable/edit_text_rating"/>
+          android:maxLines="10"
+          android:padding="10dp"
+          android:scrollbars="vertical"
+          android:textSize="12dp" />
 
 
 
@@ -151,6 +152,7 @@
         android:background="@color/white"
         android:layout_height="wrap_content">
       <TextView
+          android:id="@+id/submitRatingBtn"
           android:padding="10dp"
           android:layout_margin="15dp"
           android:layout_width="match_parent"

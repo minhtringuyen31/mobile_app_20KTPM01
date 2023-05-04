@@ -25,7 +25,6 @@ class LoginViewModel:ViewModel() {
                 }
                 else
                 {
-
                     _loginResult.postValue( Resource.error(data=null, message = "No Found!"))
                 }
 

@@ -14,12 +14,24 @@ class RatingViewModel : ViewModel(){
     private val _ratings = MutableLiveData<ArrayList<Rating>>()
     val ratings: LiveData<ArrayList<Rating>> = _ratings
 
-    fun getRating(id: Int){
+    fun getRating(productId: Int){
         viewModelScope.launch(Dispatchers.IO){
             try{
-                val response = Utils.getRetrofit().create(RatingService::class.java).getRating(id)
+                val response = Utils.getRetrofit().create(RatingService::class.java).getRating(productId)
                 _ratings.postValue(response)
             } catch (e:Exception){
+                println("Views: $e")
+            }
+        }
+    }
+
+    fun postRating(productId: Int){
+        viewModelScope.launch(Dispatchers.IO){
+            try{
+                val response = Utils.getRetrofit().create(RatingService::class.java).postRating(productId)
+
+
+            } catch (e:Exception) {
                 println("Views: $e")
             }
         }
