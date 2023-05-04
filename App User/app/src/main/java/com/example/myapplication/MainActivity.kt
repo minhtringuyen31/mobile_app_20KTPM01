@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
         val intentStatus = intent
         val status=intentStatus.getStringExtra("status")
         setContentView(R.layout.activity_main)
-//        setContentView(R.layout.activity_rating)
         toolbar = findViewById(R.id.myToolBar)
         bottomNavigationView = findViewById(R.id.bottom_nav)
         currentFragment= findViewById(R.id.flFragment)
@@ -104,4 +103,7 @@ class MainActivity : AppCompatActivity() {
         replace(R.id.flFragment,fragment,tag)
         commit()
     }
+
+
+
 }

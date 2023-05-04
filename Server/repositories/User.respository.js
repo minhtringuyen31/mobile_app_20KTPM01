@@ -1,12 +1,16 @@
 import DB from "../configs/db.js"
-import crypto from "crypto"
+import crypto from 'crypto'
+import CartServices from "../services/Cart.service.js";
 const UserRepository = {
-    async create(name, gender, email, phone, password, date_of_birth = "", address = "", avatar = "", role = "0", is_disable = "false") {
-        const query = `INSERT INTO user (name, gender,email,password, date_of_birth, address, avatar, role,is_disable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    async create(name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable) {
+        const query = `INSERT INTO user (name, gender,email,phone,password, date_of_birth, address, avatar, role,is_disable) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
         const values = [name, gender, email, phone, password, date_of_birth, address, avatar, role, is_disable];
         try {
-            DB.pool().query(query, values);
-            return true;
+            const [result] = await DB.pool().query(query, values);
+            const insertedId = result.insertId;
+            const [userResult] = await DB.pool().query(`SELECT * FROM user WHERE id = ?`, [insertedId]);
+            const insertedUser = userResult[0];
+            return insertedUser;
         } catch (error) {
             console.error(error);
             return false;
@@ -67,10 +71,23 @@ const UserRepository = {
     async findOneByPhone(phone) {
         const query = `SELECT * FROM user WHERE phone = ?`;
         const value = [phone];
-        
+
         try {
             const [rows] = await DB.pool().query(query, value);
-           
+
+            return rows[0];
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    },
+    async findOneByEmail(email) {
+        const query = `SELECT * FROM user WHERE email = ?`;
+        const value = [email];
+
+        try {
+            const [rows] = await DB.pool().query(query, value);
+
             return rows[0];
         } catch (error) {
             console.error(error);
@@ -79,19 +96,23 @@ const UserRepository = {
     },
 
 
-    async signup( phone, password) {
+    async signup(phone, password) {
         const query = `INSERT INTO user (phone,password,name) VALUES (?, ?,?)`;
         const chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         const randomBytes = crypto.randomBytes(8);
         const result = new Array(8);
-
         for (let i = 0; i < 8; i++) {
             result[i] = chars[randomBytes[i] % 8];
         }
-        const name=result.join('')
-        const values = [phone, password,name];
+        const name = result.join('')
+        console.log(name);
+        const values = [phone, password, name];
         try {
-            DB.pool().query(query, values);
+            const [result] = await DB.pool().query(query, values);
+            const insertedId = result.insertId;
+            const [userResult] = await DB.pool().query(`SELECT * FROM user WHERE id = ?`, [insertedId]);
+            const insertedUser = userResult[0];
+            await CartServices.create(insertedUser.id)
             return true;
         } catch (error) {
             console.error(error);
@@ -99,10 +120,9 @@ const UserRepository = {
         }
     },
 
-    async changepass(id,password){
-        console.log("repo  "+ id + password)
-        const query='UPDATE user SET password=? WHERE id=?'
-        const values=[password,id]
+    async changepass(id, password) {
+        const query = 'UPDATE user SET password=? WHERE id=?'
+        const values = [password, id]
         try {
             const [result] = await DB.pool().query(query, values);
             if (result.affectedRows > 0) {
@@ -116,9 +136,9 @@ const UserRepository = {
         }
     },
 
-    async editprofile(id,name,email,gender,date_of_birth,address){
+    async editprofile(id, name, email, gender, date_of_birth, address) {
         const query = `UPDATE user SET name=?, gender=?, email=?, date_of_birth=?, address=? WHERE id=?`;
-        const values = [name, gender, email, date_of_birth, address,id];
+        const values = [name, gender, email, date_of_birth, address, id];
 
         try {
             const [result] = await DB.pool().query(query, values);
@@ -128,13 +148,10 @@ const UserRepository = {
                 return false;
             }
         } catch (error) {
-
             console.error(error);
             return false;
         }
     }
-
-
 
 }
 

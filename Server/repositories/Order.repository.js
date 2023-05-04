@@ -1,11 +1,26 @@
 import DB from "../configs/db.js"
 const OrderRepository = {
+    async changeStatus(id, status) {
+        const query = `UPDATE orders SET status=? WHERE id=?`;
+        const values = [status, id];
+        try {
+            const [result] = await DB.pool().query(query, values);
+            return result.affectedRows > 0;
+        } catch (error) {
+            console.error(error);
+            return false;
+        }
+    },
     async create(user_id, order_date, shipping_address, total, status, promotion_id, payment_method_id) {
         const query = `INSERT INTO orders (user_id, order_date, shipping_address, total, status, promotion_id, payment_method_id) VALUES (?, ?, ?, ?, ?,?,?)`;
         const values = [user_id, order_date, shipping_address, total, status, promotion_id, payment_method_id];
         try {
-            DB.pool().query(query, values);
-            return true;
+
+            const [result] = await DB.pool().query(query, values);
+            const insertedId = result.insertId;
+            const [ordersResult] = await DB.pool().query(`SELECT * FROM orders WHERE id = ?`, [insertedId]);
+            const insertedOrder = ordersResult[0];
+            return insertedOrder;
         } catch (error) {
             console.error(error);
             return false;

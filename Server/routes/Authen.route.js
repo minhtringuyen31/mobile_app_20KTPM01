@@ -6,6 +6,6 @@ const AuthenRoute = express.Router();
 
 // Ở đây mọi người có thể sử dụng,get,post,delete,update --> Tuỳ vào mục đích để sử dụng
 AuthenRoute.post("/login", AuthenController.login)
-//AuthenRoute.post("/signup", AuthenController.signup)
+AuthenRoute.post("/tokensignin/:id", AuthenController.LoginGG)
 export default AuthenRoute;
 

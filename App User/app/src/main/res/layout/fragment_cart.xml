@@ -5,36 +5,78 @@
     android:layout_width="match_parent"
     android:orientation="vertical"
     android:layout_height="wrap_content">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:elevation="16dp"
+        android:padding="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent">
 
-
-    <androidx.appcompat.widget.Toolbar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Your Cart"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:textSize="25sp"
-            android:gravity="center_horizontal" />
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/back_btn"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:src="@drawable/ic_back"
+                    android:layout_gravity="center_vertical"
+                    android:layout_height="fill_parent">
+                </ImageView>
+                <TextView
+                    android:layout_weight="7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Your Cart"
+                    android:textStyle="bold"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:gravity="center_horizontal" />
+                <TextView
+                    android:id="@+id/icon_deletecard"
+                    android:layout_weight="2"
+                    android:layout_width="0dp"
+                    android:text="Delete card"
+                    android:textColor="@color/redHighland"
+                    android:textStyle="bold"
+                  android:gravity="center_vertical"
+                    android:layout_height="fill_parent">
 
-    </androidx.appcompat.widget.Toolbar>
+                </TextView>
+            </LinearLayout>
+
+
+
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/cartItemRecylView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
+    <ImageView
+        android:layout_marginTop="80dp"
+        android:id="@+id/emptyList"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/emptycart"
+        android:contentDescription="Empty List" />
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1">
-
     </View>
     <TextView
         android:id="@+id/btnPlaceOrder"
-        android:layout_margin="15dp"
+
+        android:layout_marginBottom="70dp"
         android:layout_width="match_parent"
         android:text="PLACE ORDER"
         android:textStyle="bold"

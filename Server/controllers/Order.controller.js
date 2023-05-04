@@ -20,7 +20,9 @@ const OrderController = {
       payment_method_id
     );
     if (newOrder) {
+      console.log(newOrder)
       res.status(200).send(newOrder);
+
     } else {
       res.status(404).send({ status: 0, message: "Failed" });
     }

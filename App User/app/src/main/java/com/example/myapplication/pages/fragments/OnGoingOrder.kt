@@ -1,13 +1,18 @@
 package com.example.myapplication.pages.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.modals.Order
 import com.example.myapplication.pages.apdaters.OnGoingOrderListAdapter
+import com.example.myapplication.viewmodels.AppViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,9 +28,11 @@ class OnGoingOrder : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
     private lateinit var onGoingOrderListAdapter: OnGoingOrderListAdapter
     private lateinit var onGoingOrderListRecyclerView: RecyclerView
+    private val appModel: AppViewModel by activityViewModels()
+    private lateinit var layoutManager: RecyclerView.LayoutManager
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,17 +49,29 @@ class OnGoingOrder : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_on_going_order, container, false)
         initUI(view)
-        onGoingOrderListRecyclerView.setHasFixedSize(true)
-        getData()
+        setUpObserve();
+        println("On Going")
+
         return view
     }
 
     private fun initUI(view: View){
         onGoingOrderListRecyclerView = view.findViewById(R.id.onGoingOderListRV)
         onGoingOrderListAdapter = OnGoingOrderListAdapter(arrayListOf())
+        layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        onGoingOrderListRecyclerView.layoutManager = layoutManager
+        onGoingOrderListRecyclerView.adapter=onGoingOrderListAdapter;
     }
 
-    private fun getData(){
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun setUpObserve(){
+        appModel.setUpOrderViewModel(this);
+        appModel.getOrderViewModel().orderProduct.observe(viewLifecycleOwner){
+            onGoingOrderListAdapter.addOrders(it.filter { it.getStatus()==0 } as ArrayList<Order>) ;
+            onGoingOrderListAdapter.notifyDataSetChanged();
+
+        }
 
     }
 

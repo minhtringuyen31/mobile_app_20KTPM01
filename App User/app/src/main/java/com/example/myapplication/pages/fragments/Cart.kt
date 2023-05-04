@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +21,10 @@ import com.example.myapplication.modals.Product
 import com.example.myapplication.pages.apdaters.CartApdapter
 import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
 import com.example.myapplication.viewmodels.AppViewModel
-import com.example.myapplication.viewmodels.ProductCartViewModel
+import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,6 +46,8 @@ class Cart : Fragment(), OnItemClickListener {
     private lateinit var view:View
     private val appModel: AppViewModel by activityViewModels()
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
+    private lateinit var btnback:ImageView
+    private  lateinit var emptyList:ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -70,13 +77,33 @@ class Cart : Fragment(), OnItemClickListener {
         cartAdapter = CartApdapter(arrayListOf(),this)
         cartItemRecyclerView.layoutManager =  LinearLayoutManager(context)
         cartItemRecyclerView.adapter=cartAdapter
+        btnback = view.findViewById(R.id.back_btn)
+        emptyList = view.findViewById(R.id.emptyList)
     }
     @SuppressLint("NotifyDataSetChanged")
     fun setupObserve(){
-        appModel.getCartItemViewModel().cartItems.observe(viewLifecycleOwner) {
+        appModel.getCartItemViewModel().cartItems.observe(viewLifecycleOwner){
                 val cartItem = it as ArrayList<CartItem>
                 cartAdapter.addCartItem(cartItem)
                 cartAdapter.notifyDataSetChanged()
+                if(cartItem.isEmpty()){
+                    emptyList.visibility = view.visibility
+                }
+        }
+        btnPlaceOrder.setOnClickListener {
+
+            (view.context as FragmentActivity).supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.flFragment, Checkout(),"checkout").addToBackStack(null)
+                .commit()
+
+        }
+        btnback.setOnClickListener {
+
+            (view.context as FragmentActivity).supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.flFragment, Homepage(),"Homepage").addToBackStack(null)
+                .commit()
         }
     }
 
@@ -104,12 +131,31 @@ class Cart : Fragment(), OnItemClickListener {
     }
     @SuppressLint("NotifyDataSetChanged")
     override fun onCartItemClick(position: Int, cartItem: CartItem) {
-        appModel.removeItemCart(cartItem.getId())
-        appModel.setUpCartItemViewModel(this)
-        cartAdapter.notifyItemRemoved(position);
         Toast.makeText(
-            activity, "Delete successfully",
-            Toast.LENGTH_LONG).show()
+            context, "Delete successfully",
+            Toast.LENGTH_SHORT).show()
+
+        cartAdapter.deleteItem(position);
+        appModel.removeItemCart(cartItem.getId())
+        val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
+        val gson = Gson()
+        val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
+        val carts=sharedPreferences.getString("productID", null)
+        var dataItem = gson.fromJson<ArrayList<Int>>(carts, type);
+
+        if (dataItem == null) {
+            dataItem = ArrayList<Int>()
+        }
+        dataItem.removeIf {
+            it==cartItem.getProductId()
+        };
+        sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
+        if(cartAdapter.itemCount==0){
+            emptyList.visibility = view.visibility
+        }
+
+
+
     }
 
     override fun onCartItemClickUpdate(position: Int, cartItem: CartItem) {
@@ -128,6 +174,8 @@ class Cart : Fragment(), OnItemClickListener {
             productCartViewModel.setCategoryId(product.getCategory_id())
             productCartViewModel.setTopping(cartItem.getTopping())
             productCartViewModel.setPrice(cartItem.getPrice())
+            productCartViewModel.setQuantiTy(cartItem.getQuantity())
+            productCartViewModel.setNameFragment("cart");
             (view.context as FragmentActivity).supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.flFragment, ProductDetail()).addToBackStack(null)

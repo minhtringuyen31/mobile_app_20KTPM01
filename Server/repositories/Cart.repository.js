@@ -2,9 +2,13 @@ import DB from "../configs/db.js"
 const CartRepository = {
     async create(user_id) {
         const query = `INSERT INTO cart (user_id) VALUES (?)`;
-        const values = [user_id];
+        const values = [user_id];   
+      
         try {
-            DB.pool().query(query, values);
+            await DB.pool().query(query, values);
+            const queryUpdate = `UPDATE cart SET id=? WHERE user_id=?`;
+            const valuesUpdate = [user_id, user_id];
+            await DB.pool().query(queryUpdate, valuesUpdate);
             return true;
         } catch (error) {
             console.error(error);

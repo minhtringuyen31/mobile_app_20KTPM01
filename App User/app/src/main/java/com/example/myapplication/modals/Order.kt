@@ -1,7 +1,6 @@
 package com.example.myapplication.modals
 
 class Order(
-    private var id:Int,
     private var user_id:Int,
     private var order_date:String,
     private var shipping_address:String,
@@ -10,7 +9,7 @@ class Order(
     private var promotion_id:Int,
     private var payment_method_id:Int,
 ) {
-
+    private var id:Int= 0;
     // Getter for id
     fun getId(): Int {
         return id

@@ -1,11 +1,13 @@
 package com.example.myapplication.pages.apdaters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
+import com.example.myapplication.modals.CartItem
 import com.example.myapplication.modals.Order
 
 class OnGoingOrderListAdapter(
@@ -46,13 +48,21 @@ class OnGoingOrderListAdapter(
         val orderPrice = holder.orderPrice
 
         orderId.text = onGoingOrder.getId().toString()
-        orderAddressShipping.text = onGoingOrder.getShippingAddress()
-        if(onGoingOrder.getStatus() == 0){
-            orderStatus.text = "Sản phẩm đang được giao"
-        } else {
-            orderStatus.text = "Sản phẩm đã giao thành công"
+//        orderAddressShipping.text = onGoingOrder.getShippingAddress()
+//        if(onGoingOrder.getStatus() == 0){
+//            orderStatus.text = "Sản phẩm đang được giao"
+//        } else {
+//            orderStatus.text = "Sản phẩm đã giao thành công"
+//        }
+//        orderDate.text = onGoingOrder.getOrderDate()
+//        orderPrice.text = onGoingOrder.getTotal().toString()
+    }
+    @SuppressLint("NotifyDataSetChanged")
+    fun addOrders(order:ArrayList<Order>){
+        orderList.apply {
+            clear()
+            orderList.addAll(order)
+            notifyDataSetChanged()
         }
-        orderDate.text = onGoingOrder.getOrderDate()
-        orderPrice.text = onGoingOrder.getTotal().toString()
     }
 }

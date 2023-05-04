@@ -8,7 +8,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".pages.fragments.Homepage">
 
-
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -19,19 +18,6 @@
             android:orientation="vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/myToolBar">
-
-<!--            <SearchView-->
-<!--                app:submitBackground="@null"-->
-<!--                android:layout_marginHorizontal="10dp"-->
-<!--                android:id="@+id/searchView"-->
-<!--                android:background="@drawable/custom_rounded_search"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:queryBackground="@null"-->
-<!--                android:iconifiedByDefault="false"-->
-<!--                android:queryHint="Search for your specific coffee type"-->
-<!--                android:layout_height="wrap_content">-->
-
-<!--            </SearchView>-->
 
             <LinearLayout
                 android:paddingHorizontal="10dp"

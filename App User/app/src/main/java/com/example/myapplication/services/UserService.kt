@@ -4,7 +4,6 @@ import com.example.myapplication.modals.ChangePassRequest
 import com.example.myapplication.modals.EditInfoRequest
 import com.example.myapplication.modals.SignupRequest
 import com.example.myapplication.modals.User
-import com.example.myapplication.pages.EditProfile
 import retrofit2.http.*
 
 interface UserService {

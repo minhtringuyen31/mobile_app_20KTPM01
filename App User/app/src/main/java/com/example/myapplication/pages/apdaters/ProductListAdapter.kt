@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.modals.Product
+import com.example.myapplication.utils.Utils
 
 class ProductListAdapter(
     private var productList: ArrayList<Product>,
@@ -52,7 +53,7 @@ class ProductListAdapter(
         val productPrice = holder.productPriceTV
         val productDescription = holder.productDescriptionTV
         productName.text = product.getName()
-        productPrice.text = product.getPrice_L().toString()
+        productPrice.text = Utils.formatCurrency(product.getPrice_L().toDouble())
         productDescription.text = product.getDescription()
         Glide.with(holder.itemView)
             .load( product.getImage()).fitCenter()
