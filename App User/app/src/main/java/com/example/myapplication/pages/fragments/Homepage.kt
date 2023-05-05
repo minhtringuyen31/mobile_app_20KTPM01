@@ -74,7 +74,7 @@ class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
         initUI(view) // Khởi tạo UI , cung cấp data rỗng cho apdapter để render --> Chưa có dữ liệu
         setUpObserver(view) // Quan sát kết quả trả về từ API rồi gán giá trị cho apdapter
         return view
-    }
+    }   
     private  fun setUpViewModel(){
         (activity as MainActivity).showToolbarAndNavigationBar(true)
         appModel.setUpViewModel(view,this)

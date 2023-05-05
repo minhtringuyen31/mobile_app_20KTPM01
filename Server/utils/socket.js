@@ -14,7 +14,7 @@ const SocketListener = {
             })
 
             socket.on("123", (data) => {
-                    console.log("Client gửi lên: " + data);
+                console.log("Client gửi lên: " + data);
             })
 
             socket.on("verify-confirm-order", (data) => {

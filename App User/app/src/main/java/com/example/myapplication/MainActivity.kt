@@ -1,4 +1,5 @@
 package com.example.myapplication
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView:BottomNavigationView
     private lateinit var currentFragment: FrameLayout
     private lateinit var mSocket: Socket
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -35,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                 mSocket.on("server-send-message") { args ->
             if (args[0] != null) {
                 val counter = args[0]
-                println(counter)
+
             }
         }
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("user", MODE_PRIVATE)
@@ -43,7 +45,6 @@ class MainActivity : AppCompatActivity() {
         if (userID != null&& userID.isNotEmpty()) {
 
             mSocket.emit("login",userID)
-
             setCurrentFragment(Homepage(),"Homepage")
             activeNavigationBar()
         }else
