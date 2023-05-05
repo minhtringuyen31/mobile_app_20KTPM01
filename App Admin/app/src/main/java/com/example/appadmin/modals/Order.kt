@@ -6,7 +6,7 @@ class Order(
     private var order_date: String? = null,
     private var shipping_address: String? = null,
     private var total: Double? = null,
-    private var status: Short? = null,
+    private var status: Int? = null,
     private var promotion_id: Int? = null,
     private var payment_method_id: Int? = null
 ) {
@@ -31,7 +31,7 @@ class Order(
         return total
     }
 
-    fun getStatus(): Short? {
+    fun getStatus(): Int? {
         return status
     }
 
@@ -65,7 +65,7 @@ class Order(
         this.total = total
     }
 
-    fun setStatus(status: Short?) {
+    fun setStatus(status: Int?) {
         this.status = status
     }
 

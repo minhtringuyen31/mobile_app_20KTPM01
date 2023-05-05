@@ -16,11 +16,7 @@ const OrderProductRepository = {
     const values = [note, order_id, product_id, quantity, price, id];
     try {
       const [result] = await DB.pool().query(query, values);
-      if (result.affectedRows > 0) {
-        return true;
-      } else {
-        return false;
-      }
+      return result.affectedRows > 0;
     } catch (error) {
       console.error(error);
       return false;
