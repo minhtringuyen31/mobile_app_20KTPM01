@@ -1,6 +1,7 @@
 import OrdertService from "../services/Order.service.js";
 const OrderController = {
   async create(req, res) {
+    console.log(req.app.io)
     const {
       user_id,
       order_date,

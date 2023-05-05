@@ -25,7 +25,7 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.checkout.CreateOrder
 import com.example.myapplication.modals.CartItem
-import com.example.myapplication.pages.apdaters.CheckoutApdater
+import com.example.myapplication.pages.activities.apdaters.CheckoutApdater
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.order.CheckoutViewModel
@@ -65,7 +65,7 @@ class Checkout : Fragment() {
     private var param2: String? = null
     private lateinit var btnShowBottomSheet: TextView
     private val appModel: AppViewModel by activityViewModels()
-    private lateinit var checkoutAdapter:CheckoutApdater
+    private lateinit var checkoutAdapter: CheckoutApdater
     private lateinit var itemCheckoutListView: ListView
     private lateinit var btnCheckout:TextView
     private lateinit var checkoutViewModel: CheckoutViewModel

@@ -19,9 +19,12 @@ import com.example.myapplication.modals.CartItem
 import com.example.myapplication.modals.Category
 import com.example.myapplication.modals.Product
 import com.example.myapplication.modals.Promotion
-import com.example.myapplication.pages.apdaters.*
-import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
-import com.example.myapplication.pages.apdaters.interfaces.OnItemClickProductHomepage
+import com.example.myapplication.pages.activities.apdaters.CategoryApdapter
+import com.example.myapplication.pages.activities.apdaters.GridSpacingItemDecoration
+import com.example.myapplication.pages.activities.apdaters.ProductApdapter
+import com.example.myapplication.pages.activities.apdaters.PromotionApdapter
+import com.example.myapplication.pages.activities.apdaters.interfaces.OnItemClickListener
+import com.example.myapplication.pages.activities.apdaters.interfaces.OnItemClickProductHomepage
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
 import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
@@ -39,7 +42,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Homepage.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
+class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -226,7 +229,7 @@ class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
             productCartViewModel.setQuantiTy(1)
             productCartViewModel.setTopping("");
             productCartViewModel.setNameFragment("homepage")
-            productCartViewModel.setNameFragment("homepage")
+            productCartViewModel.setNote("");
         (view.context as FragmentActivity).supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.flFragment, ProductDetail()).addToBackStack(null)

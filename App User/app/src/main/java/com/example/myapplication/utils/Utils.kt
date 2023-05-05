@@ -22,7 +22,7 @@ import java.util.regex.Pattern
 
 class Utils : AppCompatActivity() {
     companion object {
-        private const val  URL="http://10.0.2.2:3000/api/"//"http://192.168.1.139:3000/api/"
+        private const val  URL="http://10.0.2.2:3000/api/"
         fun getRetrofit(): Retrofit {
             val gson = GsonBuilder()
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")

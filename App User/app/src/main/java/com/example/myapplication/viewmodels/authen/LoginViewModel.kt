@@ -20,7 +20,7 @@ class LoginViewModel:ViewModel() {
     fun loginUser(request: LoginRequest) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                 val response = Utils.getRetrofit().create(AuthenService::class.java).loginUser(request);
+                val response = Utils.getRetrofit().create(AuthenService::class.java).loginUser(request);
                 println(response)
                 Resource.loading(data = null)
                 if(response.getStatusUser()==1){
@@ -43,18 +43,18 @@ class LoginViewModel:ViewModel() {
     fun signIn(idToken:String){
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                    val response =Utils.getRetrofit().create(AuthenService::class.java).signIn(idToken)
-                    Resource.loading(data = null)
-                    if(response.getStatusUser()==1){
-                        _loginResult.postValue( Resource.success(data=response))
+                val response =Utils.getRetrofit().create(AuthenService::class.java).signIn(idToken)
+                Resource.loading(data = null)
+                if(response.getStatusUser()==1){
+                    _loginResult.postValue( Resource.success(data=response))
 
 
-                    }
-                    else
-                    {
+                }
+                else
+                {
 
-                        _loginResult.postValue( Resource.error(data=null, message = "No Found!"))
-                    }
+                    _loginResult.postValue( Resource.error(data=null, message = "No Found!"))
+                }
 
 
 

@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.example.myapplication.R
-import com.example.myapplication.pages.apdaters.ViewPagerAdapter
+import com.example.myapplication.pages.activities.apdaters.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
 
 
@@ -25,6 +25,8 @@ class Activities : Fragment(){
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+
+
     private var tabLayout : TabLayout?=null
     private var viewPager : ViewPager? = null
     private var viewPagerAdapter: ViewPagerAdapter? =null

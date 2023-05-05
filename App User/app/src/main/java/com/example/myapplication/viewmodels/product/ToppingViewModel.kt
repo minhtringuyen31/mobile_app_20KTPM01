@@ -18,7 +18,6 @@ class ToppingViewModel :ViewModel(){
             try {
                 val response = Utils.getRetrofit().create(ToppingService::class.java).getAllTopping()
                 _toppings.postValue(response) // để đảm bảo rằng các giá trị được cập nhật trên luồng phụ (background thread).
-                println("Init app topping: $response")
             } catch (e: Exception) {
                 println("Init app topping: lỗi")
             }
