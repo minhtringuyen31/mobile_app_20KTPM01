@@ -1,5 +1,5 @@
 import mysql2 from 'mysql2';
-import dotenv from 'dotenv'
+import dotenv from 'dotenv';
 
 dotenv.config()
 console.log(process.env.WIN_PORT)
