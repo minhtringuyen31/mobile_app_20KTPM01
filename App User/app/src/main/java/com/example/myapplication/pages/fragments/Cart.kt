@@ -18,8 +18,8 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.CartItem
 import com.example.myapplication.modals.Product
-import com.example.myapplication.pages.apdaters.CartApdapter
-import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
+import com.example.myapplication.pages.activities.apdaters.CartApdapter
+import com.example.myapplication.pages.activities.apdaters.interfaces.OnItemClickListener
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
 import com.google.gson.Gson
@@ -41,7 +41,7 @@ class Cart : Fragment(), OnItemClickListener {
     private var param1: String? = null
     private var param2: String? = null
     private lateinit var btnPlaceOrder:TextView
-    private lateinit var cartAdapter:CartApdapter
+    private lateinit var cartAdapter: CartApdapter
     private lateinit var cartItemRecyclerView: RecyclerView
     private lateinit var view:View
     private val appModel: AppViewModel by activityViewModels()
@@ -64,6 +64,7 @@ class Cart : Fragment(), OnItemClickListener {
         setUpViewModel()
         initUI(view)
         setupObserve()
+
         return view
     }
     private fun setUpViewModel(){
@@ -160,7 +161,6 @@ class Cart : Fragment(), OnItemClickListener {
 
     override fun onCartItemClickUpdate(position: Int, cartItem: CartItem) {
 
-
         appModel.getProductViewModel().getProduct(cartItem.getProductId())
         appModel.getProductViewModel().product.observe(this) {
             val product = it;
@@ -173,9 +173,11 @@ class Cart : Fragment(), OnItemClickListener {
             productCartViewModel.setPriceS(product.getPrice_S().toDouble())
             productCartViewModel.setCategoryId(product.getCategory_id())
             productCartViewModel.setTopping(cartItem.getTopping())
+            productCartViewModel.setSize(cartItem.getSize())
             productCartViewModel.setPrice(cartItem.getPrice())
             productCartViewModel.setQuantiTy(cartItem.getQuantity())
             productCartViewModel.setNameFragment("cart");
+            productCartViewModel.setNote(cartItem.getNotes());
             (view.context as FragmentActivity).supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.flFragment, ProductDetail()).addToBackStack(null)

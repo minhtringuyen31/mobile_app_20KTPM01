@@ -8,4 +8,5 @@ class CountItemInBottomSheet: ViewModel(){
     var total :Double =0.0
     var size:String="L"
     var nameTopping:String=""
+    var notes:String=""
 }

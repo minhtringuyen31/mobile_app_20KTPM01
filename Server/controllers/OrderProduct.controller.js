@@ -2,8 +2,10 @@ import OrderProductService from "../services/OrderProduct.service.js"
 const OrderProductController = {
     async create(req, res) {
 
-        const { note, order_id, product_id, quantity, price } = req.body;
-        const newOrderProduct = await OrderProductService.create(note, order_id, product_id, quantity, price);
+        const { note, order_id, product_id, quantity, price, size, topping } = req.body;
+  
+        const newOrderProduct = await OrderProductService.create(note, order_id, product_id, quantity, price, size, topping);
+        
         if (newOrderProduct) {
             res.status(200).send(newOrderProduct)
         } else {

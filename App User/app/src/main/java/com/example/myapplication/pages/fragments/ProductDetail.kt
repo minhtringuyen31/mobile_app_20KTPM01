@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.*
-import com.example.myapplication.pages.apdaters.RatingListAdapter
+import com.example.myapplication.pages.activities.apdaters.RatingListAdapter
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
 import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
@@ -71,6 +71,7 @@ class ProductDetail : Fragment() {
     private  var priceM_text:Double=0.0
     private  var priceS_text:Double=0.0
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
+    private lateinit var noteEdit:EditText
 
     private lateinit var ratingRecyclerView: RecyclerView
 //    private lateinit var ratingViewModel: RatingViewModel
@@ -142,11 +143,30 @@ class ProductDetail : Fragment() {
         product_id=productCartViewModel.getId()
         setProductDetail(name,priceL_text.toString() , description, image)
         val quantity=  productCartViewModel.getQuantiTy()
+        noteEdit =view.findViewById(R.id.notesEdit)
         itemCount.count=quantity
         displayCount()
         if(productCartViewModel.getNameFragment()=="cart"){
-           
+
             item[0]=productCartViewModel.getPrice()
+            val sizeSelected= productCartViewModel.getSize()
+            if(sizeSelected=="S")
+            {
+                priceL_radio.isChecked = false
+                priceM_radio.isChecked = false
+                priceS_radio.isChecked = true
+
+            }else if(sizeSelected=="M"){
+                priceL_radio.isChecked = false
+                priceM_radio.isChecked = true
+                priceS_radio.isChecked = false
+            }else{
+                priceL_radio.isChecked = true
+                priceM_radio.isChecked = false
+                priceS_radio.isChecked = false
+            }
+            noteEdit.setText(productCartViewModel.getNote())
+
         }
         else {
             item[0]=productCartViewModel.getPriceL()
@@ -165,8 +185,7 @@ class ProductDetail : Fragment() {
     private fun calculateTotalPrice(): Double {
         return (item[0]+item[1])*item[2]
     }
-    private fun setUpObserve(view:View){
-
+    private fun handleRadioPrice(){
         priceL_radio.setOnClickListener {
             priceL_radio.isChecked = true
             priceM_radio.isChecked = false
@@ -195,6 +214,9 @@ class ProductDetail : Fragment() {
             itemCount.size="S"
             updatePriceTotal()
         }
+    }
+    private fun setUpObserve(view:View){
+        handleRadioPrice()
         plusBtn.setOnClickListener {
             itemCount.count = itemCount.count + 1
             displayCount()
@@ -262,6 +284,7 @@ class ProductDetail : Fragment() {
             else{
                 val sharedPreferencesUser = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
                 val userID = sharedPreferencesUser.getString("userID", "")
+                val notes=noteEdit.text.toString()
                 val cartItem = CartItem(
                     userID!!.toInt(),
                     userID!!.toInt(),
@@ -273,7 +296,8 @@ class ProductDetail : Fragment() {
                     name,
                     description,
                     image,
-                    category_id
+                    category_id,
+                    notes
                 )
                 appModel.addtoCart(cartItem)
                 Toast.makeText(

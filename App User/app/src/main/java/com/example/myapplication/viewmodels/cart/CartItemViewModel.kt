@@ -27,7 +27,6 @@ class CartItemViewModel:ViewModel() {
                 val response = Utils.getRetrofit().create(CartItemService::class.java).getAllCartItem()
                 _cartItems.postValue(response) // để đảm bảo rằng các giá trị được cập nhật trên luồng phụ (background thread).
                 println(response)
-                println("Current viewmodel: ${Thread.currentThread().name}")
             } catch (e: Exception) {
                 // handle error
                 println("loi")

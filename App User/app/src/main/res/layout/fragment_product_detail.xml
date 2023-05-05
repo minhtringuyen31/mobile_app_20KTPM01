@@ -285,6 +285,7 @@
                     android:src="@drawable/baseline_note_add_24">
                 </ImageView>
                 <EditText
+                    android:id="@+id/notesEdit"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:padding="3dp"

@@ -46,7 +46,6 @@
                     android:textStyle="bold"
                   android:gravity="center_vertical"
                     android:layout_height="fill_parent">
-
                 </TextView>
             </LinearLayout>
 

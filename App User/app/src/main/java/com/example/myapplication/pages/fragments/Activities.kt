@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
 import com.example.myapplication.R
-import com.example.myapplication.pages.apdaters.ViewPagerAdapter
+import com.example.myapplication.pages.activities.apdaters.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
 
 

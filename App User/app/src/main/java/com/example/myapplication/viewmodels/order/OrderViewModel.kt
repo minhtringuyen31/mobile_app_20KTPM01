@@ -69,7 +69,10 @@ class OrderViewModel :ViewModel(){
                     val product_ID = it.getProductId();
                     val quantity = it.getQuantity();
                     val price  = it.getPrice();
-                    val orderProduct = OrderProduct(id,"",price,product_ID,quantity);
+                    val notes  = it.getNotes();
+                    val topping= it.getTopping();
+                    val size = it.getSize();
+                    val orderProduct = OrderProduct(notes,id,product_ID,quantity,price,size,topping);
                     println(orderProduct)
                     createOrderProduct(orderProduct);
                 }

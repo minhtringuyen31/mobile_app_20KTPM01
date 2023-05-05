@@ -25,7 +25,6 @@ class SignupViewModel: ViewModel() {
                 Resource.loading(data = null)
 
                 if(response.getPhone()!=null){
-                    println("test"+response)
                     _signup.postValue( Resource.success(data=response))
                 }
                 else

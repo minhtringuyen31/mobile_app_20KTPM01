@@ -62,6 +62,7 @@ private const val ARG_PARAM2 = "param2"
     private lateinit var name:String
     private lateinit var image:String
     private lateinit var description:String
+    private lateinit var notesEdit:EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,6 +118,7 @@ private const val ARG_PARAM2 = "param2"
         priceS = view.findViewById(R.id.priceS)
         btnAddtoCart = view.findViewById(R.id.btnPrice)
         nameBottom = view.findViewById(R.id.name_product_bottom)
+        notesEdit = view.findViewById(R.id.notesEdt)
 
         arguments?.let {
             product_id = it.getString("id")?.toInt()!!
@@ -234,8 +236,6 @@ private const val ARG_PARAM2 = "param2"
             if (dataItem == null) {
                 dataItem = ArrayList()
             }
-            println(dataItem)
-            println(product_id)
             if(dataItem.contains(product_id)&&dataItem.isNotEmpty()){
                 Toast.makeText(
                     activity, "Sản phẩm đã tồn tại trong giỏ hàng",
@@ -245,6 +245,7 @@ private const val ARG_PARAM2 = "param2"
             else{
                 val sharedPreferencesUser = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
                 val userID = sharedPreferencesUser.getString("userID", "")
+                val notes=  notesEdit.text.toString();
                 val cartItem = CartItem(
                     userID!!.toInt(),
                     userID!!.toInt(),
@@ -256,7 +257,8 @@ private const val ARG_PARAM2 = "param2"
                     name,
                     description,
                     image,
-                    category_id
+                    category_id,
+                    notes,
                 )
                 appModel.addtoCart(cartItem)
                 Toast.makeText(
