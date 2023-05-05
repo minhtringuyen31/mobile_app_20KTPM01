@@ -1,10 +1,5 @@
 package com.example.myapplication.modals
 
-
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import com.example.myapplication.MainActivity
-
 class Product( private  var id: Int,
                private  var name: String,
                private  var description: String,

@@ -1,6 +1,7 @@
 package com.example.myapplication.pages.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.modals.Order
-import com.example.myapplication.pages.apdaters.OnGoingOrderListAdapter
+import com.example.myapplication.pages.OrderDetail
+import com.example.myapplication.pages.activities.apdaters.OrderListAdapter
 import com.example.myapplication.viewmodels.AppViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -28,9 +30,10 @@ class OnGoingOrder : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private lateinit var onGoingOrderListAdapter: OnGoingOrderListAdapter
-    private lateinit var onGoingOrderListRecyclerView: RecyclerView
+
     private val appModel: AppViewModel by activityViewModels()
+    private lateinit var onGoingOrderListAdapter: OrderListAdapter
+    private lateinit var onGoingOrderListRecyclerView: RecyclerView
     private lateinit var layoutManager: RecyclerView.LayoutManager
 
 
@@ -39,6 +42,7 @@ class OnGoingOrder : Fragment() {
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
+
         }
     }
 
@@ -48,21 +52,33 @@ class OnGoingOrder : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_on_going_order, container, false)
-        initUI(view)
-        setUpObserve();
-        println("On Going")
 
+        setUpObserve();
+        initUI(view)
+
+        println("On Going")
         return view
     }
 
+
+
     private fun initUI(view: View){
         onGoingOrderListRecyclerView = view.findViewById(R.id.onGoingOderListRV)
-        onGoingOrderListAdapter = OnGoingOrderListAdapter(arrayListOf())
+        onGoingOrderListAdapter = OrderListAdapter(arrayListOf())
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         onGoingOrderListRecyclerView.layoutManager = layoutManager
-        onGoingOrderListRecyclerView.adapter=onGoingOrderListAdapter;
+        onGoingOrderListRecyclerView.adapter = onGoingOrderListAdapter;
+        onGoingOrderListAdapter.onItemClick = {order ->
+            val intent  =Intent(
+                requireContext(),
+                OrderDetail::class.java
+            )
+            intent.putExtra("orderId", order.getId())
+            intent.putExtra("orderPromotion", order.getPromotionId())
+            intent.putExtra("orderTotalPrice", order.getTotal())
+            startActivity(intent)
+        }
     }
-
 
     @SuppressLint("NotifyDataSetChanged")
     private fun setUpObserve(){

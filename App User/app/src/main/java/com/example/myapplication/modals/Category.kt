@@ -1,6 +1,4 @@
 package com.example.myapplication.modals
-
-
 class Category(
     private var id: Int,
     private var name: String,

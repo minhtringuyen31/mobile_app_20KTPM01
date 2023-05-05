@@ -11,7 +11,8 @@ class CartItem(
     private var name: String,
     private  var description: String,
     private  var image: String,
-    private var category_id: Int
+    private var category_id: Int,
+    private var notes: String,
 ) {
     private var id:Int=0
     // Setter methods
@@ -22,6 +23,13 @@ class CartItem(
 
     fun setCartId(cartId:Int) {
         this.cart_id = cartId
+    }
+    fun getNotes():String
+    {
+        return this.notes
+    }
+    fun setNote(notes:String){
+        this.notes=notes;
     }
 
     fun setProductId(productId:Int) {
@@ -109,13 +117,14 @@ class CartItem(
         return this.category_id
     }
 
+    override fun toString(): String {
+        return "CartItem(user_id=$user_id, cart_id=$cart_id, product_id=$product_id, quantity=$quantity, size='$size', price=$price, topping='$topping', name='$name', description='$description', image='$image', category_id=$category_id, notes='$notes', id=$id)"
+    }
+
     init {
         this.id = id
     }
 
-    override fun toString(): String {
-        return "CartItem(id=$id, user_id=$user_id, cart_id=$cart_id, product_id=$product_id, quantity=$quantity, size='$size', price=$price, topping='$topping', name='$name', description='$description', image='$image', category_id=$category_id)"
-    }
 
 
 }

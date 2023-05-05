@@ -1,4 +1,5 @@
 package com.example.myapplication
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.myapplication.pages.fragments.*
 import com.example.myapplication.socket.SocketHandler
+import com.example.myapplication.utils.Utils
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import io.socket.client.Socket
@@ -20,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView:BottomNavigationView
     private lateinit var currentFragment: FrameLayout
     private lateinit var mSocket: Socket
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
@@ -32,18 +35,17 @@ class MainActivity : AppCompatActivity() {
         SocketHandler.setSocket()
         SocketHandler.establishConnection()
         mSocket = SocketHandler.getSocket()
-                mSocket.on("server-send-message") { args ->
+        mSocket.on("add-product") { args ->
             if (args[0] != null) {
                 val counter = args[0]
-                println(counter)
+                println(counter);
+                //notitiction
             }
         }
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("user", MODE_PRIVATE)
         val userID = sharedPreferences.getString("userID", "")
         if (userID != null&& userID.isNotEmpty()) {
-
             mSocket.emit("login",userID)
-
             setCurrentFragment(Homepage(),"Homepage")
             activeNavigationBar()
         }else
@@ -88,7 +90,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-      private fun activeNavigationBar(){
+    private fun activeNavigationBar(){
         bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.icon_home -> {
@@ -119,10 +121,10 @@ class MainActivity : AppCompatActivity() {
         return true
     }
     private fun setCurrentFragment(fragment: Fragment,tag:String)=
-    supportFragmentManager.beginTransaction().apply {
-        replace(R.id.flFragment,fragment,tag)
-        commit()
-    }
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.flFragment,fragment,tag)
+            commit()
+        }
     override fun onDestroy() {
         super.onDestroy()
         // Đóng kết nối socket ở đây

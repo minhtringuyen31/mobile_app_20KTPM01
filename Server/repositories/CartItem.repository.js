@@ -1,7 +1,7 @@
 import DB from '../configs/db.js';
 const CartItemRepository = {
-  async create(user_id, cart_id, product_id, quantity, size, price, topping) {
-    const query = `INSERT INTO cart_item (user_id, cart_id, product_id, quantity, size, price,topping) VALUES (?, ?, ?, ?, ?,?,?)`;
+  async create(user_id, cart_id, product_id, quantity, size, price, topping, notes) {
+    const query = `INSERT INTO cart_item (user_id, cart_id, product_id, quantity, size, price,topping,notes) VALUES (?, ?, ?, ?, ?,?,?,?)`;
     const values = [
       user_id,
       cart_id,
@@ -10,6 +10,7 @@ const CartItemRepository = {
       size,
       price,
       topping,
+      notes
     ];
     try {
       DB.pool().query(query, values);
@@ -66,7 +67,7 @@ const CartItemRepository = {
   },
 
   async findAll() {
-    const query = `SELECT cart_item.id,cart_item.user_id,cart_item.cart_id,cart_item.product_id,cart_item.quantity,cart_item.size,cart_item.price,cart_item.topping,product.name,product.description,product.image,category_id FROM cart_item INNER JOIN product ON cart_item.product_id=product.id`;
+    const query = `SELECT cart_item.id,cart_item.user_id,cart_item.cart_id,cart_item.product_id,cart_item.quantity,cart_item.size,cart_item.price,cart_item.topping,product.name,product.description,product.image,category_id,notes FROM cart_item INNER JOIN product ON cart_item.product_id=product.id`;
 
     try {
       const [rows] = await DB.pool().query(query);

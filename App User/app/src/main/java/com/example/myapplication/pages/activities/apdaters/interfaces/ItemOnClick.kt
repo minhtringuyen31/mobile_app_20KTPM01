@@ -1,4 +1,4 @@
-package com.example.myapplication.pages.apdaters.interfaces
+package com.example.myapplication.pages.activities.apdaters.interfaces
 
 import com.example.myapplication.modals.CartItem
 import com.example.myapplication.modals.Product
