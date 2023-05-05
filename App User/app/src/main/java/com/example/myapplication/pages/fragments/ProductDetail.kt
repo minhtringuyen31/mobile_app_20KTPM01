@@ -115,7 +115,7 @@ class ProductDetail : Fragment() {
         productDetailPrice = view.findViewById(R.id.productDetailPriceTV)
         productDetailDescription = view.findViewById((R.id.productDetailDescriptionTV))
         backHomepage = view.findViewById(R.id.imgToolbarBtnBack)
-        iconFaverite= view.findViewById(R.id.imgToolbarBtnFav)
+//        iconFaverite= view.findViewById(R.id.imgToolbarBtnFav)
         text_quantity = view.findViewById(R.id.text_quantity)
         priceS_radio = view.findViewById(R.id.priceS_radio)
         priceM_radio = view.findViewById(R.id.priceM_radio)

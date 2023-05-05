@@ -73,30 +73,72 @@
 
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/orderDetailItemQuantityTV"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:text="Quantity: 1"
-                    android:textSize="11dp"
-                    android:textColor="@color/black"/>
-                <TextView
-                    android:id="@+id/orderDetailItemToppingTV"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="Quantity:"
+                        android:textSize="11dp"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:id="@+id/orderDetailItemQuantityTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="1"
+                        android:textSize="11dp"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textSize="11dp"
-                    android:text="Topping: Hạt sen, Thạch Củ Năng"
-                    android:textColor="@color/black"/>
-                <TextView
-                    android:id="@+id/orderDetailItemPriceTV"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textSize="11dp"
+                        android:text="Topping:"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:id="@+id/orderDetailItemToppingTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:textSize="11dp"
+                        android:text="Hạt sen, Thạch Củ Năng"
+                        android:textColor="@color/black"/>
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="5dp"
-                    android:text="Tổng cộng (1 sản phẩm):   50,000 đ"
-                    android:textColor="@color/black"/>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="Tổng cộng (1 sản phẩm):"
+                        android:textColor="@color/black"/>
+                    <TextView
+                        android:id="@+id/orderDetailItemPriceTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="5dp"
+                        android:text="50,000 đ"
+                        android:textColor="@color/black"/>
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 

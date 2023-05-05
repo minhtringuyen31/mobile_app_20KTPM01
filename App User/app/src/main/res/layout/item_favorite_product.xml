@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:padding="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/custom_border_checkout"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:paddingStart = "10dp"
+        tools:ignore="MissingConstraints">
+
+
+        <LinearLayout
+            android:padding="5dp"
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/_10sdp">
+                <ImageView
+                    android:id="@+id/orderDetailItemImg"
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_marginTop="15dp"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:src="@drawable/tra_sen_vang"
+                    />
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:padding="5dp"
+                android:layout_width="320dp"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/favoriteProductNameTV"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:text="TRÀ SEN VÀNG CỦ NĂNG"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"/>
+
+                    <ToggleButton
+                        android:id="@+id/favoriteToggleBtn"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="100dp"
+                        android:textOn=""
+                        android:textOff=""
+                        android:background="@drawable/toggle_selector"
+                        android:onClick="onCustomToggleClick" />
+
+                </LinearLayout>
+
+                <RatingBar
+                    android:id="@+id/favoriteProductRatingRB"
+                    style="?android:attr/ratingBarStyleSmall"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:numStars="5"
+                    android:rating="5"/>
+
+                <TextView
+                    android:id="@+id/favoriteProductPriceTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:text="45,000 đ"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/favoriteProductDescriptionTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="5dp"
+                    android:maxLines="2"
+                    android:text="Thức uống chinh phục những thực khách khó tính! Sự kết hợp độc đáo giữa trà Ô long, hạt sen thơm bùi và củ năng giòn tan. Thêm vào chút sữa sẽ để vị thêm ngọt ngào."
+                    android:textColor="@color/black"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="end">
+            <TextView
+                android:id="@+id/favoriteProductAddToCartBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_weight="1"
+                android:background="@drawable/custom_border_btn"
+                android:text="Giỏ hàng"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
