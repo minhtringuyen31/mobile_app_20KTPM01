@@ -4,10 +4,13 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.modals.Order
+
 
 class OrderListAdapter(
     private var orderList: ArrayList<Order>
@@ -19,9 +22,16 @@ class OrderListAdapter(
         val orderStatus : TextView = listItemView.findViewById(R.id.orderStatusTV)
         val orderDate : TextView = listItemView.findViewById(R.id.orderDateTV)
         val orderPrice : TextView = listItemView.findViewById(R.id.orderPriceTV)
+        val orderDetailBtn : Button = listItemView.findViewById(R.id.orderDetailBtn)
 
-        init{
-            listItemView.setOnClickListener{
+//        init{
+//            listItemView.setOnClickListener{
+//                onItemClick?.invoke(orderList[position])
+//            }
+//        }
+
+        init {
+            orderDetailBtn.setOnClickListener {
                 onItemClick?.invoke(orderList[position])
             }
         }

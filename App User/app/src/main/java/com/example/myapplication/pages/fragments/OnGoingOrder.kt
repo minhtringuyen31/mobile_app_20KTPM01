@@ -1,6 +1,7 @@
 package com.example.myapplication.pages.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.modals.Order
+import com.example.myapplication.pages.OrderDetail
 import com.example.myapplication.pages.apdaters.OrderListAdapter
 import com.example.myapplication.viewmodels.AppViewModel
 
@@ -66,6 +68,16 @@ class OnGoingOrder : Fragment() {
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         onGoingOrderListRecyclerView.layoutManager = layoutManager
         onGoingOrderListRecyclerView.adapter = onGoingOrderListAdapter;
+        onGoingOrderListAdapter.onItemClick = {order ->
+            val intent  =Intent(
+                requireContext(),
+                OrderDetail::class.java
+            )
+            intent.putExtra("orderId", order.getId())
+            intent.putExtra("orderPromotion", order.getPromotionId())
+            intent.putExtra("orderTotalPrice", order.getTotal())
+            startActivity(intent)
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
