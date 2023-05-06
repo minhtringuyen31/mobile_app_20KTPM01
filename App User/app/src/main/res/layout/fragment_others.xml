@@ -156,7 +156,7 @@
                         android:background="@drawable/custom_rounded_search"
                         android:drawablePadding="5dip"
                         android:gravity="center_vertical"
-                        android:hint="Change Language"
+                        android:hint="View List Promotions"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:textSize="18sp"
@@ -175,6 +175,7 @@
                             android:id="@+id/button_logout"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
                             android:background="@drawable/custom_border_btn"
                             android:text="logout"
                             android:textColor="@color/white" />
