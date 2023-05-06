@@ -17,19 +17,20 @@ import com.example.myapplication.viewmodels.user.UserViewModel
 class RatingActivity : AppCompatActivity() {
     private lateinit var ratingBar: RatingBar
     private lateinit var commentTV: TextView
-    private lateinit var submitBtn : Button
+    private lateinit var submitBtn : TextView
     private lateinit var view: View
     private lateinit var userViewModel: UserViewModel
     private lateinit var currentUser : User
     private lateinit var currentUserId : String
     private lateinit var ratingViewModel: RatingViewModel
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rating)
 
         initUI()
-        getUserViewModelInformation()
+//        getUserViewModelInformation()
         submitBtn.setOnClickListener {
             submitRatingBtnActionClickListener()
         }
@@ -42,7 +43,7 @@ class RatingActivity : AppCompatActivity() {
     }
 
     private fun getUserViewModelInformation(){
-        val sharedPreferences: SharedPreferences =
+        sharedPreferences =
             view.context.getSharedPreferences("user", MODE_PRIVATE)
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         currentUserId = sharedPreferences.getString("userID","").toString()

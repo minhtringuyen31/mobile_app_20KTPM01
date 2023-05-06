@@ -1,6 +1,8 @@
 package com.example.myapplication.pages.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -52,8 +54,11 @@ class HistoryOrder : Fragment() {
         val view =inflater.inflate(R.layout.fragment_history_order, container, false) ;
         println("History")
 
+        val sharedPreferences: SharedPreferences =
+            view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getString("userID", "").toString().toInt()
         initUI(view)
-        setUpObserve();
+        setUpObserve(userId);
 
         return view;
     }
@@ -68,8 +73,8 @@ class HistoryOrder : Fragment() {
 
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun setUpObserve(){
-        appModel.setUpOrderViewModel(this);
+    private fun setUpObserve(userId: Int){
+        appModel.setUpOrderViewModel(this, userId);
         appModel.getOrderViewModel().orderProduct.observe(viewLifecycleOwner){
             historyOrderListAdapter.addOrders(it.filter { it.getStatus()==1 } as ArrayList<Order>) ;
             historyOrderListAdapter.notifyDataSetChanged();

@@ -9,7 +9,8 @@ OrderRoute.get("/testAPI", OrderController.test)
 OrderRoute.post("/create", OrderController.create)
 OrderRoute.post("/update/:id", OrderController.update)
 OrderRoute.delete("/delete/:id", OrderController.delete)
-OrderRoute.get("/:id", OrderController.findAll)
+// OrderRoute.get("/:id", OrderController.findAll)
+OrderRoute.get("/:userId", OrderController.findByUserID)
 OrderRoute.get("/", OrderController.findAll)
 export default OrderRoute;
 

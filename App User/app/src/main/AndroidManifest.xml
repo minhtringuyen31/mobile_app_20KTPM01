@@ -53,6 +53,11 @@
         <activity
             android:name=".pages.OrderDetail"
             android:exported="false"/>
+
+        <activity
+            android:name=".pages.RatingActivity"
+            android:exported="false"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

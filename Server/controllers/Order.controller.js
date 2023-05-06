@@ -74,6 +74,7 @@ const OrderController = {
     }
   },
   async findAll(req, res) {
+    console.log("dwgsdaf")
     const orders = await OrdertService.findAll();
     if (orders) {
       res.status(200).send(orders);
@@ -84,6 +85,17 @@ const OrderController = {
   test(req, res) {
     res.send("Test API from Order");
   },
+
+  async findByUserID(req, res) {
+    const userId = req.params.userId;
+    const order = await OrdertService.findByUserId(userId);
+    if (order) {
+      res.status(200).send(order);
+    } else {
+      res.status(404).send({ status: 0, message: "Failed" });
+    }
+  },
+
 };
 
 export default OrderController;
