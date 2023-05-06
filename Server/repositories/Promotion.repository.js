@@ -17,11 +17,7 @@ const PromotionRepository = {
 
     try {
       const [result] = await DB.pool().query(query, values);
-      if (result.affectedRows > 0) {
-        return true;
-      } else {
-        return false;
-      }
+      return result.affectedRows > 0;
     } catch (error) {
       console.error(error);
       return false;

@@ -51,7 +51,7 @@ class EditTopping : AppCompatActivity() {
             name.setText(it.getName())
             price.setText(it.getPrice().toString())
             checked.isChecked = it.getChecked() == 1
-            category.setSelection(it.getCategory_id()!!)
+            category.setSelection(it.getCategory_id()!! - 1)
         }
 
         findViewById<Button>(R.id.editTopping_cancelBtn).setOnClickListener {
@@ -62,9 +62,9 @@ class EditTopping : AppCompatActivity() {
         findViewById<Button>(R.id.editTopping_saveBtn).setOnClickListener {
             val topping = Topping(
                 categories[category.selectedItemPosition].getId(),
-                findViewById<EditText>(R.id.addToppingName).text.toString(),
-                findViewById<EditText>(R.id.addToppingPrice).text.toString().toDouble(),
-                findViewById<CheckBox>(R.id.addToppingChecked).isChecked.let { if (it) 1 else 0 },
+                name.text.toString(),
+                price.text.toString().toDouble(),
+                checked.isChecked.let { if (it) 1 else 0 },
                 1
             )
 
