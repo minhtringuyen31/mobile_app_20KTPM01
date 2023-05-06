@@ -13,6 +13,7 @@ class User(
     private var is_disable:Int )
 {
 
+
     private  var  id: Int =0;
     fun getId():Int{
         return id

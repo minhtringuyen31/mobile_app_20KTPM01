@@ -1,5 +1,6 @@
 package com.example.myapplication.pages
 
+import android.annotation.SuppressLint
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -20,8 +21,9 @@ class RatingActivity : AppCompatActivity() {
     private lateinit var submitBtn : TextView
     private lateinit var view: View
     private lateinit var userViewModel: UserViewModel
-    private lateinit var currentUser : User
-    private lateinit var currentUserId : String
+    private var currentUserId : String =""
+    private var currentUserName : String =""
+    private var currentUserAvatar : String =""
     private lateinit var ratingViewModel: RatingViewModel
     private lateinit var sharedPreferences: SharedPreferences
 
@@ -30,7 +32,10 @@ class RatingActivity : AppCompatActivity() {
         setContentView(R.layout.activity_rating)
 
         initUI()
-//        getUserViewModelInformation()
+        getUserViewModelInformation()
+
+
+
         submitBtn.setOnClickListener {
             submitRatingBtnActionClickListener()
         }
@@ -43,27 +48,19 @@ class RatingActivity : AppCompatActivity() {
     }
 
     private fun getUserViewModelInformation(){
-        sharedPreferences =
-            view.context.getSharedPreferences("user", MODE_PRIVATE)
+        sharedPreferences = getSharedPreferences("user", MODE_PRIVATE)
         userViewModel = ViewModelProvider(this)[UserViewModel::class.java]
         currentUserId = sharedPreferences.getString("userID","").toString()
+        println("Current user id: " + currentUserId)
         if (currentUserId != null) {
             userViewModel.getUser(currentUserId.toInt())
+            userViewModel.user.observe(this) {
+                currentUserName = it.getName()
+                currentUserAvatar = it.getAvatar()
+            }
         };
-        userViewModel.user.observe(this){
-            currentUser = User(
-                it.getName(),
-                it.getGender(),
-                it.getEmail(),
-                it.getPhone(),
-                it.getPassword(),
-                it.getDOB(),
-                it.getAddress(),
-                it.getAvatar(),
-                it.getRole(),
-                0,
-                )
-        }
+//        userViewModel.getUser(currentUserId.toInt())
+
     }
 
     private fun submitRatingBtnActionClickListener(){
@@ -71,16 +68,17 @@ class RatingActivity : AppCompatActivity() {
         val comment = commentTV.text.toString()
         val rating = Rating(
             currentUserId,
-            currentUser.getName(),
-            currentUser.getAvatar(),
+            currentUserName,
+            currentUserAvatar,
             1,
             ratingValue,
-            commentTV.text.toString(),
+            comment,
             "",
             false
         )
         ratingViewModel = ViewModelProvider(this)[RatingViewModel::class.java]
+        println("Here")
         ratingViewModel.postRating(rating)
-
+        finish()
     }
 }

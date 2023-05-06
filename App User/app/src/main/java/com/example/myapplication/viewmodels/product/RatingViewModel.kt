@@ -28,8 +28,9 @@ class RatingViewModel : ViewModel(){
     fun postRating(rating: Rating){
         viewModelScope.launch(Dispatchers.IO){
             try{
+                println("AAAA")
                 val response = Utils.getRetrofit().create(RatingService::class.java).postRating(rating)
-                println(response)
+                println("Rating: $response")
             } catch (e:Exception) {
                 println("Views: $e")
             }
