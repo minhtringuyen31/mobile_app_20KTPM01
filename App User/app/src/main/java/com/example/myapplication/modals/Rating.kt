@@ -1,7 +1,6 @@
 package com.example.myapplication.modals
 
 class Rating(
-    private var id:Int,
     private var user_id: String,
     private var user_name: String,
     private var user_image: String,
@@ -12,7 +11,7 @@ class Rating(
     private var is_disalbe: Boolean
 ) {
     override fun toString(): String {
-        return "Rating(id=$id, user_id='$user_id', user_name='$user_name', user_image='$user_image', product_id=$product_id, score=$score, comment='$comment', create_at='$create_at', is_disalbe=$is_disalbe)"
+        return "Rating(user_id='$user_id', user_name='$user_name', user_image='$user_image', product_id=$product_id, score=$score, comment='$comment', create_at='$create_at', is_disalbe=$is_disalbe)"
     }
     fun getUserName():String{
         return this.user_name

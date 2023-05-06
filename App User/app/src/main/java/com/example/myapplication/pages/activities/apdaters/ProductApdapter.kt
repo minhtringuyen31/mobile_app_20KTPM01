@@ -1,4 +1,4 @@
-package com.example.myapplication.pages.apdaters
+package com.example.myapplication.pages.activities.apdaters
 
 
 import android.graphics.Rect
@@ -13,13 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.modals.Product
-import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
-import com.example.myapplication.pages.apdaters.interfaces.OnItemClickProductHomepage
+import com.example.myapplication.pages.activities.apdaters.interfaces.OnItemClickListener
+import com.example.myapplication.pages.activities.apdaters.interfaces.OnItemClickProductHomepage
 import com.example.myapplication.pages.fragments.Homepage
 import com.example.myapplication.pages.fragments.ProductDetail
 
 
-class ProductApdapter(private val context: Homepage, private val products: ArrayList<Product>,private val listener: OnItemClickListener,private val listerItemClick: OnItemClickProductHomepage) :
+class ProductApdapter(private val context: Homepage, private val products: ArrayList<Product>, private val listener: OnItemClickListener, private val listerItemClick: OnItemClickProductHomepage) :
     RecyclerView.Adapter<ProductApdapter.ViewHolder>() {
 
     lateinit var view:View

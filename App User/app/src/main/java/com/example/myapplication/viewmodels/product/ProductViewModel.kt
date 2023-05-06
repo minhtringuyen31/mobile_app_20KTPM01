@@ -33,9 +33,6 @@ class ProductViewModel: ViewModel(){
                 val response = Utils.getRetrofit().create(ProductService::class.java).getAllProduct()
 //                val response=Utils.getRetrofit().create(ProductService::class.java).getAllProduct()
                 _products.postValue(response)
-//                println("View: $response")
-                println("Init app product: $response")
-                println("Current viewmodel: ${Thread.currentThread().name}")
             } catch (e: Exception) {
                 println("View: $e")
             }
@@ -46,7 +43,6 @@ class ProductViewModel: ViewModel(){
         viewModelScope.launch {
             try {
                 val response = Utils.getRetrofit().create(ProductService::class.java).getProduct(id);
-                println("View: $response")
                 _product.value = response
             } catch (e: Exception) {
                 // handle error

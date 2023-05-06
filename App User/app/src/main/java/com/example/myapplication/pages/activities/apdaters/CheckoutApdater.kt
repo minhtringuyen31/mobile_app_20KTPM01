@@ -1,4 +1,4 @@
-package com.example.myapplication.pages.apdaters
+package com.example.myapplication.pages.activities.apdaters
 
 import android.annotation.SuppressLint
 import android.content.Context

@@ -1,21 +1,18 @@
 package com.example.myapplication.modals
 
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModel
-import kotlin.properties.Delegates
-
 class User(
-    private  var name: String,
-    private  var gender: String,
-    private  var email: String,
-    private  var phone: String,
-    private  var password: String,
-    private  var date_of_birth: String,
-    private  var address: String,
-    private  var avatar: String,
-    private  var role: String ,// admin =1, user=0
-    private  var is_disable:Int )
+    private var name: String,
+    private var gender: String,
+    private var email: String,
+    private var phone: String,
+    private var password: String?,
+    private var date_of_birth: String,
+    private var address: String,
+    private var avatar: String,
+    private var role: String,// admin =1, user=0
+    private var is_disable:Int )
 {
+
     private  var  id: Int =0;
     fun getId():Int{
         return id
@@ -51,7 +48,7 @@ class User(
     fun setAddress(address:String){
         this.address=address
     }
-    fun getPassword():String{
+    fun getPassword(): String? {
         return password
     }
     fun setPassword(password: String){
@@ -67,6 +64,14 @@ class User(
 
     override fun toString(): String {
         return "User(id=$id, name='$name', gender='$gender', email='$email', phone='$phone', password='$password', date_of_birth='$date_of_birth', address='$address', avatar='$avatar', role='$role', is_disable=$is_disable)"
+    }
+
+    fun getAvatar(): String {
+        return avatar
+    }
+
+    fun getRole(): String {
+        return role
     }
 
 

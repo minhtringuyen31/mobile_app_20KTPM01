@@ -17,8 +17,8 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.Category
 import com.example.myapplication.modals.Product
-import com.example.myapplication.pages.apdaters.CategoryListAdapter
-import com.example.myapplication.pages.apdaters.ProductListAdapter
+import com.example.myapplication.pages.activities.apdaters.CategoryListAdapter
+import com.example.myapplication.pages.activities.apdaters.ProductListAdapter
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.category.CategoryViewModel

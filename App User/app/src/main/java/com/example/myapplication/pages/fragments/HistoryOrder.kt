@@ -6,14 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.modals.Order
-import com.example.myapplication.pages.apdaters.OnGoingOrderListAdapter
+import com.example.myapplication.pages.activities.apdaters.OrderListAdapter
 import com.example.myapplication.viewmodels.AppViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -31,8 +29,9 @@ class HistoryOrder : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-    private lateinit var onGoingOrderListAdapter: OnGoingOrderListAdapter
-    private lateinit var onGoingOrderListRecyclerView: RecyclerView
+
+    private lateinit var historyOrderListAdapter: OrderListAdapter
+    private lateinit var historyOrderListRecyclerView: RecyclerView
     private val appModel: AppViewModel by activityViewModels()
     private lateinit var layoutManager: RecyclerView.LayoutManager
 
@@ -60,11 +59,11 @@ class HistoryOrder : Fragment() {
     }
 
     private fun initUI(view: View){
-        onGoingOrderListRecyclerView = view.findViewById(R.id.historyOderListRV)
-        onGoingOrderListAdapter = OnGoingOrderListAdapter(arrayListOf())
+        historyOrderListRecyclerView = view.findViewById(R.id.historyOderListRV)
+        historyOrderListAdapter = OrderListAdapter(arrayListOf())
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
-        onGoingOrderListRecyclerView.layoutManager = layoutManager
-        onGoingOrderListRecyclerView.adapter=onGoingOrderListAdapter;
+        historyOrderListRecyclerView.layoutManager = layoutManager
+        historyOrderListRecyclerView.adapter=historyOrderListAdapter;
     }
 
 
@@ -72,8 +71,8 @@ class HistoryOrder : Fragment() {
     private fun setUpObserve(){
         appModel.setUpOrderViewModel(this);
         appModel.getOrderViewModel().orderProduct.observe(viewLifecycleOwner){
-            onGoingOrderListAdapter.addOrders(it.filter { it.getStatus()==1 } as ArrayList<Order>) ;
-            onGoingOrderListAdapter.notifyDataSetChanged();
+            historyOrderListAdapter.addOrders(it.filter { it.getStatus()==1 } as ArrayList<Order>) ;
+            historyOrderListAdapter.notifyDataSetChanged();
 
         }
 

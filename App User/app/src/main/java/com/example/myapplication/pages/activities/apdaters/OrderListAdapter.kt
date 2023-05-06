@@ -1,18 +1,20 @@
-package com.example.myapplication.pages.apdaters
+package com.example.myapplication.pages.activities.apdaters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.TextView
+
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.modals.CartItem
 import com.example.myapplication.modals.Order
 
-class OnGoingOrderListAdapter(
+
+class OrderListAdapter(
     private var orderList: ArrayList<Order>
-): RecyclerView.Adapter<OnGoingOrderListAdapter.ViewHolder>() {
+): RecyclerView.Adapter<OrderListAdapter.ViewHolder>() {
     var onItemClick:((Order)-> Unit)? = null
     inner class ViewHolder(listItemView: View): RecyclerView.ViewHolder(listItemView){
         val orderId : TextView = listItemView.findViewById(R.id.orderIdTV)
@@ -20,9 +22,16 @@ class OnGoingOrderListAdapter(
         val orderStatus : TextView = listItemView.findViewById(R.id.orderStatusTV)
         val orderDate : TextView = listItemView.findViewById(R.id.orderDateTV)
         val orderPrice : TextView = listItemView.findViewById(R.id.orderPriceTV)
+        val orderDetailBtn : Button = listItemView.findViewById(R.id.orderDetailBtn)
 
-        init{
-            listItemView.setOnClickListener{
+//        init{
+//            listItemView.setOnClickListener{
+//                onItemClick?.invoke(orderList[position])
+//            }
+//        }
+
+        init {
+            orderDetailBtn.setOnClickListener {
                 onItemClick?.invoke(orderList[position])
             }
         }
@@ -48,12 +57,16 @@ class OnGoingOrderListAdapter(
         val orderPrice = holder.orderPrice
 
         orderId.text = onGoingOrder.getId().toString()
+        orderAddressShipping.text = onGoingOrder.getShippingAddress()
+        orderDate.text = onGoingOrder.getOrderDate()
+        orderPrice.text = onGoingOrder.getTotal().toString()
+
 //        orderAddressShipping.text = onGoingOrder.getShippingAddress()
-//        if(onGoingOrder.getStatus() == 0){
-//            orderStatus.text = "Sản phẩm đang được giao"
-//        } else {
-//            orderStatus.text = "Sản phẩm đã giao thành công"
-//        }
+        if(onGoingOrder.getStatus() == 0){
+            orderStatus.text = "Sản phẩm đang được giao"
+        } else {
+            orderStatus.text = "Sản phẩm đã giao thành công"
+        }
 //        orderDate.text = onGoingOrder.getOrderDate()
 //        orderPrice.text = onGoingOrder.getTotal().toString()
     }

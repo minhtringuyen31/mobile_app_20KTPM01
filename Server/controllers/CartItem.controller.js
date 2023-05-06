@@ -1,8 +1,8 @@
 import CartItemService from "../services/CartItem.service.js"
 const CartItemController = {
     async create(req, res) {
-        const { user_id, cart_id, product_id, quantity, size, price,topping } = req.body;
-        const newCartItem = await CartItemService.create(user_id, cart_id, product_id, quantity, size, price,topping);
+        const { user_id, cart_id, product_id, quantity, size, price,topping,notes } = req.body;
+        const newCartItem = await CartItemService.create(user_id, cart_id, product_id, quantity, size, price, topping, notes);
         if (newCartItem) {
             res.status(200).send(newCartItem)
         } else {
@@ -23,7 +23,7 @@ const CartItemController = {
     },
     async delete(req, res) {
         req.app.io.emit("server-send-message", "Hello");
-        const id = req.params.id;
+        const id = req.params.id;   
         const status = await CartItemService.delete(id);
         if (status) {
             res.status(200).send({ status: 1, message: "Success" })

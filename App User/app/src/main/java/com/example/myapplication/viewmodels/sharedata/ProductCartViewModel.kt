@@ -16,8 +16,15 @@ class ProductCartViewModel:ViewModel() {
     private var category_id:Int=0
     private var quantity=0;
     private var nameFragment:String="homepage";
+    private var size:String="L"
     fun getId(): Int {
         return id
+    }
+    fun setSize(size:String){
+        this.size=size
+    }
+    fun getSize():String{
+        return this.size
     }
     fun setNameFragment(name:String){
         this.nameFragment= name;

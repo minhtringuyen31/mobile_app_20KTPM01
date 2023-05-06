@@ -33,6 +33,21 @@ class OrderViewModel :ViewModel(){
             }
         }
     }
+
+    fun getAllOnGoingOrder() {
+        // App 2 thread; MainThread(UI Thread) và Background Thread --> ANR
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = Utils.getRetrofit().create(OrderService::class.java).getAllOnGoingOrder()
+                _orderProduct.postValue(response) // để đảm bảo rằng các giá trị được cập nhật trên luồng phụ (background thread).
+                println(response)
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+    }
+
+
     fun createOrderProduct(orderProduct: OrderProduct) {
         viewModelScope.launch {
             try {
@@ -54,7 +69,10 @@ class OrderViewModel :ViewModel(){
                     val product_ID = it.getProductId();
                     val quantity = it.getQuantity();
                     val price  = it.getPrice();
-                    val orderProduct = OrderProduct(id,"",price,product_ID,quantity);
+                    val notes  = it.getNotes();
+                    val topping= it.getTopping();
+                    val size = it.getSize();
+                    val orderProduct = OrderProduct(notes,id,product_ID,quantity,price,size,topping);
                     println(orderProduct)
                     createOrderProduct(orderProduct);
                 }

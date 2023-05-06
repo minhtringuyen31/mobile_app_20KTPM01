@@ -5,7 +5,6 @@ const SocketListener = {
     start: function (io) {
         io.on('connection', async function (socket) {
             console.log('a user connected');
-
             //implement with category ,product, confirm order
             socket.on("login", (data) => {
                 userActive[data] = socket.id; // luu lau socket id cua user khi gui toi 
@@ -14,13 +13,13 @@ const SocketListener = {
             })
 
             socket.on("123", (data) => {
-                    console.log("Client gửi lên: " + data);
+                console.log("Client gửi lên: " + data + "đã xoá");
             })
 
             socket.on("verify-confirm-order", (data) => {
                 console.log(data);
                 // waiting admin confirm order | implement code here or in controller
-                io.to(userActive[data]).emit("verify-confirm-order", data) // gui toi nhung client nao can gui 
+                io.to(userActive[data]).emit("verify-confirm-order", data+ "đã xoá") // gui toi nhung client nao can gui 
             })
 
             socket.on('disconnect', function () {

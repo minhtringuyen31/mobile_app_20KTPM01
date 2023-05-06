@@ -10,6 +10,12 @@ interface OrderService {
     @GET("orders/")
     suspend fun getAllOrder(): ArrayList<Order>
 
+    @GET("ongoingorders/")
+    suspend fun getAllOnGoingOrder(): ArrayList<Order>
+
+    @GET("historyorders/")
+    suspend fun getAllHistoryOrder(): ArrayList<Order>?
+
     @POST("orders/update/{id}")
     suspend fun updateOrder(@Path("id") orderID: Int, @Body promotion: Order): Order
 
@@ -17,4 +23,5 @@ interface OrderService {
     suspend fun deleteOrder(@Path("id") orderID: Int): Int
     @POST("orders/create/")
     suspend fun createOrder(@Body order: Order): Order
+
 }

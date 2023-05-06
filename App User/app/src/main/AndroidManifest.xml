@@ -80,6 +80,9 @@
             android:name=".pages.activities.order.Checkout"
             android:exported="false" />
         <activity
+            android:name=".pages.OrderDetail"
+            android:exported="false"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="The coffee shop"
