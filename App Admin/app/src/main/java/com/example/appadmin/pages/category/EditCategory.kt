@@ -21,18 +21,12 @@ class EditCategory : AppCompatActivity() {
         val name = findViewById<TextView>(R.id.editCategoryName)
         val image = findViewById<ImageView>(R.id.editCategoryImage)
         val disableBtn = findViewById<Button>(R.id.editCategory_disableBtn)
-        val disableIcon = findViewById<ImageView>(R.id.isDisableCategory)
 
         val categoryViewProvider = ViewModelProvider(this)[CategoryController::class.java]
         categoryViewProvider.getCategory(id!!.toInt()).observe(this) {
-            name.text = it.getName()
+            name.hint = it.getName()
             Glide.with(this).load(it.getImage()).into(image)
             disableBtn.text = if (it.getIsDisable() == 1) "Mở" else "Khóa"
-            disableIcon.setImageResource(
-                if (it.getIsDisable() == 1)
-                    R.drawable.baseline_disable_24
-                else R.drawable.baseline_able_24
-            )
         }
 
         findViewById<Button>(R.id.editCategory_saveBtn).setOnClickListener {

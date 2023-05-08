@@ -17,6 +17,7 @@ class CategoryAdapter(private val context: Context, private val categories: List
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val categoryName = itemView.findViewById<TextView>(R.id.categoryName)
         val categoryImage = itemView.findViewById<ImageView>(R.id.categoryImage)
+        val disable = itemView.findViewById<ImageView>(R.id.isDisableCategory)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -36,6 +37,12 @@ class CategoryAdapter(private val context: Context, private val categories: List
         categoryName.text = category.getName()
         val categoryImage = holder.categoryImage
         Glide.with(context).load(category.getImage()).into(categoryImage)
+        val disable = holder.disable
+        if (category.getIsDisable() == 1) {
+            disable.setImageResource(R.drawable.baseline_disable_24)
+        } else {
+            disable.setImageResource(R.drawable.baseline_able_24)
+        }
         holder.itemView.setOnClickListener {
             val intent = Intent(context, EditCategory::class.java)
             intent.putExtra("categoryId", category.getId().toString())
