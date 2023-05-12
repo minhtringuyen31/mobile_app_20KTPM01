@@ -57,8 +57,15 @@ class HistoryOrder : Fragment() {
 
         return view;
     }
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateApdater(){
+        setUpObserve();
+        historyOrderListAdapter.notifyDataSetChanged();
 
-    private fun initUI(view: View){
+    }
+
+
+     fun initUI(view: View){
         historyOrderListRecyclerView = view.findViewById(R.id.historyOderListRV)
         historyOrderListAdapter = OrderListAdapter(arrayListOf())
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
@@ -68,7 +75,7 @@ class HistoryOrder : Fragment() {
 
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun setUpObserve(){
+     fun setUpObserve(){
         appModel.setUpOrderViewModel(this);
         appModel.getOrderViewModel().orderProduct.observe(viewLifecycleOwner){
             historyOrderListAdapter.addOrders(it.filter { it.getStatus()==1 } as ArrayList<Order>) ;

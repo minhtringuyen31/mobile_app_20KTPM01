@@ -47,7 +47,7 @@ class splashApp : Fragment() {
         Handler(Looper.getMainLooper()).postDelayed({
 //            appModel.setUpViewModel(view, this)
             startActivity(Intent(view.context, Login::class.java))
-        }, 2000)
+            requireActivity().finish() }, 2000)
         return view;
     }
 

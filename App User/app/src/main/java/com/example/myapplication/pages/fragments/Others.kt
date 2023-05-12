@@ -114,6 +114,7 @@ class Others : Fragment() {
                 Login::class.java
             )
             startActivity(intent)
+            requireActivity().finish();
         }
     }
         companion object {

@@ -237,4 +237,5 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage {
     }
 
 
+
 }

@@ -10,6 +10,7 @@ class ViewPagerAdapter(fm: FragmentManager?) :
     fun addFragment(fragment: Fragment, title: String) {
         mFragments.add(fragment)
         mFragmentTitles.add(title)
+
     }
 
     override fun getItem(position: Int): Fragment {

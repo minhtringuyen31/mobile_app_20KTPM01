@@ -104,6 +104,7 @@ class Login : AppCompatActivity() {
                             val editor = sharedPreferences.edit()
                             editor.putString("userID", resource.data?.getUserID().toString())
                             editor.apply()
+                            finish();
                         }
                         Status.ERROR -> {
 
@@ -144,7 +145,7 @@ class Login : AppCompatActivity() {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 val infor= task.getResult(ApiException::class.java)
-                print(infor.idToken)
+
                 loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
                 infor.idToken?.let {
                     val token= it;
@@ -166,6 +167,7 @@ class Login : AppCompatActivity() {
                                     val editor = sharedPreferences.edit()
                                     editor.putString("userID", resource.data?.getUserID().toString())
                                     editor.apply()
+                                    finish();
 
 
                                 }
@@ -204,6 +206,7 @@ class Login : AppCompatActivity() {
         )
         intent.putExtra("status","1")
         startActivity(intent)
+        finish();
     }
 
     }

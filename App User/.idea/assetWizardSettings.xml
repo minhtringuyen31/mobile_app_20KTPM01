@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/close/baseline_close_24.xml" />
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/notifications_active/baseline_notifications_active_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -34,7 +34,7 @@
                         <option name="values">
                           <map>
                             <entry key="opacityPercent" value="90" />
-                            <entry key="outputName" value="baseline_close_24" />
+                            <entry key="outputName" value="baseline_notifications_active_24" />
                             <entry key="sourceFile" value="/D:\Desktop\mobile_app_20KTPM01\App User" />
                           </map>
                         </option>

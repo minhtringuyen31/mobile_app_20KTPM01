@@ -1,5 +1,4 @@
 package com.example.myapplication.pages.fragments
-
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
@@ -26,6 +25,7 @@ import com.example.myapplication.R
 import com.example.myapplication.checkout.CreateOrder
 import com.example.myapplication.modals.CartItem
 import com.example.myapplication.pages.activities.apdaters.CheckoutApdater
+import com.example.myapplication.socket.SocketHandler
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.order.CheckoutViewModel
@@ -34,18 +34,21 @@ import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePick
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import io.socket.client.Socket
 import org.json.JSONObject
 import vn.zalopay.sdk.Environment
 import vn.zalopay.sdk.ZaloPayError
 import vn.zalopay.sdk.ZaloPaySDK
 import vn.zalopay.sdk.listeners.PayOrderListener
 import java.lang.reflect.Type
+import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -84,9 +87,17 @@ class Checkout : Fragment() {
     private  var cartItemCallAPI:ArrayList<CartItem> = ArrayList<CartItem>()
     private lateinit var orderViewModel: OrderViewModel
     private lateinit var adddressAdapter:AddressApdapter
-    private var selectedAddressBoolean:Boolean=true;
-    private lateinit var phoneUser:TextView;
-    private lateinit var updatePhone:TextView;
+    private var selectedAddressBoolean:Boolean=true
+    private lateinit var phoneUser:TextView
+    private lateinit var updatePhone:TextView
+    private lateinit var sharedPreferences:SharedPreferences
+    private  var gson=Gson()
+    private  val type: Type = object : TypeToken<ArrayList<String>>() {}.type
+    private lateinit var carts:String
+    private lateinit var dataItem :ArrayList<String>
+    private lateinit var toggleAddress:TextView
+    private lateinit var mSocket: Socket
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,13 +107,13 @@ class Checkout : Fragment() {
         }
     }
 
-    @SuppressLint("ResourceAsColor")
+    @SuppressLint("ResourceAsColor", "SimpleDateFormat")
     private fun handleGetTime(){
         SingleDateAndTimePickerDialog.Builder(context)
             .bottomSheet()
             .curved()
             .titleTextColor(Color.BLACK)
-            .backgroundColor(Color.rgb(245,248,250))
+            .backgroundColor(Color.rgb(240,248,250))
             .title("Hãy chọn thời gian đặt hàng")
             .listener {
                 val inputFormat = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -116,6 +127,24 @@ class Checkout : Fragment() {
                     val outputFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
                     val outputDate = zonedDateTime.format(outputFormat)
                     checkoutViewModel.setTime(outputDate)
+                    val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+                    // Split date and time components
+                    val _date = outputDate.substring(0, 10) // "2302-05-06"
+                    val _time = outputDate.substring(10) // "14:55:00"
+                    val regex = Regex("(\\d{4}-\\d{2}-\\d{2})(\\d{2}:\\d{2}:\\d{2})")
+                    val matchResult = regex.find(outputDate)
+                    val date = matchResult?.groupValues?.get(1) // "2302-05-06"
+                    val currentDate = sdf.format(Date())
+
+                    if(currentDate.contains(_date))
+                    {
+                        timeCheckout.text = "Hôm nay | $_time";
+                    }
+                    else
+                    {
+                        timeCheckout.text=outputDate
+                    }
+
                 } catch (e: DateTimeParseException) {
                     println("Error parsing date: $e")
                 }
@@ -131,6 +160,9 @@ class Checkout : Fragment() {
         // ZaloPay SDK Init
         ZaloPaySDK.init(554, Environment.SANDBOX)
         (activity as MainActivity).showToolbarAndNavigationBar(false)
+        sharedPreferences = view.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
+        carts= sharedPreferences.getString("nameAddress", null).toString()
+        dataItem = gson.fromJson<ArrayList<String>>(carts, type)
         setUpViewModel()
         initUI(view)
         setupObserve()
@@ -154,6 +186,7 @@ class Checkout : Fragment() {
         btnShowBottomSheet = view.findViewById(R.id.method_payment)
         btnCheckout = view.findViewById(R.id.btnPlaceOrderCheckout)
         methodSelected= view.findViewById(R.id.methodSelected)
+        toggleAddress = view.findViewById(R.id.toggleAddress)
         phoneUser = view.findViewById(R.id.phoneUser)
         btnShowBottomSheet.setOnClickListener {
             val dialog = BottomSheetDialog(view.context)
@@ -185,7 +218,7 @@ class Checkout : Fragment() {
             }
             cartItemCallAPI.apply {
                 cartItemCallAPI.addAll(it)
-            };
+            }
             checkoutViewModel.subTotal.value=subtotal
             subTotal.text= Utils.formatCurrency(checkoutViewModel.subTotal.value!!) + " đ"
             total.text =  Utils.formatCurrency( (checkoutViewModel.subTotal.value!!-(checkoutViewModel.subTotal.value!!*checkoutViewModel.getPercentVoucher()))) + " đ"
@@ -222,6 +255,7 @@ class Checkout : Fragment() {
                 val orderApi = CreateOrder()
                 try {
                     val data: JSONObject = orderApi.createOrder("1000")
+                    println(data)
                     val code = data.getString("returncode")
                     if (code == "1") {
                         val myActivity = activity as MainActivity
@@ -233,7 +267,9 @@ class Checkout : Fragment() {
                                 appTransID: String
                             ) {
 
-
+                                println(transactionId)
+                                println(appTransID)
+                                println(transToken)
                                 SweetAlertDialog(view.context, SweetAlertDialog.SUCCESS_TYPE)
                                     .setTitleText("Đặt hàng thành công")
                                     .setContentText("Quay trở lại trang Order để theo dõi đơn hàng")
@@ -298,21 +334,32 @@ class Checkout : Fragment() {
 //                .beginTransaction()
 //                .replace(R.id.flFragment, Order(),"Order").addToBackStack(null)
 //                .commit()
-            val address = checkoutViewModel.getAddress();
-            val sharedPreferences: SharedPreferences =
-                view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
-            val userID = sharedPreferences.getString("userID", "")
-            val newOrder =com.example.myapplication.modals.Order(userID!!.toInt(),checkoutViewModel.getTime(),address,Utils.getDigitInString(total.text.toString()),0,1,3);
-            orderViewModel.createOrder(newOrder,cartItemCallAPI);
+//            val address = checkoutViewModel.getAddress()
+//
+//                view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
+//            val userID = sharedPreferences.getString("userID", "")
+//            val newOrder =com.example.myapplication.modals.Order(userID!!.toInt(),checkoutViewModel.getTime(),address,Utils.getDigitInString(total.text.toString()),0,1,3)
+//            orderViewModel.createOrder(newOrder,cartItemCallAPI)
+
+            SocketHandler.setSocket()
+            SocketHandler.establishConnection()
+            mSocket = SocketHandler.getSocket()
+            
+            mSocket.emit("newOrder","[1,2,3]")
 
         }
         addressCheckout.setOnClickListener {
           val dialog = CustomDialog(view.context)
             dialog.setUpDialog()
+
+
         }
 
         timeCheckout.setOnClickListener{
             handleGetTime()
+//            val refundAPI = Refund()
+//            val data: JSONObject = refundAPI.refund("1000")
+//            println(data)
         }
 
         addItem.setOnClickListener {
@@ -332,9 +379,9 @@ class Checkout : Fragment() {
         private var dialog: Dialog = Dialog(context)
        private lateinit var addressListView:ListView
        private lateinit var closeButton:ImageView
-       private lateinit var selectedAddress:TextView;
+       private lateinit var selectedAddress:TextView
        private lateinit var closeButtonPhone:ImageView
-       private lateinit var selectedPhone:TextView;
+       private lateinit var selectedPhone:TextView
         @SuppressLint("SuspiciousIndentation")
         fun setUpDialog(){
 
@@ -343,7 +390,6 @@ class Checkout : Fragment() {
             closeButton = dialog.findViewById(R.id.closeDialogAddress)
             adddressAdapter = AddressApdapter(arrayListOf(),dialog.context)
             selectedAddress= dialog.findViewById(R.id.selectAddress)
-
 
                 dialog.window!!.setLayout(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -354,28 +400,21 @@ class Checkout : Fragment() {
             closeButton.setOnClickListener {
                 dialog.dismiss()
             }
-            val sharedPreferences = dialog.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
-            val gson = Gson()
-            val type: Type = object : TypeToken<ArrayList<String>>() {}.type
-            val carts=sharedPreferences.getString("nameAddress", null)
-            println(carts)
-            var dataItem = gson.fromJson<ArrayList<String>>(carts, type);
-            if (dataItem == null) {
-                dataItem = ArrayList<String>()
-            }
-            adddressAdapter.addAddress(dataItem);
-            addressListView.adapter=adddressAdapter;
-            val okay_text = dialog.findViewById<TextView>(R.id.add_Address)
-            val edtAddress = dialog.findViewById<EditText>(R.id.addressUser)
-            okay_text.setOnClickListener(View.OnClickListener {
 
+
+            adddressAdapter.addAddress(dataItem)
+            addressListView.adapter=adddressAdapter
+            val addAddres = dialog.findViewById<TextView>(R.id.add_Address)
+            val edtAddress = dialog.findViewById<EditText>(R.id.addressUser)
+            addAddres.setOnClickListener(View.OnClickListener {
                 dataItem.add(edtAddress.text.toString())
                 adddressAdapter.addAddress(dataItem)
                 sharedPreferences.edit().putString("nameAddress", gson.toJson(dataItem)).apply()
                 edtAddress.text.clear()
             })
             selectedAddress.setOnClickListener {
-                dialog.dismiss()
+                    toggleAddress.text = checkoutViewModel.getAddress()
+                    dialog.dismiss()
             }
             addressListView.onItemClickListener =
                 AdapterView.OnItemClickListener { adapterView, view, position, id -> // Handle item click here
@@ -392,7 +431,6 @@ class Checkout : Fragment() {
            dialog.setContentView(R.layout.custom_dialog_phone)
            closeButtonPhone = dialog.findViewById(R.id.closeDialogPhone)
            selectedPhone= dialog.findViewById(R.id.selectPhone)
-
            dialog.window!!.setLayout(
                ViewGroup.LayoutParams.MATCH_PARENT,
                ViewGroup.LayoutParams.WRAP_CONTENT
@@ -406,7 +444,7 @@ class Checkout : Fragment() {
            val edtPhone = dialog.findViewById<EditText>(R.id.addphone)
            selectedPhone.setOnClickListener(View.OnClickListener {
                sharedPreferences.edit().putString("phoneUser",edtPhone.text.toString()).apply()
-                phoneUser.text=edtPhone.text.toString();
+                phoneUser.text=edtPhone.text.toString()
                edtPhone.text.clear()
                dialog.dismiss()
            })
@@ -455,19 +493,11 @@ class Checkout : Fragment() {
             val item: String = getItem(position)
             viewHolder.txtName.text = item
             viewHolder.checkBox.isChecked = false
-            viewHolder.checkBox.isChecked= position==0;
             viewHolder.iconDelete.setOnClickListener {
-                val sharedPreferences = context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
-                val gson = Gson()
-                val type: Type = object : TypeToken<ArrayList<String>>() {}.type
-                val carts=sharedPreferences.getString("nameAddress", null)
-                var dataItem = gson.fromJson<ArrayList<String>>(carts, type);
-                if (dataItem == null) {
-                    dataItem = ArrayList<String>()
-                }
-                dataItem.removeIf {
-                    it == item
-                }
+
+                 dataItem = dataItem.filter {
+                    it!=item
+                } as ArrayList
                 adddressAdapter.addAddress(dataItem)
                 sharedPreferences.edit().putString("nameAddress", gson.toJson(dataItem)).apply()
             }

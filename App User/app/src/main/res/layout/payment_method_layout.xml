@@ -11,7 +11,7 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:background="@color/white"
-        app:title="Payment method"
+        app:title="Phương thức thanh toán"
         android:elevation="5dp"
         app:titleTextColor="@color/black"
         android:layout_height="wrap_content">
@@ -27,7 +27,7 @@
         <LinearLayout
             android:id="@+id/momo"
             android:layout_width="match_parent"
-            android:background="@drawable/rounded_border"
+            android:background="@drawable/custom_rounded_search"
             android:orientation="horizontal"
             android:layout_marginBottom="10dp"
             android:padding="10dp"
@@ -59,7 +59,7 @@
             android:id="@+id/paypal"
             android:layout_width="match_parent"
             android:orientation="horizontal"
-            android:background="@drawable/rounded_border"
+            android:background="@drawable/custom_rounded_search"
             android:layout_marginBottom="10dp"
             android:padding="10dp"
             android:layout_height="wrap_content">

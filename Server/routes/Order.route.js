@@ -11,5 +11,6 @@ OrderRoute.post("/update/:id", OrderController.update)
 OrderRoute.delete("/delete/:id", OrderController.delete)
 OrderRoute.get("/:id", OrderController.findAll)
 OrderRoute.get("/", OrderController.findAll)
+OrderRoute.post("/status/:id", OrderController.changeStatus)
 export default OrderRoute;
 

@@ -84,6 +84,24 @@ const OrderController = {
   test(req, res) {
     res.send("Test API from Order");
   },
+  async changeStatus(req, res) {
+
+    const id = req.params.id;
+    const status = req.body.status;
+    const idUser = parseInt(req.body.user_id);
+    console.log(req.body);
+    const changeStatus = await OrdertService.changeStatus(id, status);
+    //doc database de check ket qua 
+    req.app.io.to(global.userActive[idUser]).emit("statusOrder", "Đơn hàng của bạn đã được chấp nhận")
+    if (changeStatus) {
+      res.status(200).send(changeStatus);
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
+  test(req, res) {
+    res.send("Test API from Order");
+  },
 };
 
 export default OrderController;
