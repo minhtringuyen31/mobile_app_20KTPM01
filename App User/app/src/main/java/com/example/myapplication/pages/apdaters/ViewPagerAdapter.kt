@@ -1,4 +1,4 @@
-package com.example.myapplication.pages.activities.apdaters
+package com.example.myapplication.pages.apdaters
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

@@ -48,7 +48,11 @@ class OrderAdapter(private val context: Context, private val items: List<Order>)
         val totalOrder = holder.totalOrder
         totalOrder.text = item.getTotal().toString()
         val orderStatus = holder.orderStatus
-        orderStatus.text = item.getStatus().toString()
+        if (item.getStatus() == 0) {
+            orderStatus.text = "Đang giao hàng"
+        } else {
+            orderStatus.text = "Đã giao hàng"
+        }
         holder.itemView.setOnClickListener {
             val intent = Intent(context, EditOrder::class.java)
             intent.putExtra("orderId", item.getId().toString())

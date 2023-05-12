@@ -22,10 +22,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.modals.*
 import com.example.myapplication.pages.fragments.*
 import com.example.myapplication.pages.fragments.Order
 import com.example.myapplication.socket.SocketHandler
+import com.example.myapplication.viewmodels.user.UserViewModel
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import io.socket.client.Socket
@@ -38,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView:BottomNavigationView
     private lateinit var currentFragment: FrameLayout
     private lateinit var mSocket: Socket
+    private lateinit var UserProfile: UserViewModel
 
 
 
@@ -89,7 +92,7 @@ class MainActivity : AppCompatActivity() {
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
             val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-
+        createNotificationChannel()
         val builder = NotificationCompat.Builder(this,"123")
             .setSmallIcon(R.drawable.baseline_notifications_active_24)
             .setContentTitle("My notification")
@@ -143,6 +146,16 @@ class MainActivity : AppCompatActivity() {
         }
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("user", MODE_PRIVATE)
         val userID = sharedPreferences.getString("userID", "")
+        UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
+        UserProfile.user.observe(this) {
+            val editor = sharedPreferences.edit()
+            editor.putString("name",it.getName() )
+            editor.putString("phone",it.getPhone() )
+            editor.apply()
+        }
+        if (userID != null) {
+            UserProfile.getUser(userID.toInt())
+        };
         if (userID != null&& userID.isNotEmpty()) {
             mSocket.emit("login",userID)
             setCurrentFragment(Homepage(),"Homepage")

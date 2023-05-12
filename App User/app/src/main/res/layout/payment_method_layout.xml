@@ -2,15 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/rounded_dialog"
+    app:behavior_hideable="false"
+    app:behavior_peekHeight="40dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.appcompat.widget.Toolbar
+
         android:id="@+id/toolbar_checkout"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:background="@color/white"
+        android:background="@drawable/rounded_dialog"
         app:title="Phương thức thanh toán"
         android:elevation="5dp"
         app:titleTextColor="@color/black"
@@ -21,6 +25,7 @@
     <LinearLayout
         android:padding="10dp"
         android:layout_width="match_parent"
+        android:background="@color/white"
         android:orientation="vertical"
         android:layout_height="wrap_content"
         android:layout_margin="2dp">
@@ -49,7 +54,7 @@
                 android:layout_height="fill_parent"
                 android:gravity="center_vertical"
                 android:layout_marginLeft="5dp"
-                android:text="Thanh toán qua Momo"
+                android:text="Thanh toán qua ZaloPay"
                 android:textColor="@color/black"
                 android:textSize="18sp"
                 android:textStyle="bold" />

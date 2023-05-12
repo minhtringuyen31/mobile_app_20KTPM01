@@ -29,7 +29,8 @@
         android:queryBackground="@null"
         android:iconifiedByDefault="false"
         android:layout_marginBottom="10dp"
-        android:queryHint="Search for your specific coffee type"
+        android:queryHint="Tìm kiếm sản phẩm"
+        android:theme="@style/searchView"
         android:layout_height="wrap_content">
     </SearchView>
     <TextView

@@ -24,7 +24,8 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.checkout.CreateOrder
 import com.example.myapplication.modals.CartItem
-import com.example.myapplication.pages.activities.apdaters.CheckoutApdater
+import com.example.myapplication.pages.activities.promotion.ListPromotion
+import com.example.myapplication.pages.apdaters.CheckoutApdater
 import com.example.myapplication.socket.SocketHandler
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
@@ -79,7 +80,7 @@ class Checkout : Fragment() {
     private lateinit var subTotal:TextView
     private lateinit var total:TextView
     private lateinit var addItem:TextView
-    private lateinit var discount:TextView
+    private lateinit var discount:LinearLayout
     private var subtotal=0.0
     private lateinit var showAddress:TextView
     private lateinit var methodSelected:TextView
@@ -93,7 +94,7 @@ class Checkout : Fragment() {
     private lateinit var sharedPreferences:SharedPreferences
     private  var gson=Gson()
     private  val type: Type = object : TypeToken<ArrayList<String>>() {}.type
-    private lateinit var carts:String
+    private var carts: String? = null
     private lateinit var dataItem :ArrayList<String>
     private lateinit var toggleAddress:TextView
     private lateinit var mSocket: Socket
@@ -136,12 +137,10 @@ class Checkout : Fragment() {
                     val date = matchResult?.groupValues?.get(1) // "2302-05-06"
                     val currentDate = sdf.format(Date())
 
-                    if(currentDate.contains(_date))
-                    {
+                    if(currentDate.contains(_date)) {
                         timeCheckout.text = "Hôm nay | $_time";
                     }
-                    else
-                    {
+                    else {
                         timeCheckout.text=outputDate
                     }
 
@@ -161,8 +160,13 @@ class Checkout : Fragment() {
         ZaloPaySDK.init(554, Environment.SANDBOX)
         (activity as MainActivity).showToolbarAndNavigationBar(false)
         sharedPreferences = view.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
-        carts= sharedPreferences.getString("nameAddress", null).toString()
-        dataItem = gson.fromJson<ArrayList<String>>(carts, type)
+        carts= sharedPreferences.getString("nameAddress", "").toString()
+        if (carts == "") {
+            dataItem = arrayListOf()
+
+        } else {
+            dataItem = gson.fromJson(carts, type);
+        }
         setUpViewModel()
         initUI(view)
         setupObserve()
@@ -170,6 +174,7 @@ class Checkout : Fragment() {
     }
     @SuppressLint("InflateParams")
     fun initUI(view:View){
+
         showAddress = view.findViewById(R.id.showAddress)
         cancelCheckout = view.findViewById(R.id.cancelCheckout)
         addressCheckout= view.findViewById(R.id.add_Address)
@@ -369,7 +374,11 @@ class Checkout : Fragment() {
                 .commit()
         }
         discount.setOnClickListener {
-                // Replace fragment or activity Promotio
+            val intent=Intent(
+                view.context,
+                ListPromotion::class.java
+            )
+            startActivity(intent)
         }
     }
     fun handleNewIntent(intent: Intent?) {
@@ -423,7 +432,6 @@ class Checkout : Fragment() {
                     adapterView[position].findViewById<CheckBox>(R.id.checkboxAddress).isChecked=selectedAddressBoolean
                     selectedAddressBoolean = !selectedAddressBoolean
                 }
-
             dialog.show()
         }
 

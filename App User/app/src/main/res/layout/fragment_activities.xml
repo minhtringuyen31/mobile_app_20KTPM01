@@ -12,8 +12,11 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
+        android:background="@color/white"
+        android:elevation="10dp"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/black"
+       app:tabTextColor="@color/black"
+        app:tabSelectedTextColor="@color/red"
         android:layout_width="match_parent"
         android:layout_height="50dp">
     </com.google.android.material.tabs.TabLayout>

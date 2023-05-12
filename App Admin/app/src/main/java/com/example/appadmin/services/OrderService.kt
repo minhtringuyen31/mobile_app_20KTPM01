@@ -20,6 +20,9 @@ interface OrderService {
     @DELETE("order/delete/{id}")
     suspend fun deleteOrder(@Path("id") orderId: Int): Boolean
 
-    @PUT("order/status/{id}")
-    suspend fun updateStatus(@Path("id") orderId: Int, @Body status: Int): Order
+    @PUT("order/delivering/{id}")
+    suspend fun changeDeliveringStatus(@Path("id") orderId: Int): Boolean
+
+    @PUT("order/delivered/{id}")
+    suspend fun changeDeliveredStatus(@Path("id") orderId: Int): Boolean
 }

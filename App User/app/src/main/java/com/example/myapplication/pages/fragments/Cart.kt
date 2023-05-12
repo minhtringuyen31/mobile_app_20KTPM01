@@ -18,8 +18,8 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.CartItem
 import com.example.myapplication.modals.Product
-import com.example.myapplication.pages.activities.apdaters.CartApdapter
-import com.example.myapplication.pages.activities.apdaters.interfaces.OnItemClickListener
+import com.example.myapplication.pages.apdaters.CartApdapter
+import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
 import com.google.gson.Gson
@@ -47,7 +47,7 @@ class Cart : Fragment(), OnItemClickListener {
     private val appModel: AppViewModel by activityViewModels()
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
     private lateinit var btnback:ImageView
-    private  lateinit var emptyList:ImageView
+    private lateinit var emptyList:ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {

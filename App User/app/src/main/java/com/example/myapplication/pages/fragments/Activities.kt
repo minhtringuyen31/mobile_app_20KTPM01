@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager.widget.ViewPager
 import com.example.myapplication.R
-import com.example.myapplication.pages.activities.apdaters.ViewPagerAdapter
+import com.example.myapplication.pages.apdaters.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
 
 
@@ -69,9 +69,6 @@ class Activities : Fragment(){
 
         viewPager.adapter = adapter
     }
-
-
-
 
     fun initUI(view: View){
         tabLayout = view.findViewById(R.id.tabLayout)

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.modals.Order
 import com.example.myapplication.pages.OrderDetail
-import com.example.myapplication.pages.activities.apdaters.OrderListAdapter
+import com.example.myapplication.pages.apdaters.OrderListAdapter
 import com.example.myapplication.viewmodels.AppViewModel
 
 // TODO: Rename parameter arguments, choose names that match

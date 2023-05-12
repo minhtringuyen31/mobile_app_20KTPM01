@@ -85,6 +85,7 @@
                 android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/setupTime"
                     android:layout_width="0dp"
                     android:layout_weight="3"
                     android:padding="5dp"
@@ -156,6 +157,7 @@
                         android:id="@+id/updatePhone"
                         android:layout_weight="0"
                         android:text="Cập nhật"
+                        android:textColor="@color/darkGray"
                         android:layout_width="wrap_content"
                         android:src="@drawable/baseline_arrow_forward_ios_24"
                         android:layout_height="wrap_content">
@@ -231,6 +233,8 @@
                 <EditText
                     android:background="@null"
                     android:layout_marginStart="5dp"
+                    android:textColor="@color/darkGray"
+                    android:textColorHint="@color/darkGray"
                     android:hint="Ghi chú cho đơn hàng"
                     android:layout_width="match_parent"
                     android:textSize="14sp"
@@ -358,7 +362,7 @@
 
             <LinearLayout
                 android:padding="5dp"
-
+                android:id="@+id/addDiscount"
                 android:layout_width="wrap_content"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
@@ -377,7 +381,7 @@
 
                 </View>
                 <TextView
-                    android:id="@+id/addDiscount"
+
                     android:layout_weight="1"
                     android:textColor="@color/red"
                     android:textAlignment="center"
@@ -472,11 +476,12 @@
                 <TextView
                     android:paddingEnd="5dp"
                     android:id="@+id/methodSelected"
+                    android:textColor="@color/darkGray"
                     android:layout_weight="3"
                     android:gravity="right"
                     android:textSize="10dp"
                     android:layout_width="0dp"
-                    android:text="Chọn phương thức thanh toán"
+                    android:text="Kênh thanh toán"
                     android:layout_height="wrap_content">
                 </TextView>
             </LinearLayout>

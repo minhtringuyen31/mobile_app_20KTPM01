@@ -17,7 +17,7 @@ class Dashboard : AppCompatActivity() {
         dashboardItems.add(DashboardItems("Category", R.drawable.baseline_category_24))
         dashboardItems.add(DashboardItems("User", R.drawable.baseline_account_circle_24))
         dashboardItems.add(DashboardItems("Order", R.drawable.baseline_shopping_cart_24))
-        dashboardItems.add(DashboardItems("Rating", R.drawable.baseline_star_rate_24))
+        dashboardItems.add(DashboardItems("Topping", R.drawable.baseline_fastfood_24))
         dashboardItems.add(DashboardItems("Promotion", R.drawable.baseline_discount_24))
 
         val adapter = DashboardAdapter(this, dashboardItems)

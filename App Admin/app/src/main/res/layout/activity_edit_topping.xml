@@ -6,4 +6,188 @@
     android:layout_height="match_parent"
     tools:context=".pages.topping.EditTopping">
 
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="Add Topping"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline4">
+
+
+        <RelativeLayout
+            android:id="@+id/relativeScroll1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border_layout">
+
+            <TextView
+                android:id="@+id/nameToppingTv"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:gravity="fill_vertical"
+                android:text="Tên Topping:"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
+
+            <EditText
+                android:id="@+id/editToppingName"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_toEndOf="@+id/nameToppingTv"
+                android:background="@null"
+                android:gravity="fill_vertical"
+                android:hint="Sữa đặc"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeScroll2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border_layout">
+
+            <TextView
+                android:id="@+id/priceToppingTv"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:gravity="fill_vertical"
+                android:text="Giá Topping:"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
+
+            <EditText
+                android:id="@+id/editToppingPrice"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_toEndOf="@+id/priceToppingTv"
+                android:background="@null"
+                android:gravity="fill_vertical"
+                android:hint="10000"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeScroll3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border_layout">
+
+            <TextView
+                android:id="@+id/phoneTv"
+                android:layout_width="120dp"
+                android:layout_height="60dp"
+                android:gravity="fill_vertical"
+                android:text="Loại sản phẩm:"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
+
+            <Spinner
+                android:id="@+id/editToppingCategory"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="1dp"
+                android:layout_marginEnd="-1dp"
+                android:layout_toEndOf="@+id/phoneTv"
+                android:gravity="fill_vertical"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
+        </RelativeLayout>
+
+        <CheckBox
+            android:id="@+id/editToppingChecked"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="Checked" />
+
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.1" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:showDividers="middle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline5">
+
+        <Button
+            android:id="@+id/editTopping_saveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:backgroundTint="#2196F3"
+            android:text="Lưu mới" />
+
+        <Button
+            android:id="@+id/editTopping_cancelBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FF5722"
+            android:text="Thoát" />
+
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

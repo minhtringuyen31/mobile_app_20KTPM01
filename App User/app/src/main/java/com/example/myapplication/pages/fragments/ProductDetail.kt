@@ -19,7 +19,7 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.*
-import com.example.myapplication.pages.activities.apdaters.RatingListAdapter
+import com.example.myapplication.pages.apdaters.RatingListAdapter
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
 import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel

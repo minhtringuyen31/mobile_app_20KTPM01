@@ -27,10 +27,9 @@
                 android:orientation="vertical"
                 app:layout_constraintTop_toTopOf="@+id/include"
                 tools:layout_editor_absoluteX="16dp">
-
                 <TextView
                     android:layout_width="match_parent"
-                    android:text="Category"
+                    android:text="Loại sản phẩm"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:textColor="@color/black"
@@ -45,12 +44,19 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-
-
                     >
 
                 </androidx.recyclerview.widget.RecyclerView>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:text="Khuyến mãi"
+                    android:textSize="16sp"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content">
 
+                </TextView>
                 <com.smarteist.autoimageslider.SliderView
                     android:id="@+id/imageSlider"
                     android:layout_width="match_parent"
@@ -69,12 +75,10 @@
                     app:sliderScrollTimeInSec="1"
                     app:sliderStartAutoCycle="true">
                 </com.smarteist.autoimageslider.SliderView>
-
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Recommended for you"
+                    android:text="Đề xuất cho bạn"
                     android:textStyle="bold"
                     android:textSize="16sp"
                     android:layout_marginTop="5dp"

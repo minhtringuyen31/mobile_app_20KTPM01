@@ -1,4 +1,4 @@
-package com.example.myapplication.pages.activities.apdaters
+package com.example.myapplication.pages.apdaters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater

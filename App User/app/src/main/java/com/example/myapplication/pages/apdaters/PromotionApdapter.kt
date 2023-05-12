@@ -1,4 +1,4 @@
-package com.example.myapplication.pages.activities.apdaters
+package com.example.myapplication.pages.apdaters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,10 +7,14 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.modals.Promotion
+import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
+import com.example.myapplication.pages.apdaters.interfaces.OnItemClickPromotion
 import com.example.myapplication.pages.fragments.Homepage
 import com.smarteist.autoimageslider.SliderViewAdapter
 
-class PromotionApdapter(private val context: Homepage, private val promotions: ArrayList<Promotion>) :
+class PromotionApdapter(private val context: Homepage, private val promotions: ArrayList<Promotion>,
+                        private val listener: OnItemClickPromotion
+) :
     SliderViewAdapter<PromotionApdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup): ViewHolder {
@@ -23,6 +27,10 @@ class PromotionApdapter(private val context: Homepage, private val promotions: A
         Glide.with(viewHolder.itemView)
             .load(promotions[position].getImage())
             .into(viewHolder.imageView)
+
+        viewHolder.imageView.setOnClickListener {
+            listener.onItemClickDetailPromotion(position,promotions[position])
+        }
 
 
     }

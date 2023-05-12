@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">My Application</string>
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="idClient">315513977204-mu15r5slir88068p8qaikujoi9mo5nmb.apps.googleusercontent.com</string>
-    <string name="channel_name">Demo notification</string>
+    <string name="channel_name">Notification</string>
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

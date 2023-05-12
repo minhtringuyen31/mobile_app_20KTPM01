@@ -1,8 +1,10 @@
 package com.example.myapplication.pages.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,12 +21,14 @@ import com.example.myapplication.modals.CartItem
 import com.example.myapplication.modals.Category
 import com.example.myapplication.modals.Product
 import com.example.myapplication.modals.Promotion
-import com.example.myapplication.pages.activities.apdaters.CategoryApdapter
-import com.example.myapplication.pages.activities.apdaters.GridSpacingItemDecoration
-import com.example.myapplication.pages.activities.apdaters.ProductApdapter
-import com.example.myapplication.pages.activities.apdaters.PromotionApdapter
-import com.example.myapplication.pages.activities.apdaters.interfaces.OnItemClickListener
-import com.example.myapplication.pages.activities.apdaters.interfaces.OnItemClickProductHomepage
+import com.example.myapplication.pages.activities.promotion.DetailPromotion
+import com.example.myapplication.pages.apdaters.CategoryApdapter
+import com.example.myapplication.pages.apdaters.GridSpacingItemDecoration
+import com.example.myapplication.pages.apdaters.ProductApdapter
+import com.example.myapplication.pages.apdaters.PromotionApdapter
+import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
+import com.example.myapplication.pages.apdaters.interfaces.OnItemClickProductHomepage
+import com.example.myapplication.pages.apdaters.interfaces.OnItemClickPromotion
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
 import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
@@ -42,7 +46,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Homepage.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage {
+class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnItemClickPromotion {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -139,7 +143,7 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage {
 
         //Promotion
         sliderViewPromotion = view.findViewById(R.id.imageSlider)!!
-        promotionAdapter = PromotionApdapter(this, arrayListOf())
+        promotionAdapter = PromotionApdapter(this, arrayListOf(),this)
         sliderViewPromotion.setSliderAdapter(promotionAdapter)
         sliderViewPromotion.setIndicatorAnimation(IndicatorAnimationType.WORM) //set indicator animation by using IndicatorAnimationType. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
         sliderViewPromotion.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION)
@@ -236,6 +240,11 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage {
                 .commit()
     }
 
+    override fun onItemClickDetailPromotion(position: Int, promotion: Promotion) {
+        val intent = Intent(context, DetailPromotion::class.java)
+        intent.putExtra("promotion", promotion as Parcelable)
+        startActivity(intent)
+    }
 
 
 }

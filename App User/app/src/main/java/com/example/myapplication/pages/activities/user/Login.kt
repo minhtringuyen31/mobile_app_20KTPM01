@@ -1,7 +1,6 @@
 package com.example.myapplication.pages.activities.user
 
 import android.content.Intent
-import android.content.SharedPreferences
 import android.os.Bundle
 
 import android.widget.*
@@ -13,7 +12,8 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 
 import com.example.myapplication.modals.LoginRequest
-import com.example.myapplication.socket.SocketHandler
+import com.example.myapplication.pages.activities.promotion.ListPromotion
+import com.example.myapplication.pages.activities.store.IntroductionStore
 import com.example.myapplication.utils.Status
 import com.example.myapplication.viewmodels.authen.LoginViewModel
 import com.example.myapplication.viewmodels.authen.SignupViewModel
@@ -23,12 +23,13 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
-import io.socket.client.Socket
+//import io.socket.client.Socket
 
 
 class Login : AppCompatActivity() {
     private lateinit var buttonLogin: Button
     private lateinit var routeSignUp: TextView
+    private lateinit var routeForgotPassword: TextView
     private lateinit var login_phone: EditText
     private lateinit var login_pass: EditText
     private lateinit var loginViewModel: LoginViewModel;
@@ -47,6 +48,7 @@ class Login : AppCompatActivity() {
         login_phone = findViewById(R.id.login_phone)
         login_pass = findViewById(R.id.login_pass)
         loginGG = findViewById(R.id.login_gg)
+        routeForgotPassword=findViewById(R.id.route_forgotpassword)
 
 
 
@@ -121,10 +123,20 @@ class Login : AppCompatActivity() {
             })
 
         }
+            routeForgotPassword.setOnClickListener {
+                val intent = Intent(
+                    this,
+                    // Signup::class.java
+                    ForgotPassword_Step1::class.java
+                   // ListPromotion::class.java
+                )
+                startActivity(intent)
+            }
             routeSignUp.setOnClickListener {
                 val intent = Intent(
                     this,
                     Signup::class.java
+//                IntroductionStore::class.java
                 )
                 startActivity(intent)
             }

@@ -1,5 +1,4 @@
 package com.example.myapplication.pages.activities.user
-
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -31,7 +30,6 @@ class Signup : AppCompatActivity() {
 
         button_signup.setOnClickListener {
             //pass after hash
-
             val signupRequest=SignupRequest(signup_phone.text.toString(),signup_pass.text.toString(),signup_confirmpass.text.toString())
             signupViewModel= ViewModelProvider(this)[SignupViewModel::class.java]
             signupViewModel.SignUp(signupRequest)
@@ -59,9 +57,7 @@ class Signup : AppCompatActivity() {
                             }
                         }
                     }
-
             })
-
         }
         route_login.setOnClickListener {
             val intent = Intent(
