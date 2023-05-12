@@ -86,6 +86,8 @@ dependencies {
     implementation 'com.github.florent37:singledateandtimepicker:2.2.7'
 
     // ggmap
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
 
 
 

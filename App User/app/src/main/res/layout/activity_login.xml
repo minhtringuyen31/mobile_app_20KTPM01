@@ -49,7 +49,7 @@
                     android:gravity="bottom"
                     android:layout_weight="1.5"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Welcome to\nInfinity Coffee"
+                    android:text="Chào mừng đến\nInfinity Coffee"
                     android:textColor="@color/white"
                     android:textSize="30sp" />
             </LinearLayout>
@@ -78,7 +78,7 @@
                         android:drawablePadding="10dp"
                         android:drawableTint="@color/red"
                         android:ems="10"
-                        android:hint="Phone"
+                        android:hint="Địa chỉ Email"
                         android:inputType="textPersonName"
                         android:padding="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +96,7 @@
                         android:drawablePadding="10dp"
                         android:drawableTint="@color/red"
                         android:ems="10"
-                        android:hint="Password"
+                        android:hint="Mật khẩu"
                         android:inputType="textPassword"
                         android:padding="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +110,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Forgot Password?"
+                        android:text="Quên mật khẩu?"
                         android:textColor="@color/red"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -201,23 +201,24 @@
                             android:layout_width="match_parent"
                             android:orientation="horizontal"
                             android:layout_height="wrap_content">
+
                             <TextView
                                 android:id="@+id/textView3"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="4"
+                                android:layout_weight="8"
                                 android:gravity="center"
-                                android:text="Don't have an account ?" />
+                                android:text="Nếu bạn chưa có tài khoản?" />
 
                             <TextView
                                 android:id="@+id/route_signup"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
-                                android:layout_weight="2"
+                                android:layout_weight="3"
                                 android:fontFamily="sans-serif-medium"
                                 android:gravity="left"
                                 android:paddingLeft="10dp"
-                                android:text="Sign Up"
+                                android:text="Đăng ký"
                                 android:textColor="@color/red"
                                 android:textStyle="bold"
                                 tools:ignore="RtlHardcoded" />

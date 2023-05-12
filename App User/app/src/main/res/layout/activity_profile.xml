@@ -116,7 +116,7 @@
                         app:drawableRightCompat="@drawable/baseline_arrow_forward_ios_24" />
 
                     <TextView
-                        android:id="@+id/route_viewhistory"
+                        android:id="@+id/route_introstore"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"
@@ -132,7 +132,7 @@
                         app:drawableRightCompat="@drawable/baseline_arrow_forward_ios_24" />
 
                     <TextView
-                        android:id="@+id/route_changelanguage"
+                        android:id="@+id/route_listpromotion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="20dp"

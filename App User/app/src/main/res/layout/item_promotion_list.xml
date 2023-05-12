@@ -16,10 +16,13 @@
 
         <ImageView
             android:id="@+id/img_promotion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleType="fitXY"
+            android:layout_width="150dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="5dp"
 
+            android:scaleType="fitXY"
+            app:flow_horizontalAlign="center"
+            app:flow_verticalAlign="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -47,7 +50,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="8dp"
-            android:text="End Date:"
+            android:text="Ngày kết thúc:"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/end_date"
@@ -55,6 +58,7 @@
 
         <TextView
             android:id="@+id/start_date"
+            android:layout_marginStart="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="TextView"
@@ -68,7 +72,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginBottom="5dp"
-            android:text="Start date:"
+            android:text="Ngày bắt đầu:"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/textView26"
             app:layout_constraintEnd_toStartOf="@+id/start_date"
@@ -91,7 +95,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginBottom="5dp"
-            android:text="Discount:"
+            android:text="Giảm giá:"
             android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/textView28"
             app:layout_constraintStart_toEndOf="@+id/img_promotion" />

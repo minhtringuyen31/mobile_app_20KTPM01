@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.example.myapplication.R
 import com.example.myapplication.pages.activities.promotion.ListPromotion
+import com.example.myapplication.pages.activities.store.IntroductionStore
 import com.example.myapplication.pages.activities.user.ChangePassword
 import com.example.myapplication.pages.activities.user.EditProfile
 import com.example.myapplication.pages.activities.user.Login
@@ -21,8 +22,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -44,8 +43,8 @@ class Others : Fragment() {
     private lateinit var view: View;
     private lateinit var route_editprofile:TextView
     private lateinit var route_changepassword:TextView
-    private lateinit var route_viewhistory:TextView
-    private lateinit var route_changelanguage:TextView
+    private lateinit var route_introstore:TextView
+    private lateinit var route_listpromotion:TextView
     private lateinit var button_logout: Button
     private lateinit var gso: GoogleSignInOptions
     private lateinit var gsc: GoogleSignInClient
@@ -82,8 +81,8 @@ class Others : Fragment() {
         profile_phone = view.findViewById(R.id.profile_phone)
         route_editprofile=view.findViewById(R.id.route_editprofile)
         route_changepassword=view.findViewById(R.id.route_changepassword)
-        route_viewhistory=view.findViewById(R.id.route_viewhistory)
-        route_changelanguage=view.findViewById(R.id.route_changelanguage)
+        route_introstore=view.findViewById(R.id.route_introstore)
+        route_listpromotion=view.findViewById(R.id.route_listpromotion)
         button_logout = view.findViewById(R.id.button_logout)
         route_editprofile.setOnClickListener {
             val intent = Intent(
@@ -99,7 +98,14 @@ class Others : Fragment() {
             )
             startActivity(intent)
         }
-        route_changelanguage.setOnClickListener {
+        route_introstore.setOnClickListener {
+            val intent=Intent(
+                view.context,
+                IntroductionStore::class.java
+            )
+            startActivity(intent)
+        }
+        route_listpromotion.setOnClickListener {
             val intent=Intent(
                 view.context,
                 ListPromotion::class.java

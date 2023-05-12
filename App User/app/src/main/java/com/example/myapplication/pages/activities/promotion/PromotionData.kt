@@ -56,10 +56,10 @@ class PromotionData(
         return  this.image;
     }
     fun getBeginDay():String{
-        return this.start_date;
+        return this.start_date.take(10);
     }
     fun getEndDay():String{
-        return this.end_date;
+        return this.end_date.take(10);
     }
     fun getDiscount():Double{
         return this.discount;
