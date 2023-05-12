@@ -1,8 +1,37 @@
 import DB from '../configs/db.js';
 const PromotionRepository = {
-  async create(name, description, discount, start_date, end_date) {
-    const query = `INSERT INTO promotion (name, description, discount, start_date, end_date) VALUES (?, ?, ?, ?, ?)`;
-    const values = [name, description, discount, start_date, end_date];
+  async changeIsDisable(id, isDisable) {
+    const query = `UPDATE promotion SET isDisable=? WHERE id=?`;
+    const values = [isDisable, id];
+    try {
+      const [result] = await DB.pool().query(query, values);
+      return result;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async create(
+    name,
+    description,
+    discount,
+    start_date,
+    end_date,
+    image,
+    quantity,
+    code
+  ) {
+    const query = `INSERT INTO promotion (name, description, discount, start_date, end_date, image, quantity, code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+    const values = [
+      name,
+      description,
+      discount,
+      start_date,
+      end_date,
+      image,
+      quantity,
+      code,
+    ];
     try {
       DB.pool().query(query, values);
       return true;
@@ -11,17 +40,33 @@ const PromotionRepository = {
       return false;
     }
   },
-  async update(id, name, description, discount, start_date, end_date) {
-    const query = `UPDATE promotion SET name=?, description=?, discount=?, start_date=?, end_date=? WHERE id=?`;
-    const values = [name, description, discount, start_date, end_date, id];
+  async update(
+    id,
+    name,
+    description,
+    discount,
+    start_date,
+    end_date,
+    image,
+    quantity,
+    code
+  ) {
+    const query = `UPDATE promotion SET name=?, description=?, discount=?, start_date=?, end_date=?, image=?, quantity=?, code=? WHERE id=?`;
+    const values = [
+      name,
+      description,
+      discount,
+      start_date,
+      end_date,
+      image,
+      quantity,
+      code,
+      id,
+    ];
 
     try {
       const [result] = await DB.pool().query(query, values);
-      if (result.affectedRows > 0) {
-        return true;
-      } else {
-        return false;
-      }
+      return result.affectedRows > 0;
     } catch (error) {
       console.error(error);
       return false;

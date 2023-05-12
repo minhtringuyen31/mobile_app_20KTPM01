@@ -35,7 +35,7 @@ class ToppingAdapter(private val context: Context, private val toppings: List<To
         val toppingPrice = holder.toppingPrice
         toppingPrice.text = topping.getPrice().toString()
         holder.itemView.setOnClickListener {
-            val intent = Intent(context, EditTopping::class.java)
+            val intent = Intent(context, ToppingDetail::class.java)
             intent.putExtra("toppingId", topping.getId().toString())
             context.startActivity(intent)
         }
