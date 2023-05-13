@@ -48,11 +48,20 @@ class Signup : AppCompatActivity() {
                                 startActivity(intent)
                             }
                             Status.ERROR -> {
+                                if(signup_phone.text.toString()==""){
+                                    Toast.makeText(this, "Không được để trống email", Toast.LENGTH_SHORT).show()
 
-                                Toast.makeText(this,it.message, Toast.LENGTH_LONG).show()
+                                }
+                                else if(signup_pass.text.toString()==""|| signup_confirmpass.text.toString()==""){
+                                    Toast.makeText(this, "Không được để trống mật khẩu", Toast.LENGTH_SHORT).show()
+                                }
+                                else{
+                                    Toast.makeText(this, "Email đã tồn tại.", Toast.LENGTH_LONG).show()
+//                                Toast.makeText(this,it.message, Toast.LENGTH_LONG).show()
+                                }
                             }
                             Status.LOADING -> {
-                                Toast.makeText(this, "Loading", Toast.LENGTH_LONG).show()
+                                Toast.makeText(this, "Đang gửi yêu cầu", Toast.LENGTH_LONG).show()
                             }
                             else -> {
 

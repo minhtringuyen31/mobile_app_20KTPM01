@@ -59,6 +59,15 @@ class MainActivity : AppCompatActivity() {
             }
             activeNavigationBar()
         }
+        if (intent.extras != null) {
+            val fragmentToLoad = intent.extras!!.getString("FragmentToLoad")
+            if (fragmentToLoad == "Others") {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.flFragment, Others())
+                    .commit()
+            }
+        }
+
     }
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)

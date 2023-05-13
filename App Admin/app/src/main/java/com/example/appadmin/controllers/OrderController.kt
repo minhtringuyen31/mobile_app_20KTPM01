@@ -84,17 +84,31 @@ class OrderController : ViewModel() {
         return _isDeleted
     }
 
-    fun updateStatus(id: Int, status: Int): LiveData<Order> {
-        val _order = MutableLiveData<Order>()
+    fun changeDeliveringStatus(id: Int): LiveData<Boolean> {
+        val _isChanged = MutableLiveData<Boolean>()
         viewModelScope.launch {
             try {
-                val response =
-                    Utils.getRetrofit().create(OrderService::class.java).updateStatus(id, status)
-                _order.value = response
+                val response = Utils.getRetrofit().create(OrderService::class.java)
+                    .changeDeliveringStatus(id)
+                _isChanged.value = response
             } catch (e: Exception) {
                 // handle error
             }
         }
-        return _order
+        return _isChanged
+    }
+
+    fun changeDeliveredStatus(id: Int): LiveData<Boolean> {
+        val _isChanged = MutableLiveData<Boolean>()
+        viewModelScope.launch {
+            try {
+                val response = Utils.getRetrofit().create(OrderService::class.java)
+                    .changeDeliveredStatus(id)
+                _isChanged.value = response
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+        return _isChanged
     }
 }

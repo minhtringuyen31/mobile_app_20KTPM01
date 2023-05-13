@@ -34,9 +34,6 @@
             android:name=".pages.promotion.AddPromotion"
             android:exported="false" />
         <activity
-            android:name=".pages.category.CategoryDetail"
-            android:exported="false" />
-        <activity
             android:name=".pages.category.AddCategory"
             android:exported="false" />
         <activity

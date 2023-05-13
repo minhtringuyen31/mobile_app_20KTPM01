@@ -1,17 +1,18 @@
-package com.example.myapplication.modals
-
+package com.example.myapplication.pages.activities.promotion
 import android.os.Parcel
 import android.os.Parcelable
-import com.example.myapplication.pages.activities.promotion.PromotionData
 
-class Promotion( private var id:Int,
-                 private var name:String,
-                 private  var description:String,
-                 private var discount:Double,
-                 private var image:String,
-                 private var start_date:String,
-                 private var end_date:String,
-                 private var is_disable:Int,)  : Parcelable {
+
+class PromotionData(
+    private var id:Int,
+    private var name:String,
+    private  var description:String,
+    private var discount:Double,
+    private var image:String,
+    private var start_date:String,
+    private var end_date:String,
+    private var is_disable:Int,
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readInt(),
         parcel.readString()!!,
@@ -48,39 +49,6 @@ class Promotion( private var id:Int,
             return arrayOfNulls(size)
         }
     }
-
-    fun setID(id:Int){
-        this.id=id;
-    }
-    fun setName(name:String){
-        this.name=name;
-    }
-    fun getDisable():Int{
-        return this.id;
-    }
-    fun setDisable(status:Int){
-        this.is_disable=status;
-    }
-    fun setDescription(description:String)
-    {
-        this.description=description;
-    }
-    fun setDisCount(discount:Double){
-        this.discount=discount;
-    }
-    fun setBeginDay(begin:String){
-        this.start_date=begin;
-    }
-    fun setEndDay(end:String){
-        this.end_date=end;
-    }
-    fun setImage(image:String){
-        this.image=image;
-    }
-    fun getID():Int
-    {
-        return this.id;
-    }
     fun getName():String{
         return this.name;
     }
@@ -98,10 +66,6 @@ class Promotion( private var id:Int,
     }
     fun getDescription():String{
         return this.description
-    }
-
-    override fun toString(): String {
-        return "Promotion(id=$id, name='$name', description='$description', discount=$discount, image='$image', start_date='$start_date', end_date='$end_date', is_disable=$is_disable)"
     }
 
 }

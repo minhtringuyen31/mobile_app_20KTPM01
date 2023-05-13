@@ -4,9 +4,10 @@ class Topping(
     private var category_id: Int?,
     private var name: String?,
     private var price: Double?,
+    private var checked: Int?,
     private var id: Int?
 ) {
-fun getCategory_id(): Int? {
+    fun getCategory_id(): Int? {
         return category_id
     }
 
@@ -36,5 +37,13 @@ fun getCategory_id(): Int? {
 
     fun setId(id: Int?) {
         this.id = id
+    }
+
+    fun getChecked(): Int? {
+        return checked
+    }
+
+    fun setChecked(checked: Int?) {
+        this.checked = checked
     }
 }

@@ -5,18 +5,24 @@ import retrofit2.http.*
 import com.example.appadmin.modals.Promotion
 
 interface PromotionService {
-    @GET("promotion/{id}")
-    fun getPromotion(@Path("id") promotionId: Int): Call<Promotion>
-
     @GET("promotion/")
-    fun getAllPromotion(): Call<List<Promotion>>
+    suspend fun getAllPromotion(): List<Promotion>
+
+    @GET("promotion/{id}")
+    suspend fun getPromotionById(@Path("id") id: Int): Promotion
 
     @POST("promotion/create")
-    fun createPromotion(@Body promotion: Promotion): Call<Promotion>
+    suspend fun createPromotion(@Body promotion: Promotion): Promotion
 
     @PUT("promotion/update/{id}")
-    fun updatePromotion(@Path("id") promotionId: Int, @Body promotion: Promotion): Call<Promotion>
+    suspend fun updatePromotion(@Path("id") id: Int, @Body promotion: Promotion): Promotion
 
     @DELETE("promotion/delete/{id}")
-    fun deletePromotion(@Path("id") promotionId: Int): Call<Boolean>
+    suspend fun deletePromotion(@Path("id") id: Int): Boolean
+
+    @PUT("promotion/disable/{id}")
+    suspend fun disablePromotion(@Path("id") id: Int): Boolean
+
+    @PUT("promotion/enable/{id}")
+    suspend fun enablePromotion(@Path("id") id: Int): Boolean
 }

@@ -20,14 +20,15 @@
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/back_btn"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:src="@drawable/ic_back"
+                    android:layout_height="fill_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_height="fill_parent">
-                </ImageView>
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_back"></ImageView>
+
                 <TextView
                     android:layout_weight="7"
                     android:layout_width="0dp"
