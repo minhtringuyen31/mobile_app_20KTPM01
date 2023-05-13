@@ -1,16 +1,18 @@
 package com.example.appadmin.pages.user
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.appadmin.R
 import com.example.appadmin.controllers.UserController
+import com.example.appadmin.modals.User
 
 
 class EditUser : AppCompatActivity() {
@@ -18,55 +20,84 @@ class EditUser : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_user)
 
+        val password = findViewById<EditText>(R.id.editUserPassword)
+        val confirmPassword =
+            findViewById<EditText>(R.id.editUserConfirmPassword)
+        val name = findViewById<EditText>(R.id.editUserName)
+        val gender = findViewById<EditText>(R.id.editUserGender)
+        val email = findViewById<EditText>(R.id.editUserEmail)
+        val phone = findViewById<EditText>(R.id.editUserPhone)
+        val dob = findViewById<EditText>(R.id.editUserDob)
+        val address = findViewById<EditText>(R.id.editUserAddress)
+        val avatar = findViewById<ImageView>(R.id.editUserAvatar)
+
         val intent = intent
 
         val userId = intent.getStringExtra("user_id")!!.toInt()
 
+        findViewById<Button>(R.id.editUser_cancelBtn).setOnClickListener {
+            val intent = Intent(this, Users::class.java)
+
+            startActivity(intent)
+        }
+
+
         val userViewModel = ViewModelProvider(this)[UserController::class.java]
         userViewModel.getUser(userId).observe(this) {
-            findViewById<ImageView>(R.id.editUserAvatar).setImageResource(R.drawable.profile)
-            findViewById<TextView>(R.id.editUserName).text = it.getName()
-            findViewById<TextView>(R.id.editUserEmail).text = it.getEmail()
-            findViewById<TextView>(R.id.editUserGender).text = it.getGender()
-            findViewById<TextView>(R.id.editUserDob).text = it.getDob()
-            findViewById<TextView>(R.id.editUserPhone).text = it.getPhone()
-            findViewById<TextView>(R.id.editUserAddress).text = it.getAddress()
+            avatar.setImageResource(R.drawable.profile)
+            name.hint = it.getName()
+            email.hint = it.getEmail()
+            gender.hint = it.getGender()
+            dob.hint = it.getDob()
+            password.hint = it.getPassword()
+            confirmPassword.hint = it.getPassword()
+            phone.hint = it.getPhone()
+            address.hint = it.getAddress()
+        }
 
-            val isDisable = findViewById<Button>(R.id.editUser_DisableBtn)
-            if (it.getIsDisable() == 0) {
-                isDisable.text = "Khóa"
+        findViewById<Button>(R.id.editUser_saveBtn).setOnClickListener {
+
+            if (password.text.toString() == confirmPassword.text.toString()) {
+                val userViewModel = ViewModelProvider(this)[UserController::class.java]
+                val newUser = User(
+                    1,
+                    name.text.toString(),
+                    gender.text.toString(),
+                    email.text.toString(),
+                    phone.text.toString(),
+                    password.text.toString(),
+                    dob.text.toString(),
+                    address.text.toString(),
+                    avatar.resources.toString(),
+                    "user",
+                    0
+                )
+                userViewModel.updateUser(userId, newUser).observe(this) {
+
+                }
+                val intent = Intent(this, Users::class.java)
+                startActivity(intent)
             } else {
-                isDisable.text = "Mở"
-            }
-        }
+                val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+                builder.setMessage("Mật khẩu không đồng nhất!!!")
+                builder.setCancelable(true)
 
-        findViewById<Button>(R.id.editUser_EditBtn).setOnClickListener {
+                builder.setPositiveButton("Tiếp tục",
+                    DialogInterface.OnClickListener { dialog, id ->
+                        dialog.cancel()
+                    })
 
-        }
-        findViewById<Button>(R.id.editUser_DeleteBtn).setOnClickListener {
-            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-            builder.setMessage("Bạn có muốn xóa tài khoản này không?")
-            builder.setCancelable(true)
-
-            builder.setPositiveButton(
-                "Không",
-                DialogInterface.OnClickListener { dialog, id ->
-                    dialog.cancel()
-                })
-
-            builder.setNegativeButton(
-                "Có",
-                DialogInterface.OnClickListener { dialog, id ->
-                    val viewModel = ViewModelProvider(this)[UserController::class.java]
-                    viewModel.deleteUser(userId).observe(this) {
+                builder.setNegativeButton(
+                    "Thoát",
+                    DialogInterface.OnClickListener { dialog, id ->
                         val intent = Intent(this, Users::class.java)
 
                         startActivity(intent)
-                    }
-                })
+                    })
 
-            val alert: AlertDialog = builder.create()
-            alert.show()
+                val alert: AlertDialog = builder.create()
+                alert.show()
+            }
         }
     }
 }

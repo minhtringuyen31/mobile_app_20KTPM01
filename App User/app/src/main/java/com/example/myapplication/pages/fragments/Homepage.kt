@@ -19,11 +19,15 @@ import com.example.myapplication.modals.CartItem
 import com.example.myapplication.modals.Category
 import com.example.myapplication.modals.Product
 import com.example.myapplication.modals.Promotion
-import com.example.myapplication.pages.apdaters.*
-import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
-import com.example.myapplication.pages.apdaters.interfaces.OnItemClickProductHomepage
+import com.example.myapplication.pages.activities.apdaters.CategoryApdapter
+import com.example.myapplication.pages.activities.apdaters.GridSpacingItemDecoration
+import com.example.myapplication.pages.activities.apdaters.ProductApdapter
+import com.example.myapplication.pages.activities.apdaters.PromotionApdapter
+import com.example.myapplication.pages.activities.apdaters.interfaces.OnItemClickListener
+import com.example.myapplication.pages.activities.apdaters.interfaces.OnItemClickProductHomepage
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
+import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
@@ -38,11 +42,10 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Homepage.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
+class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private lateinit var recyclerViewProduct: RecyclerView
     private lateinit var recyclerViewCategory: RecyclerView
@@ -53,7 +56,7 @@ class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
     private lateinit var counterFab :CounterFab
     private lateinit var view:View
     private val appModel: AppViewModel by activityViewModels()
-    private val productCartViewModel:ProductCartViewModel by activityViewModels()
+    private val productCartViewModel: ProductCartViewModel by activityViewModels()
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,8 +65,6 @@ class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-
-
     }
 
     override fun onCreateView(
@@ -76,8 +77,7 @@ class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
         initUI(view) // Khởi tạo UI , cung cấp data rỗng cho apdapter để render --> Chưa có dữ liệu
         setUpObserver(view) // Quan sát kết quả trả về từ API rồi gán giá trị cho apdapter
         return view
-    }
-
+    }   
     private  fun setUpViewModel(){
         (activity as MainActivity).showToolbarAndNavigationBar(true)
         appModel.setUpViewModel(view,this)
@@ -193,7 +193,6 @@ class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
     override fun onItemClick(position: Int, product: Product) {
 //      appModel.addtoCart(product)
         // on below line we are creating a new bottom sheet dialog.
-
         val bundle = Bundle()
         bundle.putString("id",product.getId().toString())
         bundle.putString("name",product.getName())
@@ -227,7 +226,10 @@ class Homepage : Fragment(), OnItemClickListener,OnItemClickProductHomepage {
             productCartViewModel.setPriceM(product.getPrice_M().toDouble())
             productCartViewModel.setPriceS(product.getPrice_S().toDouble())
             productCartViewModel.setCategoryId(product.getCategory_id())
-
+            productCartViewModel.setQuantiTy(1)
+            productCartViewModel.setTopping("");
+            productCartViewModel.setNameFragment("homepage")
+            productCartViewModel.setNote("");
         (view.context as FragmentActivity).supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.flFragment, ProductDetail()).addToBackStack(null)

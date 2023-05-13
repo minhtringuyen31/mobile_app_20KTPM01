@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
-import com.example.myapplication.pages.Login
+import com.example.myapplication.pages.activities.user.Login
 import com.example.myapplication.viewmodels.AppViewModel
 
 // TODO: Rename parameter arguments, choose names that match

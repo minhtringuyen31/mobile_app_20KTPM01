@@ -1,11 +1,61 @@
-import UserRepository from "../repositories/User.respository.js"
+import UserRepository from '../repositories/User.respository.js';
 const UserServices = {
-    // Đừng thắc mắc tại sao không gọi trực tiếp từ Respository --> Respository chỉ nơi CRUD database, còn services mình tự implement tuy thuộc vào yêu cầu !! 
-    async create(name, gender, date_of_birth, password, email, phone, address, is_disable, avatar, role) {
-        return await UserRepository.create(name, gender, date_of_birth, password, email, phone, address, is_disable, avatar, role)
+    async changeIsDisable(id, is_disable) {
+        return await UserRepository.changeIsDisable(id, is_disable);
     },
-    async update(id, name, gender, date_of_birth, password, email, phone, address, is_disable, avatar, role) {
-        return await UserRepository.update(id, name, gender, date_of_birth, password, email, phone, address, is_disable, avatar, role)
+    async create(
+        name,
+        gender,
+        email,
+        phone,
+        password,
+        date_of_birth,
+        address,
+        avatar,
+        role,
+        is_disable,
+       
+    ) {
+        return await UserRepository.create(
+            name,
+            gender,
+            email,
+            phone,
+            password,
+            date_of_birth,
+            address,
+            avatar,
+            role,
+            is_disable,
+            
+        );
+    },
+    async update(
+        id,
+        name,
+        gender,
+        date_of_birth,
+        password,
+        email,
+        phone,
+        address,
+        is_disable,
+        avatar,
+        role
+    ) {
+        return await UserRepository.update(
+            id,
+            name,
+            gender,
+            date_of_birth,
+            password,
+            email,
+            phone,
+            address,
+            is_disable,
+            avatar,
+            role
+        );
     },
     async delete(id) {
         return await UserRepository.delete(id);
@@ -14,27 +64,32 @@ const UserServices = {
         return await UserRepository.findOneByID(id);
     },
     async findAll() {
-        return  await UserRepository.findAll();
+        return await UserRepository.findAll();
     },
-    // Cần method gì thì tự implements !! 
+    // Cần method gì thì tự implements !!
     //
-    async signup(email,password){
-        return await UserRepository.signup(email,password);
-
+    async signup(phone, password) {
+        return await UserRepository.signup(phone, password);
     },
     async findEmail(email) {
         return await UserRepository.findOneByEmail(email);
     },
-    async changepass(password){
-        return await UserRepository.changepass(password)
+    async findPhone(phone) {
+        return await UserRepository.findOneByPhone(phone);
     },
-    async editprofile(name,email,gender,date_of_birth,phone,address){
-        return await UserRepository.editprofile(name,email,gender,date_of_birth,phone,address)
-    }
-
-
-
-
-}
+    async changepass(id, password) {
+        return await UserRepository.changepass(id, password);
+    },
+    async editprofile(id, name, email, gender, date_of_birth, address) {
+        return await UserRepository.editprofile(
+            id,
+            name,
+            email,
+            gender,
+            date_of_birth,
+            address
+        );
+    },
+};
 
 export default UserServices;

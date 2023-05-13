@@ -81,8 +81,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:orientation="vertical">
+
+            <RatingBar
+                android:id="@+id/ratingStarRB"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:numStars="5"
+                android:rating="5"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -128,10 +137,11 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_margin="5dp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_height="wrap_content"
                     android:text="Size"
-                    android:textSize="20sp"
+                    android:textSize="@dimen/_12sdp"
                     android:textStyle="bold"
                     android:textColor="@color/black">
                 </TextView>
@@ -146,7 +156,9 @@
                     <!-- like this we will add some more Radio Button-->
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_7sdp"
+                        android:layout_marginEnd="@dimen/_7sdp">
 
                         <RadioButton
                             android:id="@+id/priceL_radio"
@@ -155,7 +167,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="L"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/_12sdp"
                             tools:ignore="TouchTargetSizeCheck" />
                         <TextView
                             android:id="@+id/priceL"
@@ -181,7 +193,9 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_7sdp"
+                        android:layout_marginEnd="@dimen/_7sdp">
 
                         <RadioButton
                             android:id="@+id/priceM_radio"
@@ -189,7 +203,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="M"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/_12sdp"
                             tools:ignore="TouchTargetSizeCheck" />
                         <TextView
                             android:id="@+id/priceM"
@@ -214,7 +228,9 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_7sdp"
+                        android:layout_marginEnd="@dimen/_7sdp">
 
                         <RadioButton
                             android:id="@+id/priceS_radio"
@@ -222,7 +238,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="S"
-                            android:textSize="20sp"
+                            android:textSize="@dimen/_12sdp"
                             tools:ignore="TouchTargetSizeCheck" />
                         <TextView
                             android:id="@+id/priceS"
@@ -234,8 +250,6 @@
                             android:layout_height="fill_parent"
                             android:gravity="center_vertical|end"
                             android:text="25.000đ">
-
-
                         </TextView>
 
                     </LinearLayout>
@@ -262,7 +276,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
-                android:layout_margin="10dp"
+                android:layout_margin="12dp"
                 android:layout_height="40dp">
                 <ImageView
                     android:layout_gravity="center_vertical"
@@ -271,15 +285,21 @@
                     android:src="@drawable/baseline_note_add_24">
                 </ImageView>
                 <EditText
+                    android:id="@+id/notesEdit"
                     android:layout_gravity="center_vertical"
                     android:layout_width="wrap_content"
                     android:padding="3dp"
                     android:hint="Thêm ghi chú"
                     android:background="@null"
                     android:layout_height="wrap_content">
-
                 </EditText>
+
             </LinearLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/listRatingRV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 

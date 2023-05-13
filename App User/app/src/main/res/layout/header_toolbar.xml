@@ -1,97 +1,93 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.appbar.AppBarLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@color/white"
+    android:layout_height="70dp"
     android:id="@+id/myToolBar"
-    android:contentInsetLeft="0dp"
-    android:contentInsetStart="0dp"
-    app:contentInsetLeft="0dp"
-    app:contentInsetStart="0dp"
-    android:contentInsetRight="0dp"
-    android:contentInsetEnd="0dp"
-    android:padding="5dp"
-    android:layout_margin="0dp"
-    app:contentInsetRight="0dp"
-    app:contentInsetStartWithNavigation="0dp"
-    app:contentInsetEnd="0dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
-    >
-    <LinearLayout
+    android:elevation="16dp"
+
+    android:background="@color/white"
+    app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
         android:layout_width="match_parent"
-        android:orientation="horizontal"
-
-        android:layout_height="wrap_content">
+        android:layout_height="?attr/actionBarSize"
+        android:background="#fff"
+        app:theme="@style/ThemeOverlay.AppCompat.ActionBar">
         <LinearLayout
-            android:layout_width="0dp"
-            android:padding="5dp"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_weight="13">
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:layout_height="match_parent">
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:orientation="horizontal"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:id="@+id/search_icon"
+                android:layout_width="0dp"
+                android:padding="5dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="12">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:id="@+id/search_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Hey there"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="20sp"
+                        android:layout_marginEnd="5dp"
+                        >
+                    </TextView>
+                    <ImageView
+                        android:id="@+id/icon_hand_hi"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:gravity="center_horizontal"
+                        android:paddingLeft="5dip"
+                        android:paddingRight="5dip"
+                        android:layout_marginEnd="5dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/icon_hand_hi"/>
+                </LinearLayout>
 
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="Hey there"
+                    android:text="It a great day to grab a cup of tea"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:textSize="20sp"
+
                     android:layout_marginEnd="5dp"
                     >
                 </TextView>
-                <ImageView
-                    android:id="@+id/icon_hand_hi"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:gravity="center_horizontal"
-                    android:paddingLeft="5dip"
-                    android:paddingRight="5dip"
-                    android:layout_marginEnd="5dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/icon_hand_hi"/>
             </LinearLayout>
 
+            <View
+                android:layout_width="0dp"
+                android:layout_weight="4"
+                android:layout_height="wrap_content">
+            </View>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="0dp"
+                android:layout_height="?attr/actionBarSize"
+                android:id="@+id/avatarUser"
+                android:src="@drawable/nobita"
+                app:civ_border_width="0.2dp"
+                app:civ_border_color="#FF000000"
+                android:layout_weight="1.6"
+                />
 
-            <TextView
 
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="It a great day to grab a cup of tea"
-                android:textColor="@color/black"
-
-                android:layout_marginEnd="5dp"
-                >
-            </TextView>
         </LinearLayout>
 
-
-        <View
-            android:layout_width="0dp"
-            android:layout_weight="5"
-            android:layout_height="wrap_content">
-
-        </View>
-
-        <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="0dp"
-            android:layout_height="?attr/actionBarSize"
-            android:id="@+id/avatarUser"
-            android:src="@drawable/nobita"
-            android:textAlignment="textStart"
-            app:civ_border_width="0.5dp"
-            app:civ_border_color="#FF000000"
-            android:layout_weight="2"
-            />
+    </androidx.appcompat.widget.Toolbar>
 
 
-    </LinearLayout>
 
 
-</androidx.appcompat.widget.Toolbar>
+</com.google.android.material.appbar.AppBarLayout>

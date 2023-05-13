@@ -1,6 +1,8 @@
 import OrderRepository from "../repositories/Order.repository.js"
 const OrderServices = {
-    // Đừng thắc mắc tại sao không gọi trực tiếp từ Respository --> Respository chỉ nơi CRUD database, còn services mình tự implement tuy thuộc vào yêu cầu !! 
+    async changeStatus(id, status) {
+        return await OrderRepository.changeStatus(id, status);
+    },
     async create(user_id, order_date, shipping_address, total, status, promotion_id, payment_method_id) {
         return await OrderRepository.create(user_id, order_date, shipping_address, total, status, promotion_id, payment_method_id)
     },

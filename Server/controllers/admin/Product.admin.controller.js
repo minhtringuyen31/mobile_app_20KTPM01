@@ -1,6 +1,42 @@
 import ProductServices from '../../services/Product.service.js';
 
 const ProductAdminController = {
+  disable: async (req, res) => {
+    const id = req.params.id;
+    const userDisable = await ProductServices.changeIsDisable(id, 1);
+    if (userDisable) {
+      res.status(200).send(userDisable);
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
+  enable: async (req, res) => {
+    const id = req.params.id;
+    const userEnable = await ProductServices.changeIsDisable(id, 0);
+    if (userEnable) {
+      res.status(200).send(userEnable);
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
+  available: async (req, res) => {
+    const id = req.params.id;
+    const userAvailable = await ProductServices.changeStatus(id, 1);
+    if (userAvailable) {
+      res.status(200).send(userAvailable);
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
+  unavailable: async (req, res) => {
+    const id = req.params.id;
+    const userUnavailable = await ProductServices.changeStatus(id, 0);
+    if (userUnavailable) {
+      res.status(200).send(userUnavailable);
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
   create: async (req, res) => {
     const {
       name,
@@ -9,6 +45,7 @@ const ProductAdminController = {
       price_S,
       price_M,
       price_L,
+      note,
       image,
       status,
       category_id,
@@ -23,6 +60,7 @@ const ProductAdminController = {
       price_S,
       price_M,
       price_L,
+      note,
       image,
       status,
       category_id,

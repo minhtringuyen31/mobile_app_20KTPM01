@@ -1,11 +1,13 @@
 package com.example.myapplication.pages.fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
@@ -15,11 +17,13 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.Category
 import com.example.myapplication.modals.Product
-import com.example.myapplication.pages.apdaters.CategoryListAdapter
-import com.example.myapplication.pages.apdaters.ProductListAdapter
+import com.example.myapplication.pages.activities.apdaters.CategoryListAdapter
+import com.example.myapplication.pages.activities.apdaters.ProductListAdapter
+import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
-import com.example.myapplication.viewmodels.CategoryViewModel
-import com.example.myapplication.viewmodels.ProductViewModel
+import com.example.myapplication.viewmodels.category.CategoryViewModel
+import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
+import com.example.myapplication.viewmodels.product.ProductViewModel
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -41,6 +45,9 @@ class Order : Fragment() {
     private lateinit var categoryRecyclerView: RecyclerView
     private lateinit var categoryViewModel: CategoryViewModel
     private lateinit var productViewModel: ProductViewModel
+    private val productCartViewModel: ProductCartViewModel by activityViewModels()
+    private lateinit var  searchView:SearchView;
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,8 +65,6 @@ class Order : Fragment() {
         setUpViewModel(view)
         initUI(view)
         setUpObserve(view)
-
-
         return view
     }
     private fun setUpObserve(view:View){
@@ -73,16 +78,13 @@ class Order : Fragment() {
             }
         }
 
-
         productViewModel.products.observe(viewLifecycleOwner) {
             val products = it as ArrayList<Product>
             if (products.isEmpty()) {
                 setUpProductRecyclerAdapter(view, arrayListOf(),true)
 
-
             } else {
                 setUpProductRecyclerAdapter(view,products,true)
-
 
             }
 
@@ -101,7 +103,7 @@ class Order : Fragment() {
         currentCategory = view.findViewById(R.id.currentCategoryTV)
         categoryRecyclerView = view.findViewById(R.id.listCategoryRV)
         productRecyclerView = view.findViewById(R.id.listProductRV)
-
+        searchView = view.findViewById(R.id.searchView)
         val isLinearLayoutManager = true
 //        setUpProductRecyclerAdapter(view,listProduct,isLinearLayoutManager!!)
         if (isLinearLayoutManager)
@@ -110,38 +112,103 @@ class Order : Fragment() {
             productRecyclerView.layoutManager = GridLayoutManager(context, 2)
 
     }
-
     private fun setUpProductRecyclerAdapter(view:View,data: ArrayList<Product>, isLinearLayoutManager: Boolean) {
         productListAdapter = ProductListAdapter(data, isLinearLayoutManager)
         productRecyclerView.adapter = productListAdapter
+
         productListAdapter.onItemClick = { product ->
-            val bundle = Bundle()
-            bundle.putString("name", product.getName())
-            bundle.putString("image", product.getImage())
-            bundle.putString("price", product.getPrice_M().toString())
-            bundle.putString("description", product.getDescription())
-            val productDetail = ProductDetail()
-            productDetail.arguments = bundle
+            productCartViewModel.setId(product.getId())
+            productCartViewModel.setName(product.getName())
+            productCartViewModel.setImage(product.getImage())
+            productCartViewModel.setDescription(product.getDescription())
+            productCartViewModel.setPriceL(product.getPrice_L().toDouble())
+            productCartViewModel.setPriceM(product.getPrice_M().toDouble())
+            productCartViewModel.setPriceS(product.getPrice_S().toDouble())
+            productCartViewModel.setCategoryId(product.getCategory_id())
             (view.context as FragmentActivity).supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.flFragment, productDetail).addToBackStack(null)
+                .replace(R.id.flFragment, ProductDetail()).addToBackStack(null)
                 .commit()
         }
-    }
 
+        handleSearch(view,data,isLinearLayoutManager)
+
+    }
+    private  fun handleSearch(view:View,data: ArrayList<Product>, isLinearLayoutManager: Boolean){
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            // Override onQueryTextSubmit method which is call when submit query is searched
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onQueryTextSubmit(query: String): Boolean {
+                // If the list contains the search query than filter the adapter
+                // using the filter method with the query as its argument
+                val regex = ".*${query.replace(" ", ".*")}.*".toRegex(RegexOption.IGNORE_CASE)
+                val result =data.filter {
+                    Utils.removeAccent(it.getName()).matches(regex)
+                }
+                productListAdapter = ProductListAdapter(result as ArrayList<Product>, isLinearLayoutManager)
+                productRecyclerView.adapter = productListAdapter
+                productListAdapter.onItemClick = { product ->
+                    productCartViewModel.setId(product.getId())
+                    productCartViewModel.setName(product.getName())
+                    productCartViewModel.setImage(product.getImage())
+                    productCartViewModel.setDescription(product.getDescription())
+                    productCartViewModel.setPriceL(product.getPrice_L().toDouble())
+                    productCartViewModel.setPriceM(product.getPrice_M().toDouble())
+                    productCartViewModel.setPriceS(product.getPrice_S().toDouble())
+                    productCartViewModel.setCategoryId(product.getCategory_id())
+                    (view.context as FragmentActivity).supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.flFragment, ProductDetail()).addToBackStack(null)
+                        .commit()
+                }
+                return false;
+            }
+            @SuppressLint("NotifyDataSetChanged")
+            override fun onQueryTextChange(newText: String): Boolean {
+
+                val regex = ".*${newText.replace(" ", ".*")}.*".toRegex(RegexOption.IGNORE_CASE)
+                val result =data.filter {
+                    Utils.removeAccent(it.getName()).matches(regex)
+                }
+
+                productListAdapter = ProductListAdapter(result as ArrayList<Product>, isLinearLayoutManager)
+                productRecyclerView.adapter = productListAdapter
+                productListAdapter.onItemClick = { product ->
+                    productCartViewModel.setId(product.getId())
+                    productCartViewModel.setName(product.getName())
+                    productCartViewModel.setImage(product.getImage())
+                    productCartViewModel.setDescription(product.getDescription())
+                    productCartViewModel.setPriceL(product.getPrice_L().toDouble())
+                    productCartViewModel.setPriceM(product.getPrice_M().toDouble())
+                    productCartViewModel.setPriceS(product.getPrice_S().toDouble())
+                    productCartViewModel.setCategoryId(product.getCategory_id())
+
+                    (view.context as FragmentActivity).supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.flFragment, ProductDetail()).addToBackStack(null)
+                        .commit()
+                }
+                return false;
+            }
+        })
+    }
     private fun setUpCategoryRecyclerAdapter(view: View, data: ArrayList<Category>) {
         categoryListAdapter = CategoryListAdapter(data)
         categoryRecyclerView.adapter = categoryListAdapter
         categoryRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         categoryListAdapter.onItemClick = { category ->
             currentCategory.text = category.getName()
-            //Handle set product by category type
+            productViewModel.products.observe(viewLifecycleOwner) {
+                val products = it as ArrayList<Product>
+                var productsWithCategoryOne = it as ArrayList<Product>
+                productsWithCategoryOne = products.filter { it.getCategory_id() == category.getId() } as ArrayList<Product>
+                if (productsWithCategoryOne.isEmpty()) {
+                    setUpProductRecyclerAdapter(view, arrayListOf(),true)
 
-            (view.context as FragmentActivity).supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.flFragment, Order()).addToBackStack(null)
-                .commit()
-
+                } else {
+                    setUpProductRecyclerAdapter(view,productsWithCategoryOne,true)
+                }
+            }
 
         }
     }

@@ -10,12 +10,12 @@ const RatingServices = {
     async delete(id) {
         return await RatingRepository.delete(id);
     },
-    async findOne(id) {
-        return await RatingRepository.findOneByID(id);
+    async findRating(id) {
+        return await RatingRepository.findRatingByProductID(id);
     },
     async findAll() {
         return await RatingRepository.findAll();
-    } 
+    }
     // Cần method gì thì tự implements !! 
 
 

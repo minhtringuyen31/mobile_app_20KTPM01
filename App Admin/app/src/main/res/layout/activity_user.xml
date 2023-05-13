@@ -4,13 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
     tools:context=".pages.user.Users">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/accountRV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="600dp">
 
     </androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/addUser"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:backgroundTint="#2196F3"
+            android:text="Thêm tài khoản" />
+
+        <Button
+            android:id="@+id/backUserBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:layout_margin="20dp"
+            android:backgroundTint="#FF5722"
+            android:text="Quay về" />
+    </LinearLayout>
 
 </LinearLayout>

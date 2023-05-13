@@ -1,6 +1,4 @@
 package com.example.myapplication.modals
-
-
 class Category(
     private var id: Int,
     private var name: String,
@@ -25,7 +23,9 @@ class Category(
     fun getName():String{
         return this.name
     }
-
+    fun getId():Int{
+        return this.id
+    }
 
 
 

@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 //        }
 
         binding.loginButton.setOnClickListener {
-            if (binding.username.text.toString() == "user" && binding.password.text.toString() == "1234") {
+            if (binding.username.text.toString() == "admin" && binding.password.text.toString() == "1234") {
                 val intent = Intent(this, Dashboard::class.java)
 
                 startActivity(intent)

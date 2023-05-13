@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pages.product.EditProduct">
+    tools:context=".pages.user.EditUser">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -25,7 +25,6 @@
                 android:layout_width="200dp"
                 android:layout_height="140dp"
                 android:adjustViewBounds="true"
-                android:background="@drawable/custom_edittext"
                 android:scaleType="centerCrop"
                 android:src="@drawable/profile" />
         </androidx.cardview.widget.CardView>
@@ -36,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="30dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
         <LinearLayout
@@ -65,7 +64,7 @@
                     android:textSize="15sp"
                     tools:ignore="RtlCompat" />
 
-                <TextView
+                <EditText
                     android:id="@+id/editUserName"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
@@ -73,6 +72,8 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/nameTv"
+                    android:autofillHints="0"
+                    android:background="@null"
                     android:gravity="fill_vertical"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
@@ -100,7 +101,7 @@
                     android:textSize="15sp"
                     tools:ignore="RtlCompat" />
 
-                <TextView
+                <EditText
                     android:id="@+id/editUserEmail"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
@@ -108,6 +109,84 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/emailTv"
+                    android:autofillHints="0"
+                    android:background="@null"
+                    android:gravity="fill_vertical"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeScroll7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_layout">
+
+                <TextView
+                    android:id="@+id/passwordTv"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:gravity="fill_vertical"
+                    android:text="Mật khẩu:"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+
+                <EditText
+                    android:id="@+id/editUserPassword"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_toEndOf="@+id/passwordTv"
+                    android:hint="123456"
+                    android:inputType="textPassword"
+                    android:background="@null"
+                    android:gravity="fill_vertical"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeScroll8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_layout">
+
+                <TextView
+                    android:id="@+id/confirmPasswordTv"
+                    android:layout_width="140dp"
+                    android:layout_height="60dp"
+                    android:gravity="fill_vertical"
+                    android:text="Xác nhận mật khẩu:"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+
+                <EditText
+                    android:id="@+id/editUserConfirmPassword"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_toEndOf="@+id/confirmPasswordTv"
+                    android:hint="123456"
+                    android:inputType="textPassword"
+                    android:background="@null"
                     android:gravity="fill_vertical"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
@@ -135,7 +214,7 @@
                     android:textSize="15sp"
                     tools:ignore="RtlCompat" />
 
-                <TextView
+                <EditText
                     android:id="@+id/editUserGender"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
@@ -143,6 +222,8 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/genderTv"
+                    android:autofillHints="0"
+                    android:background="@null"
                     android:gravity="fill_vertical"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
@@ -170,7 +251,7 @@
                     android:textSize="15sp"
                     tools:ignore="RtlCompat" />
 
-                <TextView
+                <EditText
                     android:id="@+id/editUserPhone"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
@@ -178,6 +259,8 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/phoneTv"
+                    android:autofillHints="0"
+                    android:background="@null"
                     android:gravity="fill_vertical"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
@@ -205,7 +288,7 @@
                     android:textSize="15sp"
                     tools:ignore="RtlCompat" />
 
-                <TextView
+                <EditText
                     android:id="@+id/editUserDob"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
@@ -213,6 +296,8 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/dobTv"
+                    android:autofillHints="0"
+                    android:background="@null"
                     android:gravity="fill_vertical"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
@@ -240,7 +325,7 @@
                     android:textSize="15sp"
                     tools:ignore="RtlCompat" />
 
-                <TextView
+                <EditText
                     android:id="@+id/editUserAddress"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
@@ -248,6 +333,8 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/addressTv"
+                    android:autofillHints="0"
+                    android:background="@null"
                     android:gravity="fill_vertical"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
@@ -268,31 +355,22 @@
         app:layout_constraintTop_toTopOf="@+id/guideline">
 
         <Button
-            android:id="@+id/editUser_EditBtn"
+            android:id="@+id/editUser_saveBtn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_margin="20dp"
             android:layout_weight="1"
             android:backgroundTint="#2196F3"
-            android:text="Chỉnh sửa" />
+            android:text="Lưu thay đổi" />
 
         <Button
-            android:id="@+id/editUser_DeleteBtn"
+            android:id="@+id/editUser_cancelBtn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:layout_margin="20dp"
             android:layout_weight="1"
-            android:backgroundTint="#E91E1E"
-            android:text="Xóa" />
-
-        <Button
-            android:id="@+id/editUser_DisableBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_margin="20dp"
-            android:layout_weight="1"
-            android:backgroundTint="#E91EAF"
-            android:text="" />
+            android:backgroundTint="#FF5722"
+            android:text="Thoát" />
 
     </LinearLayout>
 

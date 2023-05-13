@@ -1,6 +1,7 @@
 import OrdertService from "../services/Order.service.js";
 const OrderController = {
   async create(req, res) {
+    console.log(req.app.io)
     const {
       user_id,
       order_date,
@@ -20,7 +21,9 @@ const OrderController = {
       payment_method_id
     );
     if (newOrder) {
+      console.log(newOrder)
       res.status(200).send(newOrder);
+
     } else {
       res.status(404).send({ status: 0, message: "Failed" });
     }
@@ -71,7 +74,7 @@ const OrderController = {
     }
   },
   async findAll(req, res) {
-    const orders = await OrdertService.findAll();   
+    const orders = await OrdertService.findAll();
     if (orders) {
       res.status(200).send(orders);
     } else {

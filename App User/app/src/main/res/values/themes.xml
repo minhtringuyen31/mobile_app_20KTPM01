@@ -13,8 +13,9 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
     <style name="custom_card_view_style" parent="Widget.MaterialComponents.CardView">
-        <item name="shapeAppearanceOverlay" >@style/custom_card_view</item>
+        <item name="shapeAppearanceOverlay">@style/custom_card_view</item>
 
     </style>
 
@@ -25,6 +26,7 @@
     <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
+
     <style name="custom_card_view" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSizeTopRight">48dp</item>
@@ -32,4 +34,13 @@
         <item name="cornerSizeBottomLeft">0dp</item>
         <item name="cornerSizeBottomRight">0dp</item>
     </style>
+
+    <style name="Theme.MyApplication.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.MyApplication.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.MyApplication.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

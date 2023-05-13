@@ -19,5 +19,9 @@ interface UserService {
     @DELETE("user/delete/{id}")
     suspend fun deleteUser(@Path("id") userId: Int): Boolean
 
+    @PUT("user/disable/{id}")
+    suspend fun disableUser(@Path("id") userId: Int): Boolean
 
+    @PUT("user/enable/{id}")
+    suspend fun enableUser(@Path("id") userId: Int): Boolean
 }
