@@ -1,5 +1,7 @@
 package com.example.myapplication.viewmodels.authen
 
+import android.app.Application
+import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,11 +14,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 
-class LoginViewModel:ViewModel() {
+class LoginViewModel():ViewModel() {
     private var _loginResult: MutableLiveData<Resource<LoginRequest>> = MutableLiveData()
     val statusLogin: LiveData<Resource<LoginRequest>> = _loginResult
 
-
+//application: Application
     fun loginUser(request: LoginRequest) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -24,6 +26,11 @@ class LoginViewModel:ViewModel() {
                 println(response)
                 Resource.loading(data = null)
                 if(response.getStatusUser()==1){
+//                    val sharedPreferences = getApplication<Application>().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
+//                    val editor = sharedPreferences.edit()
+//                    editor.putString("userId", response.getUserId())
+//                    editor.apply()
+
                     _loginResult.postValue( Resource.success(data=response))
 
 

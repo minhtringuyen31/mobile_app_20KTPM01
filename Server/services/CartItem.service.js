@@ -10,6 +10,9 @@ const CartItemServices = {
     async delete(id) {
         return await CartItemRepository.delete(id);
     },
+    async removeAll(id) {
+        return await CartItemRepository.removeAll(id);
+    },
     async findOne(id) {
         return await CartItemRepository.findOneByID(id);
     },

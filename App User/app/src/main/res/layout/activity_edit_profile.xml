@@ -6,6 +6,56 @@
     android:layout_height="match_parent"
     tools:context=".pages.activities.user.EditProfile">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:elevation="16dp"
+        android:padding="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/back_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_back"></ImageView>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:gravity="center_horizontal"
+                    android:text="Chỉnh sửa thông tin"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/icon_deletecard"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="2"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/redHighland"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -21,6 +71,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="219dp"
+                android:layout_marginTop="40dp"
                 android:layout_weight="1"
                 android:orientation="horizontal">
 
@@ -35,7 +86,7 @@
                         android:layout_height="fill_parent"
                         android:layout_margin="20dp"
                         android:gravity="center_vertical"
-                        android:text="EDIT YOUR PROFILE"
+                        android:text="Chỉnh sửa thông tin cá nhân"
                         android:textAlignment="center"
                         android:textColor="@color/red"
                         android:textSize="20sp"
@@ -67,7 +118,7 @@
                 android:drawablePadding="10dp"
                 android:drawableTint="@color/red"
                 android:ems="10"
-                android:hint="Full Name"
+                android:hint="Họ và tên"
                 android:inputType="textPersonName"
                 android:padding="10dp" />
 
@@ -107,7 +158,7 @@
                     android:drawablePadding="10dp"
                     android:drawableTint="@color/red"
                     android:ems="10"
-                    android:hint="Gender"
+                    android:hint="Giới tính"
                     android:inputType="textPersonName"
                     android:padding="10dp" />
 
@@ -123,7 +174,7 @@
                     android:drawablePadding="10dp"
                     android:drawableTint="@color/red"
                     android:ems="10"
-                    android:hint="Date of birth"
+                    android:hint="Ngày sinh"
                     android:inputType="text|date"
                     android:padding="10dp"
                     android:textSize="15sp" />
@@ -143,7 +194,7 @@
                 android:drawablePadding="10dp"
                 android:drawableTint="@color/red"
                 android:ems="10"
-                android:hint="Address"
+                android:hint="Địa chỉ"
                 android:inputType="textPersonName"
                 android:padding="10dp" />
 
@@ -173,7 +224,7 @@
                     android:layout_margin="20dp"
                     android:layout_weight="1"
                     android:background="@drawable/edit_text_bg"
-                    android:text="cancel"
+                    android:text="Hủy"
                     android:textColor="@color/red" />
 
                 <Button
@@ -183,7 +234,7 @@
                     android:layout_margin="20dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_sign_custom"
-                    android:text="save"
+                    android:text="Lưu"
                     android:textColor="@color/light_red" />
             </LinearLayout>
 

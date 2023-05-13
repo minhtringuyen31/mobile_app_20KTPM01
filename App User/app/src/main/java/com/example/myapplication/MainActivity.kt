@@ -16,6 +16,7 @@ import android.view.MenuInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
@@ -27,6 +28,7 @@ import com.example.myapplication.modals.*
 import com.example.myapplication.pages.fragments.*
 import com.example.myapplication.pages.fragments.Order
 import com.example.myapplication.socket.SocketHandler
+import com.example.myapplication.viewmodels.order.CheckoutViewModel
 import com.example.myapplication.viewmodels.user.UserViewModel
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -123,6 +125,10 @@ class MainActivity : AppCompatActivity() {
 
 
         val status=intentStatus.getStringExtra("status")
+        val forward=intentStatus.getStringExtra("to")
+        val percent  = intent.getStringExtra("percent")
+
+
         setContentView(R.layout.activity_main)
         toolbar = findViewById(R.id.myToolBar)
         bottomNavigationView = findViewById(R.id.bottom_nav)
@@ -141,21 +147,22 @@ class MainActivity : AppCompatActivity() {
                 val counter = args[0]
                 showNotification()
                 setCurrentFragment(Activities(),"Activities")
-
             }
         }
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("user", MODE_PRIVATE)
-        val userID = sharedPreferences.getString("userID", "")
+        val userID = sharedPreferences.getString("userID", null)
         UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
-        UserProfile.user.observe(this) {
-            val editor = sharedPreferences.edit()
-            editor.putString("name",it.getName() )
-            editor.putString("phone",it.getPhone() )
-            editor.apply()
-        }
         if (userID != null) {
             UserProfile.getUser(userID.toInt())
+            UserProfile.user.observe(this) {
+                val editor = sharedPreferences.edit()
+                editor.putString("name",it.getName() )
+                editor.putString("phone",it.getPhone() )
+                editor.apply()
+            }
         };
+
+
         if (userID != null&& userID.isNotEmpty()) {
             mSocket.emit("login",userID)
             setCurrentFragment(Homepage(),"Homepage")
@@ -171,6 +178,22 @@ class MainActivity : AppCompatActivity() {
             }
             activeNavigationBar()
         }
+        if (intent.extras != null) {
+            val fragmentToLoad = intent.extras!!.getString("FragmentToLoad")
+            if (fragmentToLoad == "Others") {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.flFragment, Others())
+                    .commit()
+            }
+        }
+        if(forward == "Checkout"){
+            setCurrentFragment(Checkout(),"Checkout")
+
+        }
+        if(forward == "Orders"){
+            setCurrentFragment(Order(),"Order")
+        }
+
     }
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)

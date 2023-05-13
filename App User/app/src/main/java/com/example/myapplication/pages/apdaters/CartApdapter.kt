@@ -24,6 +24,7 @@ class CartApdapter(
         val productNameTV: TextView = listItemView.findViewById(R.id.productNameTV)
         val productPriceTV: TextView = listItemView.findViewById(R.id.productPriceTV)
         val productDescriptionTV: TextView = listItemView.findViewById(R.id.productDescriptionTV)
+        val quantityTV: TextView = listItemView.findViewById(R.id.quantity)
         val iconDelete: ImageView = listItemView.findViewById(R.id.btnDelete)
 
 
@@ -51,10 +52,20 @@ class CartApdapter(
         val productImage = holder.productImageIV
         val productPrice = holder.productPriceTV
         val productDescription = holder.productDescriptionTV
+        val quantity = holder.quantityTV
         productName.text = product.getName()
 
         productPrice.text = Utils.formatCurrency(product.getPrice())
-        productDescription.text = product.getDescription()
+
+        if(product.getTopping().isNotEmpty())
+        {
+            productDescription.text = "Topping:"+ product.getTopping().removePrefix("-")
+        }
+        else
+        {
+            productDescription.text = "Không có topping"
+        }
+        quantity.text = "Số lượng: "+product.getQuantity().toString()
         Glide.with(holder.itemView)
             .load( product.getImage()).fitCenter()
             .into(productImage)

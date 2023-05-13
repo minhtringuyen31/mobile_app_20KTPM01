@@ -43,11 +43,33 @@ class CartItemViewModel:ViewModel() {
             }
         }
     }
+    fun removeAllCartItem(userID:Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = Utils.getRetrofit().create(CartItemService::class.java).removeAll(userID)
+                _status.postValue(response)
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+
+    }
 
     fun createCartItem(cartItem:CartItem) {
         viewModelScope.launch {
             try {
                 val response = Utils.getRetrofit().create(CartItemService::class.java).createCartItem(cartItem)
+                println("View: $response")
+                _newCartItem.postValue(response)
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+    }
+    fun updateCartItem(id:Int,cartItem:CartItem) {
+        viewModelScope.launch {
+            try {
+                val response = Utils.getRetrofit().create(CartItemService::class.java).updateCartItem(id,cartItem)
                 println("View: $response")
                 _newCartItem.postValue(response)
             } catch (e: Exception) {

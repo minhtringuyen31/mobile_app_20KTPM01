@@ -72,6 +72,7 @@ class ProductDetail : Fragment() {
     private  var priceS_text:Double=0.0
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
     private lateinit var noteEdit:EditText
+    private  var cartItemID:Int=0
 
     private lateinit var ratingRecyclerView: RecyclerView
 //    private lateinit var ratingViewModel: RatingViewModel
@@ -113,7 +114,7 @@ class ProductDetail : Fragment() {
         minusBtn=view.findViewById(R.id.minus_btn)
         productDetailImage = view.findViewById(R.id.productDetailImageIV)
         productDetailName = view.findViewById(R.id.productDetailNameTV)
-        productDetailPrice = view.findViewById(R.id.productDetailPriceTV)
+//        productDetailPrice = view.findViewById(R.id.productDetailPriceTV)
         productDetailDescription = view.findViewById((R.id.productDetailDescriptionTV))
         backHomepage = view.findViewById(R.id.imgToolbarBtnBack)
         iconFaverite= view.findViewById(R.id.imgToolbarBtnFav)
@@ -134,6 +135,7 @@ class ProductDetail : Fragment() {
         priceS_text=  productCartViewModel.getPriceS()
         description  = productCartViewModel.getDescription()
         image = productCartViewModel.getImage()
+        cartItemID= productCartViewModel.getCartItemId()
         priceL_text=  productCartViewModel.getPriceL()
         priceM_text= productCartViewModel.getPriceM()
         category_id = productCartViewModel.getCategoryId()
@@ -149,6 +151,7 @@ class ProductDetail : Fragment() {
         if(productCartViewModel.getNameFragment()=="cart"){
 
             item[0]=productCartViewModel.getPrice()
+
             val sizeSelected= productCartViewModel.getSize()
             if(sizeSelected=="S")
             {
@@ -166,18 +169,22 @@ class ProductDetail : Fragment() {
                 priceS_radio.isChecked = false
             }
             noteEdit.setText(productCartViewModel.getNote())
-
+            itemCount.total=calculateTotalPrice()
+            btnAddtoCart.text = "Cập nhật GH - " +  Utils.formatCurrency( itemCount.total) + " đ"
         }
         else {
+
             item[0]=productCartViewModel.getPriceL()
+            itemCount.total=calculateTotalPrice()
+           updatePriceTotal()
         }
-        itemCount.total=calculateTotalPrice()
-        updatePriceTotal()
+
+
         ratingRecyclerView = view.findViewById(R.id.listRatingRV)
     }
     @SuppressLint("SetTextI18n")
     private fun updatePriceTotal() {
-        btnAddtoCart.text = "Add to cart - " +  Utils.formatCurrency( itemCount.total) + " đ"
+        btnAddtoCart.text = "Thêm vào GH - " +  Utils.formatCurrency( itemCount.total) + " đ"
     }
     private fun displayCount() {
         text_quantity.text = itemCount.count.toString()
@@ -265,58 +272,77 @@ class ProductDetail : Fragment() {
             }
         btnAddtoCart.setOnClickListener {
 
+            val sharedPreferencesUser = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
+            val userID = sharedPreferencesUser.getString("userID", "")
+            val notes=noteEdit.text.toString()
+            val cartItem = CartItem(
+                userID!!.toInt(),
+                userID!!.toInt(),
+                product_id,
+                itemCount.count,
+                itemCount.size,
+                itemCount.total,
+                itemCount.nameTopping,
+                name,
+                description,
+                image,
+                category_id,
+                notes
+            )
             val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
-
             val gson = Gson()
             val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
             val carts=sharedPreferences.getString("productID", null)
             var dataItem = gson.fromJson<ArrayList<Int>>(carts, type);
-
             if (dataItem == null) {
                 dataItem = ArrayList<Int>()
             }
-            if(dataItem.contains(product_id)&&dataItem.isNotEmpty()){
+            if(productCartViewModel.getNameFragment()!="cart")
+            {
+                if(dataItem.contains(product_id)&&dataItem.isNotEmpty()){
+                    Toast.makeText(
+                        activity, "Sản phẩm đã tồn tại trong giỏ hàng",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    appModel.addtoCart(cartItem)
+                    Toast.makeText(
+                        activity, "Thêm thành công vào giỏ hàng",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val tempData = carts;
+                    dataItem.add(product_id);
+                    sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
+                    val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
+                    myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
+                    (view.context as FragmentActivity).supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.flFragment, Order(),"Order").addToBackStack(null)
+                        .commit()
+                }
+            }else
+            {
+                appModel.updateItemCart(cartItemID,cartItem);
                 Toast.makeText(
-                    activity, "Sản phẩm đã tồn tại trong giỏ hàng",
+                    activity, "Câp nhật thành công vào giỏ hàng",
                     Toast.LENGTH_SHORT
                 ).show()
-            }
-            else{
-                val sharedPreferencesUser = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
-                val userID = sharedPreferencesUser.getString("userID", "")
-                val notes=noteEdit.text.toString()
-                val cartItem = CartItem(
-                    userID!!.toInt(),
-                    userID!!.toInt(),
-                    product_id,
-                    itemCount.count,
-                    itemCount.size,
-                    itemCount.total,
-                    itemCount.nameTopping,
-                    name,
-                    description,
-                    image,
-                    category_id,
-                    notes
-                )
-                appModel.addtoCart(cartItem)
-                Toast.makeText(
-                    activity, "Thêm thành công vào giỏ hàng",
-                    Toast.LENGTH_SHORT
-                ).show()
-                val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
-                myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
                 (view.context as FragmentActivity).supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.flFragment, Order(),"Order").addToBackStack(null)
+                    .replace(R.id.flFragment, Cart(),"Cart").addToBackStack(null)
                     .commit()
-                val tempData = carts;
-                dataItem.add(product_id);
-                sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
+
             }
+
+            val dataTest= sharedPreferences.getString("productID","")
+            println("Danh sach hiện có "+dataTest)
+
 
 
         }
+        val dataTest= view.context.getSharedPreferences("cart",AppCompatActivity.MODE_PRIVATE).getString("productID","")
+        println("Danh sach hiện có "+dataTest)
         appModel.getRatingViewModel().ratings.observe(viewLifecycleOwner){
             val ratings = it as ArrayList<Rating>
             if (ratings.isEmpty()) {
@@ -352,7 +378,6 @@ class ProductDetail : Fragment() {
     }
     private fun setProductDetail(productName: String, productPrice: String, productDescription: String, productImage: String){
         productDetailName.text = productName
-        productDetailPrice.text = productPrice
         productDetailDescription.text = productDescription
         Glide.with(this)
             .load(productImage)

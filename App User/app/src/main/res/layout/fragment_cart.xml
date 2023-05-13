@@ -22,16 +22,17 @@
                 android:layout_width="match_parent"
                 android:orientation="horizontal"
                 android:layout_height="wrap_content">
+
                 <ImageView
                     android:id="@+id/back_btn"
-                    android:layout_weight="1"
                     android:layout_width="0dp"
-                    android:src="@drawable/ic_back"
+                    android:layout_height="fill_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_height="fill_parent">
-                </ImageView>
+                    android:layout_weight="0.5"
+                    android:src="@drawable/ic_back"></ImageView>
+
                 <TextView
-                    android:layout_weight="7"
+                    android:layout_weight="8"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="Giỏ hàng của bạn"
@@ -41,13 +42,13 @@
                     android:gravity="center_horizontal" />
                 <TextView
                     android:id="@+id/icon_deletecard"
-                    android:layout_weight="3"
+                    android:layout_weight="1.5"
+                    android:paddingEnd="10dp"
                     android:layout_width="0dp"
-                    android:text="Xoá giỏ hàng"
-
+                    android:text="Xoá"
                     android:textColor="@color/redHighland"
                     android:textStyle="bold"
-                    android:gravity="center"
+                    android:gravity="right|center_vertical"
                     android:layout_height="fill_parent">
                 </TextView>
             </LinearLayout>
@@ -76,6 +77,7 @@
         android:layout_weight="1">
     </View>
     <TextView
+        android:visibility="invisible"
         android:id="@+id/btnPlaceOrder"
         android:layout_marginBottom="70dp"
         android:layout_marginHorizontal="20dp"

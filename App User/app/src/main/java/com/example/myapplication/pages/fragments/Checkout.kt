@@ -18,6 +18,7 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.myapplication.MainActivity
@@ -72,7 +73,8 @@ class Checkout : Fragment() {
     private lateinit var checkoutAdapter: CheckoutApdater
     private lateinit var itemCheckoutListView: ListView
     private lateinit var btnCheckout:TextView
-    private lateinit var checkoutViewModel: CheckoutViewModel
+    private lateinit var getandShowPercent:TextView
+    private val checkoutViewModel:CheckoutViewModel by activityViewModels()
     private lateinit var cancelCheckout:TextView
     private lateinit var back_checkout:ImageView
     private lateinit var addressCheckout:LinearLayout
@@ -136,13 +138,16 @@ class Checkout : Fragment() {
                     val matchResult = regex.find(outputDate)
                     val date = matchResult?.groupValues?.get(1) // "2302-05-06"
                     val currentDate = sdf.format(Date())
-
                     if(currentDate.contains(_date)) {
                         timeCheckout.text = "Hôm nay | $_time";
+                        sharedPreferences = view.context.getSharedPreferences("timeShip", AppCompatActivity.MODE_PRIVATE)
+
                     }
                     else {
                         timeCheckout.text=outputDate
+
                     }
+                    sharedPreferences.edit().putString("time", timeCheckout.text.toString()).apply()
 
                 } catch (e: DateTimeParseException) {
                     println("Error parsing date: $e")
@@ -153,6 +158,10 @@ class Checkout : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
+
+        println(checkoutViewModel)
+
         view=inflater.inflate(R.layout.fragment_checkout, container, false)
         val policy = ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
@@ -170,10 +179,13 @@ class Checkout : Fragment() {
         setUpViewModel()
         initUI(view)
         setupObserve()
+        println(checkoutViewModel)
         return view
     }
     @SuppressLint("InflateParams")
     fun initUI(view:View){
+
+
 
         showAddress = view.findViewById(R.id.showAddress)
         cancelCheckout = view.findViewById(R.id.cancelCheckout)
@@ -185,6 +197,7 @@ class Checkout : Fragment() {
         addItem= view.findViewById(R.id.addItems)
         discount= view.findViewById(R.id.addDiscount)
         updatePhone=view.findViewById(R.id.updatePhone)
+        getandShowPercent= view.findViewById(R.id.getandShowPercent)
         itemCheckoutListView = view.findViewById(R.id.listItemCheckout)
         checkoutAdapter = CheckoutApdater(arrayListOf(),this,view.context)
         itemCheckoutListView.adapter=checkoutAdapter
@@ -193,6 +206,33 @@ class Checkout : Fragment() {
         methodSelected= view.findViewById(R.id.methodSelected)
         toggleAddress = view.findViewById(R.id.toggleAddress)
         phoneUser = view.findViewById(R.id.phoneUser)
+        sharedPreferences = view.context.getSharedPreferences("timeShip", AppCompatActivity.MODE_PRIVATE)
+        val time=sharedPreferences.getString("time","Current time")
+
+        if(time!="Current time") {
+            timeCheckout.text = time;
+
+        }
+        else{
+            timeCheckout.text = "Hôm nay| Trong 15 phút";
+        }
+        sharedPreferences = view.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
+        val address=sharedPreferences.getString("addressSelected","Address")
+        if(address!="Address") {
+            toggleAddress.text = address
+        }
+        else
+        {
+            toggleAddress.text = "Address"
+        }
+
+    }
+    private fun setUpViewModel(){
+//        checkoutViewModel =ViewModelProvider(this)[CheckoutViewModel::class.java]
+        orderViewModel = ViewModelProvider(this)[OrderViewModel::class.java]
+    }
+    @SuppressLint("SetTextI18n", "SuspiciousIndentation")
+    private fun setupObserve(){
         btnShowBottomSheet.setOnClickListener {
             val dialog = BottomSheetDialog(view.context)
             val viewitem = layoutInflater.inflate(R.layout.payment_method_layout, null)
@@ -209,13 +249,6 @@ class Checkout : Fragment() {
             dialog.setContentView(viewitem)
             dialog.show()
         }
-    }
-    private fun setUpViewModel(){
-        checkoutViewModel =ViewModelProvider(this)[CheckoutViewModel::class.java]
-        orderViewModel = ViewModelProvider(this)[OrderViewModel::class.java]
-    }
-    @SuppressLint("SetTextI18n", "SuspiciousIndentation")
-    private fun setupObserve(){
         appModel.getCartItemViewModel().cartItems.observe(viewLifecycleOwner){
             val items=it
             items.forEach{
@@ -226,6 +259,7 @@ class Checkout : Fragment() {
             }
             checkoutViewModel.subTotal.value=subtotal
             subTotal.text= Utils.formatCurrency(checkoutViewModel.subTotal.value!!) + " đ"
+
             total.text =  Utils.formatCurrency( (checkoutViewModel.subTotal.value!!-(checkoutViewModel.subTotal.value!!*checkoutViewModel.getPercentVoucher()))) + " đ"
             checkoutAdapter.apply {
                 addItems(items)
@@ -235,7 +269,14 @@ class Checkout : Fragment() {
             showAddress.visibility = View.VISIBLE
         }
         back_checkout.setOnClickListener {
-            fragmentManager?.popBackStack()
+//            fragmentManager?.popBackStack()
+            //Quay ve các activity Trước do
+            val activity = activity
+            // Kiểm tra xem đối tượng Activity có khác null không
+            if (activity != null) {
+                // Sử dụng phương thức onBackPressed() của Activity để quay lại Activity trước đó
+                activity.onBackPressed()
+            }
         }
         val sharedPreferences = view.context.getSharedPreferences("phone", AppCompatActivity.MODE_PRIVATE)
         val phoneShare= sharedPreferences.getString("phoneUser","Số điện thoại")
@@ -247,11 +288,13 @@ class Checkout : Fragment() {
             phoneUser.setOnClickListener {
                 val dialog = CustomDialog(view.context)
                 dialog.setUpDialogPhone()
+                println(checkoutViewModel)
             }
         }
         updatePhone.setOnClickListener {
             val dialog = CustomDialog(view.context)
             dialog.setUpDialogPhone()
+            println(checkoutViewModel)
         }
 
         btnCheckout.setOnClickListener {
@@ -356,7 +399,7 @@ class Checkout : Fragment() {
         addressCheckout.setOnClickListener {
           val dialog = CustomDialog(view.context)
             dialog.setUpDialog()
-
+            println(checkoutViewModel)
 
         }
 
@@ -365,6 +408,7 @@ class Checkout : Fragment() {
 //            val refundAPI = Refund()
 //            val data: JSONObject = refundAPI.refund("1000")
 //            println(data)
+            println(checkoutViewModel)
         }
 
         addItem.setOnClickListener {
@@ -373,11 +417,14 @@ class Checkout : Fragment() {
                 .replace(R.id.flFragment, Order(),"Order").addToBackStack(null)
                 .commit()
         }
+
+
         discount.setOnClickListener {
             val intent=Intent(
                 view.context,
                 ListPromotion::class.java
             )
+            intent.putExtra("from","Checkout")
             startActivity(intent)
         }
     }
@@ -410,7 +457,6 @@ class Checkout : Fragment() {
                 dialog.dismiss()
             }
 
-
             adddressAdapter.addAddress(dataItem)
             addressListView.adapter=adddressAdapter
             val addAddres = dialog.findViewById<TextView>(R.id.add_Address)
@@ -423,6 +469,7 @@ class Checkout : Fragment() {
             })
             selectedAddress.setOnClickListener {
                     toggleAddress.text = checkoutViewModel.getAddress()
+                    sharedPreferences.edit().putString("addressSelected",toggleAddress.text.toString()).apply()
                     dialog.dismiss()
             }
             addressListView.onItemClickListener =

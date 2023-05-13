@@ -8,6 +8,7 @@
 
 
     <ScrollView
+        android:id="@+id/fragment_others"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -107,7 +108,7 @@
                         android:background="@drawable/custom_rounded_search"
                         android:drawablePadding="5dip"
                         android:gravity="center_vertical"
-                        android:hint="Edit Your Profile"
+                        android:hint="Chỉnh sửa thông tin cá nhân"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:textSize="18sp"
@@ -124,7 +125,7 @@
                         android:background="@drawable/custom_rounded_search"
                         android:drawablePadding="5dip"
                         android:gravity="center_vertical"
-                        android:hint="Change Your Password"
+                        android:hint="Thay mật khẩu"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:textSize="18sp"
@@ -132,7 +133,7 @@
                         app:drawableRightCompat="@drawable/baseline_arrow_forward_ios_24" />
 
                     <TextView
-                        android:id="@+id/route_viewhistory"
+                        android:id="@+id/route_introstore"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -140,15 +141,15 @@
                         android:background="@drawable/custom_rounded_search"
                         android:drawablePadding="5dip"
                         android:gravity="center_vertical"
-                        android:hint="View History Activity"
+                        android:hint="Giới thiệu cửa hàng"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:textSize="18sp"
-                        app:drawableLeftCompat="@drawable/baseline_history_24"
+                        app:drawableLeftCompat="@drawable/baseline_store_24"
                         app:drawableRightCompat="@drawable/baseline_arrow_forward_ios_24" />
 
                     <TextView
-                        android:id="@+id/route_changelanguage"
+                        android:id="@+id/route_listpromotion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -156,11 +157,11 @@
                         android:background="@drawable/custom_rounded_search"
                         android:drawablePadding="5dip"
                         android:gravity="center_vertical"
-                        android:hint="View List Promotions"
+                        android:hint="Danh sách khuyến mãi"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:textSize="18sp"
-                        app:drawableLeftCompat="@drawable/baseline_language_24"
+                        app:drawableLeftCompat="@drawable/baseline_discount_24"
                         app:drawableRightCompat="@drawable/baseline_arrow_forward_ios_24" />
 
                     <LinearLayout
@@ -177,7 +178,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/custom_border_btn"
-                            android:text="logout"
+                            android:text="đăng xuất"
                             android:textColor="@color/white" />
 
                     </LinearLayout>

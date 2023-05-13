@@ -109,15 +109,15 @@
                     android:text="TRÀ SƠN VÀNG (CỦ NĂNG)"
                     android:textColor="@color/brownHighland"
                     android:textSize="@dimen/_12ssp" />
-                <TextView
-                    android:id="@+id/productDetailPriceTV"
-                    android:layout_width="0dp"
-                    android:layout_weight="3"
-                    android:layout_margin="@dimen/_10sdp"
-                    android:gravity="center"
-                    android:layout_height="wrap_content"
-                    android:text="45,000 VNĐ"
-                    android:textSize="@dimen/_12ssp" />
+<!--                <TextView-->
+<!--                    android:id="@+id/productDetailPriceTV"-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_weight="3"-->
+<!--                    android:layout_margin="@dimen/_10sdp"-->
+<!--                    android:gravity="center"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:text="45,000 VNĐ"-->
+<!--                    android:textSize="@dimen/_12ssp" />-->
             </LinearLayout>
 
             <TextView

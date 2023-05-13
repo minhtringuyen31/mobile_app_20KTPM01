@@ -145,6 +145,12 @@ class AppViewModel:ViewModel() {
     fun removeItemCart(id:Int){
         cartItemViewModel.deleteCartItem(id)
     }
+    fun removeAllCart(userID:Int){
+        cartItemViewModel.removeAllCartItem(userID)
+    }
+    fun updateItemCart(id:Int,cartItem:CartItem){
+        cartItemViewModel.updateCartItem(id,cartItem)
+    }
 
     fun getRatingViewModel(): RatingViewModel {
         return this.ratingViewModel

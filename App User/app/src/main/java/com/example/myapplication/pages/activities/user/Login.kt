@@ -85,6 +85,8 @@ class Login : AppCompatActivity() {
 
 
         buttonLogin.setOnClickListener {
+
+
             val loginRequest =
                 LoginRequest(login_phone.text.toString(), login_pass.text.toString(), 0);
             loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
@@ -109,11 +111,19 @@ class Login : AppCompatActivity() {
                             finish();
                         }
                         Status.ERROR -> {
+                            if(login_phone.text.toString()==""){
+                                Toast.makeText(this, "Không được để trống email", Toast.LENGTH_SHORT).show()
 
-                            Toast.makeText(this, it.message, Toast.LENGTH_LONG).show()
+                            }
+                            else if(login_pass.text.toString()==""){
+                                Toast.makeText(this, "Không được để trống mật khẩu", Toast.LENGTH_SHORT).show()
+                            }
+                            else{
+                            Toast.makeText(this, "Sai mật khẩu hoặc tài khoản. Nếu nó đúng, hãy kiểm tra kết nối.", Toast.LENGTH_LONG).show()
+                        }
                         }
                         Status.LOADING -> {
-                            Toast.makeText(this, "Dang doc database", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Đang đọc dữ liệu", Toast.LENGTH_LONG).show()
                         }
                         else -> {
 
@@ -135,8 +145,8 @@ class Login : AppCompatActivity() {
             routeSignUp.setOnClickListener {
                 val intent = Intent(
                     this,
-                    Signup::class.java
-//                IntroductionStore::class.java
+                   Signup::class.java
+               //IntroductionStore::class.java
                 )
                 startActivity(intent)
             }

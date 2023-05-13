@@ -4,7 +4,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:background="@color/white"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@color/white"
+        android:elevation="16dp"
+        android:padding="5dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/back_btn3"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1"
+                    android:src="@drawable/ic_back"></ImageView>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:gravity="center_horizontal"
+                    android:text="Thông tin chi tiết khuyến mãi"
+                    android:textColor="@color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/icon_deletecard"
+                    android:layout_width="0dp"
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/redHighland"
+                    android:textStyle="bold"></TextView>
+            </LinearLayout>
+
+
+        </androidx.appcompat.widget.Toolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
         android:padding="5dp"
@@ -23,7 +76,7 @@
             android:id="@+id/name_promotionDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_weight="0.25"
             android:text="Name"
@@ -34,16 +87,17 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+
             android:layout_weight="0.25"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView30"
+                android:layout_marginLeft="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Ưu đãi:"
+                android:text="Giảm giá:"
                 android:textColor="@color/red"
                 android:textStyle="bold" />
 
@@ -60,16 +114,18 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+
             android:layout_weight="0.25"
             android:orientation="horizontal">
 
             <TextView
+                android:layout_marginLeft="20dp"
                 android:id="@+id/textView23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Ngày bắt đầu"
+
+                android:text="Ngày bắt đầu:"
                 android:textColor="@color/red"
                 android:textStyle="bold" />
 
@@ -86,11 +142,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
+
             android:layout_weight="0.25"
             android:orientation="horizontal">
 
             <TextView
+                android:layout_marginLeft="20dp"
                 android:id="@+id/textView25"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -110,16 +167,17 @@
         </LinearLayout>
 
         <TextView
+
             android:id="@+id/desc_promotionDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
             android:textColor="@color/black"
+            android:layout_marginLeft="20dp"
             android:layout_weight="1"
-
             android:text="description" />
 
         <Button
+            android:layout_marginBottom="30dp"
             android:id="@+id/button_applyPromotion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -127,7 +185,8 @@
             android:backgroundTint="@color/red"
             android:theme="@style/Widget.App.Button"
             android:background="@drawable/custom_border_btn"
-            android:text="Áp Dụng"
+
+            android:text="Dùng khuyến mãi"
             android:textColor="@color/light_red"
             android:textSize="15sp"
             />

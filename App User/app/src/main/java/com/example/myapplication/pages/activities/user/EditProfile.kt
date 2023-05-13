@@ -1,14 +1,18 @@
 package com.example.myapplication.pages.activities.user
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.widget.AppCompatImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.EditInfoRequest
+import com.example.myapplication.pages.fragments.Others
 import com.example.myapplication.utils.Status
 import com.example.myapplication.viewmodels.user.EditInfoViewModel
 
@@ -21,6 +25,7 @@ class EditProfile : AppCompatActivity() {
     private lateinit var  edit_dob:EditText;
     private lateinit var edit_address:EditText;
     private lateinit var editInfoViewModel: EditInfoViewModel
+    private lateinit var back_btn: AppCompatImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_profile)
@@ -32,6 +37,14 @@ class EditProfile : AppCompatActivity() {
         edit_gender=findViewById(R.id.edit_gender)
         edit_dob=findViewById(R.id.edit_dob)
         edit_address=findViewById(R.id.edit_address)
+        back_btn=findViewById(R.id.back_btn)
+
+        back_btn.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.putExtra("FragmentToLoad", "Others")
+            startActivity(intent)
+        }
 
 
 
@@ -77,7 +90,12 @@ class EditProfile : AppCompatActivity() {
         }
 
         button_canceledit.setOnClickListener {
-            // chuyen huong ve fragment Others
+            val intent = Intent(
+                this,
+                // Signup::class.java
+                Others::class.java
+            )
+            startActivity(intent)
         }
 
 

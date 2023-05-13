@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Welcome to\nInfinity Coffee"
+        android:text="Chào mừng đến\nInfinity Coffee"
         android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -76,13 +76,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/fb" />
-
-                <ImageView
-                    android:id="@+id/login_gg"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     app:srcCompat="@drawable/gg" />
 
                 <TextView
@@ -90,6 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1" />
+
             </LinearLayout>
 
             <TextView
@@ -113,7 +107,7 @@
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawableTint="@color/red"
                 android:ems="10"
-                android:hint="Password"
+                android:hint="Mật khẩu"
                 android:inputType="textPassword"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -130,7 +124,7 @@
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawableTint="@color/red"
                 android:ems="10"
-                android:hint="Confirm Password"
+                android:hint="Nhập lại mật khẩu"
                 android:inputType="textPassword"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -144,10 +138,10 @@
                 android:layout_height="60dp"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/edit_text_bg"
-                android:drawableLeft="@drawable/baseline_phone_24"
+                android:drawableLeft="@drawable/baseline_email_24"
                 android:drawableTint="@color/red"
                 android:ems="10"
-                android:hint="Phone"
+                android:hint="Địa chỉ email"
                 android:inputType="textPersonName"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -162,7 +156,7 @@
 
 
                 android:background="@drawable/button_sign_custom"
-                android:text="Sign Up"
+                android:text="Đăng ký"
                 android:textColor="@color/white"
                 android:textSize="18sp"
 
@@ -188,7 +182,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
-                    android:text="Have an account?" />
+                    android:text="Bạn đã có tài khoản?" />
 
                 <TextView
                     android:id="@+id/route_login"
@@ -196,7 +190,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Log In?"
+                    android:text="Đăng nhập"
                     android:textColor="@color/red"
                     android:textStyle="bold" />
             </LinearLayout>

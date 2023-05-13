@@ -17,6 +17,9 @@ class CartItem(
     private var id:Int=0
     // Setter methods
 
+    fun getID():Int{
+        return this.id;
+    }
     fun setUserId(userId:Int) {
         this.user_id = userId
     }

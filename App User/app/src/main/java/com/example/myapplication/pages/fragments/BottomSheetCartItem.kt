@@ -91,7 +91,7 @@ private const val ARG_PARAM2 = "param2"
     }
     private fun updatePriceTotal() {
 
-        btnAddtoCart.text = "Add to cart - " +  Utils.formatCurrency( itemCount.total) + " đ"
+        btnAddtoCart.text = "Thêm vào GH - " +  Utils.formatCurrency( itemCount.total) + " đ"
     }
     @SuppressLint("SetTextI18n")
     private fun initUI(view:View){

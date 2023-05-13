@@ -18,4 +18,7 @@ interface CartItemService {
 
     @POST("cartitems/create/")
     suspend fun createCartItem(@Body cartItem: CartItem): CartItem
+
+    @DELETE("cartitems/removeAll/{id}")
+    suspend fun removeAll(@Path("id") userID: Int): Int
 }

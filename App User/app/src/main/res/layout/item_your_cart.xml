@@ -69,6 +69,19 @@
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginTop="@dimen/_5sdp"/>
 
+                <TextView
+                    android:id="@+id/quantity"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Số lượng: 1"
+                    android:textSize="@dimen/_10ssp"
+                    android:textColor="@color/darkGray"
+                    android:maxEms="10"
+                    android:maxLines="2"
+                    android:fontFamily="@font/gilroy_light"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_5sdp"/>
+
 
             </LinearLayout>
 

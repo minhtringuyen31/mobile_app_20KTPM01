@@ -1,7 +1,9 @@
 package com.example.myapplication.pages.activities.store
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityMapsBinding
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -15,12 +17,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
     private lateinit var binding: ActivityMapsBinding
-
+    private lateinit var btn_back: AppCompatImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        btn_back = binding.appBarLayout.findViewById(R.id.back_btn) // use the correct hierarchy to access the view
+        btn_back.setOnClickListener {
+            val intent = Intent(this, IntroductionStore::class.java)
+            startActivity(intent)
+        }
+
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
@@ -38,11 +46,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
+//        mMap = googleMap
+//        val zoomLevel = 15f
+//        val cameraUpdate = CameraUpdateFactory.zoomTo(zoomLevel)
+//        mMap.uiSettings.isZoomControlsEnabled = true
+//        val store = LatLng(10.7627801, 106.6827451)
+//        mMap.addMarker(MarkerOptions().position(store).title("Infinity coffee"))
+//        mMap.moveCamera(CameraUpdateFactory.newLatLng(store))
         mMap = googleMap
+        val zoomLevel = 15f
+        mMap.uiSettings.isZoomControlsEnabled = true
+        val store = LatLng(10.7627801, 106.6827451)
+        mMap.addMarker(MarkerOptions().position(store).title("Infinity coffee"))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(store, zoomLevel))
 
-        // Add a marker in Sydney and move the camera
-        val store = LatLng(10.7627801,106.6827451)
-        mMap.addMarker(MarkerOptions().position(store).title("Infinity Coffee"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(store))
+
     }
 }
