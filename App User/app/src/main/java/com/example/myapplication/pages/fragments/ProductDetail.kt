@@ -2,6 +2,7 @@ package com.example.myapplication.pages.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,11 +21,16 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.*
 import com.example.myapplication.pages.activities.apdaters.RatingListAdapter
+import com.example.myapplication.utils.DataHolder
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
+import com.example.myapplication.viewmodels.product.ProductViewModel
 import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
+import java.io.OutputStreamWriter
 import java.lang.reflect.Type
 
 
@@ -48,7 +54,7 @@ class ProductDetail : Fragment() {
     private lateinit var productDetailPrice  : TextView
     private lateinit var productDetailDescription : TextView
     private lateinit var backHomepage:ImageButton
-    private lateinit var iconFaverite:ImageButton
+    private lateinit var favProductToggleBtn: ToggleButton
     private lateinit var btnAddtoCart:Button
     private lateinit var toppingApdapter: BottomSheetCartItem.ToppingApdapter
     private lateinit var toppingListView: ListView
@@ -72,6 +78,8 @@ class ProductDetail : Fragment() {
     private  var priceS_text:Double=0.0
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
     private lateinit var noteEdit:EditText
+
+    private lateinit var productViewModel : ProductViewModel
 
     private lateinit var ratingRecyclerView: RecyclerView
 //    private lateinit var ratingViewModel: RatingViewModel
@@ -116,7 +124,7 @@ class ProductDetail : Fragment() {
         productDetailPrice = view.findViewById(R.id.productDetailPriceTV)
         productDetailDescription = view.findViewById((R.id.productDetailDescriptionTV))
         backHomepage = view.findViewById(R.id.imgToolbarBtnBack)
-//        iconFaverite= view.findViewById(R.id.imgToolbarBtnFav)
+        favProductToggleBtn = view.findViewById(R.id.favoriteToggleBtn)
         text_quantity = view.findViewById(R.id.text_quantity)
         priceS_radio = view.findViewById(R.id.priceS_radio)
         priceM_radio = view.findViewById(R.id.priceM_radio)
@@ -340,7 +348,49 @@ class ProductDetail : Fragment() {
                     .commit()
             }
         }
+//        favProductToggleBtn.setOnClickListener{
+//            val curUser = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
+//            if (favProductToggleBtn.isChecked()){
+//                println("Liked")
+//                val newFavProduct = Product(
+//                    productCartViewModel.getId(),
+//                    productCartViewModel.getName(),
+//                    productCartViewModel.getDescription(),
+//                    productCartViewModel.getSize(),
+//                    productCartViewModel.getPriceS().toInt(),
+//                    productCartViewModel.getPriceM().toInt(),
+//                    productCartViewModel.getPriceL().toInt(),
+//                    productCartViewModel.getImage(),
+//                    0,
+//                    productCartViewModel.getCategoryId(),
+//                    "",
+//                    "",
+//                    0,
+//                    0
+//                )
+//                DataHolder.addItem(newFavProduct)
+//                val fileName = "$curUser.json"
+//                saveToFile(fileName)
+//            } else{
+//                println("Unliked")
+//            }
+//        }
     }
+
+//    fun saveToFile(fileName: String) {
+//        try {
+////            val fileName = "studentList.json"
+//            // File will be in "/data/data/$packageName/files/"
+//            val format = Json { explicitNulls = false }
+//            val jsonString = format.encodeToString(DataHolder.getData())
+//            val out = OutputStreamWriter(openFileOutput(fileName, 0))
+//            out.write(jsonString)
+//            out.close()
+//        } catch (t: Throwable) {
+//            Log.e("error", t.message.toString())
+//        }
+//    }
+
 
     private fun setUpRatingRecyclerAdapter(view: View, data: ArrayList<Rating>) {
         ratingListAdapter = RatingListAdapter(data)

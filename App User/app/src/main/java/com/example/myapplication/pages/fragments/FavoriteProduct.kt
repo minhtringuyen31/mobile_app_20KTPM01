@@ -51,7 +51,7 @@ class FavoriteProduct : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment FavotiteProduct.
+         * @return A new instance of fragment FavoriteProduct.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic

@@ -62,8 +62,7 @@
                 android:layout_gravity="end"
                 android:textOn=""
                 android:textOff=""
-                android:background="@drawable/toggle_selector"
-                android:onClick="onCustomToggleClick" />
+                android:background="@drawable/toggle_selector" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
 
