@@ -32,7 +32,6 @@ class Products : AppCompatActivity() {
             val products = it
 
             val adapter = ProductAdapter(this, products)
-            println("Hello")
             rvProduct.adapter = adapter
         }
     }

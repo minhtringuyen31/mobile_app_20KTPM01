@@ -137,14 +137,6 @@
                 tools:ignore="RtlCompat" />
         </RelativeLayout>
 
-        <CheckBox
-            android:id="@+id/addToppingChecked"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:text="Checked" />
-
-
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline

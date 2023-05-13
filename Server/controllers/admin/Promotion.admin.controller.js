@@ -1,6 +1,6 @@
 import PromotionServices from '../../services/Promotion.service.js';
 
-const RatingAdminController = {
+const PromotionAdminController = {
   disable: async (req, res) => {
     const id = req.params.id;
     const status = await PromotionServices.changeIsDisable(id, 1);
@@ -103,4 +103,4 @@ const RatingAdminController = {
   },
 };
 
-export default RatingAdminController;
+export default PromotionAdminController;
