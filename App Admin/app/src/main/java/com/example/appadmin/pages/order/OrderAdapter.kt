@@ -49,9 +49,13 @@ class OrderAdapter(private val context: Context, private val items: List<Order>)
         totalOrder.text = item.getTotal().toString()
         val orderStatus = holder.orderStatus
         if (item.getStatus() == 0) {
-            orderStatus.text = "Đang giao hàng"
-        } else {
-            orderStatus.text = "Đã giao hàng"
+            orderStatus.text = "Đang xử lý"
+        } else if (item.getStatus() == 1) {
+            orderStatus.text = "Đang giao"
+        } else if (item.getStatus() == 2) {
+            orderStatus.text = "Đã giao"
+        } else if (item.getStatus() == -1) {
+            orderStatus.text = "Đã hủy"
         }
         holder.itemView.setOnClickListener {
             val intent = Intent(context, EditOrder::class.java)

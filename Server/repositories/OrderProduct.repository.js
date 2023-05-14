@@ -72,7 +72,7 @@ const OrderProductRepository = {
       console.error(error);
       return false;
     }
-  }
+  },
 
   // async create(note, order_id, product_id, quantity, price) {
   //   const query = `INSERT INTO order_product (note, order_id, product_id, quantity,price) VALUES (?, ?, ?, ?, ?)`;
@@ -131,17 +131,17 @@ const OrderProductRepository = {
   //     return false;
   //   }
   // },
-  // async findAllByOrderID(order_id) {
-  //   const query = `SELECT * FROM order_product WHERE order_id = ?`;
-  //   const value = [order_id];
-  //   try {
-  //     const [rows] = await DB.pool().query(query, value);
-  //     return rows;
-  //   } catch (error) {
-  //     console.error(error);
-  //     return false;
-  //   }
-  // },
+  async findAllByOrderID(order_id) {
+    const query = `SELECT * FROM order_product WHERE order_id = ?`;
+    const value = [order_id];
+    try {
+      const [rows] = await DB.pool().query(query, value);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
 };
 
 export default OrderProductRepository;

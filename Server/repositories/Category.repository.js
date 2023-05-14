@@ -22,17 +22,25 @@ const CategoryRepository = {
       return false;
     }
   },
-  async update(id, name) {
+  async updateWithoutImage(id, name) {
     const query = `UPDATE category SET name=? WHERE id=?`;
     const values = [name, id];
+    
+    try {
+      const [result] = await DB.pool().query(query, values);
+      return result.affectedRows > 0;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async update(id, name, image) {
+    const query = `UPDATE category SET name=? image=? WHERE id=?`;
+    const values = [name, image, id];
 
     try {
       const [result] = await DB.pool().query(query, values);
-      if (result.affectedRows > 0) {
-        return true;
-      } else {
-        return false;
-      }
+      return result.affectedRows > 0;
     } catch (error) {
       console.error(error);
       return false;

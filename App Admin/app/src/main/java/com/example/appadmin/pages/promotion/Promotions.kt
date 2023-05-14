@@ -33,6 +33,7 @@ class Promotions : AppCompatActivity() {
 
             val adapter = PromotionAdapter(this, promotions)
             rvPromotion.adapter = adapter
+            adapter.notifyDataSetChanged()
         }
     }
 }

@@ -3,6 +3,8 @@ package com.example.appadmin.services
 import retrofit2.Call
 import retrofit2.http.*
 import com.example.appadmin.modals.Category
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 interface CategoryService {
     @GET("category/{id}")
@@ -11,11 +13,26 @@ interface CategoryService {
     @GET("category/")
     suspend fun getAllCategory(): List<Category>
 
+    @Multipart
     @POST("category/create")
-    suspend fun createCategory(@Body category: Category): Category
+    suspend fun createCategory(
+        @Part("name") name: RequestBody,
+        @Part image: MultipartBody.Part
+    ): Category
 
+    @Multipart
     @PUT("category/update/{id}")
-    suspend fun updateCategory(@Path("id") categoryId: Int, @Body category: Category): Category
+    suspend fun updateCategory(
+        @Path("id") categoryId: Int,
+        @Part("name") name: RequestBody,
+        @Part image: MultipartBody.Part
+    ): Category
+
+    @PUT("category/updateWithoutImage/{id}")
+    suspend fun updateCategoryWithoutImage(
+        @Path("id") categoryId: Int,
+        @Body category: Category
+    ): Category
 
     @DELETE("category/delete/{id}")
     suspend fun deleteCategory(@Path("id") categoryId: Int): Boolean

@@ -1,9 +1,9 @@
 import OrderServices from '../../services/Order.service.js';
 
 const OrderAdminController = {
-  changeDeliveringStatus: async (req, res) => {
+  changeDenyStatus: async (req, res) => {
     const id = req.params.id;
-    const status = await OrderServices.changeStatus(id, 0);
+    const status = await OrderServices.changeStatus(id, -1);
     if (status) {
       res.status(200).send({ status: 1, message: 'Success' });
     } else {
@@ -11,6 +11,15 @@ const OrderAdminController = {
     }
   },
   changeDeliveredStatus: async (req, res) => {
+    const id = req.params.id;
+    const status = await OrderServices.changeStatus(id, 2);
+    if (status) {
+      res.status(200).send({ status: 1, message: 'Success' });
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
+  changeAcceptStatus: async (req, res) => {
     const id = req.params.id;
     const status = await OrderServices.changeStatus(id, 1);
     if (status) {

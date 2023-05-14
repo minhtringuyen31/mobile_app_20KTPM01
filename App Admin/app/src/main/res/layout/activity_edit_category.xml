@@ -120,7 +120,7 @@
             android:id="@+id/editCategory_disableBtn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:backgroundTint="#E91E63"
             android:text="Khóa" />
@@ -129,19 +129,28 @@
             android:id="@+id/editCategory_saveBtn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:backgroundTint="#2196F3"
             android:text="Lưu mới" />
 
         <Button
+            android:id="@+id/editCategory_deleteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#9C27B0"
+            android:text="Xóa" />
+
+        <Button
             android:id="@+id/editCategory_cancelBtn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:backgroundTint="#FF5722"
-            android:text="Thoát" />
+            android:text="về" />
 
     </LinearLayout>
 

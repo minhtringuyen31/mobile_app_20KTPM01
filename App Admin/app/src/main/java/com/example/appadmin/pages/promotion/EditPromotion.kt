@@ -18,18 +18,27 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.example.appadmin.R
 import com.example.appadmin.controllers.PromotionController
+import com.example.appadmin.modals.Promotion
+import com.example.appadmin.utils.RealPathUtil
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.Calendar
 
 class EditPromotion : AppCompatActivity() {
     private val PERMISSION_CODE = 1000
+    private lateinit var imageFile: File
     private val mActivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == RESULT_OK && it.data != null) {
             val imageUri = it.data!!.data
             val imageView = findViewById<ImageView>(R.id.addPromotionImage)
+            val realPathUtil = RealPathUtil().getRealPath(this, imageUri!!)
+            imageFile = realPathUtil?.let { it1 -> File(it1) }!!
             imageView.setImageURI(imageUri)
         }
     }
@@ -109,6 +118,78 @@ class EditPromotion : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.editPromotion_saveBtn).setOnClickListener {
+            val promotionStartDateSplit = promotionStartDate.text.split("/")
+            val promotionEndDateSplit = promotionEndDate.text.split("/")
+
+            if (!this::imageFile.isInitialized) {
+                val promotion = Promotion(
+                    promotionId.toInt(),
+                    promotionName.text.toString(),
+                    promotionDesc.text.toString(),
+                    promotionDiscount.text.toString().toDouble(),
+                    promotionStartDateSplit[2] + "-" + promotionStartDateSplit[1] + "-" + promotionStartDateSplit[0] + "T00:00:00",
+                    promotionEndDateSplit[2] + "-" + promotionEndDateSplit[1] + "-" + promotionEndDateSplit[0] + "T00:00:00",
+                    "",
+                    0,
+                    promotionQuantity.value.toString().toInt(),
+                    promotionCode.text.toString()
+                )
+                promotionViewProvider.updatePromotionWithoutImage(promotionId.toInt(), promotion)
+                    .observe(this) {}
+            } else {
+
+                val requestBodyName = RequestBody.create(
+                    MediaType.parse("multipart/form-data"),
+                    promotionName.text.toString()
+                )
+                val requestBodyDesc = RequestBody.create(
+                    MediaType.parse("multipart/form-data"),
+                    promotionDesc.text.toString()
+                )
+                val requestBodyDiscount = RequestBody.create(
+                    MediaType.parse("multipart/form-data"),
+                    promotionDiscount.text.toString()
+                )
+                val requestBodyStartDate = RequestBody.create(
+                    MediaType.parse("multipart/form-data"),
+                    promotionStartDateSplit[2] + "-" + promotionStartDateSplit[1] + "-" + promotionStartDateSplit[0] + "T00:00:00"
+                )
+                val requestBodyEndDate = RequestBody.create(
+                    MediaType.parse("multipart/form-data"),
+                    promotionEndDateSplit[2] + "-" + promotionEndDateSplit[1] + "-" + promotionEndDateSplit[0] + "T00:00:00"
+                )
+                val requestBodyQuantity = RequestBody.create(
+                    MediaType.parse("multipart/form-data"),
+                    promotionQuantity.value.toString()
+                )
+                val requestBodyCode = RequestBody.create(
+                    MediaType.parse("multipart/form-data"),
+                    promotionCode.text.toString()
+                )
+                val requestBodyImage = RequestBody.create(
+                    MediaType.parse("multipart/form-data"),
+                    imageFile
+                )
+                val multipartBody = MultipartBody.Part.createFormData(
+                    "image",
+                    imageFile.name,
+                    requestBodyImage
+                )
+
+                promotionViewProvider.updatePromotion(
+                    promotionId.toInt(),
+                    requestBodyName,
+                    requestBodyDesc,
+                    requestBodyDiscount,
+                    requestBodyStartDate,
+                    requestBodyEndDate,
+                    requestBodyQuantity,
+                    requestBodyCode,
+                    multipartBody
+                ).observe(this) {}
+            }
+
+
             val intent = Intent(this, PromotionDetail::class.java)
             startActivity(intent)
         }

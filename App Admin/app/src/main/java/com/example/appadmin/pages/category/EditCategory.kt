@@ -1,5 +1,6 @@
 package com.example.appadmin.pages.category
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -15,16 +16,24 @@ import com.bumptech.glide.Glide
 import com.example.appadmin.R
 import com.example.appadmin.controllers.CategoryController
 import com.example.appadmin.modals.Category
+import com.example.appadmin.utils.RealPathUtil
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 class EditCategory : AppCompatActivity() {
     private lateinit var category: Category
     private val REQUEST_CODE = 100
+    private lateinit var imageFile: File
     private val mActivityResultLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) {
         if (it.resultCode == RESULT_OK && it.data != null) {
             val imageUri = it.data!!.data
             val imageView = findViewById<ImageView>(R.id.editCategoryImage)
+            val realPathUtil = RealPathUtil().getRealPath(this, imageUri!!)
+            imageFile = realPathUtil?.let { it1 -> File(it1) }!!
             imageView.setImageURI(imageUri)
         }
     }
@@ -49,6 +58,38 @@ class EditCategory : AppCompatActivity() {
 
         findViewById<Button>(R.id.editCategory_saveBtn).setOnClickListener {
 
+            if (!::imageFile.isInitialized) {
+                val category = Category(
+                    id.toInt(),
+                    name.text.toString(),
+                    0,
+                    "0"
+                )
+                categoryViewProvider.updateCategoryWithoutImage(
+                    id.toInt(),
+                    category
+                ).observe(this) { }
+            } else {
+                val requestBodyName = RequestBody.create(
+                    MediaType.parse("multipart/form-data"),
+                    name.text.toString()
+                )
+                val requestBodyImage = RequestBody.create(
+                    MediaType.parse("multipart/form-data"),
+                    imageFile
+                )
+                val multipartBody = MultipartBody.Part.createFormData(
+                    "image",
+                    imageFile.name,
+                    requestBodyImage
+                )
+                categoryViewProvider.updateCategory(
+                    id.toInt(),
+                    requestBodyName,
+                    multipartBody
+                ).observe(this) {}
+            }
+
             val intent = Intent(this, Categories::class.java)
             startActivity(intent)
         }
@@ -59,13 +100,48 @@ class EditCategory : AppCompatActivity() {
         }
 
         findViewById<Button>(R.id.editCategory_disableBtn).setOnClickListener {
-            if (category.getIsDisable() == 1)
-                categoryViewProvider.enableCategory(id.toInt()).observe(this) {}
-            else {
-                categoryViewProvider.disableCategory(id.toInt()).observe(this) {}
+            val builder = AlertDialog.Builder(this)
+            builder.setMessage("Bạn có chắc chắn muốn ${disableBtn.text} danh mục này?")
+            builder.setCancelable(true)
+
+            builder.setNegativeButton("Có") { dialog, _ ->
+                if (category.getIsDisable() == 1)
+                    categoryViewProvider.enableCategory(id.toInt()).observe(this) {}
+                else {
+                    categoryViewProvider.disableCategory(id.toInt()).observe(this) {}
+                }
+                val intent = Intent(this, Categories::class.java)
+                startActivity(intent)
+                dialog.cancel()
             }
-            val intent = Intent(this, Categories::class.java)
-            startActivity(intent)
+
+            builder.setPositiveButton("Không") { dialog, _ ->
+                dialog.cancel()
+            }
+
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.show()
+        }
+
+        findViewById<Button>(R.id.editCategory_deleteBtn).setOnClickListener {
+            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+            builder.setMessage("Bạn có chắc chắn muốn xóa danh mục này?")
+
+            builder.setCancelable(true)
+
+            builder.setNegativeButton("Có") { dialog, _ ->
+                categoryViewProvider.deleteCategory(id.toInt()).observe(this) {}
+                val intent = Intent(this, Categories::class.java)
+                startActivity(intent)
+                dialog.cancel()
+            }
+
+            builder.setPositiveButton("Không") { dialog, _ ->
+                dialog.cancel()
+            }
+
+            val alertDialog: AlertDialog = builder.create()
+            alertDialog.show()
         }
 
         imageBtn.setOnClickListener {
@@ -74,10 +150,10 @@ class EditCategory : AppCompatActivity() {
     }
 
     private fun onCLickRequestPermission() {
-        if (checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_DENIED) {
+        if (checkSelfPermission(android.Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_DENIED) {
             openGallery()
         } else {
-            val permission = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+            val permission = arrayOf(android.Manifest.permission.READ_MEDIA_IMAGES)
             requestPermissions(permission, REQUEST_CODE)
         }
     }
