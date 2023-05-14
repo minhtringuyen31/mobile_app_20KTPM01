@@ -17,7 +17,6 @@ import com.example.myapplication.pages.fragments.Order
 class CategoryApdapter(private val context: Homepage, private val categories: ArrayList<Category>) :
     RecyclerView.Adapter<CategoryApdapter.ViewHolder>() {
     lateinit var view:View
-
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val imageView = view.findViewById(R.id.image_categories) as ImageView
         val name = view.findViewById(R.id.name_categories) as TextView
@@ -53,6 +52,7 @@ class CategoryApdapter(private val context: Homepage, private val categories: Ar
     override fun getItemCount(): Int {
         return categories.size
     }
+
 
     fun addCategory(categories: ArrayList<Category>) {
         this.categories.apply {

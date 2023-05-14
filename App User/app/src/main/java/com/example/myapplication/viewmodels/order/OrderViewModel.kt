@@ -21,13 +21,14 @@ class OrderViewModel :ViewModel(){
 
     private val _newOrderProduct = MutableLiveData<OrderProduct>()
     val newOrderProduct: LiveData<OrderProduct> = _newOrderProduct
-    fun getAllOrder() {
+    fun getAllOrder(userId : Int ) {
         // App 2 thread; MainThread(UI Thread) và Background Thread --> ANR
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = Utils.getRetrofit().create(OrderService::class.java).getAllOrder()
+                val response = Utils.getRetrofit().create(OrderService::class.java).getOrder(userId)
                 _orderProduct.postValue(response) // để đảm bảo rằng các giá trị được cập nhật trên luồng phụ (background thread).
                 println(response)
+//                println(_orderProduct)
             } catch (e: Exception) {
                 // handle error
             }

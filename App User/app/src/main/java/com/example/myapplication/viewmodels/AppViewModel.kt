@@ -6,6 +6,7 @@ import com.example.myapplication.modals.*
 import com.example.myapplication.pages.fragments.OnGoingOrder
 import com.example.myapplication.viewmodels.cart.CartItemViewModel
 import com.example.myapplication.viewmodels.category.CategoryViewModel
+import com.example.myapplication.viewmodels.order.OrderProductViewModel
 import com.example.myapplication.viewmodels.order.OrderViewModel
 import com.example.myapplication.viewmodels.product.ProductViewModel
 import com.example.myapplication.viewmodels.product.RatingViewModel
@@ -23,6 +24,7 @@ class AppViewModel:ViewModel() {
     private  lateinit var cartItemViewModel: CartItemViewModel
     private lateinit var ratingViewModel: RatingViewModel
     private lateinit var orderViewModel: OrderViewModel
+    private lateinit var orderProductViewModel: OrderProductViewModel
 
 
      fun setUpViewModel(view: View,viewModelStoreOwner: ViewModelStoreOwner) {
@@ -87,16 +89,33 @@ class AppViewModel:ViewModel() {
         }
     }
 
-    fun setUpOrderViewModel(viewModelStoreOwner: ViewModelStoreOwner){
+
+
+    fun setUpOrderViewModel(viewModelStoreOwner: ViewModelStoreOwner, userId: Int){
         viewModelScope.launch {
             withContext(Dispatchers.Main) {
                 orderViewModel = ViewModelProvider(viewModelStoreOwner)[OrderViewModel::class.java]
-                orderViewModel.getAllOrder()
+                orderViewModel.getAllOrder(userId)
             }
         }
     }
+
     fun getOrderViewModel(): OrderViewModel {
         return orderViewModel;
+    }
+
+
+    fun setUpOrderProductViewModel(viewModelStoreOwner: ViewModelStoreOwner, orderId: Int){
+        viewModelScope.launch {
+            withContext(Dispatchers.Main) {
+                orderProductViewModel = ViewModelProvider(viewModelStoreOwner)[OrderProductViewModel::class.java]
+                orderProductViewModel.getAllProductOfOrder(orderId)
+            }
+        }
+    }
+
+    fun getOrderProductViewModel():OrderProductViewModel{
+        return orderProductViewModel
     }
 
     fun setUpRatingViewMode(viewModelStoreOwner: ViewModelStoreOwner, productId:Int){

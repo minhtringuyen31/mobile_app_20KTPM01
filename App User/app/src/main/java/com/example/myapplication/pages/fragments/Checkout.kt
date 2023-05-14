@@ -18,7 +18,6 @@ import androidx.core.view.get
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.myapplication.MainActivity
@@ -27,7 +26,6 @@ import com.example.myapplication.checkout.CreateOrder
 import com.example.myapplication.modals.CartItem
 import com.example.myapplication.pages.activities.promotion.ListPromotion
 import com.example.myapplication.pages.apdaters.CheckoutApdater
-import com.example.myapplication.socket.SocketHandler
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.order.CheckoutViewModel
@@ -50,7 +48,6 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.time.format.DateTimeParseException
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -73,7 +70,7 @@ class Checkout : Fragment() {
     private lateinit var checkoutAdapter: CheckoutApdater
     private lateinit var itemCheckoutListView: ListView
     private lateinit var btnCheckout:TextView
-    private lateinit var getandShowPercent:TextView
+
     private val checkoutViewModel:CheckoutViewModel by activityViewModels()
     private lateinit var cancelCheckout:TextView
     private lateinit var back_checkout:ImageView
@@ -93,7 +90,10 @@ class Checkout : Fragment() {
     private var selectedAddressBoolean:Boolean=true
     private lateinit var phoneUser:TextView
     private lateinit var updatePhone:TextView
-    private lateinit var sharedPreferences:SharedPreferences
+    private lateinit var sharedPreferencesAdress:SharedPreferences
+    private lateinit var sharedPreferencesTime:SharedPreferences
+    private lateinit var sharedPreferencesPhone:SharedPreferences
+    private lateinit var sharedPreferencesUser:SharedPreferences
     private  var gson=Gson()
     private  val type: Type = object : TypeToken<ArrayList<String>>() {}.type
     private var carts: String? = null
@@ -108,6 +108,13 @@ class Checkout : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+    }
+    fun updateVoucher(percent1:String,idPromotion:String){
+        var getandShowPercent = view.findViewById<TextView>(R.id.getandShowPercent);
+        getandShowPercent.text = " - "+(percent1.toDouble()/100).toString() + " % "
+        checkoutViewModel.setPercentVoucher(percent1.toDouble()/100)
+        checkoutViewModel.setpromontionID(idPromotion)
+        total.text =  Utils.formatCurrency( (checkoutViewModel.subTotal.value!!-(checkoutViewModel.subTotal.value!!*checkoutViewModel.getPercentVoucher()))) + " đ"
     }
 
     @SuppressLint("ResourceAsColor", "SimpleDateFormat")
@@ -140,14 +147,14 @@ class Checkout : Fragment() {
                     val currentDate = sdf.format(Date())
                     if(currentDate.contains(_date)) {
                         timeCheckout.text = "Hôm nay | $_time";
-                        sharedPreferences = view.context.getSharedPreferences("timeShip", AppCompatActivity.MODE_PRIVATE)
+                        sharedPreferencesTime = view.context.getSharedPreferences("timeShip", AppCompatActivity.MODE_PRIVATE)
 
                     }
                     else {
                         timeCheckout.text=outputDate
 
                     }
-                    sharedPreferences.edit().putString("time", timeCheckout.text.toString()).apply()
+                    sharedPreferencesTime.edit().putString("time", timeCheckout.text.toString()).apply()
 
                 } catch (e: DateTimeParseException) {
                     println("Error parsing date: $e")
@@ -162,14 +169,19 @@ class Checkout : Fragment() {
 
         println(checkoutViewModel)
 
+
+
         view=inflater.inflate(R.layout.fragment_checkout, container, false)
         val policy = ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
         // ZaloPay SDK Init
         ZaloPaySDK.init(554, Environment.SANDBOX)
         (activity as MainActivity).showToolbarAndNavigationBar(false)
-        sharedPreferences = view.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
-        carts= sharedPreferences.getString("nameAddress", "").toString()
+
+
+        sharedPreferencesAdress = view.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
+        carts= sharedPreferencesAdress.getString("nameAddress", "").toString()
+
         if (carts == "") {
             dataItem = arrayListOf()
 
@@ -180,13 +192,11 @@ class Checkout : Fragment() {
         initUI(view)
         setupObserve()
         println(checkoutViewModel)
+
         return view
     }
     @SuppressLint("InflateParams")
     fun initUI(view:View){
-
-
-
         showAddress = view.findViewById(R.id.showAddress)
         cancelCheckout = view.findViewById(R.id.cancelCheckout)
         addressCheckout= view.findViewById(R.id.add_Address)
@@ -197,7 +207,6 @@ class Checkout : Fragment() {
         addItem= view.findViewById(R.id.addItems)
         discount= view.findViewById(R.id.addDiscount)
         updatePhone=view.findViewById(R.id.updatePhone)
-        getandShowPercent= view.findViewById(R.id.getandShowPercent)
         itemCheckoutListView = view.findViewById(R.id.listItemCheckout)
         checkoutAdapter = CheckoutApdater(arrayListOf(),this,view.context)
         itemCheckoutListView.adapter=checkoutAdapter
@@ -206,8 +215,8 @@ class Checkout : Fragment() {
         methodSelected= view.findViewById(R.id.methodSelected)
         toggleAddress = view.findViewById(R.id.toggleAddress)
         phoneUser = view.findViewById(R.id.phoneUser)
-        sharedPreferences = view.context.getSharedPreferences("timeShip", AppCompatActivity.MODE_PRIVATE)
-        val time=sharedPreferences.getString("time","Current time")
+        sharedPreferencesTime = view.context.getSharedPreferences("timeShip", AppCompatActivity.MODE_PRIVATE)
+        val time=sharedPreferencesTime.getString("time","Current time")
 
         if(time!="Current time") {
             timeCheckout.text = time;
@@ -216,8 +225,8 @@ class Checkout : Fragment() {
         else{
             timeCheckout.text = "Hôm nay| Trong 15 phút";
         }
-        sharedPreferences = view.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
-        val address=sharedPreferences.getString("addressSelected","Address")
+        val sharedPreferences_address = view.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
+        val address=sharedPreferences_address.getString("addressSelected","Address")
         if(address!="Address") {
             toggleAddress.text = address
         }
@@ -227,12 +236,16 @@ class Checkout : Fragment() {
         }
 
     }
+
+
+
     private fun setUpViewModel(){
 //        checkoutViewModel =ViewModelProvider(this)[CheckoutViewModel::class.java]
         orderViewModel = ViewModelProvider(this)[OrderViewModel::class.java]
     }
     @SuppressLint("SetTextI18n", "SuspiciousIndentation")
     private fun setupObserve(){
+
         btnShowBottomSheet.setOnClickListener {
             val dialog = BottomSheetDialog(view.context)
             val viewitem = layoutInflater.inflate(R.layout.payment_method_layout, null)
@@ -260,6 +273,7 @@ class Checkout : Fragment() {
             checkoutViewModel.subTotal.value=subtotal
             subTotal.text= Utils.formatCurrency(checkoutViewModel.subTotal.value!!) + " đ"
 
+            println(checkoutViewModel.getPercentVoucher())
             total.text =  Utils.formatCurrency( (checkoutViewModel.subTotal.value!!-(checkoutViewModel.subTotal.value!!*checkoutViewModel.getPercentVoucher()))) + " đ"
             checkoutAdapter.apply {
                 addItems(items)
@@ -277,9 +291,11 @@ class Checkout : Fragment() {
                 // Sử dụng phương thức onBackPressed() của Activity để quay lại Activity trước đó
                 activity.onBackPressed()
             }
+            checkoutViewModel.setPercentVoucher(0.0)
+
         }
-        val sharedPreferences = view.context.getSharedPreferences("phone", AppCompatActivity.MODE_PRIVATE)
-        val phoneShare= sharedPreferences.getString("phoneUser","Số điện thoại")
+            sharedPreferencesPhone = view.context.getSharedPreferences("phone", AppCompatActivity.MODE_PRIVATE)
+        val phoneShare= sharedPreferencesPhone.getString("phoneUser","Số điện thoại")
         if(phoneShare!="Số điện thoại")
         {
             phoneUser.text=phoneShare
@@ -315,19 +331,17 @@ class Checkout : Fragment() {
                                 appTransID: String
                             ) {
 
-                                println(transactionId)
-                                println(appTransID)
-                                println(transToken)
                                 SweetAlertDialog(view.context, SweetAlertDialog.SUCCESS_TYPE)
                                     .setTitleText("Đặt hàng thành công")
                                     .setContentText("Quay trở lại trang Order để theo dõi đơn hàng")
                                     .setConfirmText("Đồng ý")
                                     .setConfirmClickListener { sDialog ->
-                                        sDialog.dismissWithAnimation()
+
                                         (view.context as FragmentActivity).supportFragmentManager
                                             .beginTransaction()
                                             .replace(R.id.flFragment, Activities(),"Activities").addToBackStack(null)
                                             .commit()
+                                        sDialog.dismissWithAnimation()
                                     }.show()
 
 
@@ -366,7 +380,7 @@ class Checkout : Fragment() {
             {
                 SweetAlertDialog(view.context, SweetAlertDialog.WARNING_TYPE)
                     .setTitleText("Hãy chọn địa chỉ giao hàng ")
-                    .setContentText("Vui lòng kiểm tra lại")
+                    .setContentText("Vui lòng xác nhận lại địa chỉ giao hàng và số điện thoại")
                     .setConfirmText("Đồng ý")
                     .setConfirmClickListener { sDialog ->
                         sDialog.dismissWithAnimation()
@@ -382,18 +396,19 @@ class Checkout : Fragment() {
 //                .beginTransaction()
 //                .replace(R.id.flFragment, Order(),"Order").addToBackStack(null)
 //                .commit()
-//            val address = checkoutViewModel.getAddress()
+            val address = checkoutViewModel.getAddress()
 //
-//                view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
-//            val userID = sharedPreferences.getString("userID", "")
-//            val newOrder =com.example.myapplication.modals.Order(userID!!.toInt(),checkoutViewModel.getTime(),address,Utils.getDigitInString(total.text.toString()),0,1,3)
-//            orderViewModel.createOrder(newOrder,cartItemCallAPI)
+            val id = view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
+            val userID = id.getString("userID", "")
+            println(userID)
+            val newOrder =com.example.myapplication.modals.Order(userID!!.toInt(),checkoutViewModel.getTime(),address,Utils.getDigitInString(total.text.toString()),0,checkoutViewModel.getPromotionID(),3)
+            orderViewModel.createOrder(newOrder,cartItemCallAPI)
 
-            SocketHandler.setSocket()
-            SocketHandler.establishConnection()
-            mSocket = SocketHandler.getSocket()
-            
-            mSocket.emit("newOrder","[1,2,3]")
+//            SocketHandler.setSocket()
+//            SocketHandler.establishConnection()
+//            mSocket = SocketHandler.getSocket()
+//
+//            mSocket.emit("newOrder","[1,2,3]")
 
         }
         addressCheckout.setOnClickListener {
@@ -424,8 +439,10 @@ class Checkout : Fragment() {
                 view.context,
                 ListPromotion::class.java
             )
-            intent.putExtra("from","Checkout")
+            intent.putExtra("source","checkout")
+            checkoutViewModel.setPercentVoucher(0.0)
             startActivity(intent)
+
         }
     }
     fun handleNewIntent(intent: Intent?) {
@@ -464,12 +481,12 @@ class Checkout : Fragment() {
             addAddres.setOnClickListener(View.OnClickListener {
                 dataItem.add(edtAddress.text.toString())
                 adddressAdapter.addAddress(dataItem)
-                sharedPreferences.edit().putString("nameAddress", gson.toJson(dataItem)).apply()
+                sharedPreferencesAdress.edit().putString("nameAddress", gson.toJson(dataItem)).apply()
                 edtAddress.text.clear()
             })
             selectedAddress.setOnClickListener {
                     toggleAddress.text = checkoutViewModel.getAddress()
-                    sharedPreferences.edit().putString("addressSelected",toggleAddress.text.toString()).apply()
+                sharedPreferencesAdress.edit().putString("addressSelected",toggleAddress.text.toString()).apply()
                     dialog.dismiss()
             }
             addressListView.onItemClickListener =
@@ -554,7 +571,7 @@ class Checkout : Fragment() {
                     it!=item
                 } as ArrayList
                 adddressAdapter.addAddress(dataItem)
-                sharedPreferences.edit().putString("nameAddress", gson.toJson(dataItem)).apply()
+                sharedPreferencesAdress.edit().putString("nameAddress", gson.toJson(dataItem)).apply()
             }
 
 

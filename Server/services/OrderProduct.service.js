@@ -2,7 +2,7 @@ import OrderProductRepository from '../repositories/OrderProduct.repository.js';
 const OrderProductServices = {
   // Đừng thắc mắc tại sao không gọi trực tiếp từ Respository --> Respository chỉ nơi CRUD database, còn services mình tự implement tuy thuộc vào yêu cầu !!
   async create(note, order_id, product_id, quantity, price, size, topping) {
-  
+
     console.log(note, order_id, product_id, quantity, price, size, topping);
     return await OrderProductRepository.create(
       note,
@@ -34,9 +34,11 @@ const OrderProductServices = {
   async findAll() {
     return await OrderProductRepository.findAll();
   },
-  async findOrderProductByOrderId(order_id) {
-    return await OrderProductRepository.findAllByOrderID(order_id);
-  },
+  async findProductOrder(orderId) {
+    return await OrderProductRepository.findProductOrder(orderId)
+  }
+
+
   // Cần method gì thì tự implements !!
 };
 export default OrderProductServices;

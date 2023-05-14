@@ -1,6 +1,7 @@
 import DB from '../configs/db.js';
 const CartItemRepository = {
   async create(user_id, cart_id, product_id, quantity, size, price, topping, notes) {
+    console.log("CartItemRepo" + user_id + cart_id + product_id + quantity + size, price + topping + notes)
     const query = `INSERT INTO cart_item (user_id, cart_id, product_id, quantity, size, price,topping,notes) VALUES (?, ?, ?, ?, ?,?,?,?)`;
     const values = [
       user_id,

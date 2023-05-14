@@ -56,16 +56,22 @@ class OrderListAdapter(
         val orderDate = holder.orderDate
         val orderPrice = holder.orderPrice
 
-        orderId.text = onGoingOrder.getId().toString()
+        orderId.text = "Mã đơn hàng "+ onGoingOrder.getId().toString().hashCode()
         orderAddressShipping.text = onGoingOrder.getShippingAddress()
         orderDate.text = onGoingOrder.getOrderDate()
         orderPrice.text = onGoingOrder.getTotal().toString()
 
 //        orderAddressShipping.text = onGoingOrder.getShippingAddress()
         if(onGoingOrder.getStatus() == 0){
-            orderStatus.text = "Sản phẩm đang được giao"
-        } else {
-            orderStatus.text = "Sản phẩm đã giao thành công"
+            orderStatus.text = "Đơn hàng chờ xác nhận"
+        } else if(onGoingOrder.getStatus() == 1){
+            orderStatus.text = "Xác nhận đơn hàng!Đang trên đường tới bạn!"
+        }
+        else if(onGoingOrder.getStatus() == 2){
+            orderStatus.text = "Đơn hàng giao thành công"
+        }
+        else if(onGoingOrder.getStatus() == -1){
+            orderStatus.text = "Đơn hàng bị huỷ"
         }
 //        orderDate.text = onGoingOrder.getOrderDate()
 //        orderPrice.text = onGoingOrder.getTotal().toString()

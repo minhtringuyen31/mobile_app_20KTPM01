@@ -38,7 +38,7 @@ class CheckoutApdater(
     }
 
 
-    @SuppressLint("ViewHolder")
+    @SuppressLint("ViewHolder", "SuspiciousIndentation")
     override fun getView(
         position: Int,
         convertView: View?,

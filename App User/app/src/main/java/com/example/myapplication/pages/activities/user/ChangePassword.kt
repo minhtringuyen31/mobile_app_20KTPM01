@@ -41,7 +41,7 @@ class ChangePassword : AppCompatActivity() {
         button_changepass.setOnClickListener {
             val changePassRequest= ChangePassRequest(changepass_newpass.text.toString(),changepass_confirm.text.toString())
             changePassViewModel= ViewModelProvider(this)[ChangePassViewModel::class.java]
-            val sharedPreferences: SharedPreferences =getSharedPreferences("my_preference_name", MODE_PRIVATE)
+            val sharedPreferences: SharedPreferences =getSharedPreferences("user", MODE_PRIVATE)
             val userID = sharedPreferences.getString("userID", "")
             if (userID != null) {
                 changePassViewModel.ChangePass(userID.toInt(),changePassRequest)
@@ -49,7 +49,6 @@ class ChangePassword : AppCompatActivity() {
             changePassViewModel.changePass.observe(this, Observer{
                 it?.let { resource ->
                     when (resource.status) {
-
                         Status.SUCCESS -> {
                             Toast.makeText(this,"Cập nhật thành công!", Toast.LENGTH_LONG).show()
                         }

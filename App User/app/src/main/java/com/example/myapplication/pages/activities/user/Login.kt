@@ -1,6 +1,7 @@
 package com.example.myapplication.pages.activities.user
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 
 import android.widget.*
@@ -12,11 +13,10 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 
 import com.example.myapplication.modals.LoginRequest
-import com.example.myapplication.pages.activities.promotion.ListPromotion
-import com.example.myapplication.pages.activities.store.IntroductionStore
 import com.example.myapplication.utils.Status
 import com.example.myapplication.viewmodels.authen.LoginViewModel
 import com.example.myapplication.viewmodels.authen.SignupViewModel
+import com.example.myapplication.viewmodels.user.UserViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -38,6 +38,7 @@ class Login : AppCompatActivity() {
     private lateinit var gsc:GoogleSignInClient
     private lateinit var signupViewModel: SignupViewModel
     private var account:GoogleSignInAccount ? = null
+    private lateinit var UserProfile: UserViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,20 +51,6 @@ class Login : AppCompatActivity() {
         loginGG = findViewById(R.id.login_gg)
         routeForgotPassword=findViewById(R.id.route_forgotpassword)
 
-
-
-
-//        mSocket.on("send-data") { args ->
-//            if (args[0] != null) {
-//                val counter = args[0]
-//                println(counter)
-//
-//            }
-//        }
-
-
-
-
          gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
              .requestIdToken("315513977204-r4d598sk0sv9fifrhefveulu7ksi8fsg.apps.googleusercontent.com")
             .requestEmail()
@@ -72,21 +59,16 @@ class Login : AppCompatActivity() {
         gsc = GoogleSignIn.getClient(this, gso);
          account = GoogleSignIn.getLastSignedInAccount(this)
         if(account!=null){
-
             gotoHomePage();
-
-
         }
         loginGG.setOnClickListener {
            gotoSignIn()
 
         }
 
-
-
         buttonLogin.setOnClickListener {
-
-
+            val preferences: SharedPreferences = this.getSharedPreferences("user", 0)
+            preferences.edit().remove("userID").apply()
             val loginRequest =
                 LoginRequest(login_phone.text.toString(), login_pass.text.toString(), 0);
             loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
@@ -96,7 +78,7 @@ class Login : AppCompatActivity() {
                     when (resource.status) {
 
                         Status.SUCCESS -> {
-                            Toast.makeText(this,"Đăng nhập thành công!", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this,"Đăng nhập thành công!", Toast.LENGTH_SHORT).show()
                             val intent = Intent(
                                 this,
                                 MainActivity::class.java
@@ -108,6 +90,14 @@ class Login : AppCompatActivity() {
                             val editor = sharedPreferences.edit()
                             editor.putString("userID", resource.data?.getUserID().toString())
                             editor.apply()
+                            UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
+                            UserProfile.getUser( resource.data?.getUserID()!!.toInt())
+                            UserProfile.user.observe(this) {
+                                val editor = sharedPreferences.edit()
+                                editor.putString("name",it.getName() )
+                                editor.putString("phone",it.getPhone() )
+                                editor.apply()
+                            };
                             finish();
                         }
                         Status.ERROR -> {
@@ -119,11 +109,11 @@ class Login : AppCompatActivity() {
                                 Toast.makeText(this, "Không được để trống mật khẩu", Toast.LENGTH_SHORT).show()
                             }
                             else{
-                            Toast.makeText(this, "Sai mật khẩu hoặc tài khoản. Nếu nó đúng, hãy kiểm tra kết nối.", Toast.LENGTH_LONG).show()
-                        }
+                            Toast.makeText(this, "Sai mật khẩu hoặc tài khoản. Nếu nó đúng, hãy kiểm tra kết nối.", Toast.LENGTH_SHORT).show()
+                            }
                         }
                         Status.LOADING -> {
-                            Toast.makeText(this, "Đang đọc dữ liệu", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Đang đọc dữ liệu", Toast.LENGTH_SHORT).show()
                         }
                         else -> {
 
@@ -153,6 +143,10 @@ class Login : AppCompatActivity() {
 
         }
         fun gotoSignIn(){
+            val preferences: SharedPreferences = this.getSharedPreferences("user", 0)
+            preferences.edit().remove("userID").apply()
+            preferences.edit().remove("name").apply()
+            preferences.edit().remove("phone").apply()
             val signInIntent: Intent = gsc.getSignInIntent()
             startActivityForResult(signInIntent, 1000)
 
@@ -189,8 +183,15 @@ class Login : AppCompatActivity() {
                                     val editor = sharedPreferences.edit()
                                     editor.putString("userID", resource.data?.getUserID().toString())
                                     editor.apply()
+                                    UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
+                                    UserProfile.getUser( resource.data?.getUserID()!!.toInt())
+                                    UserProfile.user.observe(this) {
+                                            val editor = sharedPreferences.edit()
+                                            editor.putString("name",it.getName() )
+                                            editor.putString("phone",it.getPhone() )
+                                            editor.apply()
+                                    };
                                     finish();
-
 
                                 }
                                 Status.ERROR -> {
@@ -228,6 +229,7 @@ class Login : AppCompatActivity() {
         )
         intent.putExtra("status","1")
         startActivity(intent)
+
         finish();
     }
 

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager.widget.ViewPager
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.pages.apdaters.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
@@ -50,7 +51,7 @@ class Activities : Fragment(){
     ): View? {
         view=inflater.inflate(R.layout.fragment_activities, container, false)
         // Inflate the layout for this fragment
-
+        (activity as MainActivity).showToolbarAndNavigationBar(true)
         initUI(view)
         return view;
     }
@@ -64,8 +65,18 @@ class Activities : Fragment(){
         requireFragmentManager().beginTransaction()
             .add(OnGoingOrder(),"OnGoing")
             .addToBackStack("Homepage").commit()
-        adapter.addFragment(fragmentOnGoing, "On Going ")
-        adapter.addFragment(fragmentHistory, "History Order")
+        val fragmentConfirmOrder: Fragment = ConfirmOrder()
+        requireFragmentManager().beginTransaction()
+            .add(OnGoingOrder(),"Confirm")
+            .addToBackStack("Homepage").commit()
+        val fragmentCancel: Fragment = CancelOrder()
+        requireFragmentManager().beginTransaction()
+            .add(OnGoingOrder(),"Cancel")
+            .addToBackStack("Homepage").commit()
+        adapter.addFragment(fragmentOnGoing, "Đang xử lý")
+        adapter.addFragment(fragmentConfirmOrder, "Đơn hàng được xác nhận")
+        adapter.addFragment(fragmentHistory, "Giao hàng thành công")
+        adapter.addFragment(fragmentCancel, "Khác")
 
         viewPager.adapter = adapter
     }
@@ -73,7 +84,7 @@ class Activities : Fragment(){
     fun initUI(view: View){
         tabLayout = view.findViewById(R.id.tabLayout)
         viewPager = view.findViewById(R.id.viewPager)
-        viewPager?.offscreenPageLimit = 2;
+        viewPager?.offscreenPageLimit = 4;
         viewPager?.let { setupViewPager(it) }
 
         tabLayout?.setupWithViewPager(viewPager)

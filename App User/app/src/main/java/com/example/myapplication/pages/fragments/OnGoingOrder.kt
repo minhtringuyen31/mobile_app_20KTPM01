@@ -1,11 +1,15 @@
 package com.example.myapplication.pages.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -37,6 +41,7 @@ class OnGoingOrder : Fragment() {
     private lateinit var layoutManager: RecyclerView.LayoutManager
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -55,16 +60,22 @@ class OnGoingOrder : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_on_going_order, container, false)
 
-        setUpObserve();
+        val sharedPreferences: SharedPreferences =
+            view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
+        val userID = sharedPreferences.getString("userID", "").toString().toInt()
+
+        setUpObserve(userID);
         initUI(view)
 
         println("On Going")
         return view
     }
 
+    //0-
 
 
     private fun initUI(view: View){
+
         onGoingOrderListRecyclerView = view.findViewById(R.id.onGoingOderListRV)
         onGoingOrderListAdapter = OrderListAdapter(arrayListOf())
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -75,16 +86,19 @@ class OnGoingOrder : Fragment() {
                 requireContext(),
                 OrderDetail::class.java
             )
-            intent.putExtra("orderId", order.getId())
-            intent.putExtra("orderPromotion", order.getPromotionId())
-            intent.putExtra("orderTotalPrice", order.getTotal())
+            intent.putExtra("orderId", order.getId().toString())
+            println("Order ID " + order.getId())
+            intent.putExtra("orderPromotion", order.getPromotionId().toString())
+            intent.putExtra("orderTotalPrice", order.getTotal().toString())
+            intent.putExtra("orderStatus", order.getStatus().toString())
+            intent.putExtra("paymentMethodID", order.getPaymentMethodId().toString())
             startActivity(intent)
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun setUpObserve(){
-        appModel.setUpOrderViewModel(this);
+    private fun setUpObserve(userId: Int){
+        appModel.setUpOrderViewModel(this, userId);
         appModel.getOrderViewModel().orderProduct.observe(viewLifecycleOwner){
             onGoingOrderListAdapter.addOrders(it.filter { it.getStatus()==0 } as ArrayList<Order>) ;
             onGoingOrderListAdapter.notifyDataSetChanged();

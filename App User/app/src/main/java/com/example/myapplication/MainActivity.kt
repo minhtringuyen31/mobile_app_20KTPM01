@@ -16,22 +16,20 @@ import android.view.MenuInflater
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.modals.*
 import com.example.myapplication.pages.fragments.*
 import com.example.myapplication.pages.fragments.Order
 import com.example.myapplication.socket.SocketHandler
-import com.example.myapplication.viewmodels.order.CheckoutViewModel
-import com.example.myapplication.viewmodels.user.UserViewModel
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.messaging.FirebaseMessaging
 import io.socket.client.Socket
 import java.io.IOException
 import java.util.*
@@ -42,10 +40,19 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView:BottomNavigationView
     private lateinit var currentFragment: FrameLayout
     private lateinit var mSocket: Socket
-    private lateinit var UserProfile: UserViewModel
 
 
-
+    private fun handleTokenFirebase(){
+        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+            if (!task.isSuccessful) {
+                return@OnCompleteListener
+            }
+            // Get new FCM registration token
+            val token = task.result
+            // Log and toast
+            println(token)
+        })
+    }
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -121,18 +128,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
+
+
+        setContentView(R.layout.activity_main)
         val intentStatus = intent
 
 
         val status=intentStatus.getStringExtra("status")
-        val forward=intentStatus.getStringExtra("to")
-        val percent  = intent.getStringExtra("percent")
 
-
-        setContentView(R.layout.activity_main)
         toolbar = findViewById(R.id.myToolBar)
         bottomNavigationView = findViewById(R.id.bottom_nav)
         currentFragment= findViewById(R.id.flFragment)
+//        handleTokenFirebase()
         SocketHandler.setSocket()
         SocketHandler.establishConnection()
         mSocket = SocketHandler.getSocket()
@@ -146,25 +153,14 @@ class MainActivity : AppCompatActivity() {
             if (args[0] != null) {
                 val counter = args[0]
                 showNotification()
-                setCurrentFragment(Activities(),"Activities")
             }
         }
+
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("user", MODE_PRIVATE)
         val userID = sharedPreferences.getString("userID", null)
-        UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
-        if (userID != null) {
-            UserProfile.getUser(userID.toInt())
-            UserProfile.user.observe(this) {
-                val editor = sharedPreferences.edit()
-                editor.putString("name",it.getName() )
-                editor.putString("phone",it.getPhone() )
-                editor.apply()
-            }
-        };
-
-
         if (userID != null&& userID.isNotEmpty()) {
             mSocket.emit("login",userID)
+
             setCurrentFragment(Homepage(),"Homepage")
             activeNavigationBar()
         }else
@@ -186,13 +182,15 @@ class MainActivity : AppCompatActivity() {
                     .commit()
             }
         }
-        if(forward == "Checkout"){
-            setCurrentFragment(Checkout(),"Checkout")
 
-        }
-        if(forward == "Orders"){
-            setCurrentFragment(Order(),"Order")
-        }
+
+
+
+
+
+
+
+
 
     }
     override fun onNewIntent(intent: Intent?) {
@@ -207,8 +205,23 @@ class MainActivity : AppCompatActivity() {
         }
         if (intent!!.getStringExtra("FragmentToOpen")=="Activities") {
             setCurrentFragment(Activities(),"Activities")
-
         }
+        val percent=intent.getStringExtra("percent")
+        val des=intent.getStringExtra("to")
+        val idPromotion=intent.getStringExtra("idPromotion")
+
+        if(des=="Orders")
+        {
+            setCurrentFragment(Order(),"Orders")
+        }
+        else if(des=="Checkout")
+        {
+            val fm = supportFragmentManager
+            val fragment: Checkout =
+                fm.findFragmentByTag("checkout") as Checkout
+            fragment.updateVoucher(percent!!,idPromotion!!)
+        }
+
 
     }
     fun showToolbarAndNavigationBar(status:Boolean){
@@ -250,7 +263,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.icon_other -> {
                     showToolbarAndNavigationBar(false)
                     showNavigationBar(true)
-                    setCurrentFragment(Others(),"Order")
+                    setCurrentFragment(Others(),"Others")
                 }
             }
             true
@@ -264,20 +277,21 @@ class MainActivity : AppCompatActivity() {
         inflater.inflate(R.menu.menu,menu)
         return true
     }
-    private fun setCurrentFragment(fragment: Fragment,tag:String)=
+     fun setCurrentFragment(fragment: Fragment,tag:String)=
         supportFragmentManager.beginTransaction().apply {
-            replace(R.id.flFragment,fragment,tag)
+            replace(R.id.flFragment,fragment,tag).addToBackStack(null)
             commit()
         }
     override fun onDestroy() {
         super.onDestroy()
-        // Đóng kết nối socket ở đây
-        try {
-            mSocket.close()
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
+//        // Đóng kết nối socket ở đây
+//        try {
+//            mSocket.close()
+//        } catch (e: IOException) {
+//            e.printStackTrace()
+//        }
     }
+
 
 
 

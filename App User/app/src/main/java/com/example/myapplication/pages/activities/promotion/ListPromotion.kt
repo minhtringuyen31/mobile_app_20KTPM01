@@ -39,7 +39,8 @@ class ListPromotion : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_promotion)
-        val forward = intent
+        val forward = intent.getStringExtra("source")
+        println(forward)
         promotionRecycleview = findViewById(R.id.recycleview_promotion)
         promotionRecycleview.setHasFixedSize(true)
         promotionRecycleview.layoutManager = LinearLayoutManager(this)
@@ -63,12 +64,11 @@ class ListPromotion : AppCompatActivity() {
         promotionAdapterList.onItemClick = { promotion->
             val intent = Intent(this, DetailPromotion::class.java)
             intent.putExtra("promotion", promotion as Parcelable)
-            intent.putExtra("from", forward.getStringExtra("from"))
+            intent.putExtra("source",forward);
             startActivityForResult(intent, REQUEST_CODE_DETAIL_PROMOTION)
         }
        back_btn=findViewById(R.id.back_btn2)
         back_btn.setOnClickListener {
-
             val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.putExtra("FragmentToLoad", "Others")

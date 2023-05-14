@@ -104,6 +104,7 @@ class Others : Fragment() {
                 view.context,
                 ListPromotion::class.java
             )
+            intent.putExtra("source","Others")
             startActivity(intent)
         }
 
@@ -125,6 +126,8 @@ class Others : Fragment() {
             gsc.signOut();
             val preferences: SharedPreferences = view.context.getSharedPreferences("user", 0)
             preferences.edit().remove("userID").apply()
+            preferences.edit().remove("name").apply()
+            preferences.edit().remove("phone").apply()
 
             //---
             //auth.signOut()

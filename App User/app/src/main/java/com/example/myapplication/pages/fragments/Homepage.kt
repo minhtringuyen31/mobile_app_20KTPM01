@@ -8,6 +8,7 @@ import android.os.Parcelable
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
@@ -59,6 +60,7 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnI
     private lateinit var promotionAdapter: PromotionApdapter
     private lateinit var counterFab :CounterFab
     private lateinit var view:View
+    private lateinit var progressBar: ProgressBar
     private val appModel: AppViewModel by activityViewModels()
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
 
@@ -106,6 +108,7 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnI
             }
     }
     private fun initUI(view: View) {
+        progressBar = view.findViewById(R.id.showLoading)
         val screenWidth = context?.let { Utils.getScreenWidth(it) }
         //Product
         recyclerViewProduct = view.findViewById(R.id.showProduct)
@@ -158,26 +161,52 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnI
     private fun setUpObserver(view: View) {
         //Category
        appModel.getCategoryViewModel().categories.observe(viewLifecycleOwner) {
-           val categoryList = it as ArrayList<Category>
-           categoryAdapter.addCategory(categoryList)
-           categoryAdapter.notifyDataSetChanged()
-           println("Loading category")
-       }
+            if(it!=null)
+            {
+                val categoryList = it as ArrayList<Category>
+                categoryAdapter.addCategory(categoryList)
+                categoryAdapter.notifyDataSetChanged()
+                println("Loading category")
+                progressBar.visibility = View.GONE
+            }
+           else
+            {
+                progressBar.visibility = View.VISIBLE
+            }
 
+       }
         //Product
         appModel.getProductViewModel().products.observe(viewLifecycleOwner) {
-            val products = it as ArrayList<Product>
-            productAdapter.addProducts(products)
-            productAdapter.notifyDataSetChanged()
-            println("Loading product")
+            if(it!=null)
+            {
+                val products = it as ArrayList<Product>
+                productAdapter.addProducts(products)
+                productAdapter.notifyDataSetChanged()
+                println("Loading product")
+                progressBar.visibility = View.GONE
+            }
+            else
+            {
+                progressBar.visibility = View.VISIBLE
+            }
+
         }
 
         //Promotion
         appModel.getPromotionViewMode().promotions.observe(viewLifecycleOwner) {
-            val promotions = it as ArrayList<Promotion>
-            promotionAdapter.addPromotions(promotions)
-            promotionAdapter.notifyDataSetChanged()
-            println("Loading promotion")
+            if(it!=null)
+            {
+                val promotions = it as ArrayList<Promotion>
+                promotionAdapter.addPromotions(promotions)
+                promotionAdapter.notifyDataSetChanged()
+                println("Loading promotion")
+                progressBar.visibility = View.GONE
+            }
+            else
+            {
+                progressBar.visibility = View.VISIBLE
+            }
+
         }
         appModel.getCartItemViewModel().cartItems.observe(viewLifecycleOwner){
             counterFab.count= it.size
@@ -189,7 +218,6 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnI
                 .beginTransaction()
                 .replace(R.id.flFragment, Cart()).addToBackStack(null)
                 .commit()
-
         }
 
     }

@@ -13,8 +13,8 @@ interface RatingService {
     @GET("rating/")
     suspend fun getAllRating(): ArrayList<Rating>
 
-    @POST("rating/")
-    suspend fun postRating(@Body rating: Rating) : Rating
+    @POST("ratings/create/")
+    suspend fun postRating(@Body rating: Rating) : Boolean
 
     @POST("rating/delete/{id}")
     suspend fun deleteRating(@Path("id") ratingId: Int): Rating

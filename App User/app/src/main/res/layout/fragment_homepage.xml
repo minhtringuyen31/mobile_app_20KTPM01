@@ -8,129 +8,138 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".pages.fragments.Homepage">
 
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/myToolBar">
-
+            android:layout_height="wrap_content">
+            <ProgressBar
+                android:id="@+id/showLoading"
+                android:layout_width="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_height="match_parent">
+            </ProgressBar>
             <LinearLayout
-                android:paddingHorizontal="10dp"
+                android:id="@+id/linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
                 android:orientation="vertical"
-                app:layout_constraintTop_toTopOf="@+id/include"
-                tools:layout_editor_absoluteX="16dp">
-                <TextView
+                app:layout_constraintStart_toStartOf="parent">
+                <LinearLayout
+                    android:paddingHorizontal="10dp"
                     android:layout_width="match_parent"
-                    android:text="Loại sản phẩm"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:textColor="@color/black"
-                    android:layout_marginBottom="10dp"
-                    android:layout_height="wrap_content">
-                </TextView>
-                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toTopOf="@+id/include"
+                    tools:layout_editor_absoluteX="16dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:text="Loại sản phẩm"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="10dp"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/showCategories"
+                        android:layout_marginBottom="6dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        >
 
-                    android:id="@+id/showCategories"
-                    android:layout_marginBottom="6dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    >
+                    </androidx.recyclerview.widget.RecyclerView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:text="Khuyến mãi"
+                        android:textSize="16sp"
+                        android:layout_marginBottom="5dp"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content">
 
-                </androidx.recyclerview.widget.RecyclerView>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:text="Khuyến mãi"
-                    android:textSize="16sp"
-                    android:layout_marginBottom="5dp"
-                    android:textColor="@color/black"
-                    android:textStyle="bold"
-                    android:layout_height="wrap_content">
+                    </TextView>
+                    <com.smarteist.autoimageslider.SliderView
+                        android:id="@+id/imageSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        app:sliderAnimationDuration="300"
+                        app:sliderAutoCycleDirection="back_and_forth"
+                        app:sliderAutoCycleEnabled="true"
+                        app:sliderIndicatorAnimationDuration="300"
+                        app:sliderIndicatorGravity="center_horizontal|bottom"
+                        app:sliderIndicatorMargin="15dp"
+                        app:sliderIndicatorOrientation="horizontal"
+                        app:sliderIndicatorPadding="3dp"
+                        app:sliderIndicatorRadius="2dp"
+                        app:sliderIndicatorSelectedColor="#5A5A5A"
+                        app:sliderIndicatorUnselectedColor="#FFF"
+                        app:sliderScrollTimeInSec="1"
+                        app:sliderStartAutoCycle="true">
+                    </com.smarteist.autoimageslider.SliderView>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Đề xuất cho bạn"
+                        android:textStyle="bold"
+                        android:textSize="16sp"
+                        android:layout_marginTop="5dp"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="10dp"
+                        >
 
-                </TextView>
-                <com.smarteist.autoimageslider.SliderView
-                    android:id="@+id/imageSlider"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    app:sliderAnimationDuration="300"
-                    app:sliderAutoCycleDirection="back_and_forth"
-                    app:sliderAutoCycleEnabled="true"
-                    app:sliderIndicatorAnimationDuration="300"
-                    app:sliderIndicatorGravity="center_horizontal|bottom"
-                    app:sliderIndicatorMargin="15dp"
-                    app:sliderIndicatorOrientation="horizontal"
-                    app:sliderIndicatorPadding="3dp"
-                    app:sliderIndicatorRadius="2dp"
-                    app:sliderIndicatorSelectedColor="#5A5A5A"
-                    app:sliderIndicatorUnselectedColor="#FFF"
-                    app:sliderScrollTimeInSec="1"
-                    app:sliderStartAutoCycle="true">
-                </com.smarteist.autoimageslider.SliderView>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Đề xuất cho bạn"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/black"
-                    android:layout_marginBottom="10dp"
-                    >
+                    </TextView>
 
-                </TextView>
+                    <androidx.recyclerview.widget.RecyclerView
 
-                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/showProduct"
 
-                    android:id="@+id/showProduct"
+                        android:layout_width="match_parent"
+                        android:layout_height="308dp">
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    </androidx.recyclerview.widget.RecyclerView>
 
-                </androidx.recyclerview.widget.RecyclerView>
+                    <!--                            <TextView-->
+                    <!--                                android:layout_width="match_parent"-->
+                    <!--                                android:text="Voucher"-->
+                    <!--                                android:textStyle="bold"-->
+                    <!--                                android:textSize="16sp"-->
+                    <!--                                android:textColor="@color/black"-->
+                    <!--                                android:layout_marginTop="5dp"-->
+                    <!--                                android:layout_marginBottom="10dp"-->
+                    <!--                                android:layout_height="wrap_content">-->
 
-<!--                            <TextView-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:text="Voucher"-->
-<!--                                android:textStyle="bold"-->
-<!--                                android:textSize="16sp"-->
-<!--                                android:textColor="@color/black"-->
-<!--                                android:layout_marginTop="5dp"-->
-<!--                                android:layout_marginBottom="10dp"-->
-<!--                                android:layout_height="wrap_content">-->
+                    <!--                            </TextView>-->
+                    <!--                            <androidx.recyclerview.widget.RecyclerView-->
 
-<!--                            </TextView>-->
-<!--                            <androidx.recyclerview.widget.RecyclerView-->
+                    <!--                                android:id="@+id/showPromotionBorder"-->
+                    <!--                                android:layout_width="match_parent"-->
+                    <!--                                android:layout_height="wrap_content"-->
+                    <!--                                android:clipToPadding="false"-->
+                    <!--                                android:horizontalSpacing="10dp"-->
+                    <!--                                android:orientation="horizontal"-->
+                    <!--                                android:padding="10dp"-->
+                    <!--                                android:verticalSpacing="10dp"-->
+                    <!--                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
+                    <!--                                >-->
 
-<!--                                android:id="@+id/showPromotionBorder"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:clipToPadding="false"-->
-<!--                                android:horizontalSpacing="10dp"-->
-<!--                                android:orientation="horizontal"-->
-<!--                                android:padding="10dp"-->
-<!--                                android:verticalSpacing="10dp"-->
-<!--                                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--                                >-->
+                    <!--                            </androidx.recyclerview.widget.RecyclerView>-->
 
-<!--                            </androidx.recyclerview.widget.RecyclerView>-->
+
+                </LinearLayout>
+
+
+
 
 
             </LinearLayout>
+        </RelativeLayout>
 
-
-
-
-
-        </LinearLayout>
 
     </ScrollView>
 

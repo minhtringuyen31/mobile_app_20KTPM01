@@ -124,7 +124,7 @@ class Cart : Fragment(), OnItemClickListener {
 
             (view.context as FragmentActivity).supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.flFragment, Checkout(),"checkout").addToBackStack(null)
+                .add(R.id.flFragment, Checkout(),"checkout").addToBackStack(null)
                 .commit()
 
         }
