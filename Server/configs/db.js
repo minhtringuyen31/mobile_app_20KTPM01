@@ -1,14 +1,21 @@
 import mysql2 from 'mysql2';
 import dotenv from 'dotenv';
 
-dotenv.config();
-// moi nguoi khong chay duoc thi kiem tra lai pass nha. Cua Thai Duong pass la ''
+dotenv.config()
+console.log(process.env.WIN_PORT)
+// moi nguoi khong chay duoc thi kiem tra lai pass nha. Cua Thai Duong pass la '' 
 const _connection = mysql2.createPool({
   host: 'localhost',
   user: 'root',
-  password: '123456',
-  database: 'mobile_coffee',
+<<<<<<< HEAD
+  password: 'root',
+  database: 'project_app_database',
+  port: process.env.MAC_PORT,
+=======
+  password: '',
+  database: 'project_app_database',
   port: process.env.WIN_PORT,
+>>>>>>> a2491c7d92aab341cb6f790148a90842d0496940
 });
 const DB = {
   pool() {

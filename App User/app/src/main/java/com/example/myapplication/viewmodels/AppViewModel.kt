@@ -6,7 +6,9 @@ import com.example.myapplication.modals.*
 import com.example.myapplication.pages.fragments.OnGoingOrder
 import com.example.myapplication.viewmodels.cart.CartItemViewModel
 import com.example.myapplication.viewmodels.category.CategoryViewModel
+import com.example.myapplication.viewmodels.order.OrderProductViewModel
 import com.example.myapplication.viewmodels.order.OrderViewModel
+import com.example.myapplication.viewmodels.product.FavProductViewModel
 import com.example.myapplication.viewmodels.product.ProductViewModel
 import com.example.myapplication.viewmodels.product.RatingViewModel
 import com.example.myapplication.viewmodels.product.ToppingViewModel
@@ -23,6 +25,8 @@ class AppViewModel:ViewModel() {
     private  lateinit var cartItemViewModel: CartItemViewModel
     private lateinit var ratingViewModel: RatingViewModel
     private lateinit var orderViewModel: OrderViewModel
+    private lateinit var orderProductViewModel: OrderProductViewModel
+    private lateinit var favProductViewModel: FavProductViewModel
 
 
      fun setUpViewModel(view: View,viewModelStoreOwner: ViewModelStoreOwner) {
@@ -37,8 +41,9 @@ class AppViewModel:ViewModel() {
                  toppingViewModel = ViewModelProvider(viewModelStoreOwner)[ToppingViewModel::class.java]
                  toppingViewModel.getToppings()
                  cartItemViewModel = ViewModelProvider(viewModelStoreOwner)[CartItemViewModel::class.java]
-                 cartItemViewModel.getItemsCart()
+//                 cartItemViewModel.getItemsCart()
 
+                 favProductViewModel = ViewModelProvider(viewModelStoreOwner)[FavProductViewModel::class.java]
 
                  println("Current view-model: ${Thread.currentThread().name}")
              }
@@ -64,6 +69,9 @@ class AppViewModel:ViewModel() {
         }
 
     }
+
+
+
     fun setUpPromotionViewModel(viewModelStoreOwner: ViewModelStoreOwner){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -76,27 +84,58 @@ class AppViewModel:ViewModel() {
 
 
     }
-    fun setUpCartItemViewModel(viewModelStoreOwner: ViewModelStoreOwner){
+    fun setUpCartItemViewModel(viewModelStoreOwner: ViewModelStoreOwner, userId : Int){
         viewModelScope.launch {
             withContext(Dispatchers.Main) {
                 cartItemViewModel = ViewModelProvider(viewModelStoreOwner)[CartItemViewModel::class.java]
-                cartItemViewModel.getItemsCart()
+                cartItemViewModel.getItemsCart(userId)
 
                 println("Current view-model: ${Thread.currentThread().name}")
             }
         }
     }
 
-    fun setUpOrderViewModel(viewModelStoreOwner: ViewModelStoreOwner){
+
+
+    fun setUpOrderViewModel(viewModelStoreOwner: ViewModelStoreOwner, userId: Int){
         viewModelScope.launch {
             withContext(Dispatchers.Main) {
                 orderViewModel = ViewModelProvider(viewModelStoreOwner)[OrderViewModel::class.java]
-                orderViewModel.getAllOrder()
+                orderViewModel.getAllOrder(userId)
             }
         }
     }
+
     fun getOrderViewModel(): OrderViewModel {
         return orderViewModel;
+    }
+
+    fun setUpFavProductViewModel(viewModelStoreOwner: ViewModelStoreOwner, userId: Int){
+        viewModelScope.launch {
+            withContext(Dispatchers.Main) {
+                favProductViewModel = ViewModelProvider(viewModelStoreOwner)[FavProductViewModel::class.java]
+                favProductViewModel.getAllFavProducts(userId)
+                println("Current view-model: ${Thread.currentThread().name}")
+            }
+        }
+    }
+
+    fun getFavProductViewModel(): FavProductViewModel {
+        return favProductViewModel;
+    }
+
+
+    fun setUpOrderProductViewModel(viewModelStoreOwner: ViewModelStoreOwner, orderId: Int){
+        viewModelScope.launch {
+            withContext(Dispatchers.Main) {
+                orderProductViewModel = ViewModelProvider(viewModelStoreOwner)[OrderProductViewModel::class.java]
+                orderProductViewModel.getAllProductOfOrder(orderId)
+            }
+        }
+    }
+
+    fun getOrderProductViewModel():OrderProductViewModel{
+        return orderProductViewModel
     }
 
     fun setUpRatingViewMode(viewModelStoreOwner: ViewModelStoreOwner, productId:Int){
@@ -108,6 +147,8 @@ class AppViewModel:ViewModel() {
             }
         }
     }
+
+
     fun setUpToppingViewModel(viewModelStoreOwner: ViewModelStoreOwner){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -145,9 +186,28 @@ class AppViewModel:ViewModel() {
     fun removeItemCart(id:Int){
         cartItemViewModel.deleteCartItem(id)
     }
+    fun removeAllCart(userID:Int){
+        cartItemViewModel.removeAllCartItem(userID)
+    }
+    fun updateItemCart(id:Int,cartItem:CartItem){
+        cartItemViewModel.updateCartItem(id,cartItem)
+    }
 
     fun getRatingViewModel(): RatingViewModel {
         return this.ratingViewModel
+    }
+
+    fun addFavProduct(favProduct : FavProductItem){
+        favProductViewModel.addFavProduct(favProduct)
+    }
+
+    fun removeFavProduct(favProduct: FavProductItem) {
+        favProductViewModel.removeFavProduct(favProduct)
+    }
+
+    fun isExistedFavProduct(userId: Int, productId: Int){
+        favProductViewModel.isExistedFacProduct(userId, productId)
+        favProductViewModel.check
     }
 
 }

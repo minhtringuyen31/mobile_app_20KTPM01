@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:background="@color/white"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout2"
@@ -58,22 +60,16 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <LinearLayout
-        android:layout_width="403dp"
-        android:layout_height="642dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginEnd="1dp"
-        android:layout_marginBottom="1dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout2">
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginVertical="70dp"
+        android:orientation="vertical">
 
         <ImageView
             android:id="@+id/img_promotionDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             app:srcCompat="@drawable/ic_launcher_background" />
 
         <TextView
@@ -109,7 +105,8 @@
                 android:id="@+id/discount_promotionDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
+                android:textColor="@color/black"
+                android:layout_weight="20"
                 android:text="TextView" />
 
         </LinearLayout>
@@ -127,6 +124,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+
                 android:text="Ngày bắt đầu:"
                 android:textColor="@color/red"
                 android:textStyle="bold" />
@@ -135,7 +133,8 @@
                 android:id="@+id/start_promotionDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
+                android:layout_weight="20"
+                android:textColor="@color/black"
                 android:text="TextView" />
 
         </LinearLayout>
@@ -161,7 +160,8 @@
                 android:id="@+id/end_promotionDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="5"
+                android:layout_weight="20"
+                android:textColor="@color/black"
                 android:text="TextView" />
 
         </LinearLayout>
@@ -171,6 +171,7 @@
             android:id="@+id/desc_promotionDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:layout_marginLeft="20dp"
             android:layout_weight="1"
             android:text="description" />
@@ -181,11 +182,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="30dp"
-            android:layout_weight="0.1"
+            android:backgroundTint="@color/red"
+            android:theme="@style/Widget.App.Button"
             android:background="@drawable/custom_border_btn"
+
             android:text="Dùng khuyến mãi"
             android:textColor="@color/light_red"
-            android:textSize="16sp" />
+            android:textSize="15sp"
+            />
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

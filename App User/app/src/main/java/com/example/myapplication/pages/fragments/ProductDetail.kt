@@ -1,6 +1,8 @@
 package com.example.myapplication.pages.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,9 +21,19 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.*
+<<<<<<< HEAD
+
+import com.example.myapplication.pages.apdaters.RatingListAdapter
+=======
 import com.example.myapplication.pages.activities.apdaters.RatingListAdapter
+import com.example.myapplication.services.ProductService
+import com.example.myapplication.utils.DataHolder
+>>>>>>> a2491c7d92aab341cb6f790148a90842d0496940
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
+import com.example.myapplication.viewmodels.cart.CartItemViewModel
+import com.example.myapplication.viewmodels.product.FavProductViewModel
+import com.example.myapplication.viewmodels.product.ProductViewModel
 import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -48,7 +60,7 @@ class ProductDetail : Fragment() {
     private lateinit var productDetailPrice  : TextView
     private lateinit var productDetailDescription : TextView
     private lateinit var backHomepage:ImageButton
-    private lateinit var iconFaverite:ImageButton
+    private lateinit var favProductToggleBtn: ToggleButton
     private lateinit var btnAddtoCart:Button
     private lateinit var toppingApdapter: BottomSheetCartItem.ToppingApdapter
     private lateinit var toppingListView: ListView
@@ -72,6 +84,9 @@ class ProductDetail : Fragment() {
     private  var priceS_text:Double=0.0
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
     private lateinit var noteEdit:EditText
+    private  var cartItemID:Int=0
+
+//    private var favProductViewModel : FavProductViewModel by activityViewModels()
 
     private lateinit var ratingRecyclerView: RecyclerView
 //    private lateinit var ratingViewModel: RatingViewModel
@@ -94,11 +109,23 @@ class ProductDetail : Fragment() {
         val view=inflater.inflate(R.layout.fragment_product_detail, container, false)
         setUpViewModel()
         initUI(view)
+
+        val sharedPreferences: SharedPreferences =
+            view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
+        val curUser = sharedPreferences.getString("userID", "").toString().toInt()
+        appModel.isExistedFavProduct(curUser, productCartViewModel.getId())
+        appModel.getFavProductViewModel().check.observe(viewLifecycleOwner){
+            val check = it as Boolean
+            favProductToggleBtn.isChecked = check
+        }
+
+
         topping= productCartViewModel.getTopping()
         setUpObserve(view)
 
         return view
     }
+
     private  fun setUpViewModel(){
 
         appModel.setUpRatingViewMode(this, productCartViewModel.getId())
@@ -113,10 +140,10 @@ class ProductDetail : Fragment() {
         minusBtn=view.findViewById(R.id.minus_btn)
         productDetailImage = view.findViewById(R.id.productDetailImageIV)
         productDetailName = view.findViewById(R.id.productDetailNameTV)
-        productDetailPrice = view.findViewById(R.id.productDetailPriceTV)
+//        productDetailPrice = view.findViewById(R.id.productDetailPriceTV)
         productDetailDescription = view.findViewById((R.id.productDetailDescriptionTV))
         backHomepage = view.findViewById(R.id.imgToolbarBtnBack)
-        iconFaverite= view.findViewById(R.id.imgToolbarBtnFav)
+        favProductToggleBtn = view.findViewById(R.id.favoriteToggleBtn)
         text_quantity = view.findViewById(R.id.text_quantity)
         priceS_radio = view.findViewById(R.id.priceS_radio)
         priceM_radio = view.findViewById(R.id.priceM_radio)
@@ -134,6 +161,7 @@ class ProductDetail : Fragment() {
         priceS_text=  productCartViewModel.getPriceS()
         description  = productCartViewModel.getDescription()
         image = productCartViewModel.getImage()
+        cartItemID= productCartViewModel.getCartItemId()
         priceL_text=  productCartViewModel.getPriceL()
         priceM_text= productCartViewModel.getPriceM()
         category_id = productCartViewModel.getCategoryId()
@@ -149,6 +177,7 @@ class ProductDetail : Fragment() {
         if(productCartViewModel.getNameFragment()=="cart"){
 
             item[0]=productCartViewModel.getPrice()
+
             val sizeSelected= productCartViewModel.getSize()
             if(sizeSelected=="S")
             {
@@ -166,18 +195,21 @@ class ProductDetail : Fragment() {
                 priceS_radio.isChecked = false
             }
             noteEdit.setText(productCartViewModel.getNote())
-
+            itemCount.total=calculateTotalPrice()
+            btnAddtoCart.text = "Cập nhật GH - " +  Utils.formatCurrency( itemCount.total) + " đ"
         }
         else {
+
             item[0]=productCartViewModel.getPriceL()
+            itemCount.total=calculateTotalPrice()
+           updatePriceTotal()
         }
-        itemCount.total=calculateTotalPrice()
-        updatePriceTotal()
+
         ratingRecyclerView = view.findViewById(R.id.listRatingRV)
     }
     @SuppressLint("SetTextI18n")
     private fun updatePriceTotal() {
-        btnAddtoCart.text = "Add to cart - " +  Utils.formatCurrency( itemCount.total) + " đ"
+        btnAddtoCart.text = "Thêm vào GH - " +  Utils.formatCurrency( itemCount.total) + " đ"
     }
     private fun displayCount() {
         text_quantity.text = itemCount.count.toString()
@@ -265,64 +297,84 @@ class ProductDetail : Fragment() {
             }
         btnAddtoCart.setOnClickListener {
 
+            val sharedPreferencesUser = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
+            val userID = sharedPreferencesUser.getString("userID", "")
+            val notes=noteEdit.text.toString()
+            val cartItem = CartItem(
+                userID!!.toInt(),
+                userID!!.toInt(),
+                product_id,
+                itemCount.count,
+                itemCount.size,
+                itemCount.total,
+                itemCount.nameTopping,
+                name,
+                description,
+                image,
+                category_id,
+                notes
+            )
             val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
-
             val gson = Gson()
             val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
             val carts=sharedPreferences.getString("productID", null)
             var dataItem = gson.fromJson<ArrayList<Int>>(carts, type);
-
             if (dataItem == null) {
                 dataItem = ArrayList<Int>()
             }
-            if(dataItem.contains(product_id)&&dataItem.isNotEmpty()){
+            if(productCartViewModel.getNameFragment()!="cart")
+            {
+                if(dataItem.contains(product_id)&&dataItem.isNotEmpty()){
+                    Toast.makeText(
+                        activity, "Sản phẩm đã tồn tại trong giỏ hàng",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+                else{
+                    appModel.addtoCart(cartItem)
+                    Toast.makeText(
+                        activity, "Thêm thành công vào giỏ hàng",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val tempData = carts;
+                    dataItem.add(product_id);
+                    sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
+                    val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
+                    myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
+                    (view.context as FragmentActivity).supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.flFragment, Order(),"Order").addToBackStack(null)
+                        .commit()
+                }
+            }else
+            {
+                appModel.updateItemCart(cartItemID,cartItem);
                 Toast.makeText(
-                    activity, "Sản phẩm đã tồn tại trong giỏ hàng",
+                    activity, "Câp nhật thành công vào giỏ hàng",
                     Toast.LENGTH_SHORT
                 ).show()
-            }
-            else{
-                val sharedPreferencesUser = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
-                val userID = sharedPreferencesUser.getString("userID", "")
-                val notes=noteEdit.text.toString()
-                val cartItem = CartItem(
-                    userID!!.toInt(),
-                    userID!!.toInt(),
-                    product_id,
-                    itemCount.count,
-                    itemCount.size,
-                    itemCount.total,
-                    itemCount.nameTopping,
-                    name,
-                    description,
-                    image,
-                    category_id,
-                    notes
-                )
-                appModel.addtoCart(cartItem)
-                Toast.makeText(
-                    activity, "Thêm thành công vào giỏ hàng",
-                    Toast.LENGTH_SHORT
-                ).show()
-                val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
-                myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
                 (view.context as FragmentActivity).supportFragmentManager
                     .beginTransaction()
-                    .replace(R.id.flFragment, Order(),"Order").addToBackStack(null)
+                    .replace(R.id.flFragment, Cart(),"Cart").addToBackStack(null)
                     .commit()
-                val tempData = carts;
-                dataItem.add(product_id);
-                sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
+
             }
+
+            val dataTest= sharedPreferences.getString("productID","")
+            println("Danh sach hiện có "+dataTest)
+
 
 
         }
+
         appModel.getRatingViewModel().ratings.observe(viewLifecycleOwner){
             val ratings = it as ArrayList<Rating>
+            println(ratings)
             if (ratings.isEmpty()) {
                 setUpRatingRecyclerAdapter(view, arrayListOf())
 
             } else {
+
                 setUpRatingRecyclerAdapter(view, ratings)
             }
         }
@@ -340,7 +392,66 @@ class ProductDetail : Fragment() {
                     .commit()
             }
         }
+        favProductToggleBtn.setOnClickListener{
+            val sharedPreferences: SharedPreferences =
+                view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
+            val curUser = sharedPreferences.getString("userID", "").toString().toInt()
+            val favProduct = FavProductItem(curUser, productCartViewModel.getId())
+            if (favProductToggleBtn.isChecked()){
+                println("Liked")
+//                val newFavProduct = Product(
+//                    productCartViewModel.getId(),
+//                    productCartViewModel.getName(),
+//                    productCartViewModel.getDescription(),
+//                    productCartViewModel.getSize(),
+//                    productCartViewModel.getPriceS().toInt(),
+//                    productCartViewModel.getPriceM().toInt(),
+//                    productCartViewModel.getPriceL().toInt(),
+//                    productCartViewModel.getImage(),
+//                    0,
+//                    productCartViewModel.getCategoryId(),
+//                    "",
+//                    "",
+//                    0,
+//                    0
+//                )
+                println("Here")
+//                DataHolder.addItem(newFavProduct)
+//                val fileName = "$curUser.json"
+//                saveToFile(fileName)
+                appModel.addFavProduct(favProduct)
+
+            } else{
+                println("Unliked")
+                appModel.removeFavProduct(favProduct)
+            }
+        }
     }
+
+//    fun saveToFile(fileName: String) {
+//        try {
+////            val fileName = "studentList.json"
+//            // File will be in "/data/data/$packageName/files/"
+//            println("Save File")
+//            val format = Json { explicitNulls = false }
+//            val data: ArrayList<Product> = DataHolder.getData()
+//            val jsonString = format.encodeToString(data)
+//            println("1")
+//            val context = requireContext()
+//            val file = context.getFileStreamPath(fileName)
+//            println("2")
+//            val out = OutputStreamWriter(context.openFileOutput(fileName, Context.MODE_PRIVATE))
+//            println("3")
+//            out.write(jsonString)
+//            println("4")
+//            val temp = file.absolutePath
+//            println("File Path $temp")
+//            out.close()
+//        } catch (t: Throwable) {
+//            Log.e("error", t.message.toString())
+//        }
+//    }
+
 
     private fun setUpRatingRecyclerAdapter(view: View, data: ArrayList<Rating>) {
         ratingListAdapter = RatingListAdapter(data)
@@ -352,7 +463,6 @@ class ProductDetail : Fragment() {
     }
     private fun setProductDetail(productName: String, productPrice: String, productDescription: String, productImage: String){
         productDetailName.text = productName
-        productDetailPrice.text = productPrice
         productDetailDescription.text = productDescription
         Glide.with(this)
             .load(productImage)

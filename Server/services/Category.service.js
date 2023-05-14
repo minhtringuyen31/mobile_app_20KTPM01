@@ -13,8 +13,16 @@ const CategoryServices = {
       return await CategoryRepository.create(name, image.path);
     }
   },
-  async update(id, name) {
-    return await CategoryRepository.update(id, name);
+  async updateWithoutImage(id, name) {
+    return await CategoryRepository.updateWithoutImage(id, name);
+  },
+  async update(id, name, image) {
+    if (name == null || name == '' || image == '') {
+      cloudinary.uploader.destroy(image.filename);
+      return false;
+    } else {
+      return await CategoryRepository.update(id, name, image.path);
+    }
   },
   async delete(id) {
     return await CategoryRepository.delete(id);

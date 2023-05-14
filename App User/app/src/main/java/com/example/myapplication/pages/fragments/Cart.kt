@@ -1,6 +1,8 @@
 package com.example.myapplication.pages.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,12 +16,13 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.CartItem
 import com.example.myapplication.modals.Product
-import com.example.myapplication.pages.activities.apdaters.CartApdapter
-import com.example.myapplication.pages.activities.apdaters.interfaces.OnItemClickListener
+import com.example.myapplication.pages.apdaters.CartApdapter
+import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
 import com.google.gson.Gson
@@ -43,11 +46,12 @@ class Cart : Fragment(), OnItemClickListener {
     private lateinit var btnPlaceOrder:TextView
     private lateinit var cartAdapter: CartApdapter
     private lateinit var cartItemRecyclerView: RecyclerView
+    private lateinit var icon_deletecard:TextView
     private lateinit var view:View
     private val appModel: AppViewModel by activityViewModels()
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
     private lateinit var btnback:ImageView
-    private  lateinit var emptyList:ImageView
+    private lateinit var emptyList:ImageView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -68,9 +72,12 @@ class Cart : Fragment(), OnItemClickListener {
         return view
     }
     private fun setUpViewModel(){
+        val sharedPreferences: SharedPreferences =
+            view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getString("userID", "").toString().toInt()
         (activity as MainActivity).showToolbarAndNavigationBar(false)
         (activity as MainActivity).showNavigationBar(true)
-        appModel.setUpCartItemViewModel(this)
+        appModel.setUpCartItemViewModel(this, userId)
     }
     private fun initUI(view:View){
         btnPlaceOrder = view.findViewById(R.id.btnPlaceOrder)
@@ -80,6 +87,7 @@ class Cart : Fragment(), OnItemClickListener {
         cartItemRecyclerView.adapter=cartAdapter
         btnback = view.findViewById(R.id.back_btn)
         emptyList = view.findViewById(R.id.emptyList)
+        icon_deletecard = view.findViewById(R.id.icon_deletecard)
     }
     @SuppressLint("NotifyDataSetChanged")
     fun setupObserve(){
@@ -87,15 +95,41 @@ class Cart : Fragment(), OnItemClickListener {
                 val cartItem = it as ArrayList<CartItem>
                 cartAdapter.addCartItem(cartItem)
                 cartAdapter.notifyDataSetChanged()
+                 btnPlaceOrder.visibility = View.VISIBLE
                 if(cartItem.isEmpty()){
                     emptyList.visibility = view.visibility
+                    btnPlaceOrder.visibility = View.GONE
                 }
+        }
+        icon_deletecard.setOnClickListener {
+            SweetAlertDialog(view.context, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Xoá giỏ hàng")
+                .setContentText("Bạn muốn xoá toàn bộ giỏ hàng?")
+                .setConfirmText("Đồng ý")
+                .setConfirmClickListener {
+                    val sharedPreferencesUser = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
+                    val userID = sharedPreferencesUser.getString("userID", "")
+                    appModel.removeAllCart(userID!!.toInt())
+                    it.dismissWithAnimation()
+                    (view.context as FragmentActivity).supportFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.flFragment, Cart(),"Cart").addToBackStack(null)
+                        .commit()
+                    val dataTest= view.context.getSharedPreferences("cart",AppCompatActivity.MODE_PRIVATE).edit().remove("productID").apply()
+                    btnPlaceOrder.visibility =View.GONE
+                    emptyList.visibility =View.VISIBLE
+                }
+                .setCancelText("Huỷ").setCancelClickListener {
+                    it.dismissWithAnimation()
+                }
+                .show()
+
         }
         btnPlaceOrder.setOnClickListener {
 
             (view.context as FragmentActivity).supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.flFragment, Checkout(),"checkout").addToBackStack(null)
+                .add(R.id.flFragment, Checkout(),"checkout").addToBackStack(null)
                 .commit()
 
         }
@@ -132,28 +166,41 @@ class Cart : Fragment(), OnItemClickListener {
     }
     @SuppressLint("NotifyDataSetChanged")
     override fun onCartItemClick(position: Int, cartItem: CartItem) {
-        Toast.makeText(
-            context, "Delete successfully",
-            Toast.LENGTH_SHORT).show()
 
-        cartAdapter.deleteItem(position);
-        appModel.removeItemCart(cartItem.getId())
-        val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
-        val gson = Gson()
-        val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
-        val carts=sharedPreferences.getString("productID", null)
-        var dataItem = gson.fromJson<ArrayList<Int>>(carts, type);
+        SweetAlertDialog(view.context, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText("Thông báo từ giỏ hàng")
+            .setContentText("Bạn muốn xoá sản phẩm này khỏi giỏ hàng?")
+            .setConfirmText("Đồng ý")
+            .setConfirmClickListener {
+                Toast.makeText(
+                    context, "Delete successfully",
+                    Toast.LENGTH_SHORT).show()
 
-        if (dataItem == null) {
-            dataItem = ArrayList<Int>()
-        }
-        dataItem.removeIf {
-            it==cartItem.getProductId()
-        };
-        sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
-        if(cartAdapter.itemCount==0){
-            emptyList.visibility = view.visibility
-        }
+                cartAdapter.deleteItem(position);
+                appModel.removeItemCart(cartItem.getId())
+                val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
+                val gson = Gson()
+                val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
+                val carts=sharedPreferences.getString("productID", null)
+                var dataItem = gson.fromJson<ArrayList<Int>>(carts, type);
+
+                if (dataItem == null) {
+                    dataItem = ArrayList<Int>()
+                }
+                dataItem.removeIf {
+                    it==cartItem.getProductId()
+                };
+                sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
+                if(cartAdapter.itemCount==0){
+                    emptyList.visibility = view.visibility
+                    btnPlaceOrder.visibility = View.GONE
+                }
+                it.dismissWithAnimation()
+            }.setCancelText("Huỷ").setCancelClickListener {
+                it.dismissWithAnimation()
+            }
+            .show()
+
 
 
 
@@ -164,6 +211,7 @@ class Cart : Fragment(), OnItemClickListener {
         appModel.getProductViewModel().getProduct(cartItem.getProductId())
         appModel.getProductViewModel().product.observe(this) {
             val product = it;
+            productCartViewModel.setCartItemID(cartItem.getID())
             productCartViewModel.setId(product.getId())
             productCartViewModel.setName(product.getName())
             productCartViewModel.setImage(product.getImage())

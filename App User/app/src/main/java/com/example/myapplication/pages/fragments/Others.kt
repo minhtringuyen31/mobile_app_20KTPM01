@@ -10,18 +10,19 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.*
 import com.example.myapplication.R
 import com.example.myapplication.pages.activities.promotion.ListPromotion
 import com.example.myapplication.pages.activities.store.IntroductionStore
 import com.example.myapplication.pages.activities.user.ChangePassword
 import com.example.myapplication.pages.activities.user.EditProfile
 import com.example.myapplication.pages.activities.user.Login
-import com.example.myapplication.viewmodels.user.UserViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.firebase.auth.FirebaseAuth
+//import com.google.firebase.auth.FirebaseAuth
+//import com.google.firebase.auth.ktx.auth
+//import com.google.firebase.ktx.Firebase
+//import com.google.firebase.auth.FirebaseAuth
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -39,7 +40,6 @@ class Others : Fragment() {
     private var param2: String? = null
     private lateinit var profile_name: TextView
     private lateinit var profile_phone: TextView
-    private lateinit var UserProfile: UserViewModel
     private lateinit var view: View;
     private lateinit var route_editprofile:TextView
     private lateinit var route_changepassword:TextView
@@ -48,8 +48,7 @@ class Others : Fragment() {
     private lateinit var button_logout: Button
     private lateinit var gso: GoogleSignInOptions
     private lateinit var gsc: GoogleSignInClient
-    private lateinit var auth:FirebaseAuth
-
+//    private lateinit var auth:FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -63,15 +62,10 @@ class Others : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         view = inflater.inflate(R.layout.fragment_others, container, false)
-        UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
+
         initUI(view)
 
-        val sharedPreferences: SharedPreferences =
-            view.context.getSharedPreferences("user", MODE_PRIVATE)
-        val userID = sharedPreferences.getString("userID", "")
-        if (userID != null) {
-            UserProfile.getUser(userID.toInt())
-        };
+
         setUpObserver()
         // Inflate the layout for this fragment
         return view
@@ -110,18 +104,19 @@ class Others : Fragment() {
                 view.context,
                 ListPromotion::class.java
             )
+            intent.putExtra("source","Others")
             startActivity(intent)
         }
 
     }
     private fun setUpObserver() {
-        UserProfile.user.observe(viewLifecycleOwner) {
-            profile_name.text = it.getName()
-            profile_phone.text = it.getPhone()
-        }
+        val sharedPreferences: SharedPreferences = view.context.getSharedPreferences("user", MODE_PRIVATE)
+        val name = sharedPreferences.getString("name", "")
+        val phone = sharedPreferences.getString("phone", "")
+        profile_name.text = name
+        profile_phone.text = phone
         //---
         //auth= Firebase.auth
-
         button_logout.setOnClickListener {
             gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -131,6 +126,8 @@ class Others : Fragment() {
             gsc.signOut();
             val preferences: SharedPreferences = view.context.getSharedPreferences("user", 0)
             preferences.edit().remove("userID").apply()
+            preferences.edit().remove("name").apply()
+            preferences.edit().remove("phone").apply()
 
             //---
             //auth.signOut()
@@ -140,6 +137,7 @@ class Others : Fragment() {
                 Login::class.java
             )
             startActivity(intent)
+            requireActivity().finish();
         }
     }
         companion object {

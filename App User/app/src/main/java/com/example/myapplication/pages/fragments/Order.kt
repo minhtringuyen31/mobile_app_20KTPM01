@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -17,13 +18,14 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.Category
 import com.example.myapplication.modals.Product
-import com.example.myapplication.pages.activities.apdaters.CategoryListAdapter
-import com.example.myapplication.pages.activities.apdaters.ProductListAdapter
+import com.example.myapplication.pages.apdaters.CategoryListAdapter
+import com.example.myapplication.pages.apdaters.ProductListAdapter
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.category.CategoryViewModel
-import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
 import com.example.myapplication.viewmodels.product.ProductViewModel
+import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -48,7 +50,6 @@ class Order : Fragment() {
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
     private lateinit var  searchView:SearchView;
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -61,7 +62,6 @@ class Order : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
        val view =inflater.inflate(R.layout.fragment_order, container, false)
-
         setUpViewModel(view)
         initUI(view)
         setUpObserve(view)
@@ -71,7 +71,6 @@ class Order : Fragment() {
         categoryViewModel.categories.observe(viewLifecycleOwner) {
             val categories = it as ArrayList<Category>
             if (categories.isEmpty()) {
-
                 setUpCategoryRecyclerAdapter(view, arrayListOf())
             } else {
                 setUpCategoryRecyclerAdapter(view,categories)
@@ -135,6 +134,7 @@ class Order : Fragment() {
 
     }
     private  fun handleSearch(view:View,data: ArrayList<Product>, isLinearLayoutManager: Boolean){
+
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             // Override onQueryTextSubmit method which is call when submit query is searched
             @SuppressLint("NotifyDataSetChanged")

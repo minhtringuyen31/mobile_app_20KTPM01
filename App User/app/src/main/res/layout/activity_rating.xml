@@ -24,26 +24,26 @@
           android:layout_width="match_parent"
           android:orientation="horizontal"
           android:paddingEnd="10dp"
-          android:layout_height="wrap_content">
+          android:layout_height="fill_parent">
 
-        <ImageButton
+        <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:paddingStart="@dimen/_12sdp"
             android:paddingTop="@dimen/_8sdp"
             android:paddingEnd="@dimen/_4sdp"
             android:paddingBottom="@dimen/_8sdp"
-            android:layout_gravity="start"
             android:id="@+id/imgToolbarBtnBack"
             android:src="@drawable/ic_back"
             android:contentDescription="TODO" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Đánh giá sản phẩm"
             android:textColor="@color/black"
+           android:gravity="center"
             android:textSize="20dp"
             android:textStyle="bold">
 
@@ -64,7 +64,7 @@
 
       <LinearLayout
           android:padding="5dp"
-          android:layout_width="wrap_content"
+          android:layout_width="match_parent"
           android:orientation="horizontal"
           android:layout_height="wrap_content">
         <androidx.cardview.widget.CardView

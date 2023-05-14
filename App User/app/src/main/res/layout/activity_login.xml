@@ -28,25 +28,19 @@
                 android:orientation="vertical"
                 tools:ignore="MissingConstraints">
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/floatingActionButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginTop="24dp"
+                <ImageView
+                    android:layout_marginStart="16dp"
+                    android:layout_width="80dp"
                     android:layout_weight="1"
-                    android:clickable="true"
-                    android:contentDescription="TODO"
-                    android:focusable="true"
-                    android:tint="@color/red"
-                    app:backgroundTint="@color/white"
-                    app:srcCompat="@drawable/baseline_keyboard_arrow_left_24" />
+                    android:layout_height="0dp"
+                    android:src="@drawable/icon_hand_hi">
+                </ImageView>
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginStart="16dp"
-                    android:gravity="bottom"
+                    android:gravity="center_vertical"
                     android:layout_weight="1.5"
                     android:fontFamily="sans-serif-medium"
                     android:text="Chào mừng đến\nInfinity Coffee"
@@ -78,6 +72,7 @@
                         android:drawablePadding="10dp"
                         android:drawableTint="@color/red"
                         android:ems="10"
+
                         android:hint="Địa chỉ Email"
                         android:inputType="textPersonName"
                         android:padding="8dp"
@@ -125,16 +120,14 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/button_sign_custom"
-                        android:text="Log In"
+                        android:text="Đăng nhập"
                         android:textColor="@color/white"
                         android:textSize="18sp"
-
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/route_forgotpassword"
                         app:layout_constraintVertical_bias="0.456" />
-
                     <LinearLayout
                         android:id="@+id/linearLayout3"
                         android:layout_width="match_parent"
@@ -144,7 +137,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/button_login">
-
                         <View
                             android:id="@+id/textView7"
                             android:layout_width="0dp"
@@ -157,13 +149,12 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             app:srcCompat="@drawable/fb" />
-
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="fill_parent"
                             android:layout_weight="0.5"
                             android:gravity="center_vertical"
-                            android:text="Or"
+                            android:text="Hoặc"
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="15sp"

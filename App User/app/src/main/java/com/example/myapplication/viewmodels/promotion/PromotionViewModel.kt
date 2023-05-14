@@ -13,6 +13,8 @@ import kotlinx.coroutines.launch
 class PromotionViewModel :ViewModel(){
     private val _promotions = MutableLiveData<ArrayList<Promotion>>()
     val promotions: LiveData<ArrayList<Promotion>> = _promotions
+    private val _promotion = MutableLiveData<Promotion>()
+    val promotion: LiveData<Promotion> = _promotion
     fun getPromotions() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
@@ -24,5 +26,17 @@ class PromotionViewModel :ViewModel(){
                 // handle error
             }
         }
+    }
+    fun getPromotion(id:Int){
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = Utils.getRetrofit().create(PromotionService::class.java).getPromotion(id)
+                _promotion.postValue(response) // để đảm bảo rằng các giá trị được cập nhật trên luồng phụ (background thread).
+                println("Current viewmodel: ${Thread.currentThread().name}")
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+
     }
 }

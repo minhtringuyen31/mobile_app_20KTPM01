@@ -23,7 +23,15 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
+<<<<<<< HEAD
+<<<<<<< HEAD
+                                      <entry key="url" value="file:$USER_HOME$/Library/Android/sdk/icons/material/materialicons/notifications_active/baseline_notifications_active_24.xml" />
+=======
                                       <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/discount/baseline_discount_24.xml" />
+>>>>>>> e6d209eea2fed42c14c6e7f814fee5d12673e382
+=======
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/campaign/baseline_campaign_24.xml" />
+>>>>>>> a2491c7d92aab341cb6f790148a90842d0496940
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,9 +41,19 @@
                         </option>
                         <option name="values">
                           <map>
+                            <entry key="color" value="ffffff" />
                             <entry key="opacityPercent" value="90" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+                            <entry key="outputName" value="baseline_notifications_active_24" />
+                            <entry key="sourceFile" value="/D:\Desktop\mobile_app_20KTPM01\App User" />
+=======
                             <entry key="outputName" value="baseline_discount_24" />
+=======
+                            <entry key="outputName" value="icon_speaker" />
+>>>>>>> a2491c7d92aab341cb6f790148a90842d0496940
                             <entry key="sourceFile" value="D:\Desktop\mobile_app_20KTPM01\App User" />
+>>>>>>> e6d209eea2fed42c14c6e7f814fee5d12673e382
                           </map>
                         </option>
                       </PersistentState>

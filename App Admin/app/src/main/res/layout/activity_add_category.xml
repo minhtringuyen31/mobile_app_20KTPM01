@@ -45,6 +45,15 @@
                 android:src="@drawable/profile" />
         </androidx.cardview.widget.CardView>
 
+        <Button
+            android:id="@+id/addCategoryImageBtn"
+            android:text="image"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"/>
+
 
         <RelativeLayout
             android:id="@+id/relativeScroll1"

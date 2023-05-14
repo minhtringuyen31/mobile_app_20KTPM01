@@ -1,6 +1,9 @@
 package com.example.myapplication.modals
 
-class Product( private  var id: Int,
+
+
+@kotlinx.serialization.Serializable
+data class Product( private  var id: Int,
                private  var name: String,
                private  var description: String,
                private  var size: String,

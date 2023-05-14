@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/viewAll"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray"
@@ -24,7 +25,7 @@
                 android:paddingEnd="10dp"
                 android:layout_height="wrap_content">
 
-                <ImageButton
+                <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingStart="@dimen/_12sdp"
@@ -37,8 +38,9 @@
                     android:contentDescription="TODO" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:gravity="center"
                     android:layout_marginTop="8dp"
                     android:text="Chi tiết đơn đặt hàng"
                     android:textColor="@color/black"
@@ -301,13 +303,22 @@
             android:layout_height="0dp"
             android:layout_weight="1">
 
+            <ProgressBar
+                android:id="@+id/showLoading"
+                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content">
+            </ProgressBar>
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/orderDetailRV"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:layout_marginTop = "10dp"
+                android:layout_marginBottom = "10dp"/>
         </FrameLayout>
-
-
         <LinearLayout
 
             android:layout_width="match_parent"
@@ -322,7 +333,6 @@
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:layout_height="wrap_content">
-
                 <LinearLayout
                     android:padding="5dp"
 
@@ -343,15 +353,16 @@
                         android:layout_height="0dp">
 
                     </View>
+
                     <TextView
                         android:id="@+id/subTotalValueTV"
+                        android:layout_width="83dp"
+                        android:layout_height="39dp"
                         android:layout_weight="1"
                         android:background="@drawable/custom_border_btn"
-                        android:textColor="@color/white"
+                        android:text="140,000 đ"
                         android:textAlignment="center"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="140,000 đ" />
+                        android:textColor="@color/white" />
 
 
 
@@ -368,7 +379,6 @@
 
                 <LinearLayout
                     android:padding="5dp"
-
                     android:layout_width="wrap_content"
                     android:orientation="horizontal"
                     android:layout_height="wrap_content">
@@ -405,6 +415,86 @@
 
 
             </LinearLayout>
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/custom_border_checkout"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:padding="5dp"
+
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Tình trạng"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"></TextView>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="8"
+                        android:layout_height="0dp">
+
+                    </View>
+                    <TextView
+                        android:id="@+id/statusOrder"
+                        android:layout_weight="1"
+                        android:textColor="@color/red"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Đơn hàng chờ xử lý" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/custom_border_checkout"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:padding="5dp"
+
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Hình thức thanh toán"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"></TextView>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="8"
+                        android:layout_height="0dp">
+
+                    </View>
+                    <TextView
+                        android:id="@+id/methodPayment"
+                        android:layout_weight="1"
+                        android:textColor="@color/red"
+                        android:textStyle="bold"
+                        android:textAlignment="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ZaloPay" />
+                </LinearLayout>
+            </LinearLayout>
+
 
             <LinearLayout
                 android:padding="10dp"

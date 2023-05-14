@@ -12,10 +12,15 @@
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
+        android:background="@color/white"
+        android:elevation="10dp"
+        app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"
         app:tabMode="fixed"
-        app:tabSelectedTextColor="@color/black"
+        app:tabTextColor="@color/black"
+        app:tabSelectedTextColor="@color/red"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:animateLayoutChanges="true"
+        android:layout_height="wrap_content">
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager

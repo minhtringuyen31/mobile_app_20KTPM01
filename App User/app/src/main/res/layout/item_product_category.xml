@@ -11,6 +11,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
+        android:background="@color/white"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="@dimen/_5sdp"
@@ -19,6 +20,7 @@
         android:id="@+id/categoryImageIV"
         android:layout_width="60dp"
         android:layout_height="60dp"
+        android:background="@color/white"
         android:layout_gravity="center_horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +30,6 @@
 
     <TextView
         android:id="@+id/categoryName"
-
         android:layout_width="60dp"
         android:layout_height="match_parent"
         android:layout_gravity="center_horizontal"
@@ -37,6 +38,7 @@
         android:layout_marginBottom="@dimen/_5sdp"
         android:text="TextView"
         android:textColor="@color/white"
+        android:gravity="center_horizontal|center_vertical"
         android:maxLines="1"
         app:layout_constraintEnd_toEndOf="@+id/categoryImageIV"
         app:layout_constraintStart_toStartOf="@+id/categoryImageIV"

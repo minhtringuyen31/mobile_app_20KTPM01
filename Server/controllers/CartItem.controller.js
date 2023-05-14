@@ -33,6 +33,18 @@ const CartItemController = {
 
 
     },
+    async removeAll(req, res) {
+
+        const id = req.params.id;
+        const status = await CartItemService.removeAll(id);
+        if (status) {
+            res.status(200).send({ status: 1, message: "Success" })
+        } else {
+            res.status(404).send({ status: 0, message: "Failed" });
+        }
+
+
+    },
     async findOne(req, res) {
         const id = req.params.id;
         const cart = await CartItemService.findOne(id);

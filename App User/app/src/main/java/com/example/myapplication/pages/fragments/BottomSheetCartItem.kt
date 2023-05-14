@@ -2,7 +2,6 @@ package com.example.myapplication.pages.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +39,6 @@ private const val ARG_PARAM2 = "param2"
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
     private var item= arrayOf(1.0, 0.0, 1.0)
     private lateinit var toppingApdapter:ToppingApdapter
     private lateinit var  toppingListView:ListView
@@ -71,8 +69,6 @@ private const val ARG_PARAM2 = "param2"
             param2 = it.getString(ARG_PARAM2)
         }
         setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
-
-
     }
 
     override fun onCreateView(
@@ -81,13 +77,9 @@ private const val ARG_PARAM2 = "param2"
     ): View? {
         val view= inflater.inflate(R.layout.fragment_bottom_sheet_cart_item, container, false)
         // Inflate the layout for this fragment
-
-
         setUpViewModel()
         initUI(view)
         setUpObserve(view)
-
-
         return view
     }
     private fun setUpViewModel(){
@@ -98,7 +90,7 @@ private const val ARG_PARAM2 = "param2"
     }
     private fun updatePriceTotal() {
 
-        btnAddtoCart.text = "Add to cart - " +  Utils.formatCurrency( itemCount.total) + " đ"
+        btnAddtoCart.text = "Thêm vào GH - " +  Utils.formatCurrency( itemCount.total) + " đ"
     }
     @SuppressLint("SetTextI18n")
     private fun initUI(view:View){

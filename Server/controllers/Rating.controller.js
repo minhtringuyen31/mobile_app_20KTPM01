@@ -1,8 +1,8 @@
 import RatingService from "../services/Rating.service.js"
 const RatingController = {
     async create(req, res) {
-        const { user_id, product_id, score, comment, create_at } = req.body;
-        const newRating = await RatingService.create(user_id, product_id, score, comment, create_at);
+        const { user_id, user_name, user_image, product_id, score, comment } = req.body;
+        const newRating = await RatingService.create(user_id, user_name, user_image, product_id, score, comment);
         if (newRating) {
             res.send(newRating)
         } else {

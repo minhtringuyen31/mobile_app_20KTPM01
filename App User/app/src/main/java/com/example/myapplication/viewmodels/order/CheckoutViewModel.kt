@@ -16,10 +16,19 @@ class CheckoutViewModel:ViewModel() {
     private  var address:String="None"
     private var time:String="Current time"
     private var discount:String="None"
+    private var promontionID:Int=0;
     private var percentVoucher:Double=0.0;
+    private var fromWhere = ""
     private val _newOrderProduct = MutableLiveData<OrderProduct>()
     val newOrderProduct: LiveData<OrderProduct> = _newOrderProduct
 
+    fun setpromontionID(id:String)
+    {
+        this.promontionID = id.toInt()
+    }
+    fun getPromotionID():Int{
+        return this.promontionID
+    }
     // Getter method
     // Subtotal getter and setter
 
@@ -27,6 +36,13 @@ class CheckoutViewModel:ViewModel() {
 
 
     // Address getter and setter
+
+    fun setFromPage(name:String){
+        this.fromWhere= name;
+    }
+    fun getPage():String{
+        return this.fromWhere
+    }
     fun getAddress(): String {
         return address
     }
@@ -46,11 +62,11 @@ class CheckoutViewModel:ViewModel() {
 
     // Discount getter and setter
     fun getDiscount(): String {
-        return discount
+        return this.discount
     }
 
     fun setDiscount(value: String) {
-        discount = value
+        this.discount = value
     }
 
     // Percent voucher getter and setter
@@ -74,6 +90,9 @@ class CheckoutViewModel:ViewModel() {
         }
     }
 
+    override fun toString(): String {
+        return "CheckoutViewModel(address='$address', time='$time', discount='$discount', percentVoucher=$percentVoucher, fromWhere='$fromWhere')"
+    }
 
 
 }

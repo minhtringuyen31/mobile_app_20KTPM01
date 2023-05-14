@@ -27,8 +27,6 @@ class ToppingDetail : AppCompatActivity() {
             ).observe(this) { category ->
                 findViewById<TextView>(R.id.detailToppingCategory).text = category.getName()
             }
-            findViewById<TextView>(R.id.detailToppingChecked).text =
-                if (it.getChecked()!! == 1) "Yes" else "No"
         }
 
         findViewById<Button>(R.id.detailTopping_cancelBtn).setOnClickListener {

@@ -1,25 +1,26 @@
 package com.example.myapplication.pages.activities.promotion
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
-import com.example.myapplication.pages.activities.store.IntroductionStore
-import com.example.myapplication.viewmodels.promotion.PromotionViewModel
 
 
 class DetailPromotion : AppCompatActivity() {
     private lateinit var btn_back: AppCompatImageView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.item_promotion_detail)
+
         val promotion = intent.getParcelableExtra<PromotionData>("promotion")
+        val forward = intent.getStringExtra("source")
         if (promotion != null) {
             val img_promotionDetail: ImageView = findViewById(R.id.img_promotionDetail)
             val name_promotionDetail: TextView = findViewById(R.id.name_promotionDetail)
@@ -28,7 +29,6 @@ class DetailPromotion : AppCompatActivity() {
             val end_promotionDetail: TextView = findViewById(R.id.end_promotionDetail)
             val desc_promotionDetail: TextView = findViewById(R.id.desc_promotionDetail)
             val button_applyPromotion: Button = findViewById(R.id.button_applyPromotion)
-
 
             Glide.with(this)
                 .load(promotion.getImage())
@@ -50,9 +50,36 @@ class DetailPromotion : AppCompatActivity() {
             }
 
 
-
             button_applyPromotion.setOnClickListener {
-                Toast.makeText(this, "Discount is  "+promotion.getDiscount().toString(), Toast.LENGTH_SHORT).show()
+
+                if(forward=="Others"){
+                    val intent = Intent(
+                            this,
+                        // Signup::class.java
+                        MainActivity::class.java
+                    )
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.putExtra("percent","forwardtoOrder")
+                    intent.putExtra("to","Orders")
+                    startActivity(intent)
+
+                }else if(forward=="checkout")
+                {
+                    val intent = Intent(
+                        this,
+                        // Signup::class.java
+                        MainActivity::class.java
+                    )
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.putExtra("percent",promotion.getDiscount().toString())
+                    intent.putExtra("idPromotion",promotion.getID().toString())
+                    intent.putExtra("to","Checkout")
+                    startActivity(intent)
+                }
+                else
+                {
+
+                }
             }
         }
     }

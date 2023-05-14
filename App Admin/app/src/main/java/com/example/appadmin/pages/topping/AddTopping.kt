@@ -51,7 +51,7 @@ class AddTopping : AppCompatActivity() {
                 categories[toppingSpinner.selectedItemPosition].getId(),
                 findViewById<EditText>(R.id.addToppingName).text.toString(),
                 findViewById<EditText>(R.id.addToppingPrice).text.toString().toDouble(),
-                findViewById<CheckBox>(R.id.addToppingChecked).isChecked.let { if (it) 1 else 0 },
+                0,
                 1
             )
             val toppingViewProvider = ViewModelProvider(this)[ToppingController::class.java]

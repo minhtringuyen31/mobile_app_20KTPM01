@@ -84,12 +84,12 @@ class OrderController : ViewModel() {
         return _isDeleted
     }
 
-    fun changeDeliveringStatus(id: Int): LiveData<Boolean> {
+    fun changeAcceptStatus(id: Int): LiveData<Boolean> {
         val _isChanged = MutableLiveData<Boolean>()
         viewModelScope.launch {
             try {
                 val response = Utils.getRetrofit().create(OrderService::class.java)
-                    .changeDeliveringStatus(id)
+                    .changeAcceptStatus(id)
                 _isChanged.value = response
             } catch (e: Exception) {
                 // handle error
@@ -104,6 +104,20 @@ class OrderController : ViewModel() {
             try {
                 val response = Utils.getRetrofit().create(OrderService::class.java)
                     .changeDeliveredStatus(id)
+                _isChanged.value = response
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+        return _isChanged
+    }
+
+    fun changeDenyStatus(id: Int): LiveData<Boolean> {
+        val _isChanged = MutableLiveData<Boolean>()
+        viewModelScope.launch {
+            try {
+                val response = Utils.getRetrofit().create(OrderService::class.java)
+                    .changeDenyStatus(id)
                 _isChanged.value = response
             } catch (e: Exception) {
                 // handle error
