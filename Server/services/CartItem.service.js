@@ -15,6 +15,9 @@ const CartItemServices = {
     },
     async findAll() {
         return await CartItemRepository.findAll();
+    },
+    async findAllByUserId(userId) {
+        return await CartItemRepository.findAllByUserId(userId);
     }
     // Cần method gì thì tự implements !! 
 

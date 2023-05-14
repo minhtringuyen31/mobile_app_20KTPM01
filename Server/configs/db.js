@@ -8,7 +8,7 @@ const _connection = mysql2.createPool({
   user: 'root',
   password: '123456',
   database: 'mobile_coffee',
-  // port: process.env.WIN_PORT,
+  port: process.env.WIN_PORT,
 });
 const DB = {
   pool() {
