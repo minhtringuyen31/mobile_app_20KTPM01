@@ -1,7 +1,7 @@
 import DB from '../configs/db.js';
 const PromotionRepository = {
   async changeIsDisable(id, isDisable) {
-    const query = `UPDATE promotion SET isDisable=? WHERE id=?`;
+    const query = `UPDATE promotion SET is_disable=? WHERE id=?`;
     const values = [isDisable, id];
     try {
       const [result] = await DB.pool().query(query, values);
@@ -35,6 +35,36 @@ const PromotionRepository = {
     try {
       DB.pool().query(query, values);
       return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async updateWithoutImage(
+    id,
+    name,
+    description,
+    discount,
+    start_date,
+    end_date,
+    quantity,
+    code
+  ) {
+    const query = `UPDATE promotion SET name=?, description=?, discount=?, start_date=?, end_date=?, quantity=?, code=? WHERE id=?`;
+    const values = [
+      name,
+      description,
+      discount,
+      start_date,
+      end_date,
+      quantity,
+      code,
+      id,
+    ];
+
+    try {
+      const [result] = await DB.pool().query(query, values);
+      return result.affectedRows > 0;
     } catch (error) {
       console.error(error);
       return false;

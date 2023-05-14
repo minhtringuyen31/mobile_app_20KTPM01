@@ -1,6 +1,8 @@
 package com.example.myapplication.pages.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -19,10 +21,18 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.*
+<<<<<<< HEAD
 
 import com.example.myapplication.pages.apdaters.RatingListAdapter
+=======
+import com.example.myapplication.pages.activities.apdaters.RatingListAdapter
+import com.example.myapplication.services.ProductService
+import com.example.myapplication.utils.DataHolder
+>>>>>>> a2491c7d92aab341cb6f790148a90842d0496940
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
+import com.example.myapplication.viewmodels.cart.CartItemViewModel
+import com.example.myapplication.viewmodels.product.FavProductViewModel
 import com.example.myapplication.viewmodels.product.ProductViewModel
 import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
 import com.google.gson.Gson
@@ -76,7 +86,7 @@ class ProductDetail : Fragment() {
     private lateinit var noteEdit:EditText
     private  var cartItemID:Int=0
 
-    private lateinit var productViewModel : ProductViewModel
+//    private var favProductViewModel : FavProductViewModel by activityViewModels()
 
     private lateinit var ratingRecyclerView: RecyclerView
 //    private lateinit var ratingViewModel: RatingViewModel
@@ -99,11 +109,23 @@ class ProductDetail : Fragment() {
         val view=inflater.inflate(R.layout.fragment_product_detail, container, false)
         setUpViewModel()
         initUI(view)
+
+        val sharedPreferences: SharedPreferences =
+            view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
+        val curUser = sharedPreferences.getString("userID", "").toString().toInt()
+        appModel.isExistedFavProduct(curUser, productCartViewModel.getId())
+        appModel.getFavProductViewModel().check.observe(viewLifecycleOwner){
+            val check = it as Boolean
+            favProductToggleBtn.isChecked = check
+        }
+
+
         topping= productCartViewModel.getTopping()
         setUpObserve(view)
 
         return view
     }
+
     private  fun setUpViewModel(){
 
         appModel.setUpRatingViewMode(this, productCartViewModel.getId())
@@ -370,10 +392,13 @@ class ProductDetail : Fragment() {
                     .commit()
             }
         }
-//        favProductToggleBtn.setOnClickListener{
-//            val curUser = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
-//            if (favProductToggleBtn.isChecked()){
-//                println("Liked")
+        favProductToggleBtn.setOnClickListener{
+            val sharedPreferences: SharedPreferences =
+                view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
+            val curUser = sharedPreferences.getString("userID", "").toString().toInt()
+            val favProduct = FavProductItem(curUser, productCartViewModel.getId())
+            if (favProductToggleBtn.isChecked()){
+                println("Liked")
 //                val newFavProduct = Product(
 //                    productCartViewModel.getId(),
 //                    productCartViewModel.getName(),
@@ -390,23 +415,37 @@ class ProductDetail : Fragment() {
 //                    0,
 //                    0
 //                )
+                println("Here")
 //                DataHolder.addItem(newFavProduct)
 //                val fileName = "$curUser.json"
 //                saveToFile(fileName)
-//            } else{
-//                println("Unliked")
-//            }
-//        }
+                appModel.addFavProduct(favProduct)
+
+            } else{
+                println("Unliked")
+                appModel.removeFavProduct(favProduct)
+            }
+        }
     }
 
 //    fun saveToFile(fileName: String) {
 //        try {
 ////            val fileName = "studentList.json"
 //            // File will be in "/data/data/$packageName/files/"
+//            println("Save File")
 //            val format = Json { explicitNulls = false }
-//            val jsonString = format.encodeToString(DataHolder.getData())
-//            val out = OutputStreamWriter(openFileOutput(fileName, 0))
+//            val data: ArrayList<Product> = DataHolder.getData()
+//            val jsonString = format.encodeToString(data)
+//            println("1")
+//            val context = requireContext()
+//            val file = context.getFileStreamPath(fileName)
+//            println("2")
+//            val out = OutputStreamWriter(context.openFileOutput(fileName, Context.MODE_PRIVATE))
+//            println("3")
 //            out.write(jsonString)
+//            println("4")
+//            val temp = file.absolutePath
+//            println("File Path $temp")
 //            out.close()
 //        } catch (t: Throwable) {
 //            Log.e("error", t.message.toString())

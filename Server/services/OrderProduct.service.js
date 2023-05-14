@@ -36,7 +36,10 @@ const OrderProductServices = {
   },
   async findProductOrder(orderId) {
     return await OrderProductRepository.findProductOrder(orderId)
-  }
+  },
+  async findOrderProductByOrderId(orderId) {
+    return await OrderProductRepository.findAllByOrderID(orderId)
+  },
 
 
   // Cần method gì thì tự implements !!

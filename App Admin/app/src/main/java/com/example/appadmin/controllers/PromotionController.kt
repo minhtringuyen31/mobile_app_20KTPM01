@@ -7,12 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.appadmin.modals.Promotion
 import com.example.appadmin.services.PromotionService
 import com.example.appadmin.utils.Utils
-import com.google.gson.GsonBuilder
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class PromotionController : ViewModel() {
     fun getAllPromotion(): LiveData<List<Promotion>> {
@@ -43,13 +40,23 @@ class PromotionController : ViewModel() {
         return _promotion
     }
 
-    fun createPromotion(promotionNew: Promotion): LiveData<Promotion> {
+    fun createPromotion(
+        name: RequestBody,
+        description: RequestBody,
+        discount: RequestBody,
+        start_date: RequestBody,
+        end_date: RequestBody,
+        quantity: RequestBody,
+        code: RequestBody,
+        image: MultipartBody.Part
+    ): LiveData<Promotion> {
         val _promotion = MutableLiveData<Promotion>()
         viewModelScope.launch {
             try {
                 val response =
-                    Utils.getRetrofit().create(PromotionService::class.java)
-                        .createPromotion(promotionNew)
+                    Utils.getRetrofit().create(PromotionService::class.java).createPromotion(
+                        name, description, discount, start_date, end_date, quantity, code, image
+                    )
                 _promotion.value = response
             } catch (e: Exception) {
                 // handle error
@@ -58,12 +65,50 @@ class PromotionController : ViewModel() {
         return _promotion
     }
 
-    fun updatePromotion(id: Int, promotionNew: Promotion): LiveData<Promotion> {
+    fun updatePromotion(
+        id: Int,
+        name: RequestBody,
+        description: RequestBody,
+        discount: RequestBody,
+        start_date: RequestBody,
+        end_date: RequestBody,
+        quantity: RequestBody,
+        code: RequestBody,
+        image: MultipartBody.Part
+    ): LiveData<Promotion> {
+        val _promotion = MutableLiveData<Promotion>()
+        viewModelScope.launch {
+            try {
+                val response =
+                    Utils.getRetrofit().create(PromotionService::class.java).updatePromotion(
+                        id,
+                        name,
+                        description,
+                        discount,
+                        start_date,
+                        end_date,
+                        quantity,
+                        code,
+                        image
+                    )
+                _promotion.value = response
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+        return _promotion
+    }
+
+    fun updatePromotionWithoutImage(
+        id: Int, promotion: Promotion
+    ): LiveData<Promotion> {
         val _promotion = MutableLiveData<Promotion>()
         viewModelScope.launch {
             try {
                 val response = Utils.getRetrofit().create(PromotionService::class.java)
-                    .updatePromotion(id, promotionNew)
+                    .updatePromotionWithoutImage(
+                        id, promotion
+                    )
                 _promotion.value = response
             } catch (e: Exception) {
                 // handle error

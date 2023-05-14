@@ -1,6 +1,6 @@
 import PromotionServices from '../../services/Promotion.service.js';
 
-const RatingAdminController = {
+const PromotionAdminController = {
   disable: async (req, res) => {
     const id = req.params.id;
     const status = await PromotionServices.changeIsDisable(id, 1);
@@ -26,22 +26,49 @@ const RatingAdminController = {
       discount,
       start_date,
       end_date,
-      image,
       quantity,
       code,
     } = req.body;
+    const file = req.file || '';
     const newPromotion = await PromotionServices.create(
       name,
       description,
       discount,
       start_date,
       end_date,
-      image,
       quantity,
-      code
+      code,
+      file
     );
     if (newPromotion) {
       res.status(200).send(newPromotion);
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
+  updateWithoutImage: async (req, res) => {
+    const id = req.params.id;
+    const {
+      name,
+      description,
+      discount,
+      start_date,
+      end_date,
+      quantity,
+      code,
+    } = req.body;
+    const updatePromotion = await PromotionServices.updateWithoutImage(
+      id,
+      name,
+      description,
+      discount,
+      start_date,
+      end_date,
+      quantity,
+      code
+    );
+    if (updatePromotion) {
+      res.status(200).send(updatePromotion);
     } else {
       res.status(404).send({ status: 0, message: 'Failed' });
     }
@@ -54,10 +81,10 @@ const RatingAdminController = {
       discount,
       start_date,
       end_date,
-      image,
       quantity,
       code,
     } = req.body;
+    const image = req.file || '';
     const updatePromotion = await PromotionServices.update(
       id,
       name,
@@ -103,4 +130,4 @@ const RatingAdminController = {
   },
 };
 
-export default RatingAdminController;
+export default PromotionAdminController;

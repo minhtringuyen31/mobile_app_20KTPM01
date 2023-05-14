@@ -1,6 +1,8 @@
 package com.example.myapplication.pages.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -70,9 +72,12 @@ class Cart : Fragment(), OnItemClickListener {
         return view
     }
     private fun setUpViewModel(){
+        val sharedPreferences: SharedPreferences =
+            view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getString("userID", "").toString().toInt()
         (activity as MainActivity).showToolbarAndNavigationBar(false)
         (activity as MainActivity).showNavigationBar(true)
-        appModel.setUpCartItemViewModel(this)
+        appModel.setUpCartItemViewModel(this, userId)
     }
     private fun initUI(view:View){
         btnPlaceOrder = view.findViewById(R.id.btnPlaceOrder)

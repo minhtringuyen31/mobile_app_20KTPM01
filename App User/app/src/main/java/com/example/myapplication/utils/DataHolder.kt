@@ -37,8 +37,6 @@ object DataHolder {
 //        fileWriter.close()
 //    }
 
-
-
     fun readFile(fileName: String, context: Context){
         val file = File(context.filesDir, fileName)
         val fileReader = FileReader(file)
