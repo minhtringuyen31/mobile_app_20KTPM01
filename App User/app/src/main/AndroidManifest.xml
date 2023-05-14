@@ -28,13 +28,8 @@
             android:exported="false" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-<<<<<<< HEAD
             android:value="${MAPS_API_KEY}">
         </meta-data>
-=======
-            android:value="${MAPS_API_KEY}" />
-
->>>>>>> a2491c7d92aab341cb6f790148a90842d0496940
         <activity
             android:name=".pages.activities.promotion.DetailPromotion"
             android:exported="false" />
@@ -83,7 +78,6 @@
             android:exported="false" />
         <activity
             android:name=".pages.RatingActivity"
-<<<<<<< HEAD
             android:exported="false"/>
 
 
@@ -95,10 +89,6 @@
             </intent-filter>
 
         </service>
-
-=======
-            android:exported="false" />
->>>>>>> a2491c7d92aab341cb6f790148a90842d0496940
         <activity
             android:name=".MainActivity"
             android:exported="true"

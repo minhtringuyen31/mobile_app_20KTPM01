@@ -21,14 +21,10 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.*
-<<<<<<< HEAD
 
 import com.example.myapplication.pages.apdaters.RatingListAdapter
-=======
-import com.example.myapplication.pages.activities.apdaters.RatingListAdapter
 import com.example.myapplication.services.ProductService
 import com.example.myapplication.utils.DataHolder
->>>>>>> a2491c7d92aab341cb6f790148a90842d0496940
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
 import com.example.myapplication.viewmodels.cart.CartItemViewModel

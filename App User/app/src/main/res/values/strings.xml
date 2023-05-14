@@ -4,17 +4,13 @@
     <string name="idClient">315513977204-mu15r5slir88068p8qaikujoi9mo5nmb.apps.googleusercontent.com</string>
     <string name="channel_name">Notification</string>
     <string name="title_activity_maps">MapsActivity</string>
-<<<<<<< HEAD
     <string name="token">d1rZlEYWRN-qpXbYCL0ar7:APA91bGYdH-2bH30vuSIm_k8tjviAQt39WLcr8zZcYMc9X75eDrICPmLV0hnTKMpKgc5t7SGMg6XV3TayGuP2ItWOOBjzO_2obHcTVwOcHdUyI5XXbT3PdMoH0LDnUFXVCru2aUedO0W</string>
-=======
     <string name="title_activity_notification_list">NotificationList</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
-
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
->>>>>>> a2491c7d92aab341cb6f790148a90842d0496940
 </resources>

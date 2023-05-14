@@ -97,7 +97,7 @@ class Cart : Fragment(), OnItemClickListener {
                 cartAdapter.notifyDataSetChanged()
                  btnPlaceOrder.visibility = View.VISIBLE
                 if(cartItem.isEmpty()){
-                    emptyList.visibility = view.visibility
+                    emptyList.visibility = View.VISIBLE
                     btnPlaceOrder.visibility = View.GONE
                 }
         }

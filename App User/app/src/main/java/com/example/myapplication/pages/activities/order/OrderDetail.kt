@@ -15,10 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.modals.OrderProductDetail
-<<<<<<< HEAD:App User/app/src/main/java/com/example/myapplication/pages/OrderDetail.kt
-=======
 import com.example.myapplication.pages.RatingActivity
->>>>>>> a2491c7d92aab341cb6f790148a90842d0496940:App User/app/src/main/java/com/example/myapplication/pages/activities/order/OrderDetail.kt
 import com.example.myapplication.pages.apdaters.OrderProductListAdapter
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.order.OrderProductViewModel

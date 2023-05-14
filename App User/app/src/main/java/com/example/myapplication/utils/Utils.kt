@@ -7,27 +7,15 @@ import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
-import androidx.core.content.ContextCompat.startActivity
 import com.example.myapplication.R
-<<<<<<< HEAD
-=======
-import com.example.myapplication.modals.Product
 import com.example.myapplication.pages.activities.notification.NotificationList
 import com.example.myapplication.pages.activities.promotion.ListPromotion
->>>>>>> a2491c7d92aab341cb6f790148a90842d0496940
-import com.example.myapplication.pages.activities.user.Profile
 import com.google.gson.GsonBuilder
-import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.decodeFromStream
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.FileNotFoundException
-import java.io.InputStream
 import java.text.DecimalFormat
 import java.text.Normalizer
 import java.text.NumberFormat
@@ -35,11 +23,7 @@ import java.util.regex.Pattern
 
 class Utils : AppCompatActivity() {
     companion object {
-<<<<<<< HEAD
         private const val  URL="http://172.16.0.52:3000/api/"
-=======
-        private const val  URL="http://172.16.0.69:3000/api/"
->>>>>>> a2491c7d92aab341cb6f790148a90842d0496940
         fun getRetrofit(): Retrofit {
             val gson = GsonBuilder()
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")
