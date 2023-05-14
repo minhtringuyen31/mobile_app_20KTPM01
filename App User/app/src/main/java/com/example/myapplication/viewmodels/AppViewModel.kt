@@ -8,6 +8,7 @@ import com.example.myapplication.viewmodels.cart.CartItemViewModel
 import com.example.myapplication.viewmodels.category.CategoryViewModel
 import com.example.myapplication.viewmodels.order.OrderProductViewModel
 import com.example.myapplication.viewmodels.order.OrderViewModel
+import com.example.myapplication.viewmodels.product.FavProductViewModel
 import com.example.myapplication.viewmodels.product.ProductViewModel
 import com.example.myapplication.viewmodels.product.RatingViewModel
 import com.example.myapplication.viewmodels.product.ToppingViewModel
@@ -25,6 +26,7 @@ class AppViewModel:ViewModel() {
     private lateinit var ratingViewModel: RatingViewModel
     private lateinit var orderViewModel: OrderViewModel
     private lateinit var orderProductViewModel: OrderProductViewModel
+    private lateinit var favProductViewModel: FavProductViewModel
 
 
      fun setUpViewModel(view: View,viewModelStoreOwner: ViewModelStoreOwner) {
@@ -39,8 +41,9 @@ class AppViewModel:ViewModel() {
                  toppingViewModel = ViewModelProvider(viewModelStoreOwner)[ToppingViewModel::class.java]
                  toppingViewModel.getToppings()
                  cartItemViewModel = ViewModelProvider(viewModelStoreOwner)[CartItemViewModel::class.java]
-                 cartItemViewModel.getItemsCart()
+//                 cartItemViewModel.getItemsCart()
 
+                 favProductViewModel = ViewModelProvider(viewModelStoreOwner)[FavProductViewModel::class.java]
 
                  println("Current view-model: ${Thread.currentThread().name}")
              }
@@ -66,6 +69,9 @@ class AppViewModel:ViewModel() {
         }
 
     }
+
+
+
     fun setUpPromotionViewModel(viewModelStoreOwner: ViewModelStoreOwner){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -78,11 +84,11 @@ class AppViewModel:ViewModel() {
 
 
     }
-    fun setUpCartItemViewModel(viewModelStoreOwner: ViewModelStoreOwner){
+    fun setUpCartItemViewModel(viewModelStoreOwner: ViewModelStoreOwner, userId : Int){
         viewModelScope.launch {
             withContext(Dispatchers.Main) {
                 cartItemViewModel = ViewModelProvider(viewModelStoreOwner)[CartItemViewModel::class.java]
-                cartItemViewModel.getItemsCart()
+                cartItemViewModel.getItemsCart(userId)
 
                 println("Current view-model: ${Thread.currentThread().name}")
             }
@@ -102,6 +108,20 @@ class AppViewModel:ViewModel() {
 
     fun getOrderViewModel(): OrderViewModel {
         return orderViewModel;
+    }
+
+    fun setUpFavProductViewModel(viewModelStoreOwner: ViewModelStoreOwner, userId: Int){
+        viewModelScope.launch {
+            withContext(Dispatchers.Main) {
+                favProductViewModel = ViewModelProvider(viewModelStoreOwner)[FavProductViewModel::class.java]
+                favProductViewModel.getAllFavProducts(userId)
+                println("Current view-model: ${Thread.currentThread().name}")
+            }
+        }
+    }
+
+    fun getFavProductViewModel(): FavProductViewModel {
+        return favProductViewModel;
     }
 
 
@@ -127,6 +147,8 @@ class AppViewModel:ViewModel() {
             }
         }
     }
+
+
     fun setUpToppingViewModel(viewModelStoreOwner: ViewModelStoreOwner){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
@@ -167,6 +189,19 @@ class AppViewModel:ViewModel() {
 
     fun getRatingViewModel(): RatingViewModel {
         return this.ratingViewModel
+    }
+
+    fun addFavProduct(favProduct : FavProductItem){
+        favProductViewModel.addFavProduct(favProduct)
+    }
+
+    fun removeFavProduct(favProduct: FavProductItem) {
+        favProductViewModel.removeFavProduct(favProduct)
+    }
+
+    fun isExistedFavProduct(userId: Int, productId: Int){
+        favProductViewModel.isExistedFacProduct(userId, productId)
+        favProductViewModel.check
     }
 
 }
