@@ -134,41 +134,6 @@
                 tools:ignore="RtlCompat" />
         </RelativeLayout>
 
-        <RelativeLayout
-            android:id="@+id/relativeScroll5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/border_layout">
-
-            <TextView
-                android:id="@+id/dobTv"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:gravity="fill_vertical"
-                android:text="Checked:"
-                android:textAlignment="textStart"
-                android:textColor="#000000"
-                android:textSize="15sp"
-                tools:ignore="RtlCompat" />
-
-            <TextView
-                android:id="@+id/detailToppingChecked"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginStart="0dp"
-                android:layout_marginEnd="0dp"
-                android:layout_toEndOf="@+id/dobTv"
-                android:gravity="fill_vertical"
-                android:textAlignment="textEnd"
-                android:textColor="#000000"
-                android:textSize="15sp"
-                tools:ignore="RtlCompat" />
-        </RelativeLayout>
-
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline

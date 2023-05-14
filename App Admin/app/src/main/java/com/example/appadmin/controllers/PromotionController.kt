@@ -7,12 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.appadmin.modals.Promotion
 import com.example.appadmin.services.PromotionService
 import com.example.appadmin.utils.Utils
-import com.google.gson.GsonBuilder
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 
 class PromotionController : ViewModel() {
     fun getAllPromotion(): LiveData<List<Promotion>> {

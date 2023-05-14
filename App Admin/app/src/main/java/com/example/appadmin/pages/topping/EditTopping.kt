@@ -23,7 +23,6 @@ class EditTopping : AppCompatActivity() {
 
         val name = findViewById<EditText>(R.id.editToppingName)
         val price = findViewById<EditText>(R.id.editToppingPrice)
-        val checked = findViewById<CheckBox>(R.id.editToppingChecked)
         val category = findViewById<Spinner>(R.id.editToppingCategory)
 
         val intent = intent
@@ -50,7 +49,6 @@ class EditTopping : AppCompatActivity() {
         toppingViewProvider.getTopping(id!!.toInt()).observe(this) {
             name.setText(it.getName())
             price.setText(it.getPrice().toString())
-            checked.isChecked = it.getChecked() == 1
             category.setSelection(it.getCategory_id()!! - 1)
         }
 
@@ -64,7 +62,7 @@ class EditTopping : AppCompatActivity() {
                 categories[category.selectedItemPosition].getId(),
                 name.text.toString(),
                 price.text.toString().toDouble(),
-                checked.isChecked.let { if (it) 1 else 0 },
+                0,
                 1
             )
 

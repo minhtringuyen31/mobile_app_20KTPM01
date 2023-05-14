@@ -1,7 +1,7 @@
 import DB from '../configs/db.js';
 const PromotionRepository = {
   async changeIsDisable(id, isDisable) {
-    const query = `UPDATE promotion SET isDisable=? WHERE id=?`;
+    const query = `UPDATE promotion SET is_disable=? WHERE id=?`;
     const values = [isDisable, id];
     try {
       const [result] = await DB.pool().query(query, values);
