@@ -1,17 +1,23 @@
 package com.example.myapplication.pages.apdaters
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.myapplication.R
+import com.example.myapplication.modals.Order
 import com.example.myapplication.modals.Product
 
 class FavoriteProductListAdapter(
     private var favoriteProductList: ArrayList<Product>
 ): RecyclerView.Adapter<FavoriteProductListAdapter.ViewHolder>() {
+    var onItemClick:((Product)-> Unit)? = null
     var onItemAddToCartClick:((Product) -> Unit)? = null
 
     inner class ViewHolder(listItemView: View):RecyclerView.ViewHolder(listItemView){
@@ -20,6 +26,14 @@ class FavoriteProductListAdapter(
         val favoriteProductPriceTV : TextView = listItemView.findViewById(R.id.favoriteProductPriceTV)
         val favoriteProductDescriptionTv : TextView = listItemView.findViewById(R.id.favoriteProductDescriptionTV)
         val favoriteProductAddToCartBtn : TextView = listItemView.findViewById(R.id.favoriteProductAddToCartBtn)
+        val favoriteProductImage : ImageView = listItemView.findViewById(R.id.favoriteProductImg)
+        val favoriteProductToggleBtn : ToggleButton = listItemView.findViewById(R.id.favoriteToggleBtn)
+
+        init {
+            listItemView.setOnClickListener{
+                onItemClick?.invoke(favoriteProductList[position])
+            }
+        }
 
         init {
             favoriteProductAddToCartBtn.setOnClickListener{
@@ -32,8 +46,8 @@ class FavoriteProductListAdapter(
 //        TODO("Not yet implemented")
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val onGoingOrderView = inflater.inflate(R.layout.item_favorite_product, parent, false)
-        return ViewHolder(onGoingOrderView)
+        val favoriteProductView = inflater.inflate(R.layout.item_favorite_product, parent, false)
+        return ViewHolder(favoriteProductView)
     }
 
     override fun getItemCount(): Int {
@@ -48,11 +62,27 @@ class FavoriteProductListAdapter(
         val favProductRatingValue = holder.favoriteProductRatingRB
         val favProductPrice = holder.favoriteProductPriceTV
         val favProductDescription = holder.favoriteProductDescriptionTv
+        val favProductImg = holder.favoriteProductImage
+        val favToggleButton = holder.favoriteProductToggleBtn
 
         favProductName.text = favoriteProduct.getName()
         favProductPrice.text = favoriteProduct.getPrice_M().toString()
         favProductDescription.text = favoriteProduct.getDescription()
-//        favProductRatingValue.rating = favoriteProduct
+        favToggleButton.isChecked = true
+//        favProductRatingValue.rating = favoriteProduct.get
+        Glide.with(holder.itemView)
+            .load(favoriteProduct.getImage()).fitCenter()
+            .into(favProductImg)
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun addFavProduct(product:ArrayList<Product>){
+        favoriteProductList.apply {
+            clear()
+            favoriteProductList.addAll(product)
+            notifyDataSetChanged()
+            println("add fav product adapter $product")
+        }
     }
 
 }

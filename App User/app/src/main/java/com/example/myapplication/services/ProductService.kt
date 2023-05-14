@@ -1,6 +1,7 @@
 package com.example.myapplication.services
 
 import com.example.myapplication.modals.Category
+import com.example.myapplication.modals.FavProductItem
 import com.example.myapplication.modals.Product
 import retrofit2.http.*
 
@@ -25,4 +26,15 @@ interface ProductService {
 
     @POST("products/create/")
     suspend fun createProduct(@Body product: Product): Product
+
+    @GET("products/favorite/{userId}")
+    suspend fun getAllFavProduct(@Path("userId") userId:Int): ArrayList<Product>
+
+    @POST("products/favorite/add")
+    suspend fun addFavProduct(@Body favProduct: FavProductItem): Product
+
+    @POST("products/favorite/remove")
+    suspend fun removeFavProduct(@Body favProduct: FavProductItem): Boolean
+    @GET("products/favorite/check")
+    suspend fun findAFavProduct(@Query("userId") userId: Int, @Query("productId") productId: Int): Boolean
 }

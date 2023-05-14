@@ -109,6 +109,9 @@ class MainActivity : AppCompatActivity() {
                     setCurrentFragment(Order(),"Order")
                     // Build a GoogleSignInClient with the options specified by gso.
                 }
+                R.id.icon_favorite -> {
+                    setCurrentFragment(FavoriteProduct(), "Favorite")
+                }
                 R.id.icon_activity -> {
                     setCurrentFragment(Activities(),"Activities")
                 }

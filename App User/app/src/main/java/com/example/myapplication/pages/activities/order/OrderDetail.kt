@@ -1,4 +1,4 @@
-package com.example.myapplication.pages
+package com.example.myapplication.pages.activities.order
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -9,9 +9,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
-import com.example.myapplication.modals.OrderProduct
 import com.example.myapplication.modals.OrderProductDetail
-import com.example.myapplication.pages.apdaters.FavoriteProductListAdapter
+import com.example.myapplication.pages.RatingActivity
 import com.example.myapplication.pages.apdaters.OrderProductListAdapter
 import com.example.myapplication.viewmodels.order.OrderProductViewModel
 
