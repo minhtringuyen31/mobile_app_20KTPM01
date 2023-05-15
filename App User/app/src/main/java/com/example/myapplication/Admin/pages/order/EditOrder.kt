@@ -17,9 +17,11 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.Admin.controllers.OrderController
 import com.example.myapplication.Admin.controllers.OrderProductController
 import com.example.myapplication.Admin.controllers.UserController
+import com.example.myapplication.Admin.modals.Order
 import com.example.myapplication.R
 import com.example.myapplication.socket.SocketHandler
 import com.example.myapplication.socket.SocketHandler.mSocket
+import com.google.gson.Gson
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -38,6 +40,7 @@ class EditOrder : AppCompatActivity() {
         mSocket = SocketHandler.getSocket()
 
         val orderId = intent.getStringExtra("orderId")
+        val order = intent.getSerializableExtra("order") as Order
         val acceptBtn = findViewById<Button>(R.id.orderDetail_AcceptBtn)
         val denyBtn = findViewById<Button>(R.id.orderDetail_DenyBtn)
         val statusBtn = findViewById<Button>(R.id.orderDetail_StatusBtn)
@@ -57,7 +60,9 @@ class EditOrder : AppCompatActivity() {
             builder.setNegativeButton("Có") { dialog, which ->
                 orderProvider.changeAcceptStatus(orderId!!.toInt()).observe(this) {}
 
-                mSocket.emit("confirmOrder",user_id)
+                var gson = Gson()
+                var jsonString = gson.toJson(order)
+                mSocket.emit("confirmOrder",jsonString)
 
                 println(user_id)
                 val intent = Intent(this, Orders::class.java)

@@ -37,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:gravity="center_horizontal"
-                    android:text="Chỉnh sửa thông tin"
+                    android:text="@string/ttcn"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -86,7 +86,7 @@
                         android:layout_height="fill_parent"
                         android:layout_margin="20dp"
                         android:gravity="center_vertical"
-                        android:text="Chỉnh sửa thông tin cá nhân"
+                        android:text="@string/editinfo"
                         android:textAlignment="center"
                         android:textColor="@color/red"
                         android:textSize="20sp"
@@ -118,7 +118,7 @@
                 android:drawablePadding="10dp"
                 android:drawableTint="@color/red"
                 android:ems="10"
-                android:hint="Họ và tên"
+                android:hint="@string/name"
                 android:inputType="textPersonName"
                 android:padding="10dp" />
 
@@ -158,7 +158,7 @@
                     android:drawablePadding="10dp"
                     android:drawableTint="@color/red"
                     android:ems="10"
-                    android:hint="Giới tính"
+                    android:hint="@string/gender"
                     android:inputType="textPersonName"
                     android:padding="10dp" />
 
@@ -174,7 +174,7 @@
                     android:drawablePadding="10dp"
                     android:drawableTint="@color/red"
                     android:ems="10"
-                    android:hint="Ngày sinh"
+                    android:hint="@string/dob"
                     android:inputType="text|date"
                     android:padding="10dp"
                     android:textSize="15sp" />
@@ -194,7 +194,7 @@
                 android:drawablePadding="10dp"
                 android:drawableTint="@color/red"
                 android:ems="10"
-                android:hint="Địa chỉ"
+                android:hint="@string/address"
                 android:inputType="textPersonName"
                 android:padding="10dp" />
 
@@ -224,7 +224,7 @@
                     android:layout_margin="20dp"
                     android:layout_weight="1"
                     android:background="@drawable/edit_text_bg"
-                    android:text="Hủy"
+                    android:text="@string/cancel"
                     android:textColor="@color/red" />
 
                 <Button
@@ -234,7 +234,7 @@
                     android:layout_margin="20dp"
                     android:layout_weight="1"
                     android:background="@drawable/button_sign_custom"
-                    android:text="Lưu"
+                    android:text="@string/save"
                     android:textColor="@color/light_red" />
             </LinearLayout>
 

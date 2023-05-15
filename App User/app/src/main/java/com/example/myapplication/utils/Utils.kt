@@ -22,6 +22,7 @@ import java.util.regex.Pattern
 
 class Utils : AppCompatActivity() {
     companion object {
+
         private const val  URL="http://10.0.2.2:3000/api/"
         fun getRetrofit(): Retrofit {
             val gson = GsonBuilder()

@@ -108,7 +108,7 @@
                         android:background="@drawable/custom_rounded_search"
                         android:drawablePadding="5dip"
                         android:gravity="center_vertical"
-                        android:hint="Chỉnh sửa thông tin cá nhân"
+                        android:hint="@string/route_editprofile"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:textSize="18sp"
@@ -125,7 +125,7 @@
                         android:background="@drawable/custom_rounded_search"
                         android:drawablePadding="5dip"
                         android:gravity="center_vertical"
-                        android:hint="Thay mật khẩu"
+                        android:hint="@string/route_changepassword"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:textSize="18sp"
@@ -141,7 +141,7 @@
                         android:background="@drawable/custom_rounded_search"
                         android:drawablePadding="5dip"
                         android:gravity="center_vertical"
-                        android:hint="Giới thiệu cửa hàng"
+                        android:hint="@string/route_introstore"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:textSize="18sp"
@@ -157,11 +157,27 @@
                         android:background="@drawable/custom_rounded_search"
                         android:drawablePadding="5dip"
                         android:gravity="center_vertical"
-                        android:hint="Danh sách khuyến mãi"
+                        android:hint="@string/route_listpromotion"
                         android:paddingStart="15dp"
                         android:paddingEnd="15dp"
                         android:textSize="18sp"
                         app:drawableLeftCompat="@drawable/baseline_discount_24"
+                        app:drawableRightCompat="@drawable/baseline_arrow_forward_ios_24" />
+
+                    <TextView
+                        android:id="@+id/route_changelanguage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/custom_rounded_search"
+                        android:drawablePadding="5dip"
+                        android:gravity="center_vertical"
+                        android:hint="@string/route_changelanguage"
+                        android:paddingStart="15dp"
+                        android:paddingEnd="15dp"
+                        android:textSize="18sp"
+                        app:drawableLeftCompat="@drawable/baseline_language_24"
                         app:drawableRightCompat="@drawable/baseline_arrow_forward_ios_24" />
 
                     <LinearLayout
@@ -178,7 +194,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
                             android:background="@drawable/custom_border_btn"
-                            android:text="đăng xuất"
+                            android:text="@string/button_logout"
                             android:textColor="@color/white" />
 
                     </LinearLayout>

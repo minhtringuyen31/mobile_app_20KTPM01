@@ -16,5 +16,6 @@ ProductRoute.get("/:id", ProductController.findOne)
 ProductRoute.get("/", ProductController.findAll)
 ProductRoute.post("/favorite/add", ProductController.addNewFavProduct)
 ProductRoute.post("/favorite/remove", ProductController.removeFavProduct)
+ProductRoute.get("/rating/:productId", ProductController.getRating)
 export default ProductRoute;
 

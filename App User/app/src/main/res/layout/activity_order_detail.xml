@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:layout_marginTop="8dp"
-                    android:text="Chi tiết đơn đặt hàng"
+                    android:text="@string/ctdh"
                     android:textColor="@color/black"
                     android:textSize="20dp"
                     android:textStyle="bold">
@@ -341,7 +341,7 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:layout_width="wrap_content"
-                        android:text="Sub Total"
+                        android:text="@string/tongtien"
                         android:layout_weight="1"
                         android:textColor="@color/black"
                         android:textStyle="bold"
@@ -384,7 +384,7 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:layout_width="wrap_content"
-                        android:text="Discount"
+                        android:text="@string/km"
                         android:layout_weight="1"
                         android:textColor="@color/black"
                         android:textStyle="bold"
@@ -403,7 +403,7 @@
 
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="No discount"
+                        android:text="@string/cckm"
                         android:textAlignment="center"
                         android:textColor="@color/red"
                         android:textStyle="bold" />
@@ -512,7 +512,7 @@
                     android:layout_height="wrap_content">
                     <TextView
                         android:layout_width="wrap_content"
-                        android:text="Total"
+                        android:text="@string/total"
                         android:layout_weight="1"
                         android:textColor="@color/black"
                         android:textStyle="bold"

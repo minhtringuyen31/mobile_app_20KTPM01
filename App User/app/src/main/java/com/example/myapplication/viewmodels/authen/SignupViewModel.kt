@@ -24,7 +24,7 @@ class SignupViewModel: ViewModel() {
                 val response = Utils.getRetrofit().create(UserService::class.java).SignUp(request)
                 Resource.loading(data = null)
 
-                if(response.getPhone()!=null){
+                if(response.getEmail()!=null){
                     _signup.postValue( Resource.success(data=response))
                 }
                 else

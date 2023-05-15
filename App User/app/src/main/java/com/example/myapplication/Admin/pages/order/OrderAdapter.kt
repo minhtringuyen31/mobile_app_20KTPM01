@@ -60,6 +60,7 @@ class OrderAdapter(private val context: Context, private val items: List<Order>)
         holder.itemView.setOnClickListener {
             val intent = Intent(context, EditOrder::class.java)
             intent.putExtra("orderId", item.getId().toString())
+            intent.putExtra("order",item)
             context.startActivity(intent)
         }
     }

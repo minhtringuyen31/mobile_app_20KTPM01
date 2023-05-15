@@ -1,5 +1,6 @@
 import DB from '../configs/db.js';
 import crypto from 'crypto';
+import bcrypt from 'bcrypt'
 import CartServices from '../services/Cart.service.js';
 const UserRepository = {
   async changeIsDisable(id, is_disable) {
@@ -141,6 +142,7 @@ const UserRepository = {
       return false;
     }
   },
+  
   async findOneByEmail(email) {
     const query = `SELECT * FROM user WHERE email = ?`;
     const value = [email];
@@ -155,8 +157,9 @@ const UserRepository = {
     }
   },
 
-  async signup(phone, password) {
-    const query = `INSERT INTO user (phone,password,name) VALUES (?, ?,?)`;
+
+  async signup(email, password) {
+    const query = `INSERT INTO user (email,password,name) VALUES (?, ?,?)`;
     const chars =
       'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
     const randomBytes = crypto.randomBytes(8);
@@ -166,7 +169,7 @@ const UserRepository = {
     }
     const name = result.join('');
     console.log(name);
-    const values = [phone, password, name];
+    const values = [email, password, name];
     try {
       const [result] = await DB.pool().query(query, values);
       const insertedId = result.insertId;
@@ -177,6 +180,73 @@ const UserRepository = {
       const insertedUser = userResult[0];
       await CartServices.create(insertedUser.id);
       return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async getPass(email){
+    const query = `SELECT password FROM USER WHERE email=?`;
+    const value = [email];
+
+    try {
+      const [rows] = await DB.pool().query(query, value);
+
+      return rows[0];
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async setPass(email) {
+    const query = `UPDATE user SET password=? WHERE email=?`;
+
+    const pass="12345"
+    try {
+      const password = await bcrypt.hash(pass, 10);
+      const values = [password,email];
+      console.log(values);
+      try {
+        const [result] = await DB.pool().query(query, values);
+        if (result.affectedRows > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      } catch (error) {
+        console.error(error);
+        return false;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  },
+  async checkOTP(email,otp){
+    const query = `SELECT otp FROM user WHERE email = ?`;
+    const value = [email,otp];
+
+    try {
+      const [rows] = await DB.pool().query(query, value);
+
+      return rows[0];
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async setOTP(email, otp) {
+    const query = `UPDATE user SET otp=? WHERE email like ?`;
+    const values = [email, otp];
+    console.log(values)
+    try {
+      const [result] = await DB.pool().query(query, values);
+      console.log("here" + result)
+
+      if (result.affectedRows > 0) {
+        return true;
+      } else {
+        return false;
+      }
     } catch (error) {
       console.error(error);
       return false;

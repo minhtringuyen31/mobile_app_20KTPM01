@@ -1,5 +1,7 @@
 package com.example.myapplication.Admin.modals
 
+import java.io.Serializable
+
 
 class Order(
     private var id: Int? = null,
@@ -10,7 +12,7 @@ class Order(
     private var status: Int? = null,
     private var promotion_id: Int? = null,
     private var payment_method_id: Int? = null
-) {
+) : Serializable {
     // Getters of all
     fun getId(): Int? {
         return id

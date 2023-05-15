@@ -1,12 +1,14 @@
 package com.example.myapplication.Admin.modals
 
+import java.io.Serializable
+
 
 class Category(
     private var id: Int? = null,
     private var name: String? = null,
     private var is_disable: Int? = null,
     private var image: String? = null
-) {
+) : Serializable {
     fun getId(): Int? {
         return id
     }

@@ -33,7 +33,7 @@
                     android:layout_height="wrap_content"
                     android:text="Cà Phê"
                     android:textColor="@color/black"
-                    android:textSize="20sp"
+                    android:textSize="25sp"
                     android:textStyle="bold"
                     android:gravity="center_horizontal"
                     >
@@ -56,7 +56,7 @@
                         android:layout_width="match_parent"
                         android:layout_margin="5dp"
                         android:layout_height="wrap_content"
-                        android:text="Kích thước"
+                        android:text="@string/size"
                         android:textSize="20sp"
                         android:textStyle="bold"
                         android:textColor="@color/black">
@@ -81,7 +81,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="L"
-                                android:textSize="15sp"
+                                android:textSize="20sp"
                                 tools:ignore="TouchTargetSizeCheck" />
                             <TextView
                                 android:id="@+id/priceL"
@@ -115,7 +115,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="M"
-                                android:textSize="15sp"
+                                android:textSize="20sp"
                                 tools:ignore="TouchTargetSizeCheck" />
                             <TextView
                                 android:id="@+id/priceM"
@@ -148,7 +148,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:text="S"
-                                android:textSize="15sp"
+                                android:textSize="20sp"
                                 tools:ignore="TouchTargetSizeCheck" />
                             <TextView
                                 android:id="@+id/priceS"
@@ -201,7 +201,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
                         android:padding="3dp"
-                        android:hint="Thêm ghi chú"
+                        android:hint="@string/note"
                         android:background="@null"
                         android:layout_height="wrap_content">
 
@@ -219,10 +219,9 @@
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:layout_weight="6"
-                        android:gravity="center_horizontal|center_vertical"
-                        android:layout_height="match_parent"
-                        android:padding="5dp"
+                        android:layout_weight="5"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_10sdp"
                         android:orientation="horizontal">
                         <Button
                             android:id="@+id/minus_btn"
@@ -254,12 +253,12 @@
 
                     <Button
                         android:layout_width="0dp"
-                        android:layout_weight="8"
+                        android:layout_weight="7"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/_10sdp"
                         android:id="@+id/btnPrice"
                         android:textColor="@color/white"
-                        android:backgroundTint="@color/red"
+                        android:background="@drawable/bg_category"
                         android:text="Add to cart - 25.0000đ"/>
 
                 </LinearLayout>

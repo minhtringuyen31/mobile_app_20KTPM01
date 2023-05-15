@@ -1,5 +1,6 @@
 import CategoryService from "../services/Category.service.js"
 import UserServices from "../services/User.service.js";
+import NotificationService from "../services/Notification.service.js";
 const listCategory = await CategoryService.findAll();
 const SocketListener = {
     start: function (io) {
@@ -28,13 +29,20 @@ const SocketListener = {
             })
             socket.on("confirmOrder", (data) => {
         
+                const result = JSON.parse(data)
+               
                 const messages = {
                     "data": {
                         "username": "Thông báo đơn hàng",
                         "description": "Đơn hàng của bạn đã được xác nhận"
                     }
                 }
-                UserServices.handleTokenFireBase(data, messages, "one");
+                //id: any, user_id: any, title: any, sub_title: any, image: any, description: any, time: any, type: any, is_seen: any
+                const currentTime = new Date();
+              
+                NotificationService.postNotification(0, result.user_id, "Xác nhận đơn hàng", "Đơn hàng của bạn đã được xác nhận", "", result.shipping_address, currentTime, 1, 0)
+                
+                UserServices.handleTokenFireBase(result.user_id, messages, "one");
                 console.log("Có 1 đơn hàng mới từ khách hàng có ID" + data);
             })
             socket.on("deliverySuccess", (data) => {
@@ -45,6 +53,7 @@ const SocketListener = {
                         "description": "Đơn hàng của bạn đã được giao thành công"
                     }
                 }
+                //
                 UserServices.handleTokenFireBase(data, messages, "one");
                 console.log("Có 1 đơn hàng mới từ khách hàng có ID" + data);
             })

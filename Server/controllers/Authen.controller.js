@@ -8,8 +8,8 @@ const client = new OAuth2Client("315513977204-r4d598sk0sv9fifrhefveulu7ksi8fsg.a
 const AuthenController = {
     async login(req, res) {
         try {
-            const [rows] = await DB.pool().query('SELECT * FROM user WHERE phone = ?', [
-                req.body.phone,
+            const [rows] = await DB.pool().query('SELECT * FROM user WHERE email = ?', [
+                req.body.email,
             ]);
             if (!rows.length) {
                 return res.status(401).json({ message: 'Invalid email or password' });
