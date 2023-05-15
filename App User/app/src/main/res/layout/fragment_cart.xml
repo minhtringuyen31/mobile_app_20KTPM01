@@ -11,12 +11,10 @@
         android:elevation="16dp"
         android:padding="5dp"
         android:layout_marginBottom="10dp"
-        android:gravity="center_horizontal"
         android:layout_width="match_parent">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-
             android:layout_height="match_parent">
             <LinearLayout
                 android:layout_width="match_parent"
@@ -28,27 +26,26 @@
                     android:layout_width="0dp"
                     android:layout_height="fill_parent"
                     android:layout_gravity="center_vertical"
-                    android:layout_weight="0.5"
+                    android:layout_weight="1"
                     android:src="@drawable/ic_back"></ImageView>
 
                 <TextView
-                    android:layout_weight="8"
+                    android:layout_weight="7"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="Giỏ hàng của bạn"
+                    android:text="@string/cart"
                     android:textStyle="bold"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:gravity="center_horizontal" />
                 <TextView
                     android:id="@+id/icon_deletecard"
-                    android:layout_weight="1.5"
-                    android:paddingEnd="10dp"
+                    android:layout_weight="2"
                     android:layout_width="0dp"
-                    android:text="Xoá"
+                    android:text="@string/delcart"
                     android:textColor="@color/redHighland"
                     android:textStyle="bold"
-                    android:gravity="right|center_vertical"
+                  android:gravity="center_vertical"
                     android:layout_height="fill_parent">
                 </TextView>
             </LinearLayout>
@@ -77,12 +74,11 @@
         android:layout_weight="1">
     </View>
     <TextView
-        android:visibility="invisible"
         android:id="@+id/btnPlaceOrder"
+
         android:layout_marginBottom="70dp"
-        android:layout_marginHorizontal="20dp"
         android:layout_width="match_parent"
-        android:text="Đặt hàng"
+        android:text="@string/dh"
         android:textStyle="bold"
         android:textAlignment="center"
         android:textColor="@color/white"

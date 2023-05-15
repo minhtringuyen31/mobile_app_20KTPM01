@@ -115,12 +115,13 @@ class ProductDetail : AppCompatActivity() {
         productViewModel.getProduct(productId).observe(this) {
             product = it
             findViewById<TextView>(R.id.detailProductName).text = it.getName()
+            findViewById<TextView>(R.id.detailProductSize).text = it.getSize()
             findViewById<TextView>(R.id.priceSTv).text =
-                "Size S: " + it.getPriceS().toString() + "VND"
+                "Giá S: " + it.getPriceS().toString() + "Đ"
             findViewById<TextView>(R.id.priceLTv).text =
-                "Size L: " + it.getPriceL().toString() + "VND"
+                "Giá L: " + it.getPriceL().toString() + "Đ"
             findViewById<TextView>(R.id.priceMTv).text =
-                "Size M: " + it.getPriceM().toString() + "VND"
+                "Giá M: " + it.getPriceM().toString() + "Đ"
             findViewById<TextView>(R.id.detailProductDesc).text = it.getDescription()
             it.getCategoryId()?.let { it1 ->
                 ViewModelProvider(this)[CategoryController::class.java].getCategory(it1)

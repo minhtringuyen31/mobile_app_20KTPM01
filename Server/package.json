@@ -14,6 +14,7 @@
     "nodemon": "^2.0.22"
   },
   "dependencies": {
+    "firebase-admin": "^11.8.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
     "cloudinary": "^1.35.0",
@@ -30,6 +31,7 @@
     "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",
     "mysql2": "^3.2.0",
+    "nodemailer": "^6.9.2",
     "npm": "^9.6.5",
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.1",

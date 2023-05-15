@@ -3,6 +3,7 @@ import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
 const CategoryServices = {
   async changeIsDisable(id, is_disable) {
+    
     return await CategoryRepository.changeIsDisable(id, is_disable);
   },
   async create(name, image) {

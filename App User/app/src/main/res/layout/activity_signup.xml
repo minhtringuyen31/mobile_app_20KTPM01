@@ -6,19 +6,20 @@
     android:layout_height="match_parent"
     android:background="@color/red"
     tools:context=".pages.activities.user.Signup">
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:clickable="true"
+        android:contentDescription="TODO"
         android:tint="@color/red"
         app:backgroundTint="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_keyboard_arrow_left_24"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/baseline_keyboard_arrow_left_24" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -33,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="sans-serif-medium"
-        android:text="Chào mừng đến\nInfinity Coffee"
+        android:text="@string/textView"
         android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
@@ -91,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="OR"
+                android:text="@string/textView5"
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -107,7 +108,7 @@
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawableTint="@color/red"
                 android:ems="10"
-                android:hint="Mật khẩu"
+                android:hint="@string/signup_pass"
                 android:inputType="textPassword"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -124,7 +125,7 @@
                 android:drawableLeft="@drawable/baseline_lock_24"
                 android:drawableTint="@color/red"
                 android:ems="10"
-                android:hint="Nhập lại mật khẩu"
+                android:hint="@string/signup_confirmpass"
                 android:inputType="textPassword"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -141,7 +142,7 @@
                 android:drawableLeft="@drawable/baseline_email_24"
                 android:drawableTint="@color/red"
                 android:ems="10"
-                android:hint="Địa chỉ email"
+                android:hint="@string/signup_phone"
                 android:inputType="textPersonName"
                 android:padding="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -156,7 +157,7 @@
 
 
                 android:background="@drawable/button_sign_custom"
-                android:text="Đăng ký"
+                android:text="@string/button_signup"
                 android:textColor="@color/white"
                 android:textSize="18sp"
 
@@ -182,7 +183,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
-                    android:text="Bạn đã có tài khoản?" />
+                    android:text="@string/textView3" />
 
                 <TextView
                     android:id="@+id/route_login"
@@ -190,7 +191,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Đăng nhập"
+                    android:text="@string/route_login"
                     android:textColor="@color/red"
                     android:textStyle="bold" />
             </LinearLayout>

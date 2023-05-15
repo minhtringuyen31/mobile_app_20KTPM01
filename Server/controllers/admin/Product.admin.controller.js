@@ -45,14 +45,13 @@ const ProductAdminController = {
       price_S,
       price_M,
       price_L,
-      note,
-      image,
       status,
       category_id,
       update_date,
       release_date,
       sales,
     } = req.body;
+    const image = req.file || '';
     const newProduct = await ProductServices.create(
       name,
       description,
@@ -60,7 +59,6 @@ const ProductAdminController = {
       price_S,
       price_M,
       price_L,
-      note,
       image,
       status,
       category_id,
@@ -74,6 +72,35 @@ const ProductAdminController = {
       res.status(404).send({ status: 0, message: 'Failed' });
     }
   },
+  updateWithoutImage: async (req, res) => {
+    const id = req.params.id;
+    const {
+      name,
+      description,
+      size,
+      price_S,
+      price_M,
+      price_L,
+      category_id,
+      update_date,
+    } = req.body;
+    const updateProduct = await ProductServices.updateWithoutImage(
+      id,
+      name,
+      description,
+      size,
+      price_S,
+      price_M,
+      price_L,
+      category_id,
+      update_date
+    );
+    if (updateProduct) {
+      res.status(200).send(updateProduct);
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
   update: async (req, res) => {
     const id = req.params.id;
     const {
@@ -83,13 +110,10 @@ const ProductAdminController = {
       price_S,
       price_M,
       price_L,
-      image,
-      status,
       category_id,
       update_date,
-      release_date,
-      sales,
     } = req.body;
+    const image = req.file || '';
     const updateProduct = await ProductServices.update(
       id,
       name,
@@ -99,11 +123,8 @@ const ProductAdminController = {
       price_M,
       price_L,
       image,
-      status,
       category_id,
-      update_date,
-      release_date,
-      sales
+      update_date
     );
     if (updateProduct) {
       res.status(200).send(updateProduct);

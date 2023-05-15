@@ -33,11 +33,12 @@
                     android:src="@drawable/ic_back"></ImageView>
 
                 <TextView
+                    android:id="@+id/ttch"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="7"
                     android:gravity="center_horizontal"
-                    android:text="Thông tin cửa hàng"
+                    android:text="@string/route_introstore"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -105,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="20dp"
                 android:layout_weight="1"
-                android:text="Infinity Coffee là một cửa hàng cà phê được thành lập vào năm 2023, bắt nguồn từ tình yêu dành cho cà phê Việt và mong muốn đem đến cho thực khách hương vị cà phê tuyệt vời nhất. \n\nMục tiêu của cửa hàng chúng mình là có thể phục vụ và góp phần phát triển cộng đồng cà phê Việt bằng cách mang đến trải nghiệm tiện lợi, thú vị cho khách hàng. \n\nInfinity xin cam kết 100% về chất lượng, cũng như sẽ  mang đến cho mọi người trải nghiệm đáng nhớ nhất.\n"
+                android:text="@string/textView13"
                 android:textColor="@color/red"
                 android:textSize="16dp"
                 android:textStyle="italic" />
@@ -119,7 +120,7 @@
         android:layout_height="wrap_content"
         android:background="@color/red"
         android:padding="10dp"
-        android:text="Vị trí cửa hàng"
+        android:text="@string/viewmap"
         android:textColor="@color/light_red"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -1,6 +1,7 @@
 package com.example.myapplication.pages.activities.user
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -58,7 +59,11 @@ class EditProfile : AppCompatActivity() {
                                 edit_address.text.toString())
 
             editInfoViewModel= ViewModelProvider(this)[EditInfoViewModel::class.java]
-            editInfoViewModel.EditInfo(22,editInfoRequest) // phai tim duoc id cua nguoi dung dang dang nhap
+            val sharedPreferences: SharedPreferences =getSharedPreferences("user", MODE_PRIVATE)
+            val userID = sharedPreferences.getString("userID", null)
+            if(userID!=null) {
+                editInfoViewModel.EditInfo(userID.toInt(), editInfoRequest)
+            }// phai tim duoc id cua nguoi dung dang dang nhap
             editInfoViewModel.editInfo.observe(this, Observer{
                 it?.let { resource ->
                     when (resource.status) {

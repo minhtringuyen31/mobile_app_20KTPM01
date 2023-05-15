@@ -24,7 +24,8 @@ import java.util.regex.Pattern
 
 class Utils : AppCompatActivity() {
     companion object {
-        private const val  URL="http://172.16.0.52:3000/api/"
+        //10.0.2.2
+        private const val  URL="http://10.0.2.2:3000/api/"
         fun getRetrofit(): Retrofit {
             val gson = GsonBuilder()
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")
