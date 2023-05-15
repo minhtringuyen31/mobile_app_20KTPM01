@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.MyApplication" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimary">@color/red</item>
+        <item name="colorPrimaryVariant">@color/red</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -18,12 +18,22 @@
         <item name="shapeAppearanceOverlay">@style/custom_card_view</item>
 
     </style>
+    <style name="searchView" parent="">
+        <item name="android:backgroundTint">@color/gray</item>
+        <item name="android:textColorHint">@color/black</item>
+        <item name="android:editTextColor">@color/white</item>
+    </style>
 
     <style name="CustomBottomSheetDialogTheme" parent="Theme.Design.Light.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/CustomBottomSheetStyle</item>
     </style>
+    <style name="Widget.App.Button" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">@color/red</item>
+    </style>
+
 
     <style name="CustomBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
+
         <item name="android:background">@android:color/transparent</item>
     </style>
 

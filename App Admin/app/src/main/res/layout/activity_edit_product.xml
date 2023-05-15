@@ -6,86 +6,348 @@
     android:layout_height="match_parent"
     tools:context=".pages.product.EditProduct">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/productEditImage"
-            android:layout_marginTop="50dp"
             android:layout_width="200dp"
             android:layout_height="140dp"
+            android:layout_marginTop="30dp"
             app:cardCornerRadius="40dp">
 
             <ImageView
+                android:id="@+id/editProductImage"
                 android:layout_width="200dp"
                 android:layout_height="140dp"
                 android:adjustViewBounds="true"
-                android:background="@drawable/custom_edittext"
                 android:scaleType="centerCrop"
-                android:src="@drawable/profile" />
+                android:src="@drawable/baseline_person_24" />
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/productEditName"
+        <Button
+            android:id="@+id/editProductImageBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/productEditImage"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="-50dp"
-            android:text="Shoe"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/productEditDesc"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/productEditName"
-            android:layout_marginStart="-50dp"
-            android:text="Bla Bla Bla" />
-
-    </RelativeLayout>
+            android:backgroundTint="@color/white"
+            android:text="image"
+            android:textColor="@color/black" />
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/editProductScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@id/flexEditProduct"
+        android:layout_marginTop="30dp"
+        app:layout_constraintBottom_toBottomOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="40dp"/>
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
 
+            <RelativeLayout
+                android:id="@+id/relativeScroll1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_layout">
 
+                <TextView
+                    android:id="@+id/nameTv"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:gravity="fill_vertical"
+                    android:text="Tên sản phẩm:"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
 
+                <EditText
+                    android:id="@+id/editProductName"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_toEndOf="@+id/nameTv"
+                    android:background="@null"
+                    android:gravity="fill_vertical"
+                    android:hint="Cà phê sữa đá"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeScroll15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_layout">
+
+                <TextView
+                    android:id="@+id/sizeTv"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:gravity="fill_vertical"
+                    android:text="Size:"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+
+                <Spinner
+                    android:id="@+id/editProductSize"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_toEndOf="@+id/sizeTv"
+                    android:gravity="fill_vertical"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeScroll2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_layout">
+
+                <TextView
+                    android:id="@+id/emailTv"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:gravity="fill_vertical"
+                    android:text="Mô tả:"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+
+                <EditText
+                    android:id="@+id/editProductDesc"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_toEndOf="@+id/emailTv"
+                    android:background="@null"
+                    android:gravity="fill_vertical"
+                    android:hint="Ngon nhức nách"
+                    android:inputType="textEmailAddress"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeScroll7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_layout">
+
+                <TextView
+                    android:id="@+id/passwordTv"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:gravity="fill_vertical"
+                    android:text="Giá size S:"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+
+                <EditText
+                    android:id="@+id/editProductSizeS"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_toEndOf="@+id/passwordTv"
+                    android:background="@null"
+                    android:gravity="fill_vertical"
+                    android:hint="100000"
+                    android:inputType="number"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeScroll8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_layout">
+
+                <TextView
+                    android:id="@+id/confirmPasswordTv"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:gravity="fill_vertical"
+                    android:text="Giá size M:"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+
+                <EditText
+                    android:id="@+id/editProductSizeM"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_toEndOf="@+id/confirmPasswordTv"
+                    android:background="@null"
+                    android:gravity="fill_vertical"
+                    android:hint="100000"
+                    android:inputType="numberDecimal"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeScroll3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_layout">
+
+                <TextView
+                    android:id="@+id/genderTv"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:gravity="fill_vertical"
+                    android:text="Giá size L:"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+
+                <EditText
+                    android:id="@+id/editProductSizeL"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_toEndOf="@+id/genderTv"
+                    android:background="@null"
+                    android:gravity="fill_vertical"
+                    android:hint="100000"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeScroll4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_layout">
+
+                <TextView
+                    android:id="@+id/phoneTv"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:gravity="fill_vertical"
+                    android:text="Loại sản phẩm:"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+
+                <Spinner
+                    android:id="@+id/editProductCategory"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginEnd="-1dp"
+                    android:layout_toEndOf="@+id/phoneTv"
+                    android:gravity="fill_vertical"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+            </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
 
     <LinearLayout
         android:id="@+id/flexEditProduct"
         android:layout_width="match_parent"
-        android:layout_height="80dp"
+        android:layout_height="0dp"
         android:gravity="center"
+        android:orientation="horizontal"
         android:showDividers="middle"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline">
 
         <Button
+            android:id="@+id/editProduct_saveBtn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_marginEnd="70dp"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
             android:backgroundTint="#2196F3"
-            android:text="Edit" />
+            android:text="Lưu mới" />
 
         <Button
+            android:id="@+id/editProduct_cancelBtn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:backgroundTint="#E91E63"
-            android:text="Delete" />
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FF5722"
+            android:text="Thoát" />
 
     </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

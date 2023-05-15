@@ -5,9 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager.widget.ViewPager
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
-import com.example.myapplication.pages.activities.apdaters.ViewPagerAdapter
+import com.example.myapplication.pages.apdaters.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayout
 
 
@@ -30,6 +32,7 @@ class Activities : Fragment(){
     private var tabLayout : TabLayout?=null
     private var viewPager : ViewPager? = null
     private var viewPagerAdapter: ViewPagerAdapter? =null
+    private lateinit var view:View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,21 +41,42 @@ class Activities : Fragment(){
             param2 = it.getString(ARG_PARAM2)
         }
     }
+    fun getItem(position:Int):Fragment{
+       return viewPagerAdapter!!.getItem(position)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view=inflater.inflate(R.layout.fragment_activities, container, false)
+        view=inflater.inflate(R.layout.fragment_activities, container, false)
         // Inflate the layout for this fragment
-
+        (activity as MainActivity).showToolbarAndNavigationBar(true)
         initUI(view)
         return view;
     }
     private fun setupViewPager(viewPager: ViewPager) {
         val adapter = ViewPagerAdapter(childFragmentManager)
-        adapter.addFragment(OnGoingOrder(), "On Going ")
-        adapter.addFragment(HistoryOrder(), "History Order")
+        val fragmentHistory: Fragment = HistoryOrder()
+        requireFragmentManager().beginTransaction()
+            .add(HistoryOrder(),"HistoryOrder")
+            .addToBackStack("Homepage").commit()
+        val fragmentOnGoing: Fragment = OnGoingOrder()
+        requireFragmentManager().beginTransaction()
+            .add(OnGoingOrder(),"OnGoing")
+            .addToBackStack("Homepage").commit()
+        val fragmentConfirmOrder: Fragment = ConfirmOrder()
+        requireFragmentManager().beginTransaction()
+            .add(OnGoingOrder(),"Confirm")
+            .addToBackStack("Homepage").commit()
+        val fragmentCancel: Fragment = CancelOrder()
+        requireFragmentManager().beginTransaction()
+            .add(OnGoingOrder(),"Cancel")
+            .addToBackStack("Homepage").commit()
+        adapter.addFragment(fragmentOnGoing, "Đang xử lý")
+        adapter.addFragment(fragmentConfirmOrder, "Đơn hàng được xác nhận")
+        adapter.addFragment(fragmentHistory, "Giao hàng thành công")
+        adapter.addFragment(fragmentCancel, "Khác")
 
         viewPager.adapter = adapter
     }
@@ -60,7 +84,7 @@ class Activities : Fragment(){
     fun initUI(view: View){
         tabLayout = view.findViewById(R.id.tabLayout)
         viewPager = view.findViewById(R.id.viewPager)
-        viewPager?.offscreenPageLimit = 2;
+        viewPager?.offscreenPageLimit = 4;
         viewPager?.let { setupViewPager(it) }
 
         tabLayout?.setupWithViewPager(viewPager)

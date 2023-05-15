@@ -5,7 +5,7 @@ import retrofit2.http.*
 
 interface OrderService {
     @GET("orders/{id}")
-    suspend fun getOrder(@Path("id") orderID: Int): Order
+    suspend fun getOrder(@Path("id") orderID: Int): ArrayList<Order>
 
     @GET("orders/")
     suspend fun getAllOrder(): ArrayList<Order>

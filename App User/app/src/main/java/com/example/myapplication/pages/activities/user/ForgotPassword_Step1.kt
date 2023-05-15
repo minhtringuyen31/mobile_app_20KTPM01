@@ -83,41 +83,6 @@ class ForgotPassword_Step1 : AppCompatActivity() {
                         Status.SUCCESS -> {
                             Toast.makeText(this,"OTP đã gửi đến email của bạn!", Toast.LENGTH_LONG).show()
 
-//
-//                            userViewModel=ViewModelProvider(this)[UserViewModel::class.java]
-//                            //println(fg_email.text.toString())
-//                            userViewModel.getUserbyEmail(fg_email.text.toString())
-//                           // println(fg_email.text.toString())
-//                            userViewModel.user.observe(this, Observer {
-//
-////                                    it?.let { resource ->
-//                                        println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
-////                                        when (resource.status) {
-////
-////                                            Status.SUCCESS -> {
-//                                                println(fg_email.text.toString())
-//                                                val sharedPreferences: SharedPreferences =getSharedPreferences("user", MODE_PRIVATE)
-//                                                val userID = sharedPreferences.edit().putString("userID",it.getId().toString())
-//
-//                                                println("test"+userID)
-////                                                //Toast.makeText(this,"Cập nhật thành công!", Toast.LENGTH_LONG).show()
-////                                            }
-////                                            Status.ERROR -> {
-////
-////                                                Toast.makeText(this,it.message, Toast.LENGTH_LONG).show()
-////                                            }
-////                                            Status.LOADING -> {
-////                                                Toast.makeText(this, "Loading", Toast.LENGTH_LONG).show()
-////                                            }
-////                                            else -> {
-////
-////                                            }
-////                                        }
-////                                    }
-
-
-//                            })
-
                             startActivity(Intent(this, ForgotPassword_Step2::class.java ).putExtra("email",fg_email.text.toString()))
                         }
 

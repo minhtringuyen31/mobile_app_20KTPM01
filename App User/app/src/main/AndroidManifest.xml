@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:enableOnBackInvokedCallback="true"
@@ -20,28 +20,19 @@
         android:theme="@style/Theme.MyApplication"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-
-        <!--
-             TODO: Before you run your application, you need a Google Maps API key.
-
-             To get one, follow the directions here:
-
-                https://developers.google.com/maps/documentation/android-sdk/get-api-key
-
-             Once you have your API key (it starts with "AIza"), define a new property in your
-             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
-             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
-        -->
-        <!-- <meta-data -->
-        <!-- android:name="com.google.android.geo.API_KEY" -->
-        <!-- android:value="YOUR_API_KEY" /> -->
+        <activity
+            android:name=".Admin.pages.DetailOrderConfirm"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.DashBoard"
+            android:exported="false" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}" />
+            android:value="${MAPS_API_KEY}">
+        </meta-data>
         <activity
             android:name=".pages.activities.promotion.DetailPromotion"
             android:exported="false" />
-
         <activity
             android:name=".pages.activities.store.MapsActivity"
             android:exported="false"
@@ -83,24 +74,37 @@
             android:name=".pages.activities.order.Checkout"
             android:exported="false" />
         <activity
-            android:name=".pages.OrderDetail"
+            android:name=".pages.activities.order.OrderDetail"
+            android:exported="false" />
+        <activity
+            android:name=".pages.activities.notification.NotificationList"
+            android:exported="false" />
+        <activity
+            android:name=".pages.RatingActivity"
             android:exported="false"/>
+
+
+        <service
+            android:name=".Notification.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+
+        </service>
         <activity
             android:name=".MainActivity"
             android:exported="true"
             android:label="The coffee shop"
-            android:launchMode="singleTop">
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-
                 <data
                     android:host="app"
                     android:scheme="demozpdk" />

@@ -40,7 +40,6 @@ private const val ARG_PARAM2 = "param2"
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
     private var item= arrayOf(1.0, 0.0, 1.0)
     private lateinit var toppingApdapter:ToppingApdapter
     private lateinit var  toppingListView:ListView
@@ -63,6 +62,7 @@ private const val ARG_PARAM2 = "param2"
     private lateinit var image:String
     private lateinit var description:String
     private lateinit var notesEdit:EditText
+    private lateinit var view:View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,34 +71,29 @@ private const val ARG_PARAM2 = "param2"
             param2 = it.getString(ARG_PARAM2)
         }
         setStyle(STYLE_NORMAL, R.style.CustomBottomSheetDialogTheme)
-
-
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view= inflater.inflate(R.layout.fragment_bottom_sheet_cart_item, container, false)
+    ): View {
+         view= inflater.inflate(R.layout.fragment_bottom_sheet_cart_item, container, false)
         // Inflate the layout for this fragment
-
-
         setUpViewModel()
         initUI(view)
         setUpObserve(view)
-
-
         return view
     }
     private fun setUpViewModel(){
         appModel.setUpToppingViewModel(this)
+
     }
     private fun displayCount() {
         text_quantity.text = itemCount.count.toString()
     }
     private fun updatePriceTotal() {
 
-        btnAddtoCart.text = "Add to cart - " +  Utils.formatCurrency( itemCount.total) + " đ"
+        btnAddtoCart.text = "Thêm vào GH - " +  Utils.formatCurrency( itemCount.total) + " đ"
     }
     @SuppressLint("SetTextI18n")
     private fun initUI(view:View){
@@ -244,32 +239,36 @@ private const val ARG_PARAM2 = "param2"
             }
             else{
                 val sharedPreferencesUser = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
-                val userID = sharedPreferencesUser.getString("userID", "")
-                val notes=  notesEdit.text.toString();
-                val cartItem = CartItem(
-                    userID!!.toInt(),
-                    userID!!.toInt(),
-                    product_id,
-                    itemCount.count,
-                    itemCount.size,
-                    itemCount.total,
-                    itemCount.nameTopping,
-                    name,
-                    description,
-                    image,
-                    category_id,
-                    notes,
-                )
-                appModel.addtoCart(cartItem)
-                Toast.makeText(
-                    activity, "Thêm vào giỏ hàng thành công",
-                    Toast.LENGTH_SHORT
-                ).show()
-                val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
-                myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
-                dismiss()
-                dataItem.add(product_id);
-                sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
+                val userId = sharedPreferencesUser.getString("userID", null)
+                if(userId!=null){
+                    val notes=  notesEdit.text.toString();
+                    val cartItem = CartItem(
+                        userId.toInt(),
+                        userId.toInt(),
+                        product_id,
+                        itemCount.count,
+                        itemCount.size,
+                        itemCount.total,
+                        itemCount.nameTopping,
+                        name,
+                        description,
+                        image,
+                        category_id,
+                        notes,
+                    )
+                    appModel.addtoCart(cartItem)
+                    Toast.makeText(
+                        activity, "Thêm vào giỏ hàng thành công",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
+                    myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
+                    dismiss()
+                    dataItem.add(product_id);
+                    sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
+                }
+
+
             }
 
 

@@ -20,10 +20,24 @@ const CategoryAdminController = {
     }
   },
   create: async (req, res) => {
-    const { category } = req.body;
-    const newCategory = CategoryServices.create(category);
+    const { name } = req.body;
+    const file = req.file || '';
+    const newCategory = CategoryServices.create(name, file);
     if (newCategory) {
       res.status(200).send(newCategory);
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
+  updateWithoutImage: async (req, res) => {
+    const id = req.params.id;
+    const { name } = req.body;
+    const updateCategory = await CategoryServices.updateWithoutImage(
+      id,
+      name
+    );
+    if (updateCategory) {
+      res.status(200).send(updateCategory);
     } else {
       res.status(404).send({ status: 0, message: 'Failed' });
     }
@@ -31,7 +45,8 @@ const CategoryAdminController = {
   update: async (req, res) => {
     const id = req.params.id;
     const { name } = req.body;
-    const updateCategory = await CategoryServices.update(id, name);
+    const file = req.file || '';
+    const updateCategory = await CategoryServices.update(id, name, file);
     if (updateCategory) {
       res.status(200).send(updateCategory);
     } else {

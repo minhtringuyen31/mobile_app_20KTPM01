@@ -285,12 +285,14 @@ const UserController = {
             if (!check) {
               return res.status(200).json({ message: 'Email does not exist!' });
             }
-
+            console.log("hihi")
+            await UserServices.setOTP(req.body.email, otp);
+            
             await UserServices.setPass(req.body.email)
             // const newpass=await UserServices.getPass(req.body.email)
           
           
-            await UserServices.setOTP(req.body.email, otp);
+            
             console.log(check);
             
             const mailOptions = {

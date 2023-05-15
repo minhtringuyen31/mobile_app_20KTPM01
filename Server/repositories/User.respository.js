@@ -3,6 +3,17 @@ import crypto from 'crypto';
 import bcrypt from 'bcrypt'
 import CartServices from '../services/Cart.service.js';
 const UserRepository = {
+  async changeIsDisable(id, is_disable) {
+    const query = `UPDATE user SET is_disable=? WHERE id=?`;
+    const values = [is_disable, id];
+    try {
+      const [result] = await DB.pool().query(query, values);
+      return result.affectedRows > 0;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
   async create(
     name,
     gender,
@@ -190,19 +201,6 @@ const UserRepository = {
   async setPass(email) {
     const query = `UPDATE user SET password=? WHERE email=?`;
 
-    //random new pass
-    
-    // hash new pass
-  //   const chars =
-  //   'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-  // const randomBytes = crypto.randomBytes(8);
-  // const result = new Array(8);
-  // for (let i = 0; i < 8; i++) {
-  //   result[i] = chars[randomBytes[i] % 8];
-  // }
-  // const password = result.join('');
-
-    // console.log(newpass);
     const pass="12345"
     try {
       const password = await bcrypt.hash(pass, 10);
@@ -237,10 +235,13 @@ const UserRepository = {
     }
   },
   async setOTP(email, otp) {
-    const query = 'UPDATE user SET otp=? WHERE email=?';
+    const query = `UPDATE user SET otp=? WHERE email like ?`;
     const values = [email, otp];
+    console.log(values)
     try {
       const [result] = await DB.pool().query(query, values);
+      console.log("here" + result)
+
       if (result.affectedRows > 0) {
         return true;
       } else {
@@ -279,6 +280,75 @@ const UserRepository = {
       } else {
         return false;
       }
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async saveTokenFireBase(user_id, token) {
+    const query = `INSERT INTO token_firebase (user_id,token) VALUES (?, ?)`;
+    const values = [user_id, token];
+
+    try {
+      const [result] = await DB.pool().query(query, values);
+      const insertedId = result.insertId;
+      const [userResult] = await DB.pool().query(
+        `SELECT * FROM token_firebase WHERE id = ?`,
+        [insertedId]
+      );
+      const insertedUser = userResult[0];
+      return insertedUser;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async findAllTokenFireBase() {
+    const query = `SELECT * FROM token_firebase`;
+    try {
+      console.log("query,query");
+      const [rows] = await DB.pool().query(query);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async findOneTokenFireBase(id) {
+    const query = `SELECT * FROM token_firebase WHERE id = ?`;
+    const values = [id];
+    try {
+      const [rows] = await DB.pool().query(query, values);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async findOneTokenByUserID(id) {
+    const query = `SELECT * FROM token_firebase WHERE user_id = ?`;
+  
+    const values = [id];
+    try {
+      const [result] = await DB.pool().query(query, values);
+      return result[0];
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async updateTokenFireBase(newtoken, id) {
+    const query = `UPDATE token_firebase SET token=?  WHERE user_id=?`;
+    const values = [newtoken, id];
+    try {
+      const [result] = await DB.pool().query(query, values);
+      const insertedId = result.insertId;
+      const [userResult] = await DB.pool().query(
+        `SELECT * FROM token_firebase WHERE id = ?`,
+        [insertedId]
+      );
+      const insertedUser = userResult[0];
+      return insertedUser;
     } catch (error) {
       console.error(error);
       return false;

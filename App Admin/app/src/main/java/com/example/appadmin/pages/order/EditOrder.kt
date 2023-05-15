@@ -1,9 +1,11 @@
 package com.example.appadmin.pages.order
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -27,6 +29,10 @@ class EditOrder : AppCompatActivity() {
         setContentView(R.layout.activity_edit_order)
 
         val orderId = intent.getStringExtra("orderId")
+        val acceptBtn = findViewById<Button>(R.id.orderDetail_AcceptBtn)
+        val denyBtn = findViewById<Button>(R.id.orderDetail_DenyBtn)
+        val statusBtn = findViewById<Button>(R.id.orderDetail_StatusBtn)
+
 
         val orderProvider = ViewModelProvider(this)[OrderController::class.java]
         val orderProductProvider = ViewModelProvider(this)[OrderProductController::class.java]
@@ -35,18 +41,53 @@ class EditOrder : AppCompatActivity() {
             val intent = Intent(this, Orders::class.java)
             startActivity(intent)
         }
-        findViewById<Button>(R.id.orderDetail_StatusBtn).setOnClickListener {
-            if (orderStatus == 0) {
-                orderProvider.changeDeliveredStatus(orderId!!.toInt()).observe(this) {
-
-                }
-            } else {
-                orderProvider.changeDeliveringStatus(orderId!!.toInt()).observe(this) {
-
-                }
+        acceptBtn.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Bạn có muốn xác nhận đơn hàng không?")
+            builder.setCancelable(true)
+            builder.setNegativeButton("Có") { dialog, which ->
+                orderProvider.changeAcceptStatus(orderId!!.toInt()).observe(this) {}
+                val intent = Intent(this, Orders::class.java)
+                startActivity(intent)
+                dialog.cancel()
             }
-            val intent = Intent(this, Orders::class.java)
-            startActivity(intent)
+            builder.setPositiveButton("Không") { dialog, which ->
+                dialog.cancel()
+            }
+            val dialog = builder.create()
+            dialog.show()
+        }
+        denyBtn.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Bạn có muốn từ chối đơn hàng không?")
+            builder.setCancelable(true)
+            builder.setNegativeButton("Có") { dialog, which ->
+                orderProvider.changeDenyStatus(orderId!!.toInt()).observe(this) {}
+                val intent = Intent(this, Orders::class.java)
+                startActivity(intent)
+                dialog.cancel()
+            }
+            builder.setPositiveButton("Không") { dialog, which ->
+                dialog.cancel()
+            }
+            val dialog = builder.create()
+            dialog.show()
+        }
+        statusBtn.setOnClickListener {
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Đơn hàng đã giao thành công?")
+            builder.setCancelable(true)
+            builder.setNegativeButton("Đúng") { dialog, which ->
+                orderProvider.changeDeliveredStatus(orderId!!.toInt()).observe(this) {}
+                val intent = Intent(this, Orders::class.java)
+                startActivity(intent)
+                dialog.cancel()
+            }
+            builder.setPositiveButton("Không") { dialog, which ->
+                dialog.cancel()
+            }
+            val dialog = builder.create()
+            dialog.show()
         }
         orderProvider.getOrder(orderId!!.toInt()).observe(this) {
             orderStatus = it.getStatus()
@@ -60,10 +101,24 @@ class EditOrder : AppCompatActivity() {
                     .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
             findViewById<TextView>(R.id.orderAddress).text = it.getShippingAddress()
             findViewById<TextView>(R.id.orderTotal).text = "Tổng tiền: " + it.getTotal().toString()
-            if (it.getStatus() == 0) {
-                findViewById<Button>(R.id.orderDetail_StatusBtn).text = "Đang giao"
+            findViewById<TextView>(R.id.orderStatus).text = when (it.getStatus()) {
+                0 -> "Đang xử lý"
+                1 -> "Đang giao"
+                2 -> "Đã giao"
+                else -> "Đã hủy"
+            }
+            if (orderStatus == 0) {
+                acceptBtn.visibility = View.VISIBLE
+                denyBtn.visibility = View.VISIBLE
+                statusBtn.visibility = View.GONE
+            } else if (orderStatus == 1) {
+                acceptBtn.visibility = View.GONE
+                denyBtn.visibility = View.GONE
+                statusBtn.visibility = View.VISIBLE
             } else {
-                findViewById<Button>(R.id.orderDetail_StatusBtn).text = "Đã giao"
+                acceptBtn.visibility = View.GONE
+                denyBtn.visibility = View.GONE
+                statusBtn.visibility = View.GONE
             }
         }
         val orderProductRv = findViewById<RecyclerView>(R.id.orderProductRv)

@@ -24,6 +24,9 @@ class PromotionData(
         parcel.readInt()
     ) {
     }
+    fun getID():Int{
+        return this.id
+    }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeInt(id)

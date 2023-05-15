@@ -9,7 +9,9 @@ CartItemRoute.get("/testAPI", CartItemController.test)
 CartItemRoute.post("/create", CartItemController.create)
 CartItemRoute.post("/update/:id", CartItemController.update)
 CartItemRoute.delete("/delete/:id", CartItemController.delete)
-CartItemRoute.get("/:id", CartItemController.findOne)
+// CartItemRoute.get("/:id", CartItemController.findOne)
+CartItemRoute.get("/:userId", CartItemController.findAllByUserId)
+CartItemRoute.delete("/removeAll/:id", CartItemController.removeAll)
 CartItemRoute.get("/", CartItemController.findAll)
 export default CartItemRoute;
 

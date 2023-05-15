@@ -37,9 +37,11 @@ const port = 3000;
 DB.pool(); // mọi người nhớ đổi port database nhé. Port Database của Mac với Win
 DB.connection();
 app.use(express.json());
+global.userActive = {};
+app.io = io
+
 
 SocketListener.start(io);
-app.io = io
 app.use('/api/users', UserRoute);
 app.use('/api/products', ProductRoute);
 app.use('/api/orders', OrderRoute);
@@ -59,7 +61,7 @@ app.use('/api/admin/rating', RatingAdminRouter);
 app.use('/api/admin/user', UserAdminRouter);
 app.use('/api/admin/topping', ToppingAdminRouter);
 app.use('/api/admin/order_product', OrderProductAdminRouter);
-app.use(Authentication)
+// app.use(Authentication)
 
 
 server.listen(port, () => {

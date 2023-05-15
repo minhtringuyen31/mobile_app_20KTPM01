@@ -11,6 +11,10 @@
         android:icon="@drawable/icon_order"
         android:title="@string/icon_oder"/>
     <item
+        android:id="@+id/icon_favorite"
+        android:icon="@drawable/icon_order"
+        android:title="Yêu thích"/>
+    <item
         android:id="@+id/icon_activity"
         android:icon="@drawable/activity_icon"
         android:title="@string/icon_activity"/>

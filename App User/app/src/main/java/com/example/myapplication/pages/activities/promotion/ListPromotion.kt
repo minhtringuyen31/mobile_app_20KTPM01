@@ -8,6 +8,7 @@ import android.os.Parcelable
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
@@ -20,6 +21,7 @@ import com.example.myapplication.viewmodels.promotion.PromotionViewModel
 import com.example.myapplication.modals.Promotion
 import com.example.myapplication.pages.fragments.Homepage
 import com.example.myapplication.pages.fragments.Others
+import com.example.myapplication.viewmodels.order.CheckoutViewModel
 
 //import com.example.myapplication.pages.activities.promotion.Promotions
 
@@ -28,6 +30,7 @@ import com.example.myapplication.pages.fragments.Others
 
 class ListPromotion : AppCompatActivity() {
     lateinit var promotionRecycleview: RecyclerView
+
     lateinit var promotionViewModel: PromotionViewModel
     lateinit var promotionAdapterList: PromotionAdapterList
     lateinit var back_btn: AppCompatImageView
@@ -36,6 +39,8 @@ class ListPromotion : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_promotion)
+        val forward = intent.getStringExtra("source")
+        println(forward)
         promotionRecycleview = findViewById(R.id.recycleview_promotion)
         promotionRecycleview.setHasFixedSize(true)
         promotionRecycleview.layoutManager = LinearLayoutManager(this)
@@ -59,12 +64,11 @@ class ListPromotion : AppCompatActivity() {
         promotionAdapterList.onItemClick = { promotion->
             val intent = Intent(this, DetailPromotion::class.java)
             intent.putExtra("promotion", promotion as Parcelable)
-//            startActivity(intent)
+            intent.putExtra("source",forward);
             startActivityForResult(intent, REQUEST_CODE_DETAIL_PROMOTION)
         }
        back_btn=findViewById(R.id.back_btn2)
         back_btn.setOnClickListener {
-
             val intent = Intent(this, MainActivity::class.java)
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             intent.putExtra("FragmentToLoad", "Others")

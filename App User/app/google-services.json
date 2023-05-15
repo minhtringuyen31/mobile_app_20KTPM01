@@ -1,41 +1,33 @@
 {
   "project_info": {
-    "project_number": "651834151585",
-    "project_id": "myapplication-10812",
-    "storage_bucket": "myapplication-10812.appspot.com"
+    "project_number": "572007871444",
+    "project_id": "the-coffee-app-ecf2a",
+    "storage_bucket": "the-coffee-app-ecf2a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:651834151585:android:675cb121402569222996e0",
+        "mobilesdk_app_id": "1:572007871444:android:9b16e4134f618a802fdc41",
         "android_client_info": {
           "package_name": "com.example.myapplication"
         }
       },
       "oauth_client": [
         {
-          "client_id": "651834151585-jb64qmpdbkdo9o78p416vl3vbivp4k8n.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.myapplication",
-            "certificate_hash": "9829553b4c5420819de50747b6adc115fb393d5b"
-          }
-        },
-        {
-          "client_id": "651834151585-ic04pk6c3crs2a5f44cjmf8q33jvrhuf.apps.googleusercontent.com",
+          "client_id": "572007871444-emjgu5ia55ei12l8e0f26962284akcjl.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCPIctVw3e4lNC82YRqGuZO3K29WHs7DBc"
+          "current_key": "AIzaSyA-tS8DEagQuXqoGBVToKp37kVT-bxlmmI"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "651834151585-ic04pk6c3crs2a5f44cjmf8q33jvrhuf.apps.googleusercontent.com",
+              "client_id": "572007871444-emjgu5ia55ei12l8e0f26962284akcjl.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

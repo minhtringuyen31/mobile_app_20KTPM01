@@ -62,6 +62,20 @@ const OrderProductRepository = {
     }
   },
 
+  async findProductOrder(orderId) {
+    const query = 'SELECT order_product.*, product.name, product.image FROM order_product JOIN product ON order_product.product_id = product.id WHERE order_product.order_id = ?';
+    const value = [orderId]
+    try {
+      const [rows] = await DB.pool().query(query, value);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+    
+
+  },
+
   // async create(note, order_id, product_id, quantity, price) {
   //   const query = `INSERT INTO order_product (note, order_id, product_id, quantity,price) VALUES (?, ?, ?, ?, ?)`;
   //   const values = [note, order_id, product_id, quantity, price];
@@ -119,17 +133,17 @@ const OrderProductRepository = {
   //     return false;
   //   }
   // },
-  // async findAllByOrderID(order_id) {
-  //   const query = `SELECT * FROM order_product WHERE order_id = ?`;
-  //   const value = [order_id];
-  //   try {
-  //     const [rows] = await DB.pool().query(query, value);
-  //     return rows;
-  //   } catch (error) {
-  //     console.error(error);
-  //     return false;
-  //   }
-  // },
+  async findAllByOrderID(order_id) {
+    const query = `SELECT * FROM order_product WHERE order_id = ?`;
+    const value = [order_id];
+    try {
+      const [rows] = await DB.pool().query(query, value);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
 };
 
 export default OrderProductRepository;

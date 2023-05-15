@@ -17,6 +17,13 @@ class ProductCartViewModel:ViewModel() {
     private var quantity=0;
     private var nameFragment:String="homepage";
     private var size:String="L"
+    private var cardItemID:Int=0
+    fun getCartItemId(): Int {
+        return cardItemID
+    }
+    fun setCartItemID(id:Int){
+        this.cardItemID=id
+    }
     fun getId(): Int {
         return id
     }

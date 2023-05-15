@@ -2,10 +2,8 @@ package com.example.myapplication.pages.activities.store
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
-import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.databinding.ActivityMapsBinding
 import com.google.android.gms.maps.CameraUpdateFactory

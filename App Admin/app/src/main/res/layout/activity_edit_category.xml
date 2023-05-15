@@ -45,6 +45,15 @@
                 android:src="@drawable/profile" />
         </androidx.cardview.widget.CardView>
 
+        <Button
+            android:id="@+id/editCategoryImageBtn"
+            android:text="image"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"/>
+
         <RelativeLayout
             android:id="@+id/relativeScroll1"
             android:layout_width="match_parent"
@@ -111,7 +120,7 @@
             android:id="@+id/editCategory_disableBtn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:backgroundTint="#E91E63"
             android:text="Khóa" />
@@ -120,19 +129,28 @@
             android:id="@+id/editCategory_saveBtn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:backgroundTint="#2196F3"
             android:text="Lưu mới" />
 
         <Button
+            android:id="@+id/editCategory_deleteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#9C27B0"
+            android:text="Xóa" />
+
+        <Button
             android:id="@+id/editCategory_cancelBtn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:layout_weight="1"
             android:backgroundTint="#FF5722"
-            android:text="Thoát" />
+            android:text="về" />
 
     </LinearLayout>
 

@@ -3,13 +3,13 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:padding="10dp"
+    android:background="@drawable/custom_rounded_search"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:elevation="16dp"
-        android:padding="5dp"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent">
         <androidx.appcompat.widget.Toolbar
@@ -43,7 +43,8 @@
 
     <EditText
         android:layout_marginTop="10dp"
-        android:background="@drawable/edit_text_bg"
+        android:background="@drawable/custom_btn_add_to_card"
+        android:textColorHint="@color/darkGray"
         android:id="@+id/addressUser"
         android:padding="10dp"
         android:layout_width="match_parent"
@@ -52,7 +53,6 @@
     <ListView
         android:layout_marginTop="10dp"
         android:id="@+id/listAddress"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -66,7 +66,7 @@
             android:layout_marginHorizontal="10dp"
             android:id="@+id/add_Address"
             android:layout_marginTop="15dp"
-            android:background="@color/red"
+            android:background="@drawable/button_sign_custom"
             android:layout_width="100dp"
             android:layout_gravity="center"
             android:textColor="@color/white"
@@ -80,7 +80,7 @@
             android:layout_marginHorizontal="10dp"
             android:id="@+id/selectAddress"
             android:layout_marginTop="15dp"
-            android:background="@color/red"
+            android:background="@drawable/button_sign_custom"
             android:layout_width="100dp"
             android:layout_gravity="center"
             android:textColor="@color/white"

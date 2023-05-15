@@ -3,9 +3,9 @@ const OrderProductController = {
     async create(req, res) {
 
         const { note, order_id, product_id, quantity, price, size, topping } = req.body;
-  
+
         const newOrderProduct = await OrderProductService.create(note, order_id, product_id, quantity, price, size, topping);
-        
+
         if (newOrderProduct) {
             res.status(200).send(newOrderProduct)
         } else {
@@ -44,6 +44,18 @@ const OrderProductController = {
             res.status(404).send({ status: 0, message: "Failed" });
         }
 
+    },
+
+    async findProductOrder(req, res) {
+        console.log("Here")
+        const orderId = req.params.orderId
+        const productOrder = await OrderProductService.findProductOrder(orderId)
+        if (productOrder) {
+            console.log("Product Order" + productOrder.body)
+            res.status(200).send(productOrder)
+        } else {
+            res.status(404).send({ status: 0, message: "Failed" })
+        }
     },
     // async findAll(req, res) {
     //     const orderProducts = await OrderProductService.findAll();

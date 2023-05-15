@@ -66,13 +66,13 @@ const OrderRepository = {
     }
   },
 
-  async findAllByUserId(userId) {
+  async findByUserId(userId) {
     const query = `SELECT * FROM orders WHERE user_id = ?`;
     const value = [userId];
 
     try {
       const [rows] = await DB.pool().query(query, value);
-      return rows[0];
+      return rows;
     } catch (error) {
       console.error(error);
       return false;
@@ -189,6 +189,9 @@ const OrderRepository = {
       return false;
     }
   },
+
+
+
 };
 
 export default OrderRepository;

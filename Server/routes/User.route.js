@@ -18,7 +18,7 @@ UserRoute.post("/changepassword/:id",UserController.changepassPost)
 UserRoute.post("/editprofile/:id",UserController.editprofilePost)
 UserRoute.post("/setotp",UserController.vertifyEmail)
 UserRoute.post("/checkotp",UserController.vertifyOTP)
-UserRoute.post("/sendotp",UserController.sendMail)
+UserRoute.post("/sendotp",UserController. sendMail)
 //UserRoute.get("/:email",UserController.findEmail)
 
 export default UserRoute;

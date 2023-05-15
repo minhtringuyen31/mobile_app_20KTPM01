@@ -1,10 +1,11 @@
 import DB from '../configs/db.js';
 const RatingRepository = {
-  async create(user_id, product_id, score, comment, create_at) {
-    const query = `INSERT INTO rating (user_id, product_id, score, comment, create_at) VALUES (?, ?, ?, ?, ?)`;
-    const values = [user_id, product_id, score, comment, create_at];
+  async create(user_id, user_name, user_image, product_id, score, comment) {
+    const query = `INSERT INTO rating (user_id, user_name, user_image, product_id, score, comment) VALUES (?, ?, ?, ?, ?, ?)`;
+    const values = [user_id, user_name, user_image, product_id, score, comment];
     try {
       DB.pool().query(query, values);
+      console.log("rating here")
       return true;
     } catch (error) {
       console.error(error);

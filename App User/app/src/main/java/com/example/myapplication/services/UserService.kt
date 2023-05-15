@@ -23,7 +23,7 @@ interface UserService {
     @POST("users/create/")
     suspend fun createUser(@Body user: User): User
 
-    @POST("users/signup/")
+    @POST("users/signup")
     suspend fun SignUp(@Body signupRequest: SignupRequest ): SignupRequest
 
     @POST("users/changepassword/{id}")

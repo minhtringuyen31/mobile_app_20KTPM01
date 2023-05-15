@@ -60,7 +60,7 @@
 
         <TextView
             android:id="@+id/orderPromotion"
-            android:layout_width="200dp"
+            android:layout_width="160dp"
             android:layout_height="30dp"
             android:layout_below="@id/orderPaymentMethod"
             android:layout_marginStart="20dp"
@@ -69,6 +69,20 @@
             android:maxLines="1"
             android:text="Khong co khuyen mai"
             android:textAlignment="textStart"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/orderStatus"
+            android:layout_width="120dp"
+            android:layout_height="30dp"
+            android:layout_below="@id/orderPaymentMethod"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/orderPromotion"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="Đang xử lý"
+            android:textAlignment="textEnd"
             android:textColor="@color/black"
             android:textSize="15sp" />
 
@@ -145,13 +159,32 @@
         app:layout_constraintTop_toBottomOf="@+id/orderProductRv">
 
         <Button
+            android:id="@+id/orderDetail_AcceptBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="#2196F3"
+            android:text="Xác nhận"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/orderDetail_DenyBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="#9C27B0"
+            android:text="từ chối"
+            android:textSize="15sp" />
+        <Button
             android:id="@+id/orderDetail_StatusBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="#2196F3"
-            android:text="Đang giao"
+            android:text="Giao thành công"
             android:textSize="15sp" />
 
         <Button
@@ -161,7 +194,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="#FF5722"
-            android:text="Quay lại"
+            android:text="về"
             android:textSize="15sp" />
     </LinearLayout>
 

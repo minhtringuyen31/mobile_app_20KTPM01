@@ -5,11 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".pages.product.AddProduct">
-    <RelativeLayout
+
+    <LinearLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
+        android:orientation="vertical"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
@@ -20,14 +22,22 @@
             app:cardCornerRadius="40dp">
 
             <ImageView
-                android:id="@+id/addProductAvatar"
+                android:id="@+id/addProductImage"
                 android:layout_width="200dp"
                 android:layout_height="140dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 android:src="@drawable/baseline_person_24" />
         </androidx.cardview.widget.CardView>
-    </RelativeLayout>
+
+        <Button
+            android:id="@+id/addProductImageBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:text="image"
+            android:textColor="@color/black" />
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/editProductScrollView"
@@ -71,8 +81,43 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/nameTv"
-                    android:hint="Cà phê sữa đá"
                     android:background="@null"
+                    android:gravity="fill_vertical"
+                    android:hint="Cà phê sữa đá"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeScroll15"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_layout">
+
+                <TextView
+                    android:id="@+id/sizeTv"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:gravity="fill_vertical"
+                    android:text="Size:"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+
+                <Spinner
+                    android:id="@+id/addProductSize"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_toEndOf="@+id/sizeTv"
                     android:gravity="fill_vertical"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
@@ -108,10 +153,10 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/emailTv"
-                    android:hint="Ngon nhức nách"
-                    android:inputType="textEmailAddress"
                     android:background="@null"
                     android:gravity="fill_vertical"
+                    android:hint="Ngon nhức nách"
+                    android:inputType="textEmailAddress"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
                     android:textSize="15sp"
@@ -132,7 +177,7 @@
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:gravity="fill_vertical"
-                    android:text="Size S:"
+                    android:text="Giá size S:"
                     android:textAlignment="textStart"
                     android:textColor="#000000"
                     android:textSize="15sp"
@@ -146,10 +191,10 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/passwordTv"
-                    android:hint="100000"
-                    android:inputType="number"
                     android:background="@null"
                     android:gravity="fill_vertical"
+                    android:hint="100000"
+                    android:inputType="number"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
                     android:textSize="15sp"
@@ -170,7 +215,7 @@
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:gravity="fill_vertical"
-                    android:text="Size M:"
+                    android:text="Giá size M:"
                     android:textAlignment="textStart"
                     android:textColor="#000000"
                     android:textSize="15sp"
@@ -184,10 +229,10 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/confirmPasswordTv"
-                    android:hint="100000"
-                    android:inputType="numberDecimal"
                     android:background="@null"
                     android:gravity="fill_vertical"
+                    android:hint="100000"
+                    android:inputType="numberDecimal"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
                     android:textSize="15sp"
@@ -208,7 +253,7 @@
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:gravity="fill_vertical"
-                    android:text="Size L:"
+                    android:text="Giá size L:"
                     android:textAlignment="textStart"
                     android:textColor="#000000"
                     android:textSize="15sp"
@@ -222,9 +267,9 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/genderTv"
-                    android:hint="100000"
                     android:background="@null"
                     android:gravity="fill_vertical"
+                    android:hint="100000"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
                     android:textSize="15sp"
@@ -303,6 +348,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.8" />
+        app:layout_constraintGuide_percent="0.9" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
