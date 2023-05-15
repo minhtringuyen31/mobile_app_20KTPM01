@@ -2,6 +2,7 @@ package com.example.myapplication.pages.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -61,6 +62,7 @@ private const val ARG_PARAM2 = "param2"
     private lateinit var image:String
     private lateinit var description:String
     private lateinit var notesEdit:EditText
+    private lateinit var view:View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,8 +76,8 @@ private const val ARG_PARAM2 = "param2"
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val view= inflater.inflate(R.layout.fragment_bottom_sheet_cart_item, container, false)
+    ): View {
+         view= inflater.inflate(R.layout.fragment_bottom_sheet_cart_item, container, false)
         // Inflate the layout for this fragment
         setUpViewModel()
         initUI(view)
@@ -84,6 +86,7 @@ private const val ARG_PARAM2 = "param2"
     }
     private fun setUpViewModel(){
         appModel.setUpToppingViewModel(this)
+
     }
     private fun displayCount() {
         text_quantity.text = itemCount.count.toString()
@@ -236,32 +239,36 @@ private const val ARG_PARAM2 = "param2"
             }
             else{
                 val sharedPreferencesUser = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
-                val userID = sharedPreferencesUser.getString("userID", "")
-                val notes=  notesEdit.text.toString();
-                val cartItem = CartItem(
-                    userID!!.toInt(),
-                    userID!!.toInt(),
-                    product_id,
-                    itemCount.count,
-                    itemCount.size,
-                    itemCount.total,
-                    itemCount.nameTopping,
-                    name,
-                    description,
-                    image,
-                    category_id,
-                    notes,
-                )
-                appModel.addtoCart(cartItem)
-                Toast.makeText(
-                    activity, "Thêm vào giỏ hàng thành công",
-                    Toast.LENGTH_SHORT
-                ).show()
-                val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
-                myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
-                dismiss()
-                dataItem.add(product_id);
-                sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
+                val userId = sharedPreferencesUser.getString("userID", null)
+                if(userId!=null){
+                    val notes=  notesEdit.text.toString();
+                    val cartItem = CartItem(
+                        userId.toInt(),
+                        userId.toInt(),
+                        product_id,
+                        itemCount.count,
+                        itemCount.size,
+                        itemCount.total,
+                        itemCount.nameTopping,
+                        name,
+                        description,
+                        image,
+                        category_id,
+                        notes,
+                    )
+                    appModel.addtoCart(cartItem)
+                    Toast.makeText(
+                        activity, "Thêm vào giỏ hàng thành công",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
+                    myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
+                    dismiss()
+                    dataItem.add(product_id);
+                    sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
+                }
+
+
             }
 
 

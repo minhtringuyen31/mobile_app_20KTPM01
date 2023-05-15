@@ -37,6 +37,7 @@ class MyFirebaseMessagingService :FirebaseMessagingService() {
         dataNotifyCation =  message.data
         val title = dataNotifyCation["username"]
         val strMessage = dataNotifyCation["description"]
+        println(title)
         sendNotifycation(title,strMessage)
     }
     private fun sendNotifycation(title: String?, strMessage: String?) {

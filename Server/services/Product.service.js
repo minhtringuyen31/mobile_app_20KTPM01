@@ -77,6 +77,18 @@ const ProductServices = {
   async findAll() {
     return await ProductRepository.findAll();
   },
+  async findAllFavProduct(userId) {
+    return await ProductRepository.findAllFavProduct(userId)
+  },
+  async addNewFavProduct(userId, productId) {
+    return await ProductRepository.addNewFavProduct(userId, productId)
+  },
+  async removeFavProduct(userId, productId) {
+    return await ProductRepository.removeFavProduct(userId, productId)
+  },
+  async isExistedFavProduct(userId, productId) {
+    return await ProductRepository.isExistedFavProduct(userId, productId)
+  }
   // Cần method gì thì tự implements !!
 };
 export default ProductServices;

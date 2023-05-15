@@ -1,4 +1,9 @@
 import UserRepository from '../repositories/User.respository.js';
+
+import admin from 'firebase-admin';
+import { initializeApp } from 'firebase-admin/app';
+
+import serviceAccount from '../configs/serviceAccountKey.json'  assert { type: "json" };
 const UserServices = {
     async changeIsDisable(id, is_disable) {
         return await UserRepository.changeIsDisable(id, is_disable);
@@ -14,7 +19,7 @@ const UserServices = {
         avatar,
         role,
         is_disable,
-       
+
     ) {
         return await UserRepository.create(
             name,
@@ -27,7 +32,7 @@ const UserServices = {
             avatar,
             role,
             is_disable,
-            
+
         );
     },
     async update(
@@ -60,6 +65,9 @@ const UserServices = {
     async delete(id) {
         return await UserRepository.delete(id);
     },
+    async saveTokenFirebase(user_id, token) {
+        return await UserRepository.saveTokenFireBase(user_id, token);
+    },
     async findOne(id) {
         return await UserRepository.findOneByID(id);
     },
@@ -80,6 +88,12 @@ const UserServices = {
     async changepass(id, password) {
         return await UserRepository.changepass(id, password);
     },
+    async finAllToken() {
+        return await UserRepository.findAllTokenFireBase();
+    },
+    async findOneToken(id) {
+        return await UserRepository.findOneTokenFireBase(id);
+    },
     async editprofile(id, name, email, gender, date_of_birth, address) {
         return await UserRepository.editprofile(
             id,
@@ -90,6 +104,46 @@ const UserServices = {
             address
         );
     },
+    async findTokenByUserID(user_id) {
+        try {
+
+            var result = await UserRepository.findOneTokenByUserID(user_id)
+            return result;
+        }
+        catch (error) {
+            return false;
+        }
+    },
+    async updateTokenFireBase(token, user_id) {
+        try {
+
+            var result = await UserRepository.updateTokenFireBase(token, user_id)
+            return result;
+        }
+        catch (error) {
+            return false;
+        }
+    },
+
+    async handleTokenFireBase(userid, message, target) {
+        admin.initializeApp({
+            credential: admin.credential.cert(serviceAccount)
+        });
+        if (target === "all") {
+            const registrationTokens = await this.finAllToken();
+            const messageHandle = {
+                notification: message,
+                tokens: registrationTokens, // danh sách các token thiết bị nhận thông báo
+            };
+            var result = admin.messaging().sendMulticast(messageHandle);
+        }
+        else {
+            const registrationToken = await this.findTokenByUserID(userid);
+            const messageOne = message
+            admin.messaging().sendToDevice(registrationToken.token, messageOne)
+        }
+    }
+
 };
 
 export default UserServices;

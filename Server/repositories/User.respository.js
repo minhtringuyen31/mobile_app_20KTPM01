@@ -204,6 +204,75 @@ const UserRepository = {
       return false;
     }
   },
+  async saveTokenFireBase(user_id, token) {
+    const query = `INSERT INTO token_firebase (user_id,token) VALUES (?, ?)`;
+    const values = [user_id, token];
+
+    try {
+      const [result] = await DB.pool().query(query, values);
+      const insertedId = result.insertId;
+      const [userResult] = await DB.pool().query(
+        `SELECT * FROM token_firebase WHERE id = ?`,
+        [insertedId]
+      );
+      const insertedUser = userResult[0];
+      return insertedUser;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async findAllTokenFireBase() {
+    const query = `SELECT * FROM token_firebase`;
+    try {
+      console.log("query,query");
+      const [rows] = await DB.pool().query(query);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async findOneTokenFireBase(id) {
+    const query = `SELECT * FROM token_firebase WHERE id = ?`;
+    const values = [id];
+    try {
+      const [rows] = await DB.pool().query(query, values);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async findOneTokenByUserID(id) {
+    const query = `SELECT * FROM token_firebase WHERE user_id = ?`;
+  
+    const values = [id];
+    try {
+      const [result] = await DB.pool().query(query, values);
+      return result[0];
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async updateTokenFireBase(newtoken, id) {
+    const query = `UPDATE token_firebase SET token=?  WHERE user_id=?`;
+    const values = [newtoken, id];
+    try {
+      const [result] = await DB.pool().query(query, values);
+      const insertedId = result.insertId;
+      const [userResult] = await DB.pool().query(
+        `SELECT * FROM token_firebase WHERE id = ?`,
+        [insertedId]
+      );
+      const insertedUser = userResult[0];
+      return insertedUser;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
 };
 
 export default UserRepository;

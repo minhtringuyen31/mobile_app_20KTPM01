@@ -22,16 +22,19 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.modals.*
 import com.example.myapplication.pages.fragments.*
 import com.example.myapplication.pages.fragments.Order
 import com.example.myapplication.socket.SocketHandler
+import com.example.myapplication.utils.Utils
+import com.example.myapplication.viewmodels.order.OrderViewModel
+import com.example.myapplication.viewmodels.user.TokenFirebaseViewModel
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.messaging.FirebaseMessaging
 import io.socket.client.Socket
-import java.io.IOException
 import java.util.*
 
 
@@ -40,18 +43,29 @@ class MainActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView:BottomNavigationView
     private lateinit var currentFragment: FrameLayout
     private lateinit var mSocket: Socket
+    private lateinit var tokenFB:TokenFirebaseViewModel
 
 
     private fun handleTokenFirebase(){
-        FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-            if (!task.isSuccessful) {
-                return@OnCompleteListener
-            }
-            // Get new FCM registration token
-            val token = task.result
-            // Log and toast
-            println(token)
-        })
+        tokenFB = ViewModelProvider(this)[TokenFirebaseViewModel::class.java]
+        FirebaseMessaging.getInstance().token
+            .addOnCompleteListener(OnCompleteListener<String?> { task ->
+                if (!task.isSuccessful) {
+                    return@OnCompleteListener
+                }
+
+                // Lấy token từ task.getResult() và lưu vào database
+                val token = task.result
+                println(token)
+                val sharedPreferences: SharedPreferences = this.getSharedPreferences("user", MODE_PRIVATE)
+                val userID = sharedPreferences.getString("userID", null)
+                if(userID!=null)
+                {
+                    val tokenRQ= TokenFireBaseRequest(userID!!.toInt(),token)
+                    tokenFB.createToken(tokenRQ)
+                }
+
+            })
     }
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
@@ -132,7 +146,7 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
         val intentStatus = intent
-
+        val rootView= getWindow().getDecorView().getRootView();
 
         val status=intentStatus.getStringExtra("status")
 
@@ -155,12 +169,11 @@ class MainActivity : AppCompatActivity() {
                 showNotification()
             }
         }
-
+        Utils.activeToolbar(this,rootView)
         val sharedPreferences: SharedPreferences = this.getSharedPreferences("user", MODE_PRIVATE)
         val userID = sharedPreferences.getString("userID", null)
         if (userID != null&& userID.isNotEmpty()) {
             mSocket.emit("login",userID)
-
             setCurrentFragment(Homepage(),"Homepage")
             activeNavigationBar()
         }else
@@ -182,6 +195,8 @@ class MainActivity : AppCompatActivity() {
                     .commit()
             }
         }
+
+        handleTokenFirebase();
 
 
 

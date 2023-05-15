@@ -52,9 +52,51 @@ const ProductController = {
         }
 
     },
+    async findAllFavProduct(req, res) {
+        console.log("Find All Fav Product Controller")
+        const userId = req.params.userId
+        const products = await ProductService.findAllFavProduct(userId)
+        console.log("response" + products)
+        if (products) {
+            res.status(200).send(products)
+        } else {
+            res.status(404).send({ status: 0, message: "Failed" });
+        }
+    },
+    async addNewFavProduct(req, res) {
+        const { userId, productId } = req.body
+        console.log("Add New Fav Product" + userId + productId)
+        const product = await ProductService.addNewFavProduct(userId, productId)
+        if (product) {
+            res.status(200).send(product)
+        } else {
+            res.status(404).send({ status: 0, message: "Failed" });
+        }
+    },
+    async removeFavProduct(req, res) {
+        const { userId, productId } = req.body
+        console.log("Remove Fav Product" + userId + productId)
+        const product = await ProductService.removeFavProduct(userId, productId)
+        if (product) {
+            res.status(200).send(true)
+        } else {
+            res.status(404).send(false);
+        }
+    },
+    async isExistedFavProduct(req, res) {
+        const userId = req.query.userId
+        const productId = req.query.productId
+        console.log("Check Fav Product" + userId + productId)
+        const product = await ProductService.isExistedFavProduct(userId, productId)
+        if (product) {
+            res.status(200).send(true)
+        } else {
+            res.status(404).send(false);
+        }
+    },
     test(req, res) {
         res.send("Test API from Product")
-    }
+    },
 
 
 }

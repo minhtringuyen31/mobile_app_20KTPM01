@@ -13,6 +13,7 @@ import androidx.cardview.widget.CardView
 import com.example.myapplication.R
 import com.example.myapplication.pages.activities.notification.NotificationList
 import com.example.myapplication.pages.activities.promotion.ListPromotion
+import com.google.android.material.appbar.AppBarLayout
 import com.google.gson.GsonBuilder
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -34,8 +35,8 @@ class Utils : AppCompatActivity() {
                 .build()
         }
         fun activeToolbar(context: Context,view: View){
-            val toolBar: Toolbar = view.findViewById(R.id.myToolBar)
-            (context as AppCompatActivity).setSupportActionBar(toolBar)
+            val toolBar: AppBarLayout = view.findViewById(R.id.myToolBar)
+//            (context as AppCompatActivity).setSupportActionBar(toolBar)
 //            val avatar: CircleImageView = view.findViewById(R.id.avatarUser)
 //            val search_icon: View = view.findViewById(R.id.search_icon)
 //            avatar.setOnClickListener {

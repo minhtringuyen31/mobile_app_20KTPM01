@@ -61,7 +61,7 @@ app.use('/api/admin/rating', RatingAdminRouter);
 app.use('/api/admin/user', UserAdminRouter);
 app.use('/api/admin/topping', ToppingAdminRouter);
 app.use('/api/admin/order_product', OrderProductAdminRouter);
-app.use(Authentication)
+// app.use(Authentication)
 
 
 server.listen(port, () => {

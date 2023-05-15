@@ -74,10 +74,14 @@ class Cart : Fragment(), OnItemClickListener {
     private fun setUpViewModel(){
         val sharedPreferences: SharedPreferences =
             view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
-        val userId = sharedPreferences.getString("userID", "").toString().toInt()
+        val userId = sharedPreferences.getString("userID", null)
+        if(userId!=null)
+        {
+            appModel.setUpCartItemViewModel(this, userId.toString().toInt())
+        }
         (activity as MainActivity).showToolbarAndNavigationBar(false)
         (activity as MainActivity).showNavigationBar(true)
-        appModel.setUpCartItemViewModel(this, userId)
+
     }
     private fun initUI(view:View){
         btnPlaceOrder = view.findViewById(R.id.btnPlaceOrder)
@@ -108,8 +112,12 @@ class Cart : Fragment(), OnItemClickListener {
                 .setConfirmText("Đồng ý")
                 .setConfirmClickListener {
                     val sharedPreferencesUser = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
-                    val userID = sharedPreferencesUser.getString("userID", "")
-                    appModel.removeAllCart(userID!!.toInt())
+                    val userID = sharedPreferencesUser.getString("userID", null)
+                    if(userID!=null)
+                    {
+                        appModel.removeAllCart(userID.toInt())
+                    }
+
                     it.dismissWithAnimation()
                     (view.context as FragmentActivity).supportFragmentManager
                         .beginTransaction()

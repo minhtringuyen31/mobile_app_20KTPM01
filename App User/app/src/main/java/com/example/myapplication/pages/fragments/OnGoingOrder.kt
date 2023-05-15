@@ -62,9 +62,10 @@ class OnGoingOrder : Fragment() {
 
         val sharedPreferences: SharedPreferences =
             view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
-        val userID = sharedPreferences.getString("userID", "").toString().toInt()
-
-        setUpObserve(userID);
+        val userId = sharedPreferences.getString("userID", null)
+        if(userId!=null){
+            setUpObserve(userId.toString().toInt());
+        }
         initUI(view)
 
         println("On Going")

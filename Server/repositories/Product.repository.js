@@ -139,6 +139,58 @@ const ProductRepository = {
       return false;
     }
   },
+  async findAllFavProduct(userId) {
+    const query = `SELECT p.* FROM favorite_product AS fp JOIN product AS p ON fp.product_id = p.id WHERE fp.user_id = ?`
+    const value = [userId]
+
+    try {
+      const [rows] = await DB.pool().query(query, value);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async addNewFavProduct(userId, productId) {
+    const query = `INSERT INTO favorite_product (user_id, product_id) VALUES (?, ?)`
+    const values = [userId, productId]
+    try {
+      DB.pool().query(query, values);
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async removeFavProduct(userId, productId) {
+    const query1 = `SELECT fp.id FROM favorite_product AS fp WHERE fp.user_id = ? AND fp.product_id = ? LIMIT 1`
+    const query = `DELETE FROM favorite_product WHERE id = ?`;
+    const values = [userId, productId]
+    try {
+      const [row] = await DB.pool().query(query1, values);
+
+      const id = row[0].id
+      await DB.pool().query(query, [id]);
+      return true;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async isExistedFavProduct(userId, productId) {
+    const query = `SELECT fp.id FROM favorite_product AS fp WHERE fp.user_id = ? AND fp.product_id = ? LIMIT 1`
+    console.log("check " + userId + productId)
+    const values = [userId, productId]
+    try {
+      const [id, fields] = await DB.pool().query(query, values);
+      console.log(id)
+      return id.length > 0;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
+
 };
 
 export default ProductRepository;
