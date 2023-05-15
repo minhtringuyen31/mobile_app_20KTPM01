@@ -1,4 +1,5 @@
 import CategoryService from "../services/Category.service.js"
+import UserServices from "../services/User.service.js";
 const listCategory = await CategoryService.findAll();
 const SocketListener = {
     start: function (io) {
@@ -13,7 +14,17 @@ const SocketListener = {
             })
 
             socket.on("newOrder", (data) => {
-                console.log("Có 1 đơn hàng mới từ khách hàng " + global.userActive[data]);
+                const s =JSON.parse(data)
+                console.log(s);
+                const messages = {
+                    "data":{
+                        "username": "Thông báo đơn hàng",
+                        "description": "Đơn hàng của bạn được chấp nhận"
+                    }
+                }
+                UserServices.handleTokenFireBase(s[1], messages,"one");
+                console.log("Có 1 đơn hàng mới từ khách hàng có ID"+ data);
+                
             })
 
             socket.on("verify-confirm-order", (data) => {

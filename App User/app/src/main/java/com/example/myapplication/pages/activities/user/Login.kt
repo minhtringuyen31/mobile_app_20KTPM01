@@ -23,6 +23,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
+
 //import io.socket.client.Socket
 
 
@@ -78,18 +81,13 @@ class Login : AppCompatActivity() {
                     when (resource.status) {
 
                         Status.SUCCESS -> {
+                            println(resource.data)
                             Toast.makeText(this,"Đăng nhập thành công!", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(
-                                this,
-                                MainActivity::class.java
-                            )
-                            intent.putExtra("status","1")
-                            startActivity(intent)
+
                             val sharedPreferences =
                                 getSharedPreferences("user", MODE_PRIVATE)
                             val editor = sharedPreferences.edit()
-                            editor.putString("userID", resource.data?.getUserID().toString())
-                            editor.apply()
+                            editor.putString("userID", resource.data?.getUserID().toString()).apply()
                             UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
                             UserProfile.getUser( resource.data?.getUserID()!!.toInt())
                             UserProfile.user.observe(this) {
@@ -98,6 +96,12 @@ class Login : AppCompatActivity() {
                                 editor.putString("phone",it.getPhone() )
                                 editor.apply()
                             };
+                            val intent = Intent(
+                                this,
+                                MainActivity::class.java
+                            )
+                            intent.putExtra("status","1")
+                            startActivity(intent)
                             finish();
                         }
                         Status.ERROR -> {
@@ -143,7 +147,6 @@ class Login : AppCompatActivity() {
 
         }
         fun gotoSignIn(){
-            val preferences: SharedPreferences = this.getSharedPreferences("user", 0)
             val signInIntent: Intent = gsc.getSignInIntent()
             startActivityForResult(signInIntent, 1000)
 
@@ -169,26 +172,38 @@ class Login : AppCompatActivity() {
 
                                 Status.SUCCESS -> {
                                     Toast.makeText(this,"Đăng nhập thành công!", Toast.LENGTH_LONG).show()
-                                    val intent = Intent(
-                                        this,
-                                        MainActivity::class.java
-                                    )
-                                    intent.putExtra("status","1")
-                                    startActivity(intent)
+
                                     val sharedPreferences =
                                         getSharedPreferences("user", MODE_PRIVATE)
                                     val editor = sharedPreferences.edit()
-                                    editor.putString("userID", resource.data?.getUserID().toString())
-                                    editor.apply()
+                                    editor.putString("userID", resource.data?.getUserID().toString()).apply()
                                     UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
                                     UserProfile.getUser( resource.data?.getUserID()!!.toInt())
                                     UserProfile.user.observe(this) {
+                                        if(it!=null){
                                             val editor = sharedPreferences.edit()
                                             editor.putString("name",it.getName() )
                                             editor.putString("phone",it.getPhone() )
                                             editor.apply()
+
+
+                                            runBlocking {
+                                                delay(2000) // Đợi 2 giây
+                                                println("Delay completed")
+                                            }
+                                            val intent = Intent(
+                                                this,
+                                                MainActivity::class.java
+                                            )
+
+                                            intent.putExtra("status","1")
+                                            startActivity(intent)
+                                            finish();
+
+                                        }
+
                                     };
-                                    finish();
+
 
                                 }
                                 Status.ERROR -> {

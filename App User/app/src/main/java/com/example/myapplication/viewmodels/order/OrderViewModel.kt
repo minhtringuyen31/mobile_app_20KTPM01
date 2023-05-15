@@ -66,6 +66,7 @@ class OrderViewModel :ViewModel(){
                 val response = Utils.getRetrofit().create(OrderService::class.java).createOrder(order);
                 _newOrder.postValue(response)
                 val id =response.getId();
+
                 cartItemCallAPI.forEach {
                     val product_ID = it.getProductId();
                     val quantity = it.getQuantity();

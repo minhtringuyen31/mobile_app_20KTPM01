@@ -55,11 +55,12 @@ const AuthenController = {
             // Or, if multiple clients access the backend:
             //[CLIENT_ID_1, CLIENT_ID_2, CLIENTCLIENT_ID_ID_3]
         });
+
         const payload = ticket.getPayload();
         const userid = payload['hd'];
 
         let user = await UserServices.findEmail(payload.email)
-
+        console.log(user);
         if (!user) {
             // 
             user = await UserServices.create(payload.name, null, payload.email, null, null, null, null, payload.picture, 0, 0)

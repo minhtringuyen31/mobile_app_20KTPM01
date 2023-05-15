@@ -20,10 +20,6 @@ import com.example.myapplication.pages.activities.user.Login
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-//import com.google.firebase.auth.FirebaseAuth
-//import com.google.firebase.auth.ktx.auth
-//import com.google.firebase.ktx.Firebase
-//import com.google.firebase.auth.FirebaseAuth
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -116,8 +112,6 @@ class Others : Fragment() {
         val phone = sharedPreferences.getString("phone", "")
         profile_name.text = name
         profile_phone.text = phone
-        //---
-        //auth= Firebase.auth
         button_logout.setOnClickListener {
             gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -125,16 +119,19 @@ class Others : Fragment() {
             gsc = GoogleSignIn.getClient(view.context, gso);
             val account = GoogleSignIn.getLastSignedInAccount(view.context)
             gsc.signOut();
-            val preferences: SharedPreferences = view.context.getSharedPreferences("user", 0)
-            val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
+            val preferences: SharedPreferences = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
+
             preferences.edit().remove("userID").apply()
             preferences.edit().remove("name").apply()
             preferences.edit().remove("phone").apply()
+            val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
             sharedPreferences.edit().remove("productID").apply()
-
-            //---
-            //auth.signOut()
-
+            val sharedPreferences_address = view.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
+            sharedPreferences_address.edit().remove("addressSelected").apply()
+            val sharedPreferencesTime = view.context.getSharedPreferences("timeShip", AppCompatActivity.MODE_PRIVATE)
+            sharedPreferencesTime.edit().remove("time").apply()
+            val sharedPreferences_phone = view.context.getSharedPreferences("phone", AppCompatActivity.MODE_PRIVATE)
+            sharedPreferences_phone.edit().remove("phoneUser").apply()
             val intent = Intent(
                 view.context,
                 Login::class.java

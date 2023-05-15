@@ -26,6 +26,7 @@ import com.example.myapplication.checkout.CreateOrder
 import com.example.myapplication.modals.CartItem
 import com.example.myapplication.pages.activities.promotion.ListPromotion
 import com.example.myapplication.pages.apdaters.CheckoutApdater
+import com.example.myapplication.socket.SocketHandler
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.order.CheckoutViewModel
@@ -253,10 +254,12 @@ class Checkout : Fragment() {
             val paypal = viewitem.findViewById<LinearLayout>(R.id.paypal)
             momo.setOnClickListener {
                 methodSelected.text= "ZaloPay"
+                checkoutViewModel.setpromontionID("3")
                 dialog.dismiss()
             }
             paypal.setOnClickListener {
                 methodSelected.text= "Paypal"
+                checkoutViewModel.setpromontionID("1")
                 dialog.dismiss()
             }
             dialog.setContentView(viewitem)
@@ -337,10 +340,36 @@ class Checkout : Fragment() {
                                     .setConfirmText("Đồng ý")
                                     .setConfirmClickListener { sDialog ->
 
-                                        (view.context as FragmentActivity).supportFragmentManager
-                                            .beginTransaction()
-                                            .replace(R.id.flFragment, Activities(),"Activities").addToBackStack(null)
-                                            .commit()
+
+                                        val address = checkoutViewModel.getAddress()
+//
+                                        val id = view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
+
+                                        val userID = id.getString("userID", null)
+                                        if(userID!=null){
+                                            val newOrder =com.example.myapplication.modals.Order(userID.toInt(),checkoutViewModel.getTime(),address,Utils.getDigitInString(total.text.toString()),0,checkoutViewModel.getPromotionID(),3)
+                                            println("new"+newOrder)
+                                            orderViewModel.createOrder(newOrder,cartItemCallAPI)
+
+
+
+
+                                            val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
+                                            sharedPreferences.edit().remove("productID").apply()
+                                            val sharedPreferences_address = view.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
+                                            sharedPreferences_address.edit().remove("addressSelected").apply()
+                                            val sharedPreferencesTime = view.context.getSharedPreferences("timeShip", AppCompatActivity.MODE_PRIVATE)
+                                            sharedPreferencesTime.edit().remove("time").apply()
+                                            val sharedPreferences_phone = view.context.getSharedPreferences("phone", AppCompatActivity.MODE_PRIVATE)
+                                            sharedPreferences_phone.edit().remove("phoneUser").apply()
+                                            appModel.removeAllCart(userID.toInt())
+
+                                            (view.context as FragmentActivity).supportFragmentManager
+                                                .beginTransaction()
+                                                .replace(R.id.flFragment, Activities(),"Activities").addToBackStack(null)
+                                                .commit()
+                                        }
+
                                         sDialog.dismissWithAnimation()
                                     }.show()
 
@@ -396,19 +425,11 @@ class Checkout : Fragment() {
 //                .beginTransaction()
 //                .replace(R.id.flFragment, Order(),"Order").addToBackStack(null)
 //                .commit()
-            val address = checkoutViewModel.getAddress()
-//
-            val id = view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
-            val userID = id.getString("userID", "")
-            println(userID)
-            val newOrder =com.example.myapplication.modals.Order(userID!!.toInt(),checkoutViewModel.getTime(),address,Utils.getDigitInString(total.text.toString()),0,checkoutViewModel.getPromotionID(),3)
-            orderViewModel.createOrder(newOrder,cartItemCallAPI)
+            SocketHandler.setSocket()
+            SocketHandler.establishConnection()
+            mSocket = SocketHandler.getSocket()
+            mSocket.emit("newOrder","[51,40]")
 
-//            SocketHandler.setSocket()
-//            SocketHandler.establishConnection()
-//            mSocket = SocketHandler.getSocket()
-//
-//            mSocket.emit("newOrder","[1,2,3]")
 
         }
         addressCheckout.setOnClickListener {

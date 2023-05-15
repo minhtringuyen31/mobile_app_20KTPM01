@@ -48,14 +48,12 @@ class LoginViewModel():ViewModel() {
     }
 
     fun signIn(idToken:String){
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(Dispatchers.Main) {
             try {
                 val response =Utils.getRetrofit().create(AuthenService::class.java).signIn(idToken)
                 Resource.loading(data = null)
                 if(response.getStatusUser()==1){
                     _loginResult.postValue( Resource.success(data=response))
-
-
                 }
                 else
                 {
