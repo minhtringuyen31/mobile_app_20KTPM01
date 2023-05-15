@@ -153,8 +153,11 @@ const ProductServices = {
     return await ProductRepository.removeFavProduct(userId, productId);
   },
   async isExistedFavProduct(userId, productId) {
-    return await ProductRepository.isExistedFavProduct(userId, productId);
+    return await ProductRepository.isExistedFavProduct(userId, productId)
   },
+  async getRating(productId) {
+    return await ProductRepository.getRating(productId)
+  }
   // Cần method gì thì tự implements !!
 };
 export default ProductServices;

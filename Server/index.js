@@ -11,6 +11,7 @@ import RatingRoute from './routes/Rating.route.js';
 import PromotionRoute from './routes/Promotion.route.js';
 import OrderRoute from './routes/Order.route.js';
 import OrderProductRoute from './routes/OrderProduct.route.js';
+import NotificationRoute from './routes/Notification.route.js';
 //Admin Router
 import CategoryAdminRouter from './routes/admin/Category.admin.route.js';
 import OrderAdminRouter from './routes/admin/Order.admin.route.js';
@@ -53,6 +54,8 @@ app.use('/api/ratings', RatingRoute);
 app.use('/api/promotions', PromotionRoute);
 app.use('/api/authen', AuthenRoute);
 app.use('/api/toppings', ToppingRoute);
+app.use('/api/notifications', NotificationRoute);
+
 app.use('/api/admin/category', CategoryAdminRouter);
 app.use('/api/admin/order', OrderAdminRouter);
 app.use('/api/admin/product', ProductAdminRouter);

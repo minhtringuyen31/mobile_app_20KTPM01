@@ -94,6 +94,15 @@ const ProductController = {
             res.status(404).send(false);
         }
     },
+    async getRating(req, res) {
+        const productId = req.params.productId
+        const result = await ProductService.getRating(productId)
+        if (result) {
+            res.status(200).send(result)
+        } else {
+            res.status(404).send({ status: 0, message: "Failed" });
+        }
+    },
     test(req, res) {
         res.send("Test API from Product")
     },

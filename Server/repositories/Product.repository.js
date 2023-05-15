@@ -1,3 +1,4 @@
+import { query } from 'express';
 import DB from '../configs/db.js';
 const ProductRepository = {
   async changeStatus(id, status) {
@@ -212,6 +213,17 @@ const ProductRepository = {
       return false;
     }
   },
+  async getRating(productId) {
+    const query = `SELECT avg(rating.score) FROM rating WHERE rating.product_id = ?`
+    try {
+      const [rows] = await DB.pool().query(query, [productId]);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
+
 };
 
 export default ProductRepository;
