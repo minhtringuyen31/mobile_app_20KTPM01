@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_notification_list">NotificationList</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="textView">Welcome to\nInfinity Coffee</string>
+    <string name="signup_phone">Email Addess</string>
+    <string name="signup_pass">Password</string>
+    <string name="signup_confirmpass">Confirm Password</string>
+    <string name="button_signup">Sign up</string>
+    <string name="textView5">or</string>
+    <string name="textView3">You have an account?</string>
+    <string name="route_login">Sign in?</string>
+    <string name="icon_home">Home</string>
+    <string name="icon_oder">Oder</string>
+    <string name="icon_activity">Activity</string>
+    <string name="icon_other">Others</string>
+    <string name="login_phone">Email Address</string>
+    <string name="login_pass">Password</string>
+    <string name="route_forgotpassword">Forgot Password</string>
+    <string name="button_login">Sign in?</string>
+    <string name="textView2">You do not have an account?</string>
+    <string name="route_signup">Sign up?</string>
+    <string name="textView1">Change Your Password</string>
+    <string name="changepass_newpass">New Password</string>
+    <string name="changepass_confirm">Confirm New Password</string>
+    <string name="button_changepass">Save change</string>
+
+    <string name="route_editprofile">Edit your profile</string>
+    <string name="route_changepassword">Change your password</string>
+    <string name="route_introstore">Introduction store</string>
+    <string name="route_listpromotion">List all promotions</string>
+    <string name="route_changelanguage">Change Language</string>
+    <string name="button_logout">Logout</string>
+    <string name="textView13">Infinity Coffee is a coffee shop established in 2023, rooted in the love for Vietnamese coffee and the desire to give diners the best coffee taste. \n\nOur store is goal is to serve and contribute to the development of the Vietnamese coffee community by providing a convenient and enjoyable experience for customers. \n\nInfinity is 100% committed to quality, and will bring everyone the most memorable experience.\n</string>
+    <string name="viewmap">View location of store</string>
+
+    <string name="kmhc">Available Promotion</string>
+    <string name="ctdh">Oder Detail</string>
+    <string name="tongtien">Total Price</string>
+    <string name="km">Promotion</string>
+    <string name="cckm">Promotion not applied yet</string>
+    <string name="total">Total amount</string>
+    <string name="map">Location of store</string>
+    <string name="editinfo">Edit Profile Information</string>
+    <string name="ttcn">Edit infomation</string>
+    <string name="name">Full name</string>
+    <string name="gender">Gender</string>
+    <string name="dob">Date of birth</string>
+    <string name="address">Address</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="fg">We want to make sure it is really you. To further verify your identity, enter your email and we will send you a verification code.\n</string>
+    <string name="send">Send to email</string>
+    <string name="dg">Feedback</string>
+    <string name="rv">What do you think about product quality and appearance?</string>
+    <string name="fb">Send</string>
+    <string name="add">Add to cart</string>
+    <string name="size">Size</string>
+    <string name="note">Add notes</string>
+    <string name="tt">Payment</string>
+    <string name="phone">Phone</string>
+    <string name="sth">Today | In 15 minutes</string>
+    <string name="sp">Product</string>
+    <string name="addsp">Add product</string>
+    <string name="tam">Total</string>
+    <string name="addkm">Add promotion</string>
+    <string name="pttt">Payment methods</string>
+    <string name="cpttt">Choose payment methods</string>
+    <string name="cart">Your cart</string>
+    <string name="delcart">Delete cart</string>
+    <string name="dh">Place to order</string>
+
+    <string name="lsp">Category</string>
+    <string name="gy">Recommended for you</string>
+    <string name="chao">Wish you have a good day!</string>
+    <string name="love">Favorite</string>
+</resources>

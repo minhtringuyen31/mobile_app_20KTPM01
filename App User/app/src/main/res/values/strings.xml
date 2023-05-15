@@ -1,10 +1,10 @@
 <resources>
-    <string name="app_name">My Application</string>
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="idClient">315513977204-mu15r5slir88068p8qaikujoi9mo5nmb.apps.googleusercontent.com</string>
-    <string name="channel_name">Notification</string>
-    <string name="title_activity_maps">MapsActivity</string>
-    <string name="token">d1rZlEYWRN-qpXbYCL0ar7:APA91bGYdH-2bH30vuSIm_k8tjviAQt39WLcr8zZcYMc9X75eDrICPmLV0hnTKMpKgc5t7SGMg6XV3TayGuP2ItWOOBjzO_2obHcTVwOcHdUyI5XXbT3PdMoH0LDnUFXVCru2aUedO0W</string>
+    <string name="app_name" translatable="false">My Application</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="idClient" translatable="false">315513977204-mu15r5slir88068p8qaikujoi9mo5nmb.apps.googleusercontent.com</string>
+    <string name="title_activity_maps" translatable="false">MapsActivity</string>
+    <string name="token" translatable="false">d1rZlEYWRN-qpXbYCL0ar7:APA91bGYdH-2bH30vuSIm_k8tjviAQt39WLcr8zZcYMc9X75eDrICPmLV0hnTKMpKgc5t7SGMg6XV3TayGuP2ItWOOBjzO_2obHcTVwOcHdUyI5XXbT3PdMoH0LDnUFXVCru2aUedO0W</string>
     <string name="title_activity_notification_list">NotificationList</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -13,4 +13,93 @@
     <string name="previous">Previous</string>
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+
+    <string name="textView">Chào mừng đến\nInfinity Coffee</string>
+    <string name="signup_phone">Địa chỉ email</string>
+    <string name="signup_pass">Mật khẩu</string>
+    <string name="signup_confirmpass">Nhập lại mật khẩu</string>
+    <string name="button_signup">Đăng ký</string>
+    <string name="textView5">hay</string>
+    <string name="textView3">Bạn đã có tài khoản?</string>
+    <string name="route_login">Đăng nhập</string>
+    <string name="icon_home">Trang Chủ</string>
+    <string name="icon_oder">Đặt hàng</string>
+    <string name="icon_activity">Hoạt động</string>
+    <string name="icon_other">Khác</string>
+    <string name="login_phone">Địa chỉ email</string>
+    <string name="login_pass">Mật khẩu</string>
+    <string name="route_forgotpassword">Quên mật khẩu</string>
+    <string name="button_login">Đăng nhập</string>
+    <string name="textView2">Nếu bạn chưa có tài khoản?</string>
+    <string name="route_signup">Đăng ký</string>
+
+    <string name="textView1">Thay đổi mật khẩu</string>
+
+    <string name="changepass_newpass">Mật khẩu mới</string>
+    <string name="changepass_confirm">Nhập lại mật khẩu mới</string>
+    <string name="button_changepass">Lưu thay đổi</string>
+    <string name="route_editprofile">Chỉnh sửa thông tin cá nhân</string>
+    <string name="route_changepassword">Thay mật khẩu</string>
+    <string name="route_introstore">Giới thiệu cửa hàng</string>
+    <string name="route_listpromotion">Danh sách khuyến mãi</string>
+    <string name="route_changelanguage">Thay đổi ngôn ngữ</string>
+    <string name="button_logout">Đăng xuất</string>
+    <string name="textView13">Infinity Coffee là một cửa hàng cà phê được thành lập vào năm 2023, bắt nguồn từ tình yêu dành cho cà phê Việt và mong muốn đem đến cho thực khách hương vị cà phê tuyệt vời nhất. \n\nMục tiêu của cửa hàng chúng mình là có thể phục vụ và góp phần phát triển cộng đồng cà phê Việt bằng cách mang đến trải nghiệm tiện lợi, thú vị cho khách hàng. \n\nInfinity xin cam kết 100% về chất lượng, cũng như sẽ  mang đến cho mọi người trải nghiệm đáng nhớ nhất.\n</string>
+    <string name="viewmap">Xem vị trí cửa hàng</string>
+
+    <string name="kmhc">Khuyến mãi hiện có</string>
+    <string name="ctdh">Chi tiết đơn đặt hàng</string>
+    <string name="tongtien">Tổng tiền</string>
+    <string name="km">Khuyến mãi</string>
+    <string name="cckm">Chưa áp dụng khuyến mãi</string>
+    <string name="total">Tổng tiền phải trả</string>
+    <string name="map">Vị trí cửa hàng</string>
+    <string name="editinfo">Chỉnh sửa thông tin cá nhân</string>
+    <string name="ttcn">Chỉnh sửa thông tin</string>
+    <string name="name">Họ và tên</string>
+    <string name="gender">Giới tính</string>
+    <string name="dob">Ngày sinh</string>
+    <string name="address">Địa chỉ</string>
+    <string name="cancel">Hủy</string>
+    <string name="save">Lưu</string>
+    <string name="fg">Chúng tôi muốn chắc chắn rằng đó thực sự là bạn. Để xác minh thêm danh tính của bạn, hãy nhập email của bạn và chúng tôi sẽ gửi cho bạn mã xác minh.\n</string>
+    <string name="send">Gửi email</string>
+    <string name="dg">Đánh giá sản phẩm</string>
+    <string name="rv">Bạn nghĩ gì về chất lượng và hình thức sản phẩm?</string>
+    <string name="fb">ĐÁNH GIÁ</string>
+    <string name="add">Thêm vào giỏ hàng</string>
+    <string name="size">Kích thước</string>
+    <string name="note">Thêm ghi chú</string>
+    <string name="tt">Thanh toán</string>
+    <string name="phone">Số điện thoại</string>
+    <string name="sth">Hôm nay | Trong 15 phút </string>
+    <string name="sp">Sản phẩm</string>
+    <string name="addsp">Thêm sản phẩm</string>
+    <string name="tam">Tạm tính</string>
+    <string name="addkm">Thêm khuyến mãi</string>
+    <string name="pttt">Phương thức thanh toán</string>
+    <string name="cpttt">Chọn phương thức thanh toán</string>
+    <string name="cart">Giỏ hàng của bạn</string>
+    <string name="delcart">Xóa giỏ hàng</string>
+    <string name="dh">Đặt hàng</string>
+
+
+    <string name="lsp">Loại sản phẩm</string>
+    <string name="gy">Đề xuất cho bạn</string>
+    <string name="chao">Chúc bạn một ngày tốt lành!</string>
+    <string name="love">Yêu thích</string>
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+<!--    <string name=""></string>-->
+
+
+<!--    <string name=""></string>-->
+
+
+
+
 </resources>

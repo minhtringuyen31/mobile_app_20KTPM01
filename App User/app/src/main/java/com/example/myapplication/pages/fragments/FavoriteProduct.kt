@@ -168,9 +168,9 @@ class FavoriteProduct : Fragment() {
                 view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
             val curUser = sharedPreferences.getString("userID", null)
             var favProduct = FavProductItem(0,0)
-            var curProduct = productCartViewModel.getId()
+            var curProduct = product.getId()
             if(curUser!=null){
-                favProduct = FavProductItem(curUser.toString().toInt(), productCartViewModel.getId())
+                favProduct = FavProductItem(curUser.toString().toInt(), product.getId())
             }
             println("fav $curUser +  $curProduct")
             appModel.removeFavProduct(favProduct)

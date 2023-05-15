@@ -24,6 +24,7 @@ import java.util.regex.Pattern
 
 class Utils : AppCompatActivity() {
     companion object {
+
         private const val  URL="http://172.16.0.62:3000/api/"
         fun getRetrofit(): Retrofit {
             val gson = GsonBuilder()
@@ -53,7 +54,6 @@ class Utils : AppCompatActivity() {
 //            }
 
             val welcomeTitle : TextView = view.findViewById(R.id.welcomeTV)
-            val userTitle : TextView = view.findViewById(R.id.welcomeUserNameTV)
             val promotionBtn : CardView = view.findViewById(R.id.promotionBtn)
             val notificationBtn : CardView = view.findViewById(R.id.notificationBtn)
             promotionBtn.setOnClickListener{

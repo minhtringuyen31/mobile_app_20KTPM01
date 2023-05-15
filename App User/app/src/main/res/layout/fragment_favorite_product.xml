@@ -53,8 +53,34 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/favoriteProductListRV"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="wrap_content" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="">
+            <ImageView
+                android:layout_marginTop="80dp"
+                android:id="@+id/emptyList"
+
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:layout_gravity="center"
+                android:src="@drawable/emptycart"
+                android:contentDescription="Empty List" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Yêu quán từ món đầu tiên"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Món ngon hấp dẫn chiếm trọn trái tim! \nThả tim ngày để lưu quán bạn yêu nhé"/>
+        </LinearLayout>
     </LinearLayout>
+
 
 </ScrollView>

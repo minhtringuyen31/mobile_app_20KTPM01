@@ -5,23 +5,22 @@
     <item
         android:id="@+id/icon_home"
         android:icon="@drawable/baseline_home_24"
-        android:title="Trang Chủ"/>
+        android:title="@string/icon_home"/>
     <item
         android:id="@+id/icon_oder"
         android:icon="@drawable/icon_order"
-        android:title="Đặt hàng"/>
-
+        android:title="@string/icon_oder"/>
     <item
         android:id="@+id/icon_favorite"
         android:icon="@drawable/icon_favorite"
-        android:title="Yêu thích"/>
+        android:title="@string/love"/>
     <item
         android:id="@+id/icon_activity"
         android:icon="@drawable/activity_icon"
-        android:title="Hoạt động"/>
+        android:title="@string/icon_activity"/>
     <item
         android:id="@+id/icon_other"
         android:icon="@drawable/other_icon"
-        android:title="Khác"/>
+        android:title="@string/icon_other"/>
 
 </menu>
