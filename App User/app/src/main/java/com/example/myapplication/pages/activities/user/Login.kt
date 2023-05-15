@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.Admin.pages.dashboard.Dashboard
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 
@@ -71,10 +72,10 @@ class Login : AppCompatActivity() {
 
         buttonLogin.setOnClickListener {
             val preferences: SharedPreferences = this.getSharedPreferences("user", 0)
-            preferences.edit().remove("userID").apply()
             val loginRequest =
                 LoginRequest(login_phone.text.toString(), login_pass.text.toString(), 0);
             loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
+            println(loginRequest)
             loginViewModel.loginUser(loginRequest);
             loginViewModel.statusLogin.observe(this, Observer {
                 it?.let { resource ->
@@ -84,25 +85,45 @@ class Login : AppCompatActivity() {
                             println(resource.data)
                             Toast.makeText(this,"Đăng nhập thành công!", Toast.LENGTH_SHORT).show()
 
-                            val sharedPreferences =
-                                getSharedPreferences("user", MODE_PRIVATE)
-                            val editor = sharedPreferences.edit()
-                            editor.putString("userID", resource.data?.getUserID().toString()).apply()
-                            UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
-                            UserProfile.getUser( resource.data?.getUserID()!!.toInt())
-                            UserProfile.user.observe(this) {
+
+                            if(resource.data!!.getRole()==1)
+                            {
+                                val intent = Intent(
+                                    this,
+                                    Dashboard::class.java
+                                )
+                                val sharedPreferences =
+                                    getSharedPreferences("user", MODE_PRIVATE)
                                 val editor = sharedPreferences.edit()
-                                editor.putString("name",it.getName() )
-                                editor.putString("phone",it.getPhone() )
-                                editor.apply()
-                            };
-                            val intent = Intent(
-                                this,
-                                MainActivity::class.java
-                            )
-                            intent.putExtra("status","1")
-                            startActivity(intent)
-                            finish();
+                                editor.putString("userID", resource.data.getUserID().toString()).apply()
+                                editor.putString("role", "1").apply()
+                                startActivity(intent)
+                            }
+                            else
+                            {
+                                val sharedPreferences =
+                                    getSharedPreferences("user", MODE_PRIVATE)
+                                val editor = sharedPreferences.edit()
+                                editor.putString("userID", resource.data.getUserID().toString()).apply()
+                                editor.putString("role", "0").apply()
+                                UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
+                                UserProfile.getUser( resource.data?.getUserID()!!.toInt())
+                                UserProfile.user.observe(this) {
+                                    val editor = sharedPreferences.edit()
+                                    editor.putString("name",it.getName() )
+                                    editor.putString("phone",it.getPhone() )
+                                    editor.apply()
+                                };
+
+                                val intent = Intent(
+                                    this,
+                                    MainActivity::class.java
+                                )
+                                intent.putExtra("status","1")
+                                startActivity(intent)
+                                finish();
+                            }
+
                         }
                         Status.ERROR -> {
                             if(login_phone.text.toString()==""){
@@ -177,6 +198,7 @@ class Login : AppCompatActivity() {
                                         getSharedPreferences("user", MODE_PRIVATE)
                                     val editor = sharedPreferences.edit()
                                     editor.putString("userID", resource.data?.getUserID().toString()).apply()
+                                    editor.putString("role", "0").apply()
                                     UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
                                     UserProfile.getUser( resource.data?.getUserID()!!.toInt())
                                     UserProfile.user.observe(this) {
@@ -185,7 +207,6 @@ class Login : AppCompatActivity() {
                                             editor.putString("name",it.getName() )
                                             editor.putString("phone",it.getPhone() )
                                             editor.apply()
-
 
                                             runBlocking {
                                                 delay(2000) // Đợi 2 giây

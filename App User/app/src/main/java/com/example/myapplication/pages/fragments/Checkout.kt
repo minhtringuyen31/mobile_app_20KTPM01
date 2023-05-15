@@ -425,10 +425,20 @@ class Checkout : Fragment() {
 //                .beginTransaction()
 //                .replace(R.id.flFragment, Order(),"Order").addToBackStack(null)
 //                .commit()
+
             SocketHandler.setSocket()
             SocketHandler.establishConnection()
             mSocket = SocketHandler.getSocket()
-            mSocket.emit("newOrder","[51,40]")
+            cartItemCallAPI = ArrayList()
+            val newOrder =com.example.myapplication.modals.Order(38,"2023-05-13 16:05:00","test",123.0,0,2,3)
+            val result=orderViewModel.createOrder(newOrder,cartItemCallAPI)
+            orderViewModel.order.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
+                println(it)
+                var gson = Gson()
+                var jsonString = gson.toJson(it)
+
+                mSocket.emit("newOrder",jsonString)
+            })
 
 
         }

@@ -23,12 +23,12 @@ import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.myapplication.Admin.pages.dashboard.Dashboard
 import com.example.myapplication.modals.*
 import com.example.myapplication.pages.fragments.*
 import com.example.myapplication.pages.fragments.Order
 import com.example.myapplication.socket.SocketHandler
 import com.example.myapplication.utils.Utils
-import com.example.myapplication.viewmodels.order.OrderViewModel
 import com.example.myapplication.viewmodels.user.TokenFirebaseViewModel
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.appbar.AppBarLayout
@@ -39,14 +39,14 @@ import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var toolbar:AppBarLayout
-    private lateinit var bottomNavigationView:BottomNavigationView
+    private lateinit var toolbar: AppBarLayout
+    private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var currentFragment: FrameLayout
     private lateinit var mSocket: Socket
-    private lateinit var tokenFB:TokenFirebaseViewModel
+    private lateinit var tokenFB: TokenFirebaseViewModel
 
 
-    private fun handleTokenFirebase(){
+    private fun handleTokenFirebase() {
         tokenFB = ViewModelProvider(this)[TokenFirebaseViewModel::class.java]
         FirebaseMessaging.getInstance().token
             .addOnCompleteListener(OnCompleteListener<String?> { task ->
@@ -56,17 +56,18 @@ class MainActivity : AppCompatActivity() {
 
                 // Lấy token từ task.getResult() và lưu vào database
                 val token = task.result
-                println(token)
-                val sharedPreferences: SharedPreferences = this.getSharedPreferences("user", MODE_PRIVATE)
+                println("tk"+token)
+                val sharedPreferences: SharedPreferences =
+                    this.getSharedPreferences("user", MODE_PRIVATE)
                 val userID = sharedPreferences.getString("userID", null)
-                if(userID!=null)
-                {
-                    val tokenRQ= TokenFireBaseRequest(userID!!.toInt(),token)
+                if (userID != null) {
+                    val tokenRQ = TokenFireBaseRequest(userID.toInt(), token)
                     tokenFB.createToken(tokenRQ)
                 }
 
             })
     }
+
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -83,13 +84,14 @@ class MainActivity : AppCompatActivity() {
             notificationManager.createNotificationChannel(channel)
         }
     }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        val REQUEST_CODE_NOTIFICATION_PERMISSION =11111
+        val REQUEST_CODE_NOTIFICATION_PERMISSION = 11111
         when (requestCode) {
             REQUEST_CODE_NOTIFICATION_PERMISSION -> {
                 if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
@@ -108,15 +110,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-    private fun showNotification(){
+
+    private fun showNotification() {
 //         Create an explicit intent for an Activity in your app
         val intent = Intent(this, MainActivity::class.java).apply {
             intent.putExtra("FragmentToOpen", "Activities") // Truyền tên Fragment cần mở
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-            val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent: PendingIntent =
+            PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
         createNotificationChannel()
-        val builder = NotificationCompat.Builder(this,"123")
+        val builder = NotificationCompat.Builder(this, "123")
             .setSmallIcon(R.drawable.baseline_notifications_active_24)
             .setContentTitle("My notification")
             .setContentText("Hello World!")
@@ -131,7 +135,11 @@ class MainActivity : AppCompatActivity() {
                     Manifest.permission.POST_NOTIFICATIONS
                 ) != PackageManager.PERMISSION_GRANTED
             ) {
-                ActivityCompat.requestPermissions(this@MainActivity, arrayOf(Manifest.permission.POST_NOTIFICATIONS), 11111)
+                ActivityCompat.requestPermissions(
+                    this@MainActivity,
+                    arrayOf(Manifest.permission.POST_NOTIFICATIONS),
+                    11111
+                )
             }
             notify(0, builder.build())
         }
@@ -145,14 +153,17 @@ class MainActivity : AppCompatActivity() {
 
 
         setContentView(R.layout.activity_main)
-        val intentStatus = intent
-        val rootView= getWindow().getDecorView().getRootView();
 
-        val status=intentStatus.getStringExtra("status")
+
+        val intentStatus = intent
+        val rootView = getWindow().getDecorView().getRootView();
+
+        val status = intentStatus.getStringExtra("status")
+
 
         toolbar = findViewById(R.id.myToolBar)
         bottomNavigationView = findViewById(R.id.bottom_nav)
-        currentFragment= findViewById(R.id.flFragment)
+        currentFragment = findViewById(R.id.flFragment)
 //        handleTokenFirebase()
         SocketHandler.setSocket()
         SocketHandler.establishConnection()
@@ -163,27 +174,40 @@ class MainActivity : AppCompatActivity() {
                 println(counter);
             }
         }
-        mSocket.on("statusOrder") { args ->;
+        mSocket.on("statusOrder") { args ->
+            ;
             if (args[0] != null) {
                 val counter = args[0]
                 showNotification()
             }
         }
-        Utils.activeToolbar(this,rootView)
-        val sharedPreferences: SharedPreferences = this.getSharedPreferences("user", MODE_PRIVATE)
+        Utils.activeToolbar(this, rootView)
+
+        val sharedPreferences =
+            getSharedPreferences("user", MODE_PRIVATE)
+        var role = sharedPreferences.getString("role", null)
+
+
         val userID = sharedPreferences.getString("userID", null)
-        if (userID != null&& userID.isNotEmpty()) {
-            mSocket.emit("login",userID)
-            setCurrentFragment(Homepage(),"Homepage")
+        if (userID != null && userID.isNotEmpty() && role != null && role.toString() == "0") {
+            mSocket.emit("login", userID)
+            setCurrentFragment(Homepage(), "Homepage")
             activeNavigationBar()
-        }else
-        {
-            if(status.toString()=="1"){
+        } else if(userID != null && userID.isNotEmpty() && role != null && role.toString() == "1"){
+            val intent = Intent(
+                this,
+                Dashboard::class.java
+            )
+            startActivity(intent)
+        }
+        else{
+            if (status.toString() == "1") {
                 showToolbarAndNavigationBar(true)
-                setCurrentFragment(Homepage(),"Homepage")
-            }else {
+                setCurrentFragment(Homepage(), "Homepage")
+            } else {
                 showToolbarAndNavigationBar(false)
-                setCurrentFragment(splashApp(),"splashApp")
+                setCurrentFragment(splashApp(), "splashApp")
+
             }
             activeNavigationBar()
         }
@@ -198,16 +222,9 @@ class MainActivity : AppCompatActivity() {
 
         handleTokenFirebase();
 
-
-
-
-
-
-
-
-
-
     }
+
+
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         val fragment = supportFragmentManager.findFragmentByTag("checkout")

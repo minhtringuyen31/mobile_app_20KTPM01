@@ -1,11 +1,11 @@
 package com.example.myapplication.pages.activities.user
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -56,7 +56,6 @@ class EditProfile : AppCompatActivity() {
                                 edit_gender.text.toString(),
                                 edit_dob.text.toString(),
                                 edit_address.text.toString())
-
             editInfoViewModel= ViewModelProvider(this)[EditInfoViewModel::class.java]
             editInfoViewModel.EditInfo(22,editInfoRequest) // phai tim duoc id cua nguoi dung dang dang nhap
             editInfoViewModel.editInfo.observe(this, Observer{

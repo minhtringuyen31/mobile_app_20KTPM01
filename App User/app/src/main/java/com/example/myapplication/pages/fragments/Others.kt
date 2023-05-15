@@ -124,6 +124,7 @@ class Others : Fragment() {
             preferences.edit().remove("userID").apply()
             preferences.edit().remove("name").apply()
             preferences.edit().remove("phone").apply()
+            preferences.edit().remove("role").apply()
             val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
             sharedPreferences.edit().remove("productID").apply()
             val sharedPreferences_address = view.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)

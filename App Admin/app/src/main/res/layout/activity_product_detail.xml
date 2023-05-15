@@ -107,12 +107,47 @@
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
                     android:layout_toEndOf="@+id/descTv"
+                    android:ellipsize="end"
+                    android:gravity="fill_vertical"
+                    android:maxLines="3"
+                    android:textAlignment="textEnd"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/relativeScroll6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_layout">
+
+                <TextView
+                    android:id="@+id/addressTv"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:gravity="fill_vertical"
+                    android:text="Size:"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="15sp"
+                    tools:ignore="RtlCompat" />
+
+                <TextView
+                    android:id="@+id/detailProductSize"
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginStart="0dp"
+                    android:layout_marginEnd="0dp"
+                    android:layout_toEndOf="@+id/addressTv"
                     android:gravity="fill_vertical"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
                     android:textSize="15sp"
-                    android:maxLines="3"
-                    android:ellipsize="end"
                     tools:ignore="RtlCompat" />
             </RelativeLayout>
 
@@ -123,18 +158,18 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                android:orientation="horizontal"
+                android:background="@drawable/border_layout"
                 android:gravity="center"
-                android:showDividers="middle"
-                android:background="@drawable/border_layout">
+                android:orientation="horizontal"
+                android:showDividers="middle">
 
                 <TextView
                     android:id="@+id/priceSTv"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
+                    android:layout_weight="1"
                     android:gravity="fill_vertical"
                     android:text="Size S:"
-                    android:layout_weight="1"
                     android:textAlignment="textStart"
                     android:textColor="#000000"
                     android:textSize="15sp"
@@ -146,12 +181,12 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
-                    android:gravity="fill_vertical"
-                    android:textAlignment="textStart"
                     android:layout_weight="1"
+                    android:gravity="fill_vertical"
+                    android:text="Size M:"
+                    android:textAlignment="textStart"
                     android:textColor="#000000"
                     android:textSize="15sp"
-                    android:text="Size M:"
                     tools:ignore="RtlCompat" />
 
                 <TextView
@@ -160,12 +195,12 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
+                    android:layout_weight="1"
                     android:gravity="fill_vertical"
+                    android:text="Size L:"
                     android:textAlignment="textStart"
                     android:textColor="#000000"
-                    android:layout_weight="1"
                     android:textSize="15sp"
-                    android:text="Size L:"
                     tools:ignore="RtlCompat" />
             </LinearLayout>
 
@@ -204,19 +239,22 @@
                     tools:ignore="RtlCompat" />
             </RelativeLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/relativeScroll5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginBottom="10dp"
-                android:background="@drawable/border_layout">
+                android:background="@drawable/border_layout"
+                android:gravity="center"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/dobTv"
-                    android:layout_width="100dp"
+                    android:layout_width="0dp"
                     android:layout_height="60dp"
+                    android:layout_weight="4"
                     android:gravity="fill_vertical"
                     android:text="Ngày tạo:"
                     android:textAlignment="textStart"
@@ -228,30 +266,21 @@
                     android:id="@+id/detailProductReleaseDate"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
-                    android:layout_alignParentEnd="true"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
-                    android:layout_toEndOf="@+id/dobTv"
+                    android:layout_weight="5"
                     android:gravity="fill_vertical"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
                     android:textSize="15sp"
                     tools:ignore="RtlCompat" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/relativeScroll6"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/border_layout">
 
                 <TextView
-                    android:id="@+id/addressTv"
-                    android:layout_width="100dp"
+                    android:id="@+id/dateTv"
+                    android:layout_width="0dp"
                     android:layout_height="60dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="6"
                     android:gravity="fill_vertical"
                     android:text="Ngày cập nhật:"
                     android:textAlignment="textStart"
@@ -263,16 +292,15 @@
                     android:id="@+id/detailProductUpdateDate"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
-                    android:layout_alignParentEnd="true"
                     android:layout_marginStart="0dp"
                     android:layout_marginEnd="0dp"
-                    android:layout_toEndOf="@+id/addressTv"
+                    android:layout_weight="5"
                     android:gravity="fill_vertical"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"
                     android:textSize="15sp"
                     tools:ignore="RtlCompat" />
-            </RelativeLayout>
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/relativeScroll7"

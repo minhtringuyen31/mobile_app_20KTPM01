@@ -2,13 +2,11 @@ package com.example.myapplication.utils
 
 import android.content.Context
 import android.content.Intent
-
 import android.util.DisplayMetrics
 import android.view.View
 import android.view.WindowManager
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
 import com.example.myapplication.R
 import com.example.myapplication.pages.activities.notification.NotificationList
@@ -24,7 +22,7 @@ import java.util.regex.Pattern
 
 class Utils : AppCompatActivity() {
     companion object {
-        private const val  URL="http://172.16.0.52:3000/api/"
+        private const val  URL="http://10.0.2.2:3000/api/"
         fun getRetrofit(): Retrofit {
             val gson = GsonBuilder()
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")

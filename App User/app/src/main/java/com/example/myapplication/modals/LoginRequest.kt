@@ -17,6 +17,9 @@ class LoginRequest {
     fun getStatusUser(): Int? {
         return this.status;
     }
+    fun getRole():Int?{
+        return this.role;
+    }
     fun getUserID(): Int? {
         return this.userId;
     }

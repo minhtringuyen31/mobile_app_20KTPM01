@@ -2,6 +2,17 @@ import DB from '../configs/db.js';
 import crypto from 'crypto';
 import CartServices from '../services/Cart.service.js';
 const UserRepository = {
+  async changeIsDisable(id, is_disable) {
+    const query = `UPDATE user SET is_disable=? WHERE id=?`;
+    const values = [is_disable, id];
+    try {
+      const [result] = await DB.pool().query(query, values);
+      return result.affectedRows > 0;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
   async create(
     name,
     gender,

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin.pages.topping.ToppingDetail">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="Topping detail"
+        android:textSize="40sp"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/guideline6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="@+id/guideline6">
+
+
+        <RelativeLayout
+            android:id="@+id/relativeScroll1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border_layout">
+
+            <TextView
+                android:id="@+id/nameTv"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:gravity="fill_vertical"
+                android:text="Tên topping:"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/detailToppingName"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_toEndOf="@+id/nameTv"
+                android:gravity="fill_vertical"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeScroll2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border_layout">
+
+            <TextView
+                android:id="@+id/descTv"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:gravity="fill_vertical"
+                android:text="Giá topping:"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/detailToppingPrice"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_toEndOf="@+id/descTv"
+                android:ellipsize="end"
+                android:gravity="fill_vertical"
+                android:maxLines="3"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/relativeScroll4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border_layout">
+
+            <TextView
+                android:id="@+id/phoneTv"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:gravity="fill_vertical"
+                android:text="Loại mặt hàng:"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:id="@+id/detailToppingCategory"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_toEndOf="@+id/phoneTv"
+                android:gravity="fill_vertical"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline7">
+
+        <Button
+            android:id="@+id/detailTopping_editBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:backgroundTint="#2196F3"
+            android:text="Chỉnh sửa" />
+
+        <Button
+            android:id="@+id/detailTopping_cancelBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FF5722"
+            android:text="Thoát" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

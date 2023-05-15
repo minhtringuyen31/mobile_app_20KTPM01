@@ -14,24 +14,65 @@ const SocketListener = {
             })
 
             socket.on("newOrder", (data) => {
-                const s =JSON.parse(data)
+                const s = JSON.parse(data)
                 console.log(s);
                 const messages = {
-                    "data":{
+                    "data": {
                         "username": "Thông báo đơn hàng",
-                        "description": "Đơn hàng của bạn được chấp nhận"
+                        "description": "Có 1 đơn hàng mới!Cần bạn xác nhận"
                     }
                 }
-                UserServices.handleTokenFireBase(s[1], messages,"one");
-                console.log("Có 1 đơn hàng mới từ khách hàng có ID"+ data);
-                
+                console.log(s.user_id);
+                UserServices.handleTokenFireBase(41, messages, "one");
+                console.log("Có 1 đơn hàng mới từ khách hàng có ID" + s);
+            })
+            socket.on("confirmOrder", (data) => {
+        
+                const messages = {
+                    "data": {
+                        "username": "Thông báo đơn hàng",
+                        "description": "Đơn hàng của bạn đã được xác nhận"
+                    }
+                }
+                UserServices.handleTokenFireBase(data, messages, "one");
+                console.log("Có 1 đơn hàng mới từ khách hàng có ID" + data);
+            })
+            socket.on("deliverySuccess", (data) => {
+
+                const messages = {
+                    "data": {
+                        "username": "Thông báo đơn hàng",
+                        "description": "Đơn hàng của bạn đã được giao thành công"
+                    }
+                }
+                UserServices.handleTokenFireBase(data, messages, "one");
+                console.log("Có 1 đơn hàng mới từ khách hàng có ID" + data);
+            })
+            socket.on("cancelOrder", (data) => {
+
+                const messages = {
+                    "data": {
+                        "username": "Thông báo đơn hàng",
+                        "description": "Đơn hàng của bạn đã bị hủy"
+                    }
+                }
+                UserServices.handleTokenFireBase(data, messages, "one");
+                console.log("Có 1 đơn hàng mới từ khách hàng có ID" + data);
+            })
+            socket.on("refund", (data) => {
+
+                const messages = {
+                    "data": {
+                        "username": "Thông báo đơn hàng",
+                        "description": "Đơn hàng của bạn đã bị hủy"
+                    }
+                }
+                UserServices.handleTokenFireBase(data, messages, "one");
+                console.log("Có 1 đơn hàng mới từ khách hàng có ID" + data);
             })
 
-            socket.on("verify-confirm-order", (data) => {
-                console.log(data);
-                // waiting admin confirm order | implement code here or in controller
-                io.to(global.userActive[data]).emit("verify-confirm-order", data ) // gui toi nhung client nao can gui 
-            })
+
+
 
             socket.on('disconnect', function () {
                 const disconnectedUserId = Object.keys(global.userActive).find(

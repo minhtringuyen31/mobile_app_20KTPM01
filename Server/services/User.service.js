@@ -4,6 +4,7 @@ import admin from 'firebase-admin';
 import { initializeApp } from 'firebase-admin/app';
 
 import serviceAccount from '../configs/serviceAccountKey.json'  assert { type: "json" };
+
 const UserServices = {
     async changeIsDisable(id, is_disable) {
         return await UserRepository.changeIsDisable(id, is_disable);
@@ -126,9 +127,14 @@ const UserServices = {
     },
 
     async handleTokenFireBase(userid, message, target) {
-        admin.initializeApp({
-            credential: admin.credential.cert(serviceAccount)
-        });
+        if (!admin.apps.length) {
+            admin.initializeApp({
+                credential: admin.credential.cert(serviceAccount)
+            });
+        }
+        // admin.initializeApp({
+        //     credential: admin.credential.cert(serviceAccount)
+        // });
         if (target === "all") {
             const registrationTokens = await this.finAllToken();
             const messageHandle = {
@@ -139,6 +145,7 @@ const UserServices = {
         }
         else {
             const registrationToken = await this.findTokenByUserID(userid);
+            console.log(registrationToken);
             const messageOne = message
             admin.messaging().sendToDevice(registrationToken.token, messageOne)
         }

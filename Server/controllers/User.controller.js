@@ -210,7 +210,7 @@ const UserController = {
             var check = await UserServices.findTokenByUserID(tokenFireBase.user_id)
             console.log(check);
             if (check) {
-                await UserServices.updateTokenFireBase(tokenFireBase.user_id)
+                await UserServices.updateTokenFireBase(tokenFireBase.token,tokenFireBase.user_id)
             } else {
                 var result = await UserServices.saveTokenFirebase(tokenFireBase.user_id, tokenFireBase.token)
                 res.status(200).json(result)

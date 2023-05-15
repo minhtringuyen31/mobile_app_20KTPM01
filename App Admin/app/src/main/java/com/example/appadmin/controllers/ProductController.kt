@@ -8,6 +8,8 @@ import com.example.appadmin.modals.Product
 import com.example.appadmin.services.ProductService
 import com.example.appadmin.utils.Utils
 import kotlinx.coroutines.launch
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 class ProductController : ViewModel() {
     fun getProduct(id: Int): LiveData<Product> {
@@ -38,12 +40,38 @@ class ProductController : ViewModel() {
         return _products
     }
 
-    fun createProduct(productNew: Product): LiveData<Product> {
+    fun createProduct(
+        name: RequestBody,
+        description: RequestBody,
+        size: RequestBody,
+        price_S: RequestBody,
+        price_M: RequestBody,
+        price_L: RequestBody,
+        status: RequestBody,
+        category_id: RequestBody,
+        update_date: RequestBody,
+        release_date: RequestBody,
+        sales: RequestBody,
+        image: MultipartBody.Part
+    ): LiveData<Product> {
         val _product = MutableLiveData<Product>()
         viewModelScope.launch {
             try {
                 val response =
-                    Utils.getRetrofit().create(ProductService::class.java).createProduct(productNew)
+                    Utils.getRetrofit().create(ProductService::class.java).createProduct(
+                        name,
+                        description,
+                        size,
+                        price_S,
+                        price_M,
+                        price_L,
+                        status,
+                        category_id,
+                        update_date,
+                        release_date,
+                        sales,
+                        image
+                    )
                 _product.value = response
             } catch (e: Exception) {
                 // handle error
@@ -52,12 +80,48 @@ class ProductController : ViewModel() {
         return _product
     }
 
-    fun updateProduct(id: Int, productNew: Product): LiveData<Product> {
+    fun updateProduct(
+        id: Int,
+        name: RequestBody,
+        description: RequestBody,
+        size: RequestBody,
+        price_S: RequestBody,
+        price_M: RequestBody,
+        price_L: RequestBody,
+        category_id: RequestBody,
+        update_date: RequestBody,
+        image: MultipartBody.Part
+    ): LiveData<Product> {
         val _product = MutableLiveData<Product>()
         viewModelScope.launch {
             try {
                 val response = Utils.getRetrofit().create(ProductService::class.java)
-                    .updateProduct(id, productNew)
+                    .updateProduct(
+                        id,
+                        name,
+                        description,
+                        size,
+                        price_S,
+                        price_M,
+                        price_L,
+                        category_id,
+                        update_date,
+                        image
+                    )
+                _product.value = response
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+        return _product
+    }
+
+    fun updateWithoutImage(id: Int, product: Product): LiveData<Product> {
+        val _product = MutableLiveData<Product>()
+        viewModelScope.launch {
+            try {
+                val response = Utils.getRetrofit().create(ProductService::class.java)
+                    .updateWithoutImage(id, product)
                 _product.value = response
             } catch (e: Exception) {
                 // handle error

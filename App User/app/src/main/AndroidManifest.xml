@@ -7,6 +7,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
@@ -21,15 +23,81 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".Admin.pages.DetailOrderConfirm"
+            android:name=".Admin.pages.user.UserDetail"
             android:exported="false" />
         <activity
-            android:name=".Admin.pages.DashBoard"
+            android:name=".Admin.pages.user.EditUser"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.user.AddUser"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.user.Users"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.topping.ToppingDetail"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.topping.EditTopping"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.topping.AddTopping"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.topping.Toppings"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.rating.EditRating"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.rating.Ratings"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.promotion.PromotionDetail"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.promotion.AddPromotion"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.promotion.EditPromotion"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.promotion.Promotions"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.product.Products"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.product.ProductDetail"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.product.EditProduct"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.product.AddProduct"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.order.Orders"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.order.EditOrder"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.dashboard.Dashboard"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.category.EditCategory"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.category.Categories"
+            android:exported="false" />
+        <activity
+            android:name=".Admin.pages.category.AddCategory"
             android:exported="false" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}">
-        </meta-data>
+            android:value="${MAPS_API_KEY}" />
+
         <activity
             android:name=".pages.activities.promotion.DetailPromotion"
             android:exported="false" />
@@ -81,8 +149,7 @@
             android:exported="false" />
         <activity
             android:name=".pages.RatingActivity"
-            android:exported="false"/>
-
+            android:exported="false" />
 
         <service
             android:name=".Notification.MyFirebaseMessagingService"
@@ -90,8 +157,8 @@
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-
         </service>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -99,12 +166,15 @@
             android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data
                     android:host="app"
                     android:scheme="demozpdk" />

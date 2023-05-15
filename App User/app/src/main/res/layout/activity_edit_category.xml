@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Admin.pages.category.EditCategory">
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:text="Edit Category"
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline8"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/guideline9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline8">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/productEditImage"
+            android:layout_width="200dp"
+            android:layout_height="140dp"
+            android:layout_marginTop="50dp"
+            app:cardCornerRadius="40dp">
+
+            <ImageView
+                android:id="@+id/editCategoryImage"
+                android:layout_width="200dp"
+                android:layout_height="140dp"
+                android:adjustViewBounds="true"
+                android:background="@drawable/custom_edittext"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile" />
+        </androidx.cardview.widget.CardView>
+
+        <Button
+            android:id="@+id/editCategoryImageBtn"
+            android:text="image"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"/>
+
+        <RelativeLayout
+            android:id="@+id/relativeScroll1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/border_layout">
+
+            <TextView
+                android:id="@+id/nameCategoryTv"
+                android:layout_width="100dp"
+                android:layout_height="60dp"
+                android:gravity="fill_vertical"
+                android:text="Tên loại:"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
+
+            <EditText
+                android:id="@+id/editCategoryName"
+                android:layout_width="0dp"
+                android:layout_height="60dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:layout_toEndOf="@+id/nameCategoryTv"
+                android:background="@null"
+                android:gravity="fill_vertical"
+                android:hint="Nhập tên loại"
+                android:textAlignment="textEnd"
+                android:textColor="#000000"
+                android:textSize="15sp"
+                tools:ignore="RtlCompat" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.2" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.9" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:showDividers="middle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guideline9">
+
+        <Button
+            android:id="@+id/editCategory_disableBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#E91E63"
+            android:text="Khóa" />
+
+        <Button
+            android:id="@+id/editCategory_saveBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#2196F3"
+            android:text="Lưu mới" />
+
+        <Button
+            android:id="@+id/editCategory_deleteBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#9C27B0"
+            android:text="Xóa" />
+
+        <Button
+            android:id="@+id/editCategory_cancelBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FF5722"
+            android:text="về" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
