@@ -1,19 +1,19 @@
 package com.example.myapplication.modals
 
 class SignupRequest {
-    private lateinit var phone:String
+    private lateinit var email:String
     private lateinit var password:String
     private lateinit var confirmpass:String
 
-    constructor(phone:String,pass:String,confirmpass:String){
-        this.phone=phone
+    constructor(email:String,pass:String,confirmpass:String){
+        this.email=email
         this.password=pass
         this.confirmpass=confirmpass
     }
-    fun getPhone():String{
-        return phone
+    fun getEmail():String{
+        return email
     }
     override fun toString(): String {
-        return "SignupRequest(phone='$phone', password='$password', confirmpass='$confirmpass')"
+        return "SignupRequest(phone='$email', password='$password', confirmpass='$confirmpass')"
     }
 }

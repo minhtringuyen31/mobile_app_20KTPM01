@@ -1,6 +1,9 @@
 package com.example.myapplication.pages.activities.user
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Bundle
 
 import android.widget.*
@@ -23,6 +26,8 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import java.util.Locale
+
 //import io.socket.client.Socket
 
 
@@ -38,10 +43,30 @@ class Login : AppCompatActivity() {
     private lateinit var gsc:GoogleSignInClient
     private lateinit var signupViewModel: SignupViewModel
     private var account:GoogleSignInAccount ? = null
+   // private lateinit var btn_change:Button
 
+//    private fun setLocate(Lang:String){
+//        val locale=Locale(Lang)
+//        Locale.setDefault(locale)
+//        val config=Configuration()
+//        config.locale=locale
+//        baseContext.resources.updateConfiguration(config,baseContext.resources.displayMetrics)
+//
+//        val editor=getSharedPreferences("Setting",Context.MODE_PRIVATE).edit()
+//        editor.putString("My_Lang",Lang)
+//        editor.apply()
+//    }
+//    private fun loadLocate(){
+//        val sharedPreference=getSharedPreferences("Setting",Activity.MODE_PRIVATE)
+//        val language=sharedPreference.getString("My_Lang","")
+//        if (language != null) {
+//            setLocate(language)
+//        }
+//    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        loadLocate()
         setContentView(R.layout.activity_login)
         buttonLogin = findViewById(R.id.button_login)
         routeSignUp = findViewById(R.id.route_signup)
@@ -49,6 +74,12 @@ class Login : AppCompatActivity() {
         login_pass = findViewById(R.id.login_pass)
         loginGG = findViewById(R.id.login_gg)
         routeForgotPassword=findViewById(R.id.route_forgotpassword)
+       // btn_change=findViewById(R.id.button2)
+
+//        btn_change.setOnClickListener {
+//            setLocate("vn")
+//
+//        }
 
 
 

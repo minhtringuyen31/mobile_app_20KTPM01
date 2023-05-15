@@ -54,7 +54,7 @@ class User(
     fun setPassword(password: String){
         this.password=password;
     }
-//    fun setProfileUser(name:String,email:String,gender:String,dob:String,address:String){
+//    constructor( name:String,email:String,gender:String,dob:String,address:String) : this() {
 //        this.name=name;
 //        this.email=email;
 //        this.gender=gender;

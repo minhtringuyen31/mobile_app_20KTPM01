@@ -1,14 +1,19 @@
 package com.example.myapplication.pages.fragments
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.app.ActivityCompat.recreate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.example.myapplication.R
@@ -22,6 +27,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.FirebaseAuth
+import java.util.*
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -45,6 +51,7 @@ class Others : Fragment() {
     private lateinit var route_changepassword:TextView
     private lateinit var route_introstore:TextView
     private lateinit var route_listpromotion:TextView
+    private lateinit var route_changelanguage:TextView
     private lateinit var button_logout: Button
     private lateinit var gso: GoogleSignInOptions
     private lateinit var gsc: GoogleSignInClient
@@ -52,6 +59,7 @@ class Others : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
@@ -64,6 +72,7 @@ class Others : Fragment() {
     ): View? {
         view = inflater.inflate(R.layout.fragment_others, container, false)
         UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
+        loadLocate(view)
         initUI(view)
 
         val sharedPreferences: SharedPreferences =
@@ -76,14 +85,58 @@ class Others : Fragment() {
         // Inflate the layout for this fragment
         return view
     }
+    private fun setLocate(Lang:String){
+        val locale= Locale(Lang)
+        Locale.setDefault(locale)
+        val config= Configuration()
+        config.locale=locale
+        view.context.resources.updateConfiguration(config,view.context.resources.displayMetrics)
+
+        val editor=view.context.getSharedPreferences("Setting", Context.MODE_PRIVATE).edit()
+        editor.putString("My_Lang",Lang)
+        editor.apply()
+    }
+    private fun loadLocate(view:View){
+        val sharedPreference=view.context.getSharedPreferences("Setting", Activity.MODE_PRIVATE)
+        val language=sharedPreference.getString("My_Lang","")
+        if (language != null) {
+            setLocate(language)
+        }
+    }
+    private fun showChangeLang(view:View){
+        val listItems= arrayOf("Tiếng Việt","English")
+        val mBuilder=AlertDialog.Builder(view.context)
+        mBuilder.setTitle("Chọn ngôn ngữ")
+        mBuilder.setSingleChoiceItems(listItems,-1){
+            dialog,which->
+            if (which==0){
+                setLocate("vn")
+                requireActivity().recreate()
+
+            }
+            else {
+                setLocate("en")
+                requireActivity().recreate()
+            }
+
+        dialog.dismiss() // dismiss the dialog after the user selects an option
+        }
+        val mDialog = mBuilder.create() // create the AlertDialog
+        mDialog.show() // show the AlertDialog
+    }
     private fun initUI(view: View) {
         profile_name = view.findViewById(R.id.profile_name)
         profile_phone = view.findViewById(R.id.profile_phone)
         route_editprofile=view.findViewById(R.id.route_editprofile)
         route_changepassword=view.findViewById(R.id.route_changepassword)
+        route_changelanguage=view.findViewById(R.id.route_changelanguage)
         route_introstore=view.findViewById(R.id.route_introstore)
         route_listpromotion=view.findViewById(R.id.route_listpromotion)
         button_logout = view.findViewById(R.id.button_logout)
+
+        route_changelanguage.setOnClickListener {
+            showChangeLang(view)
+        }
         route_editprofile.setOnClickListener {
             val intent = Intent(
                 view.context,

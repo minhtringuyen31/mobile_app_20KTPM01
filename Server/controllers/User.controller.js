@@ -1,5 +1,6 @@
 import UserServices from "../services/User.service.js"
 import  bcrypt from 'bcrypt';
+import nodemailer from 'nodemailer'
 
 const UserController = {
     async create(req, res) {
@@ -49,17 +50,17 @@ const UserController = {
         }
 
     },
-    // async findPhone(req, res) {
-    //     const phone = req.params.phone;
-    //     const user = await UserServices.findPhone(phone)
-    //     if (user) {
-    //         res.status(200).send(user);
-    //     }
-    //     else {
-    //         res.status(404).send({ status: 0, message: "Failed" });
-    //     }
+    async findEmail(req, res) {
+        const email = req.body.email;
+        const user = await UserServices.findEmail(email)
+        if (user) {
+            res.status(200).send(user);
+        }
+        else {
+            res.status(404).send({ status: 0, message: "Failed" });
+        }
 
-    // },
+    },
     async findAll(req, res) {
         const users = await UserServices.findAll()
         if (users) {
@@ -85,10 +86,10 @@ const UserController = {
     async loginPost(req, res) {
         try{
 
-            const check = await UserServices.findPhone( req.body.phone)
+            const check = await UserServices.findEmail( req.body.email)
             // console.log(checkphone)
             if(!check) 
-                res.status(200).json({ message: "phone do not exist!" })
+                res.status(200).json({ message: "Email do not exist!" })
             
             else {
                 ////console.log(req.body)
@@ -105,7 +106,48 @@ const UserController = {
         }
     },
 
-    
+    // forgot password
+    async vertifyEmail(req, res) {
+        try{
+
+            const check = await UserServices.findEmail( req.body.email)
+            
+
+            const data={email:req.body.email,otp:req.body.otp}
+            if(!check) 
+                res.status(200).json({ message: "email do not exist!" })
+            
+            else {
+                console.log(req.body.otp)
+
+                await UserServices.setOTP(data.email,data.otp)
+                console.log(check)
+                res.status(200).json(data)
+            }
+       
+        }
+        catch (error) {
+            res.status(400).json({ message: "Wrong detail!" })
+        }
+    },
+    async vertifyOTP(req,res){
+        try {
+            const checkotp= await UserServices.checkOTP(req.body.email,req.body.otp)
+            const data={email:req.body.email,otp:req.body.otp}
+            if (checkotp){
+                res.status(200).json(data)
+            }
+            else {
+                res.status(200).json({ message: "Error otp!" })
+
+            }
+
+        }
+        catch (error) {
+            res.status(400).json({ message: "Wrong detail!" })
+        }
+    },
+
     //GET /signup
     signupGet(req, res) {
         res.render('signup');
@@ -114,9 +156,9 @@ const UserController = {
     //POST /signup
     async signupPost(req, res) {
     //console.log(req.body)
-        const { phone, password, confirmpass } = req.body
+        const { email, password, confirmpass } = req.body
 
-        if (!phone || typeof phone !== 'string') res.status(400).json({message: "Empty phone!"})
+        if (!email || typeof email !== 'string') res.status(400).json({message: "Empty email!"})
 
         if (!password || typeof password !== 'string') res.status(400).json({message: "Empty password!"})
 
@@ -124,21 +166,21 @@ const UserController = {
         
         try {
             const data =  {
-                phone,
+                email,
                 password,
                 confirmpass
             }
             
-            const checkphone = await UserServices.findPhone( req.body.phone)
+            const checkEmail = await UserServices.findEmail( req.body.email)
             
-            if(checkphone) 
-                res.status(200).json({ message: "phone has been used!" })
+            if(checkEmail) 
+                res.status(200).json({ message: "Email has been used!" })
             else if (password!=confirmpass){
                     res.status(200).json({message:"Password and confirm password is not equal!"})
                 }
             else {
                 const hashedPassword = await bcrypt.hash(password, 6);
-                await UserServices.signup(phone, hashedPassword)
+                await UserServices.signup(email, hashedPassword)
                 res.status(200).json(data)
             }
         }
@@ -207,27 +249,69 @@ const UserController = {
     //GET /sendOTP
     async sendOTPGet(req,res){
         res.render("sendOTP")
-    }
+    },
 
-    //POST / sendOTP
-    // async sendOTPPost(req,res){
-    //     try{
-    //         const check = await UserServices.findPhone( req.body.phone)
-    //         // console.log(checkphone)
-    //         if(!check) 
-    //             res.status(200).json({ message: "Phone do not exist!" })
+
+    //ngdjrtpcqtucojbj  // pass nick gmail nhom 
+   
+        async sendMail(req, res) {
+            const transporter = nodemailer.createTransport({
+              host: 'smtp.gmail.com',
+              port: 587,
+              secure: false,
+              auth: {
+                user: 'infinitycoffee06@gmail.com',
+                pass: 'ngdjrtpcqtucojbj',
+              },
+              tls: {
+                ciphers: 'SSLv3',
+                minVersion: 'TLSv1.2',
+              },
+            });
+          
+            const email = req.body.email;
+
+          
+            // Generate OTP
+            const otpLength = 4;
+            let otp = '';
+          
+            for (let i = 0; i < otpLength; i++) {
+              otp += Math.floor(Math.random() * 10); // Generate a random digit (0-9)
+            }
+          
+            const check = await UserServices.findEmail(email);
+          
+            if (!check) {
+              return res.status(200).json({ message: 'Email does not exist!' });
+            }
+
+            await UserServices.setPass(req.body.email)
+            // const newpass=await UserServices.getPass(req.body.email)
+          
+          
+            await UserServices.setOTP(req.body.email, otp);
+            console.log(check);
             
-    //         else {
-
-    //         }
-
-    //     }
-    //     catch(error){
-    //         res.status(400).json({ message: "Wrong detail!" })
-    //     }
-    // }
-
-
-}
+            const mailOptions = {
+              from: 'infinitycoffee06@gmail.com',
+              to: email,
+              subject: 'OTP Verification',
+              text: `Your OTP is ${otp}\nEnter into Input to vertity your account.\n
+              \n And this is NEW PASSWORD: "12345" \n Use this password for Login.\nKeep it secure, don't share it with anyone!Thank you!!!`,
+            };
+          
+            // Send the email
+            transporter.sendMail(mailOptions, (error, info) => {
+              if (error) {
+                console.error(error);
+                return res.status(500).send('Error sending OTP');
+              } else {
+                console.log('OTP sent: ' + info.response);
+                return res.status(200).json({ email: req.body.email, otp: otp });
+              }
+            });
+          }
+        }
 
 export default UserController;

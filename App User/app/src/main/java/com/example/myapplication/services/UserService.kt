@@ -1,14 +1,14 @@
 package com.example.myapplication.services
 
-import com.example.myapplication.modals.ChangePassRequest
-import com.example.myapplication.modals.EditInfoRequest
-import com.example.myapplication.modals.SignupRequest
-import com.example.myapplication.modals.User
+import com.example.myapplication.modals.*
 import retrofit2.http.*
 
 interface UserService {
     @GET("users/{id}")
     suspend fun getUser(@Path("id") userId: Int): User
+
+    @POST("users/findEmail")
+    suspend fun getUserByEmail(userEmail: String): User
 
     @GET("users/")
     suspend fun getAllUser(): List<User>
@@ -31,5 +31,10 @@ interface UserService {
 
     @POST ("users/editprofile/{id}")
     suspend fun EditInfo(@Path("id") userId:Int,@Body editInfoRequest: EditInfoRequest):EditInfoRequest
+
+    @POST("users/sendotp")
+    suspend fun SetOTP(@Body forgotPassRequest: ForgotPassRequest):ForgotPassRequest
+    @POST("users/checkotp")
+    suspend fun CheckOTP(@Body forgotPassRequest: ForgotPassRequest):ForgotPassRequest
 
 }

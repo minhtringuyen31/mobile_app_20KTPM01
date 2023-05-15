@@ -49,7 +49,7 @@
                     android:gravity="bottom"
                     android:layout_weight="1.5"
                     android:fontFamily="sans-serif-medium"
-                    android:text="Chào mừng đến\nInfinity Coffee"
+                    android:text="@string/textView"
                     android:textColor="@color/white"
                     android:textSize="30sp" />
             </LinearLayout>
@@ -78,7 +78,7 @@
                         android:drawablePadding="10dp"
                         android:drawableTint="@color/red"
                         android:ems="10"
-                        android:hint="Địa chỉ Email"
+                        android:hint="@string/login_phone"
                         android:inputType="textPersonName"
                         android:padding="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -96,7 +96,7 @@
                         android:drawablePadding="10dp"
                         android:drawableTint="@color/red"
                         android:ems="10"
-                        android:hint="Mật khẩu"
+                        android:hint="@string/login_pass"
                         android:inputType="textPassword"
                         android:padding="8dp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -110,7 +110,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif-medium"
-                        android:text="Quên mật khẩu?"
+                        android:text="@string/route_forgotpassword"
                         android:textColor="@color/red"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -125,7 +125,7 @@
                         android:layout_marginStart="16dp"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/button_sign_custom"
-                        android:text="Log In"
+                        android:text="@string/button_login"
                         android:textColor="@color/white"
                         android:textSize="18sp"
 
@@ -163,7 +163,7 @@
                             android:layout_height="fill_parent"
                             android:layout_weight="0.5"
                             android:gravity="center_vertical"
-                            android:text="Or"
+                            android:text="or"
                             android:textAlignment="center"
                             android:textColor="@color/black"
                             android:textSize="15sp"
@@ -203,12 +203,14 @@
                             android:layout_height="wrap_content">
 
                             <TextView
-                                android:id="@+id/textView3"
+                                android:id="@+id/textView2"
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="8"
                                 android:gravity="center"
-                                android:text="Nếu bạn chưa có tài khoản?" />
+                                android:text="@string/textView2"  />
+                            <!--                                android:text="Nếu bạn chưa có tài khoản?" -->
+
 
                             <TextView
                                 android:id="@+id/route_signup"
@@ -218,13 +220,14 @@
                                 android:fontFamily="sans-serif-medium"
                                 android:gravity="left"
                                 android:paddingLeft="10dp"
-                                android:text="Đăng ký"
+                                android:text="@string/route_signup"
                                 android:textColor="@color/red"
                                 android:textStyle="bold"
                                 tools:ignore="RtlHardcoded" />
                         </LinearLayout>
 
                     </LinearLayout>
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

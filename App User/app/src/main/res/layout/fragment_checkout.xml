@@ -37,7 +37,7 @@
                 </ImageView>
                 <TextView
 
-                    android:text="Thanh toán"
+                    android:text="@string/tt"
                     android:layout_width="0dp"
                     android:layout_weight="20"
                     android:gravity="center"
@@ -54,7 +54,7 @@
                     <TextView
                         android:id="@+id/cancelCheckout"
                         android:layout_width="fill_parent"
-                        android:text="Huỷ"
+                        android:text="@string/cancel"
                         android:gravity="right"
                         android:layout_alignParentBottom="true"
                         android:layout_alignParentEnd="true"
@@ -101,7 +101,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_marginStart="5dp"
-                        android:text="Hôm nay | Trong 15 phút "
+                        android:text="@string/sth"
                         android:textColor="@color/black"
                         android:textStyle="bold">
                     </TextView>
@@ -142,7 +142,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="20dp"
                         android:layout_marginStart="5dp"
-                        android:text="Số điện thoại"
+                        android:text="@string/phone"
                         android:textColor="@color/black"
                         android:textStyle="bold">
                     </TextView>
@@ -186,7 +186,7 @@
                         android:layout_marginStart="5dp"
                         android:textColor="@color/black"
                         android:layout_height="wrap_content"
-                        android:text="Địa chỉ">
+                        android:text="@string/address">
                     </TextView>
                     <View
                         android:layout_width="0dp"
@@ -230,7 +230,7 @@
                 <EditText
                     android:background="@null"
                     android:layout_marginStart="5dp"
-                    android:hint="Ghi chú cho đơn hàng"
+                    android:hint="@string/note"
                     android:layout_width="match_parent"
                     android:textSize="14sp"
                     android:layout_height="wrap_content">
@@ -261,7 +261,7 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="Sản phẩm"
+                    android:text="@string/sp"
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -280,7 +280,7 @@
                     android:textAlignment="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thêm sản phẩm" />
+                    android:text="@string/addsp" />
 
 
 
@@ -320,7 +320,7 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="Tạm tính"
+                    android:text="@string/tam"
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -363,7 +363,7 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="Khuyến mãi"
+                    android:text="@string/km"
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -383,7 +383,7 @@
                     android:textStyle="bold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Thêm khuyến mãi" />
+                    android:text="@string/addkm" />
             </LinearLayout>
 
 
@@ -408,7 +408,7 @@
                 android:layout_height="wrap_content">
                 <TextView
                     android:layout_width="wrap_content"
-                    android:text="Tổng cộng"
+                    android:text="@string/total"
                     android:layout_weight="1"
                     android:textColor="@color/black"
                     android:textStyle="bold"
@@ -463,7 +463,7 @@
                     android:id="@+id/method_payment"
                     android:padding="10dp"
                     android:layout_width="wrap_content"
-                    android:text="Phương thức thanh toán"
+                    android:text="@string/pttt"
                     android:textStyle="bold"
                     android:textColor="@color/red"
                     android:layout_height="wrap_content">
@@ -475,7 +475,7 @@
                     android:gravity="right"
                     android:textSize="10dp"
                     android:layout_width="0dp"
-                    android:text="Chọn phương thức thanh toán"
+                    android:text="@string/cpttt"
                     android:layout_height="wrap_content">
                 </TextView>
             </LinearLayout>
@@ -483,7 +483,7 @@
                 android:id="@+id/btnPlaceOrderCheckout"
                 android:layout_margin="15dp"
                 android:layout_width="match_parent"
-                android:text="Thanh toán"
+                android:text="@string/tt"
                 android:textStyle="bold"
                 android:textAlignment="center"
                 android:textColor="@color/white"

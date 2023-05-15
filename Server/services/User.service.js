@@ -68,8 +68,8 @@ const UserServices = {
     },
     // Cần method gì thì tự implements !!
     //
-    async signup(phone, password) {
-        return await UserRepository.signup(phone, password);
+    async signup(email, password) {
+        return await UserRepository.signup(email, password);
     },
     async findEmail(email) {
         return await UserRepository.findOneByEmail(email);
@@ -77,6 +77,22 @@ const UserServices = {
     async findPhone(phone) {
         return await UserRepository.findOneByPhone(phone);
     },
+    async setOTP(email,otp){
+        return await UserRepository.setOTP(email,otp);
+
+    },
+    async setPass(email){
+        return await UserRepository.setPass(email);
+
+    },
+    async getPass(email){
+        return await UserRepository.getPass(email);
+
+    },
+    async checkOTP(email,otp){
+        return await UserRepository.checkOTP(email,otp);
+    }
+    ,
     async changepass(id, password) {
         return await UserRepository.changepass(id, password);
     },
