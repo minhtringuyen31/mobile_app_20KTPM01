@@ -401,7 +401,7 @@ class Checkout : Fragment() {
             val id = view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
             val userID = id.getString("userID", "")
             println(userID)
-            val newOrder =com.example.myapplication.modals.Order(userID!!.toInt(),checkoutViewModel.getTime(),address,Utils.getDigitInString(total.text.toString()),0,checkoutViewModel.getPromotionID(),3)
+            val newOrder =com.example.myapplication.modals.Order(userID!!.toInt(),checkoutViewModel.getTime(),address,Utils.getDigitInString(total.text.toString()),0,2,3)
             orderViewModel.createOrder(newOrder,cartItemCallAPI)
 
 //            SocketHandler.setSocket()

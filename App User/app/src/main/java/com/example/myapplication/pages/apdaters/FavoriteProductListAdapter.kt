@@ -19,6 +19,7 @@ class FavoriteProductListAdapter(
 ): RecyclerView.Adapter<FavoriteProductListAdapter.ViewHolder>() {
     var onItemClick:((Product)-> Unit)? = null
     var onItemAddToCartClick:((Product) -> Unit)? = null
+    var onItemFavToggleClick:((Product) -> Unit)? = null
 
     inner class ViewHolder(listItemView: View):RecyclerView.ViewHolder(listItemView){
         val favoriteProductNameTV : TextView = listItemView.findViewById(R.id.favoriteProductNameTV)
@@ -38,6 +39,12 @@ class FavoriteProductListAdapter(
         init {
             favoriteProductAddToCartBtn.setOnClickListener{
                 onItemAddToCartClick?.invoke(favoriteProductList[position])
+            }
+        }
+
+        init {
+            favoriteProductToggleBtn.setOnClickListener{
+                onItemFavToggleClick?.invoke(favoriteProductList[position])
             }
         }
     }
