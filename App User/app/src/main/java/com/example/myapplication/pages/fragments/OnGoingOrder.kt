@@ -8,24 +8,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-<<<<<<< HEAD
 import android.widget.TextView
 import android.widget.Toast
-=======
->>>>>>> a2491c7d92aab341cb6f790148a90842d0496940
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.modals.Order
-<<<<<<< HEAD
-import com.example.myapplication.pages.OrderDetail
 import com.example.myapplication.pages.apdaters.OrderListAdapter
-=======
 import com.example.myapplication.pages.activities.order.OrderDetail
-import com.example.myapplication.pages.activities.apdaters.OrderListAdapter
->>>>>>> a2491c7d92aab341cb6f790148a90842d0496940
 import com.example.myapplication.viewmodels.AppViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -70,9 +62,10 @@ class OnGoingOrder : Fragment() {
 
         val sharedPreferences: SharedPreferences =
             view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
-        val userID = sharedPreferences.getString("userID", "").toString().toInt()
-
-        setUpObserve(userID);
+        val userId = sharedPreferences.getString("userID", null)
+        if(userId!=null){
+            setUpObserve(userId.toString().toInt());
+        }
         initUI(view)
 
         println("On Going")

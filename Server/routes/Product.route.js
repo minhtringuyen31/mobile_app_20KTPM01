@@ -14,9 +14,6 @@ ProductRoute.post("/update/:id", ProductController.update)
 ProductRoute.delete("/delete/:id", ProductController.delete)
 ProductRoute.get("/:id", ProductController.findOne)
 ProductRoute.get("/", ProductController.findAll)
-
-
-
 ProductRoute.post("/favorite/add", ProductController.addNewFavProduct)
 ProductRoute.post("/favorite/remove", ProductController.removeFavProduct)
 export default ProductRoute;

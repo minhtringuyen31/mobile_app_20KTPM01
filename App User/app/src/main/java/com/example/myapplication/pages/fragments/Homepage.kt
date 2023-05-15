@@ -1,7 +1,9 @@
 package com.example.myapplication.pages.fragments
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Parcelable
@@ -87,6 +89,14 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnI
     private  fun setUpViewModel(){
         (activity as MainActivity).showToolbarAndNavigationBar(true)
         appModel.setUpViewModel(view,this)
+        val sharedPreferences: SharedPreferences =
+            view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
+        val userId = sharedPreferences.getString("userID", null)
+        if(userId!=null) { appModel.setUpCartItemViewModel(this, userId.toString().toInt())
+
+        }
+
+
     }
     companion object {
         /**

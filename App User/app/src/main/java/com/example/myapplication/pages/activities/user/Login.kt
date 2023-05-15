@@ -144,9 +144,6 @@ class Login : AppCompatActivity() {
         }
         fun gotoSignIn(){
             val preferences: SharedPreferences = this.getSharedPreferences("user", 0)
-            preferences.edit().remove("userID").apply()
-            preferences.edit().remove("name").apply()
-            preferences.edit().remove("phone").apply()
             val signInIntent: Intent = gsc.getSignInIntent()
             startActivityForResult(signInIntent, 1000)
 

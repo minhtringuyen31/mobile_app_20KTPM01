@@ -21,14 +21,10 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.*
-<<<<<<< HEAD
 
 import com.example.myapplication.pages.apdaters.RatingListAdapter
-=======
-import com.example.myapplication.pages.activities.apdaters.RatingListAdapter
 import com.example.myapplication.services.ProductService
 import com.example.myapplication.utils.DataHolder
->>>>>>> a2491c7d92aab341cb6f790148a90842d0496940
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
 import com.example.myapplication.viewmodels.cart.CartItemViewModel
@@ -112,8 +108,12 @@ class ProductDetail : Fragment() {
 
         val sharedPreferences: SharedPreferences =
             view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
-        val curUser = sharedPreferences.getString("userID", "").toString().toInt()
-        appModel.isExistedFavProduct(curUser, productCartViewModel.getId())
+        val curUser = sharedPreferences.getString("userID", null)
+        if(curUser!=null)
+        {
+            appModel.isExistedFavProduct(curUser.toString().toInt(), productCartViewModel.getId())
+        }
+
         appModel.getFavProductViewModel().check.observe(viewLifecycleOwner){
             val check = it as Boolean
             favProductToggleBtn.isChecked = check
@@ -298,70 +298,73 @@ class ProductDetail : Fragment() {
         btnAddtoCart.setOnClickListener {
 
             val sharedPreferencesUser = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
-            val userID = sharedPreferencesUser.getString("userID", "")
-            val notes=noteEdit.text.toString()
-            val cartItem = CartItem(
-                userID!!.toInt(),
-                userID!!.toInt(),
-                product_id,
-                itemCount.count,
-                itemCount.size,
-                itemCount.total,
-                itemCount.nameTopping,
-                name,
-                description,
-                image,
-                category_id,
-                notes
-            )
-            val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
-            val gson = Gson()
-            val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
-            val carts=sharedPreferences.getString("productID", null)
-            var dataItem = gson.fromJson<ArrayList<Int>>(carts, type);
-            if (dataItem == null) {
-                dataItem = ArrayList<Int>()
-            }
-            if(productCartViewModel.getNameFragment()!="cart")
-            {
-                if(dataItem.contains(product_id)&&dataItem.isNotEmpty()){
-                    Toast.makeText(
-                        activity, "Sản phẩm đã tồn tại trong giỏ hàng",
-                        Toast.LENGTH_SHORT
-                    ).show()
+            val userID = sharedPreferencesUser.getString("userID", null)
+            if(userID!=null){
+                val notes=noteEdit.text.toString()
+                val cartItem = CartItem(
+                    userID!!.toInt(),
+                    userID!!.toInt(),
+                    product_id,
+                    itemCount.count,
+                    itemCount.size,
+                    itemCount.total,
+                    itemCount.nameTopping,
+                    name,
+                    description,
+                    image,
+                    category_id,
+                    notes
+                )
+                val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
+                val gson = Gson()
+                val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
+                val carts=sharedPreferences.getString("productID", null)
+                var dataItem = gson.fromJson<ArrayList<Int>>(carts, type);
+                if (dataItem == null) {
+                    dataItem = ArrayList<Int>()
                 }
-                else{
-                    appModel.addtoCart(cartItem)
+                if(productCartViewModel.getNameFragment()!="cart")
+                {
+                    if(dataItem.contains(product_id)&&dataItem.isNotEmpty()){
+                        Toast.makeText(
+                            activity, "Sản phẩm đã tồn tại trong giỏ hàng",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                    else{
+                        appModel.addtoCart(cartItem)
+                        Toast.makeText(
+                            activity, "Thêm thành công vào giỏ hàng",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        val tempData = carts;
+                        dataItem.add(product_id);
+                        sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
+                        val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
+                        myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
+                        (view.context as FragmentActivity).supportFragmentManager
+                            .beginTransaction()
+                            .replace(R.id.flFragment, Order(),"Order").addToBackStack(null)
+                            .commit()
+                    }
+                }else
+                {
+                    appModel.updateItemCart(cartItemID,cartItem);
                     Toast.makeText(
-                        activity, "Thêm thành công vào giỏ hàng",
+                        activity, "Câp nhật thành công vào giỏ hàng",
                         Toast.LENGTH_SHORT
                     ).show()
-                    val tempData = carts;
-                    dataItem.add(product_id);
-                    sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
-                    val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
-                    myFragment?.view?.findViewById<CounterFab>(R.id.fabTwo)?.increase()
                     (view.context as FragmentActivity).supportFragmentManager
                         .beginTransaction()
-                        .replace(R.id.flFragment, Order(),"Order").addToBackStack(null)
+                        .replace(R.id.flFragment, Cart(),"Cart").addToBackStack(null)
                         .commit()
-                }
-            }else
-            {
-                appModel.updateItemCart(cartItemID,cartItem);
-                Toast.makeText(
-                    activity, "Câp nhật thành công vào giỏ hàng",
-                    Toast.LENGTH_SHORT
-                ).show()
-                (view.context as FragmentActivity).supportFragmentManager
-                    .beginTransaction()
-                    .replace(R.id.flFragment, Cart(),"Cart").addToBackStack(null)
-                    .commit()
 
+                }
+
+                val dataTest= sharedPreferences.getString("productID","")
+                println("Danh sach hiện có "+dataTest)
             }
 
-            val dataTest= sharedPreferences.getString("productID","")
-            println("Danh sach hiện có "+dataTest)
 
 
 
@@ -395,8 +398,12 @@ class ProductDetail : Fragment() {
         favProductToggleBtn.setOnClickListener{
             val sharedPreferences: SharedPreferences =
                 view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
-            val curUser = sharedPreferences.getString("userID", "").toString().toInt()
-            val favProduct = FavProductItem(curUser, productCartViewModel.getId())
+            val curUser = sharedPreferences.getString("userID", null)
+            var favProduct = FavProductItem(0,0)
+            if(curUser!=null){
+                favProduct = FavProductItem(curUser.toString().toInt(), productCartViewModel.getId())
+            }
+
             if (favProductToggleBtn.isChecked()){
                 println("Liked")
 //                val newFavProduct = Product(

@@ -69,9 +69,12 @@ class FavoriteProduct : Fragment() {
 
         val sharedPreferences: SharedPreferences =
             view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
-        val userId = sharedPreferences.getString("userID", "").toString().toInt()
+        val userId = sharedPreferences.getString("userID", null)
+        if(userId!=null){
+            setUpObserve(userId.toString().toInt())
+        }
         initUI(view)
-        setUpObserve(userId)
+
         return view
 
     }

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.myapplication.R
 import com.example.myapplication.pages.activities.promotion.ListPromotion
@@ -125,9 +126,11 @@ class Others : Fragment() {
             val account = GoogleSignIn.getLastSignedInAccount(view.context)
             gsc.signOut();
             val preferences: SharedPreferences = view.context.getSharedPreferences("user", 0)
+            val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
             preferences.edit().remove("userID").apply()
             preferences.edit().remove("name").apply()
             preferences.edit().remove("phone").apply()
+            sharedPreferences.edit().remove("productID").apply()
 
             //---
             //auth.signOut()
