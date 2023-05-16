@@ -42,10 +42,13 @@ class MyFirebaseMessagingService :FirebaseMessagingService() {
     }
     private fun sendNotifycation(title: String?, strMessage: String?) {
         val intent = Intent(this, MainActivity::class.java).apply {
-            this.putExtra("FragmentToOpen", "Activities") // Truyền tên Fragment cần mở
             this.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            this.putExtra("FragmentToOpen", "Activities") // Truyền tên Fragment cần mở
+
         }
-        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+
+
+        val pendingIntent: PendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_MUTABLE)
         val builder = NotificationCompat.Builder(this,"123")
             .setSmallIcon(R.drawable.baseline_notifications_active_24)
             .setContentTitle(title)
@@ -54,6 +57,8 @@ class MyFirebaseMessagingService :FirebaseMessagingService() {
             // Set the intent that will fire when the user taps the notification
             .setContentIntent(pendingIntent)
             .setAutoCancel(true)
+
+
         with(NotificationManagerCompat.from(this)) {
             // notificationId is a unique int for each notification that you must define
             if (ActivityCompat.checkSelfPermission(

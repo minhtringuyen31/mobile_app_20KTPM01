@@ -23,14 +23,14 @@ const SocketListener = {
                         "description": "Có 1 đơn hàng mới!Cần bạn xác nhận"
                     }
                 }
-                console.log(s.user_id);
+             
                 UserServices.handleTokenFireBase(41, messages, "one");
                 console.log("Có 1 đơn hàng mới từ khách hàng có ID" + s);
             })
             socket.on("confirmOrder", (data) => {
-        
+
                 const result = JSON.parse(data)
-               
+
                 const messages = {
                     "data": {
                         "username": "Thông báo đơn hàng",
@@ -39,14 +39,19 @@ const SocketListener = {
                 }
                 //id: any, user_id: any, title: any, sub_title: any, image: any, description: any, time: any, type: any, is_seen: any
                 const currentTime = new Date();
-              
-                NotificationService.postNotification(0, result.user_id, "Xác nhận đơn hàng", "Đơn hàng của bạn đã được xác nhận", "", result.shipping_address, currentTime, 1, 0)
-                
+
+                NotificationService.postNotification(0, result.user_id, "Xác nhận đơn hàng", "Đơn hàng có mã  của bạn đã được xác nhận", "", result.shipping_address, currentTime, 1, 0)
+
                 UserServices.handleTokenFireBase(result.user_id, messages, "one");
                 console.log("Có 1 đơn hàng mới từ khách hàng có ID" + data);
             })
             socket.on("deliverySuccess", (data) => {
 
+                const result = JSON.parse(data)
+
+                const currentTime = new Date();
+
+                NotificationService.postNotification(0, result.user_id, "Giao hàng thành công", "Đơn hàng có mã  của bạn đã được giao thành công", "", result.shipping_address, currentTime, 1, 0)
                 const messages = {
                     "data": {
                         "username": "Thông báo đơn hàng",
@@ -54,29 +59,36 @@ const SocketListener = {
                     }
                 }
                 //
-                UserServices.handleTokenFireBase(data, messages, "one");
+                console.log(result);
+                UserServices.handleTokenFireBase(result.user_id, messages, "one");
                 console.log("Có 1 đơn hàng mới từ khách hàng có ID" + data);
             })
             socket.on("cancelOrder", (data) => {
 
+
+                const result = JSON.parse(data)
+
+                const currentTime = new Date();
                 const messages = {
                     "data": {
                         "username": "Thông báo đơn hàng",
                         "description": "Đơn hàng của bạn đã bị hủy"
                     }
                 }
-                UserServices.handleTokenFireBase(data, messages, "one");
+
+                NotificationService.postNotification(0, result.user_id, "Đơn hàng bị huỷ", "Đơn hàng  của bạn bị huỷ", "", result.shipping_address, currentTime, 1, 0)
+                UserServices.handleTokenFireBase(result.user_id, messages, "one");
                 console.log("Có 1 đơn hàng mới từ khách hàng có ID" + data);
             })
             socket.on("refund", (data) => {
-
+                const result = JSON.parse(data)
                 const messages = {
                     "data": {
                         "username": "Thông báo đơn hàng",
                         "description": "Đơn hàng của bạn đã bị hủy"
                     }
                 }
-                UserServices.handleTokenFireBase(data, messages, "one");
+                UserServices.handleTokenFireBase(result.user_id, messages, "one");
                 console.log("Có 1 đơn hàng mới từ khách hàng có ID" + data);
             })
 
@@ -95,6 +107,7 @@ const SocketListener = {
             })
         });
     }
+
 };
 // config socket 
 export default SocketListener;

@@ -4,21 +4,23 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.andremion.counterfab.CounterFab
 import com.example.myapplication.R
 import com.example.myapplication.modals.CartItem
-import com.example.myapplication.modals.Order
+import com.example.myapplication.modals.FavProductItem
 import com.example.myapplication.modals.Product
 import com.example.myapplication.pages.apdaters.FavoriteProductListAdapter
 import com.example.myapplication.viewmodels.AppViewModel
@@ -42,6 +44,7 @@ class FavoriteProduct : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    private lateinit var favBackBtn : ImageButton
     private lateinit var favProductListRecyclerView: RecyclerView
     private lateinit var favProductListAdapter: FavoriteProductListAdapter
     private val appModel: AppViewModel by activityViewModels()
@@ -80,11 +83,18 @@ class FavoriteProduct : Fragment() {
     }
 
     private fun initUI(view: View){
+        favBackBtn = view.findViewById(R.id.favBackBtn)
         favProductListRecyclerView = view.findViewById(R.id.favoriteProductListRV)
         favProductListAdapter = FavoriteProductListAdapter(arrayListOf())
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         favProductListRecyclerView.layoutManager = layoutManager
         favProductListRecyclerView.adapter = favProductListAdapter
+        favProductListRecyclerView.addItemDecoration(
+            DividerItemDecoration(
+                context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
         favProductListAdapter.onItemAddToCartClick = {product ->
 
             val sharedPreferences =
@@ -152,6 +162,20 @@ class FavoriteProduct : Fragment() {
                 .replace(R.id.flFragment, ProductDetail()).addToBackStack(null)
                 .commit()
         }
+        favProductListAdapter.onItemFavToggleClick ={product ->
+            val sharedPreferences: SharedPreferences =
+                view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
+            val curUser = sharedPreferences.getString("userID", null)
+            var favProduct = FavProductItem(0,0)
+            var curProduct = product.getId()
+            if(curUser!=null){
+                favProduct = FavProductItem(curUser.toString().toInt(), product.getId())
+            }
+            println("fav $curUser +  $curProduct")
+            appModel.removeFavProduct(favProduct)
+        }
+
+
     }
 
     @SuppressLint("NotifyDataSetChanged")

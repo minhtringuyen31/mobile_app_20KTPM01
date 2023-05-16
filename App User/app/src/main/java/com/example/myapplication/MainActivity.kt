@@ -220,6 +220,15 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+//        if (intent.extras != null) {
+//            val fragmentToLoad = intent.extras!!.getString("FragmentToLoad")
+//            if (fragmentToLoad == "Activities") {
+//                supportFragmentManager.beginTransaction()
+//                    .replace(R.id.flFragment, Activities())
+//                    .commit()
+//            }
+//        }
+
         handleTokenFirebase();
 
     }
@@ -253,6 +262,15 @@ class MainActivity : AppCompatActivity() {
                 fm.findFragmentByTag("checkout") as Checkout
             fragment.updateVoucher(percent!!,idPromotion!!)
         }
+        if (intent.extras != null) {
+            val fragmentToLoad = intent.extras!!.getString("FragmentToLoad")
+            if (fragmentToLoad == "Activities") {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.flFragment, Activities())
+                    .commit()
+            }
+        }
+
 
 
     }

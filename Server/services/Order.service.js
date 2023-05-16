@@ -23,6 +23,12 @@ const OrderServices = {
     },
     async findProductOrder(orderId) {
         return await OrderRepository.findProductOrder(orderId)
+    },
+    async creatRefund(orderId,token){
+        return await OrderRepository.createRefundOrder(orderId, token)
+    },
+    async findToken(orderId) {
+        return await OrderRepository.findTokenByOrderId(orderId)
     }
     // Cần method gì thì tự implements !! 
 

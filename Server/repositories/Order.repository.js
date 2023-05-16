@@ -189,6 +189,40 @@ const OrderRepository = {
       return false;
     }
   },
+  async createRefundOrder(order_id, token) {
+    const query = `INSERT INTO refund_order (order_id,token) VALUES (?,?)`;
+    const value = [order_id, token];
+
+    try {
+      const [result] = await DB.pool().query(query, value);
+      const insertedId = result.insertId;
+      const [ordersResult] = await DB.pool().query(`SELECT * FROM refund_order WHERE id = ?`, [insertedId]);
+      const insertedOrder = ordersResult[0];
+      return insertedOrder;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+
+  },
+  async findTokenByOrderId(orderId) {
+    const query = `SELECT * FROM refund_order WHERE order_id = ?`;
+    const values = [orderId];
+
+    try {
+      const [rows] = await DB.pool().query(query, values);
+      if (rows.length > 0) {
+        return rows[0];
+      }
+      return null;
+    } catch (error) {
+      console.error(error);
+      return null;
+    }
+  }
+
+
+
 
 
 

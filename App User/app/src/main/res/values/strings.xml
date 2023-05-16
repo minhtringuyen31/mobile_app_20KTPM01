@@ -4,7 +4,7 @@
     <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
     <string name="idClient" translatable="false">315513977204-mu15r5slir88068p8qaikujoi9mo5nmb.apps.googleusercontent.com</string>
     <string name="title_activity_maps" translatable="false">MapsActivity</string>
-    <string name="token">d1rZlEYWRN-qpXbYCL0ar7:APA91bGYdH-2bH30vuSIm_k8tjviAQt39WLcr8zZcYMc9X75eDrICPmLV0hnTKMpKgc5t7SGMg6XV3TayGuP2ItWOOBjzO_2obHcTVwOcHdUyI5XXbT3PdMoH0LDnUFXVCru2aUedO0W</string>
+    <string name="token" translatable="false">d1rZlEYWRN-qpXbYCL0ar7:APA91bGYdH-2bH30vuSIm_k8tjviAQt39WLcr8zZcYMc9X75eDrICPmLV0hnTKMpKgc5t7SGMg6XV3TayGuP2ItWOOBjzO_2obHcTVwOcHdUyI5XXbT3PdMoH0LDnUFXVCru2aUedO0W</string>
     <string name="title_activity_notification_list">NotificationList</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
@@ -85,10 +85,10 @@
     <string name="dh">Đặt hàng</string>
 
 
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
-<!--    <string name=""></string>-->
+    <string name="lsp">Loại sản phẩm</string>
+    <string name="gy">Đề xuất cho bạn</string>
+    <string name="chao">Chúc bạn một ngày tốt lành!</string>
+    <string name="love">Yêu thích</string>
 <!--    <string name=""></string>-->
 <!--    <string name=""></string>-->
 <!--    <string name=""></string>-->

@@ -16,6 +16,9 @@ class ProductViewModel: ViewModel(){
     val products: LiveData<ArrayList<Product>> = _products
     private val _product = MutableLiveData<Product>()
     val product: LiveData<Product> = _product
+
+    private val _rating = MutableLiveData<Float>()
+    val rating: LiveData<Float> = _rating
 //
 //    private val _status = MutableLiveData<Int>()
 //    val status: LiveData<Int> = _status
@@ -26,6 +29,16 @@ class ProductViewModel: ViewModel(){
 //    private val _updateproduct = MutableLiveData<Product>()
 //    val updateproduct: LiveData<Product> = _updateproduct
 
+    fun getRating(productId: Int) {
+        viewModelScope.launch(Dispatchers.Main) {
+            try {
+                val response = Utils.getRetrofit().create(ProductService::class.java).getRating(productId)
+                _rating.postValue(response)
+            } catch (e: Exception) {
+                println("View:  $e")
+            }
+        }
+    }
 
     fun getProducts() {
         viewModelScope.launch(Dispatchers.IO) {
@@ -46,6 +59,7 @@ class ProductViewModel: ViewModel(){
                 _product.value = response
             } catch (e: Exception) {
                 // handle error
+
             }
         }
     }

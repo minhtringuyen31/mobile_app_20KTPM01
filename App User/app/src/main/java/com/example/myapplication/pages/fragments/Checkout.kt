@@ -23,7 +23,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.checkout.CreateOrder
+import com.example.myapplication.checkout.Refund
 import com.example.myapplication.modals.CartItem
+import com.example.myapplication.modals.RefundOrder
 import com.example.myapplication.pages.activities.promotion.ListPromotion
 import com.example.myapplication.pages.apdaters.CheckoutApdater
 import com.example.myapplication.socket.SocketHandler
@@ -31,6 +33,7 @@ import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.order.CheckoutViewModel
 import com.example.myapplication.viewmodels.order.OrderViewModel
+import com.example.myapplication.viewmodels.order.RefundViewModel
 import com.github.florent37.singledateandtimepicker.dialog.SingleDateAndTimePickerDialog
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.gson.Gson
@@ -95,12 +98,14 @@ class Checkout : Fragment() {
     private lateinit var sharedPreferencesTime:SharedPreferences
     private lateinit var sharedPreferencesPhone:SharedPreferences
     private lateinit var sharedPreferencesUser:SharedPreferences
+    private lateinit var reFundViewModel:RefundViewModel
     private  var gson=Gson()
     private  val type: Type = object : TypeToken<ArrayList<String>>() {}.type
     private var carts: String? = null
     private lateinit var dataItem :ArrayList<String>
     private lateinit var toggleAddress:TextView
     private lateinit var mSocket: Socket
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -243,6 +248,8 @@ class Checkout : Fragment() {
     private fun setUpViewModel(){
 //        checkoutViewModel =ViewModelProvider(this)[CheckoutViewModel::class.java]
         orderViewModel = ViewModelProvider(this)[OrderViewModel::class.java]
+
+
     }
     @SuppressLint("SetTextI18n", "SuspiciousIndentation")
     private fun setupObserve(){
@@ -341,6 +348,8 @@ class Checkout : Fragment() {
                                     .setConfirmClickListener { sDialog ->
 
 
+
+
                                         val address = checkoutViewModel.getAddress()
 //
                                         val id = view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
@@ -349,11 +358,7 @@ class Checkout : Fragment() {
                                         if(userID!=null){
                                             val newOrder =com.example.myapplication.modals.Order(userID.toInt(),checkoutViewModel.getTime(),address,Utils.getDigitInString(total.text.toString()),0,checkoutViewModel.getPromotionID(),3)
                                             println("new"+newOrder)
-                                            orderViewModel.createOrder(newOrder,cartItemCallAPI)
-
-
-
-
+                                            orderViewModel.createOrder(newOrder,cartItemCallAPI, transactionId)
                                             val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
                                             sharedPreferences.edit().remove("productID").apply()
                                             val sharedPreferences_address = view.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
@@ -425,20 +430,20 @@ class Checkout : Fragment() {
 //                .beginTransaction()
 //                .replace(R.id.flFragment, Order(),"Order").addToBackStack(null)
 //                .commit()
-
-            SocketHandler.setSocket()
-            SocketHandler.establishConnection()
-            mSocket = SocketHandler.getSocket()
-            cartItemCallAPI = ArrayList()
-            val newOrder =com.example.myapplication.modals.Order(38,"2023-05-13 16:05:00","test",123.0,0,2,3)
-            val result=orderViewModel.createOrder(newOrder,cartItemCallAPI)
-            orderViewModel.order.observe(viewLifecycleOwner, androidx.lifecycle.Observer {
-                println(it)
-                var gson = Gson()
-                var jsonString = gson.toJson(it)
-
-                mSocket.emit("newOrder",jsonString)
-            })
+//
+//            val refundAPI = Refund()
+//            val data: JSONObject = refundAPI.refund("1000")
+//            println(data)
+//            val address = checkoutViewModel.getAddress()
+////
+//            val id = view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
+//            val userID = id.getString("userID", "")
+//            SocketHandler.setSocket()
+//            SocketHandler.establishConnection()
+//            mSocket = SocketHandler.getSocket()
+//            cartItemCallAPI = ArrayList()
+//            val newOrder =com.example.myapplication.modals.Order(38,"2023-05-13 16:05:00","test",123.0,0,2,3)
+//            val result=orderViewModel.createOrder(newOrder,cartItemCallAPI,"")
 
 
         }
@@ -451,9 +456,6 @@ class Checkout : Fragment() {
 
         timeCheckout.setOnClickListener{
             handleGetTime()
-//            val refundAPI = Refund()
-//            val data: JSONObject = refundAPI.refund("1000")
-//            println(data)
             println(checkoutViewModel)
         }
 

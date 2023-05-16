@@ -24,6 +24,7 @@ class Utils : AppCompatActivity() {
     companion object {
 
         private const val  URL="http://10.0.2.2:3000/api/"
+
         fun getRetrofit(): Retrofit {
             val gson = GsonBuilder()
                 .setDateFormat("yyyy-MM-dd HH:mm:ss")
@@ -52,7 +53,6 @@ class Utils : AppCompatActivity() {
 //            }
 
             val welcomeTitle : TextView = view.findViewById(R.id.welcomeTV)
-            val userTitle : TextView = view.findViewById(R.id.welcomeUserNameTV)
             val promotionBtn : CardView = view.findViewById(R.id.promotionBtn)
             val notificationBtn : CardView = view.findViewById(R.id.notificationBtn)
             promotionBtn.setOnClickListener{

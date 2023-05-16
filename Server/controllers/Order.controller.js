@@ -113,6 +113,26 @@ const OrderController = {
       res.status(404).send({ status: 0, message: "Failed" });
     }
   },
+  async creatRefund(req, res) {
+    const orderID = req.body.order_id;
+    const token = req.body.token;
+    const order = await OrdertService.creatRefund(orderID, token);
+    if (order) {
+      res.status(200).send(order);
+    } else {
+      res.status(404).send({ status: 0, message: "Failed" });
+    }
+  },
+  async findOneToken(req, res) {
+    const orderID = req.body.order_id;
+    const token = await OrdertService.findToken(orderID);
+    if (token) {
+      res.status(200).send(token);
+    } else {
+      res.status(404).send({ status: 0, message: "Failed" });
+    }
+  },
+
 
 };
 

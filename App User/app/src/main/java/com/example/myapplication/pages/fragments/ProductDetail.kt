@@ -53,6 +53,7 @@ class ProductDetail : Fragment() {
     private var item= arrayOf(1.0, 0.0, 1.0)
     private lateinit var productDetailImage : ImageView
     private lateinit var productDetailName : TextView
+    private lateinit var ratingStartRB : RatingBar
     private lateinit var productDetailPrice  : TextView
     private lateinit var productDetailDescription : TextView
     private lateinit var backHomepage:ImageButton
@@ -112,6 +113,8 @@ class ProductDetail : Fragment() {
         if(curUser!=null)
         {
             appModel.isExistedFavProduct(curUser.toString().toInt(), productCartViewModel.getId())
+
+            appModel.getRating(productCartViewModel.getId())
         }
 
         appModel.getFavProductViewModel().check.observe(viewLifecycleOwner){
@@ -119,6 +122,11 @@ class ProductDetail : Fragment() {
             favProductToggleBtn.isChecked = check
         }
 
+        appModel.getProductViewModel().rating.observe(viewLifecycleOwner){
+            val rating = it as Float
+            println("rating $rating")
+            ratingStartRB.rating = rating
+        }
 
         topping= productCartViewModel.getTopping()
         setUpObserve(view)
@@ -140,6 +148,7 @@ class ProductDetail : Fragment() {
         minusBtn=view.findViewById(R.id.minus_btn)
         productDetailImage = view.findViewById(R.id.productDetailImageIV)
         productDetailName = view.findViewById(R.id.productDetailNameTV)
+        ratingStartRB = view.findViewById(R.id.ratingStarRB)
 //        productDetailPrice = view.findViewById(R.id.productDetailPriceTV)
         productDetailDescription = view.findViewById((R.id.productDetailDescriptionTV))
         backHomepage = view.findViewById(R.id.imgToolbarBtnBack)

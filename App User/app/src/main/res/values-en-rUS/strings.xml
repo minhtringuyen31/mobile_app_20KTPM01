@@ -75,4 +75,9 @@
     <string name="cart">Your cart</string>
     <string name="delcart">Delete cart</string>
     <string name="dh">Place to order</string>
+
+    <string name="lsp">Category</string>
+    <string name="gy">Recommended for you</string>
+    <string name="chao">Wish you have a good day!</string>
+    <string name="love">Favorite</string>
 </resources>

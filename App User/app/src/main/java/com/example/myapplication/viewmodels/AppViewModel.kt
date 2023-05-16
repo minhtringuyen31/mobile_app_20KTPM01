@@ -210,5 +210,9 @@ class AppViewModel:ViewModel() {
         favProductViewModel.check
     }
 
+    fun getRating(productId: Int){
+        productViewModel.getRating(productId)
+    }
+
 }
 
