@@ -50,9 +50,9 @@ class RatingListAdapter (
         val ratingDatePost = holder.ratingDatePostTV
 
         ratingUserName.text = rating.getUserName()
-        Glide.with(holder.itemView)
-            .load(rating.getUserImage()).fitCenter()
-            .into(ratingUserImage)
+//        Glide.with(holder.itemView)
+//            .load(rating.getUserImage()).fitCenter()
+//            .into(ratingUserImage)
         ratingScore.rating = rating.getScore()
         ratingDescription.text = rating.getComment()
         ratingDatePost.text = rating.getDatePost()

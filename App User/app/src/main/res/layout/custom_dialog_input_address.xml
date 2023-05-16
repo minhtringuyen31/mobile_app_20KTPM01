@@ -50,13 +50,15 @@
         android:layout_width="match_parent"
         android:hint="Hãy nhập địa chỉ của bạn"
         android:layout_height="wrap_content" />
+
     <ListView
-        android:layout_marginTop="10dp"
         android:id="@+id/listAddress"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
 
     </ListView>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:orientation="horizontal"
@@ -65,7 +67,7 @@
         <TextView
             android:layout_marginHorizontal="10dp"
             android:id="@+id/add_Address"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/button_sign_custom"
             android:layout_width="100dp"
             android:layout_gravity="center"
@@ -79,7 +81,7 @@
         <TextView
             android:layout_marginHorizontal="10dp"
             android:id="@+id/selectAddress"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:background="@drawable/button_sign_custom"
             android:layout_width="100dp"
             android:layout_gravity="center"

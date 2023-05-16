@@ -102,6 +102,11 @@ class OrderDetail : AppCompatActivity() {
             startActivity(intent)
 
         }
+
+        orderProductListAdapter.onBuyAgainClick = {product ->
+
+        }
+
         imgToolbarBtnBack.setOnClickListener {
             super.onBackPressed();
         }

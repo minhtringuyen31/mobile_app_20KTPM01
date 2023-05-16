@@ -158,7 +158,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/custom_border_btn"
                 android:text=" Mua lại "
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:visibility="gone"/>
 
             <TextView
                 android:id="@+id/orderDetailItemRatingBtn"
