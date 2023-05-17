@@ -1,5 +1,16 @@
 import DB from '../configs/db.js';
 const RatingRepository = {
+  async changeIsDisable (id, is_disable) {
+    const query = `UPDATE rating SET is_disable=? WHERE id=?`;
+    const values = [is_disable, id];
+    try {
+      const [result] = await DB.pool().query(query, values);
+      return result.affectedRows > 0;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
   async create(user_id, user_name, user_image, product_id, score, comment) {
     const query = `INSERT INTO rating (user_id, user_name, user_image, product_id, score, comment) VALUES (?, ?, ?, ?, ?, ?)`;
     const values = [user_id, user_name, user_image, product_id, score, comment];
@@ -18,11 +29,7 @@ const RatingRepository = {
 
     try {
       const [result] = await DB.pool().query(query, values);
-      if (result.affectedRows > 0) {
-        return true;
-      } else {
-        return false;
-      }
+      return result.affectedRows > 0;
     } catch (error) {
       console.error(error);
       return false;
@@ -41,7 +48,7 @@ const RatingRepository = {
   },
 
   async findAll() {
-    const query = `SELECT * FROM rating`;
+    const query = `SELECT * FROM rating ORDER BY id DESC`;
 
     try {
       const [rows] = await DB.pool().query(query);

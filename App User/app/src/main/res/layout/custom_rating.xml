@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="@drawable/custom_rounded_search"
+    android:paddingBottom="20dp">
+
+    <androidx.cardview.widget.CardView
+
+        android:id="@+id/imageview1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:cardCornerRadius="60dp">
+
+        <ImageView
+            android:id="@+id/ratingUserImage"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ic_launcher_round" />
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/ratingUserName"
+        android:layout_width="160dp"
+        android:layout_height="30dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_toEndOf="@id/imageview1"
+        android:ellipsize="end"
+        android:gravity="clip_vertical"
+        android:maxLines="1"
+        android:text="Bui Quang Thanh"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+
+    <RatingBar
+        android:id="@+id/ratingScore"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_below="@id/ratingUserName"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/imageview1"
+        android:numStars="5"
+        android:progressTint="#FF5722"
+        android:rating="4" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/imageview1"
+        android:layout_margin="10dp"
+        android:background="@drawable/custom_border_checkout"
+        android:paddingBottom="20dp">
+
+        <androidx.cardview.widget.CardView
+
+            android:id="@+id/imageview2"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="60dp">
+
+            <ImageView
+                android:id="@+id/ratingProductImage"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher_round" />
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/ratingProductName"
+            android:layout_width="160dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="35dp"
+            android:layout_toEndOf="@id/imageview2"
+            android:ellipsize="end"
+            android:gravity="clip_vertical"
+            android:maxLines="1"
+            android:text="Tra sua"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/ratingDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:text="Comment at: 17/05/2023"
+        android:textAlignment="textStart"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/ratingComment"
+        android:layout_width="340dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ratingDate"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:text="Bui Quang Thanh"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+
+    <ImageView
+        android:id="@+id/isDisableRating"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="20dp"
+        android:clickable="true"
+        android:contentDescription="TODO"
+        android:focusable="true" />
+
+</RelativeLayout>

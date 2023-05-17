@@ -1,22 +1,27 @@
 package com.example.myapplication.Admin.services
 
 import com.example.myapplication.Admin.modals.Rating
-import retrofit2.Call
 import retrofit2.http.*
 
 interface RatingService {
     @GET("rating/{id}")
-    fun getRating(@Path("id") ratingId: Int): Call<Rating>
+    suspend fun getRating(@Path("id") ratingId: Int): Rating
 
     @GET("rating/")
-    fun getAllRating(): Call<List<Rating>>
+    suspend fun getAllRating(): List<Rating>
 
     @POST("rating/create")
-    fun createRating(@Body rating: Rating): Call<Rating>
+    suspend fun createRating(@Body rating: Rating): Rating
 
     @PUT("rating/update/{id}")
-    fun updateRating(@Path("id") ratingId: Int, @Body rating: Rating): Call<Rating>
+    suspend fun updateRating(@Path("id") ratingId: Int, @Body rating: Rating): Rating
 
     @DELETE("rating/delete/{id}")
-    fun deleteRating(@Path("id") ratingId: Int): Call<Boolean>
+    suspend fun deleteRating(@Path("id") ratingId: Int): Boolean
+
+    @PUT("rating/disable/{id}")
+    suspend fun disableRating(@Path("id") ratingId: Int): Boolean
+
+    @PUT("rating/enable/{id}")
+    suspend fun enableRating(@Path("id") ratingId: Int): Boolean
 }

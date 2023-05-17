@@ -13,6 +13,7 @@ import com.example.myapplication.Admin.pages.category.Categories
 import com.example.myapplication.Admin.pages.order.Orders
 import com.example.myapplication.Admin.pages.product.Products
 import com.example.myapplication.Admin.pages.promotion.Promotions
+import com.example.myapplication.Admin.pages.rating.Ratings
 import com.example.myapplication.Admin.pages.topping.Toppings
 import com.example.myapplication.Admin.pages.user.Users
 import com.example.myapplication.R
@@ -67,6 +68,9 @@ class DashboardAdapter(private val context: Context, private val items: List<Das
                 }
                 5 -> {
                     intent = Intent(context, Promotions::class.java)
+                }
+                6 -> {
+                    intent = Intent(context, Ratings::class.java)
                 }
             }
             context.startActivity(intent)

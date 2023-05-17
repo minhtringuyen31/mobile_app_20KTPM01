@@ -24,6 +24,7 @@ class Dashboard : AppCompatActivity() {
         dashboardItems.add(DashboardItems("Order", R.drawable.baseline_shopping_cart_24))
         dashboardItems.add(DashboardItems("Topping", R.drawable.baseline_fastfood_24))
         dashboardItems.add(DashboardItems("Promotion", R.drawable.baseline_discount_24))
+        dashboardItems.add(DashboardItems("Comment", R.drawable.baseline_comment_24))
 
         logo = findViewById(R.id.logoAvatar)
         logo.setOnClickListener {
