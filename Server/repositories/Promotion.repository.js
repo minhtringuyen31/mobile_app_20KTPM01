@@ -115,7 +115,7 @@ const PromotionRepository = {
   },
 
   async findAll() {
-    const query = `SELECT * FROM promotion`;
+    const query = `SELECT * FROM promotion ORDER BY id DESC`;
 
     try {
       const [rows] = await DB.pool().query(query);

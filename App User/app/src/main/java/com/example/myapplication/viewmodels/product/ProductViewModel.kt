@@ -57,6 +57,7 @@ class ProductViewModel: ViewModel(){
             try {
                 val response = Utils.getRetrofit().create(ProductService::class.java).getProduct(id);
                 _product.value = response
+                println("Product: $response")
             } catch (e: Exception) {
                 // handle error
 

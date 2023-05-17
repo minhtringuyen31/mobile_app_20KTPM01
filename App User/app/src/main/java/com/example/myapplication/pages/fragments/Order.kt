@@ -97,6 +97,7 @@ class Order : Fragment() {
 
     }
     private fun initUI(view:View){
+
         (activity as MainActivity).setSelectedIcon(1)
         (activity as MainActivity).showToolbarAndNavigationBar(true)
         currentCategory = view.findViewById(R.id.currentCategoryTV)

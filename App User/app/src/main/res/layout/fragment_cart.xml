@@ -61,15 +61,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <ImageView
-        android:layout_marginTop="80dp"
-        android:id="@+id/emptyList"
-        android:visibility="gone"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_gravity="center"
-        android:src="@drawable/emptycart"
-        android:contentDescription="Empty List" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_marginTop="80dp"
+            android:id="@+id/emptyCartImg"
+            android:layout_width="90dp"
+            android:layout_height="90dp"
+            android:layout_gravity="center"
+            android:src="@drawable/transparency"
+            android:contentDescription="Empty List"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/emptyCartTV1"
+            android:layout_marginTop="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:text="Yêu quán từ món đầu tiên"
+            android:textStyle="bold"
+            android:textSize="15dp"
+            android:visibility="gone"/>
+        <TextView
+            android:id="@+id/emptyCartTV2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center"
+            android:textColor="@color/black"
+            android:text="Món ngon hấp dẫn chiếm trọn trái tim! \nĐặt hàng ngay để cùng thưởng thức bạn yêu nhé"/>
+    </LinearLayout>
     <View
         android:layout_width="0dp"
         android:layout_height="0dp"

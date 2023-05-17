@@ -272,6 +272,7 @@
             android:layout_height="60dp"
             android:layout_margin="20dp"
             android:layout_weight="1"
+            android:visibility="gone"
             android:backgroundTint="#2196F3"
             android:text="Chỉnh sửa" />
 

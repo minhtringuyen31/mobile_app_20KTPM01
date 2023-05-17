@@ -23,7 +23,7 @@ const SocketListener = {
                         "description": "Có 1 đơn hàng mới!Cần bạn xác nhận"
                     }
                 }
-             
+
                 UserServices.handleTokenFireBase(41, messages, "one");
                 console.log("Có 1 đơn hàng mới từ khách hàng có ID" + s);
             })

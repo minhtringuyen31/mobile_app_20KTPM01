@@ -25,6 +25,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.Admin.pages.dashboard.Dashboard
 import com.example.myapplication.modals.*
+import com.example.myapplication.pages.activities.notification.NotificationList
 import com.example.myapplication.pages.fragments.*
 import com.example.myapplication.pages.fragments.Order
 import com.example.myapplication.socket.SocketHandler
@@ -156,6 +157,7 @@ class MainActivity : AppCompatActivity() {
 
 
         val intentStatus = intent
+
         val rootView = getWindow().getDecorView().getRootView();
 
         val status = intentStatus.getStringExtra("status")
@@ -182,6 +184,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         Utils.activeToolbar(this, rootView)
+
 
         val sharedPreferences =
             getSharedPreferences("user", MODE_PRIVATE)
@@ -228,6 +231,13 @@ class MainActivity : AppCompatActivity() {
 //                    .commit()
 //            }
 //        }
+        if (intent!!.getStringExtra("FragmentToOpen")=="Activities") {
+            val intent = Intent(
+                this,
+                NotificationList::class.java
+            )
+            startActivity(intent)
+        }
 
         handleTokenFirebase();
 

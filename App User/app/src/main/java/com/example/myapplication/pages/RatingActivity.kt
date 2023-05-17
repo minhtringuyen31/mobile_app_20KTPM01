@@ -11,9 +11,11 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.modals.Rating
 import com.example.myapplication.modals.User
+import com.example.myapplication.viewmodels.product.ProductViewModel
 import com.example.myapplication.viewmodels.product.RatingViewModel
 import com.example.myapplication.viewmodels.user.UserViewModel
 import java.time.LocalDateTime
@@ -25,6 +27,9 @@ class RatingActivity : AppCompatActivity() {
     private lateinit var submitBtn : TextView
     private lateinit var view: View
     private lateinit var userViewModel: UserViewModel
+    private lateinit var productViewModel: ProductViewModel
+    private var currentProductName = ""
+    private var currentProductImg = ""
     private var currentUserId : String =""
     private var currentUserName : String =""
     private var currentUserAvatar : String =""
@@ -32,6 +37,8 @@ class RatingActivity : AppCompatActivity() {
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var productID:String
     private lateinit var imgToolbarBtnBack : ImageView
+    private lateinit var productRatingImgIV: ImageView
+    private lateinit var productRatingNameTV : TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_rating)
@@ -40,7 +47,10 @@ class RatingActivity : AppCompatActivity() {
         initUI()
         getUserViewModelInformation()
 
+        getProductViewModelInformation(productID.toInt())
+
         println(productID)
+
 
         submitBtn.setOnClickListener {
             submitRatingBtnActionClickListener()
@@ -48,6 +58,8 @@ class RatingActivity : AppCompatActivity() {
     }
 
     private fun initUI(){
+        productRatingImgIV = findViewById(R.id.productRatingImageIV)
+        productRatingNameTV = findViewById(R.id.productRatingNameTV)
         imgToolbarBtnBack= findViewById(R.id.imgToolbarBtnBack)
         ratingBar = findViewById(R.id.ratingStarRB)
         commentTV = findViewById(R.id.commentRatingTV)
@@ -70,6 +82,25 @@ class RatingActivity : AppCompatActivity() {
         };
 
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun getProductViewModelInformation(productId: Int){
+        productViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
+        productViewModel.getProduct(productId)
+        productViewModel.product.observe(this){
+            println("here")
+            currentProductImg= it.getImage()
+            currentProductName = it.getName()
+            productRatingNameTV.text = currentProductName
+
+            Glide.with(this)
+                .load(currentProductImg).fitCenter()
+                .into(productRatingImgIV)
+        }
+
+
+    }
+
 
     private fun submitRatingBtnActionClickListener(){
         val ratingValue = ratingBar.rating

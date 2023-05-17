@@ -8,16 +8,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.modals.Order
-import com.example.myapplication.pages.apdaters.OrderListAdapter
 import com.example.myapplication.pages.activities.order.OrderDetail
+import com.example.myapplication.pages.apdaters.OrderListAdapter
 import com.example.myapplication.viewmodels.AppViewModel
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,6 +39,9 @@ class OnGoingOrder : Fragment() {
     private lateinit var onGoingOrderListAdapter: OrderListAdapter
     private lateinit var onGoingOrderListRecyclerView: RecyclerView
     private lateinit var layoutManager: RecyclerView.LayoutManager
+    private lateinit var emptyCartImg: ImageView
+    private lateinit var emptyCartTV1: TextView
+    private lateinit var emptyCartTV2: TextView
 
 
 
@@ -68,6 +71,7 @@ class OnGoingOrder : Fragment() {
         }
         initUI(view)
 
+
         println("On Going")
         return view
     }
@@ -77,6 +81,9 @@ class OnGoingOrder : Fragment() {
 
     private fun initUI(view: View){
 
+        emptyCartImg = view.findViewById(R.id.emptyCartImg)
+        emptyCartTV1 = view.findViewById(R.id.emptyCartTV1)
+        emptyCartTV2 = view.findViewById(R.id.emptyCartTV2)
         onGoingOrderListRecyclerView = view.findViewById(R.id.onGoingOderListRV)
         onGoingOrderListAdapter = OrderListAdapter(arrayListOf())
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -101,7 +108,15 @@ class OnGoingOrder : Fragment() {
     private fun setUpObserve(userId: Int){
         appModel.setUpOrderViewModel(this, userId);
         appModel.getOrderViewModel().orderProduct.observe(viewLifecycleOwner){
-            onGoingOrderListAdapter.addOrders(it.filter { it.getStatus()==0 } as ArrayList<Order>) ;
+            onGoingOrderListAdapter.addOrders(
+                it.filter { it.getStatus()==0 } as ArrayList<Order>
+            ) ;
+            if(onGoingOrderListAdapter.itemCount==0)
+            {
+                emptyCartImg.visibility =View.VISIBLE
+                emptyCartTV1.visibility =View.VISIBLE
+                emptyCartTV2.visibility =View.VISIBLE
+            }
             onGoingOrderListAdapter.notifyDataSetChanged();
 
         }

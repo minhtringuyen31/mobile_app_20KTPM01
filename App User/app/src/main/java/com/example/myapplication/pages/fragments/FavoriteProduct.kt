@@ -7,9 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -51,6 +49,10 @@ class FavoriteProduct : Fragment() {
     private lateinit var layoutManager: RecyclerView.LayoutManager
     private lateinit var backBtn : Button
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
+    private lateinit var emptyFavProductImg : ImageView
+    private lateinit var emptyFavProductTV1 : TextView
+    private lateinit var emptyFavProductTV2 : TextView
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,6 +85,9 @@ class FavoriteProduct : Fragment() {
     }
 
     private fun initUI(view: View){
+        emptyFavProductImg = view.findViewById(R.id.emptyFavProductImg)
+        emptyFavProductTV1 = view.findViewById(R.id.emptyFavProductTV1)
+        emptyFavProductTV2 = view.findViewById(R.id.emptyFavProductTV2)
         favBackBtn = view.findViewById(R.id.favBackBtn)
         favProductListRecyclerView = view.findViewById(R.id.favoriteProductListRV)
         favProductListAdapter = FavoriteProductListAdapter(arrayListOf())
@@ -172,6 +177,7 @@ class FavoriteProduct : Fragment() {
                 favProduct = FavProductItem(curUser.toString().toInt(), product.getId())
             }
             println("fav $curUser +  $curProduct")
+
             appModel.removeFavProduct(favProduct)
         }
 
@@ -182,8 +188,14 @@ class FavoriteProduct : Fragment() {
     private fun setUpObserve(userId: Int){
         appModel.setUpFavProductViewModel(this, userId);
         appModel.getFavProductViewModel().products.observe(viewLifecycleOwner){
+            var item = it as ArrayList<Product>
             favProductListAdapter.addFavProduct(it as ArrayList<Product>) ;
             favProductListAdapter.notifyDataSetChanged();
+            if(item.isEmpty()){
+                emptyFavProductImg.visibility = View.VISIBLE
+                emptyFavProductTV1.visibility = View.VISIBLE
+                emptyFavProductTV2.visibility = View.VISIBLE
+            }
         }
     }
 

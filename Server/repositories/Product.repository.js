@@ -139,7 +139,7 @@ const ProductRepository = {
   },
 
   async findAll() {
-    const query = `SELECT * FROM product`;
+    const query = `SELECT * FROM product ORDER BY id DESC`;
 
     try {
       const [rows] = await DB.pool().query(query);

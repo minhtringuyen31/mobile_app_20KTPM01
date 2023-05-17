@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -51,7 +51,10 @@ class Cart : Fragment(), OnItemClickListener {
     private val appModel: AppViewModel by activityViewModels()
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
     private lateinit var btnback:ImageView
-    private lateinit var emptyList:ImageView
+//    private lateinit var emptyList:ImageView
+    private lateinit var emptyCartImg:ImageView
+    private lateinit var emptyCartTV1: TextView
+    private lateinit var emptyCartTV2: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -90,7 +93,10 @@ class Cart : Fragment(), OnItemClickListener {
         cartItemRecyclerView.layoutManager =  LinearLayoutManager(context)
         cartItemRecyclerView.adapter=cartAdapter
         btnback = view.findViewById(R.id.back_btn)
-        emptyList = view.findViewById(R.id.emptyList)
+//        emptyList = view.findViewById(R.id.emptyList)
+        emptyCartImg = view.findViewById(R.id.emptyCartImg)
+        emptyCartTV1 = view.findViewById(R.id.emptyCartTV1)
+        emptyCartTV2 = view.findViewById(R.id.emptyCartTV2)
         icon_deletecard = view.findViewById(R.id.icon_deletecard)
     }
     @SuppressLint("NotifyDataSetChanged")
@@ -101,7 +107,10 @@ class Cart : Fragment(), OnItemClickListener {
                 cartAdapter.notifyDataSetChanged()
                  btnPlaceOrder.visibility = View.VISIBLE
                 if(cartItem.isEmpty()){
-                    emptyList.visibility = View.VISIBLE
+//                    emptyList.visibility = View.VISIBLE
+                    emptyCartImg.visibility =View.VISIBLE
+                    emptyCartTV1.visibility =View.VISIBLE
+                    emptyCartTV2.visibility =View.VISIBLE
                     btnPlaceOrder.visibility = View.GONE
                 }
         }
@@ -125,7 +134,10 @@ class Cart : Fragment(), OnItemClickListener {
                         .commit()
                     val dataTest= view.context.getSharedPreferences("cart",AppCompatActivity.MODE_PRIVATE).edit().remove("productID").apply()
                     btnPlaceOrder.visibility =View.GONE
-                    emptyList.visibility =View.VISIBLE
+//                    emptyList.visibility =View.VISIBLE
+                    emptyCartImg.visibility =View.VISIBLE
+                    emptyCartTV1.visibility =View.VISIBLE
+                    emptyCartTV2.visibility =View.VISIBLE
                 }
                 .setCancelText("Huỷ").setCancelClickListener {
                     it.dismissWithAnimation()
@@ -200,7 +212,10 @@ class Cart : Fragment(), OnItemClickListener {
                 };
                 sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
                 if(cartAdapter.itemCount==0){
-                    emptyList.visibility = view.visibility
+//                    emptyList.visibility = view.visibility
+                    emptyCartImg.visibility =View.VISIBLE
+                    emptyCartTV1.visibility =View.VISIBLE
+                    emptyCartTV2.visibility =View.VISIBLE
                     btnPlaceOrder.visibility = View.GONE
                 }
                 it.dismissWithAnimation()

@@ -25,7 +25,7 @@ const CategoryRepository = {
   async updateWithoutImage(id, name) {
     const query = `UPDATE category SET name=? WHERE id=?`;
     const values = [name, id];
-    
+
     try {
       const [result] = await DB.pool().query(query, values);
       return result.affectedRows > 0;
@@ -59,7 +59,7 @@ const CategoryRepository = {
   },
 
   async findAll() {
-    const query = `SELECT * FROM category`;
+    const query = `SELECT * FROM category ORDER BY id DESC`;
 
     try {
       const [rows] = await DB.pool().query(query);

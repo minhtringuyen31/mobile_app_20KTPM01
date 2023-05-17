@@ -5,17 +5,18 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.modals.Order
 import com.example.myapplication.pages.activities.order.OrderDetail
-
 import com.example.myapplication.pages.apdaters.OrderListAdapter
 import com.example.myapplication.viewmodels.AppViewModel
 
@@ -39,6 +40,9 @@ class HistoryOrder : Fragment() {
     private lateinit var historyOrderListRecyclerView: RecyclerView
     private val appModel: AppViewModel by activityViewModels()
     private lateinit var layoutManager: RecyclerView.LayoutManager
+    private lateinit var emptyCartImg: ImageView
+    private lateinit var emptyCartTV1: TextView
+    private lateinit var emptyCartTV2: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +74,9 @@ class HistoryOrder : Fragment() {
 
 
      fun initUI(view: View){
+         emptyCartImg = view.findViewById(R.id.emptyCartImg)
+         emptyCartTV1 = view.findViewById(R.id.emptyCartTV1)
+         emptyCartTV2 = view.findViewById(R.id.emptyCartTV2)
         historyOrderListRecyclerView = view.findViewById(R.id.historyOderListRV)
         historyOrderListAdapter = OrderListAdapter(arrayListOf())
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
@@ -96,7 +103,15 @@ class HistoryOrder : Fragment() {
         appModel.setUpOrderViewModel(this, userId);
         appModel.getOrderViewModel().orderProduct.observe(viewLifecycleOwner){
             historyOrderListAdapter.addOrders(it.filter { it.getStatus()==2 } as ArrayList<Order>) ;
+
+            if(historyOrderListAdapter.itemCount==0)
+            {
+                emptyCartImg.visibility =View.VISIBLE
+                emptyCartTV1.visibility =View.VISIBLE
+                emptyCartTV2.visibility =View.VISIBLE
+            }
             historyOrderListAdapter.notifyDataSetChanged();
+
         }
 
     }

@@ -5,10 +5,12 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -37,6 +39,9 @@ class CancelOrder : Fragment() {
     private lateinit var onGoingOrderListAdapter: OrderListAdapter
     private lateinit var onGoingOrderListRecyclerView: RecyclerView
     private lateinit var layoutManager: RecyclerView.LayoutManager
+    private lateinit var emptyCartImg: ImageView
+    private lateinit var emptyCartTV1: TextView
+    private lateinit var emptyCartTV2: TextView
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +78,9 @@ class CancelOrder : Fragment() {
 
 
     private fun initUI(view: View){
+        emptyCartImg = view.findViewById(R.id.emptyCartImg)
+        emptyCartTV1 = view.findViewById(R.id.emptyCartTV1)
+        emptyCartTV2 = view.findViewById(R.id.emptyCartTV2)
         onGoingOrderListRecyclerView = view.findViewById(R.id.onGoingOderListRV)
         onGoingOrderListAdapter = OrderListAdapter(arrayListOf())
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -97,8 +105,14 @@ class CancelOrder : Fragment() {
         appModel.setUpOrderViewModel(this, userId);
         appModel.getOrderViewModel().orderProduct.observe(viewLifecycleOwner){
             onGoingOrderListAdapter.addOrders(it.filter { it.getStatus()==-1 } as ArrayList<Order>) ;
-            onGoingOrderListAdapter.notifyDataSetChanged();
 
+            if(onGoingOrderListAdapter.itemCount==0)
+            {
+                emptyCartImg.visibility =View.VISIBLE
+                emptyCartTV1.visibility =View.VISIBLE
+                emptyCartTV2.visibility =View.VISIBLE
+            }
+            onGoingOrderListAdapter.notifyDataSetChanged();
         }
 
     }
