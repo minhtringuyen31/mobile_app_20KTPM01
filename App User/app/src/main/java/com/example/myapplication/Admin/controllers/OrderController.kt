@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.Admin.modals.Order
+import com.example.myapplication.Admin.modals.countOrder
+import com.example.myapplication.Admin.modals.totalOrder
 import com.example.myapplication.Admin.services.OrderService
 import com.example.myapplication.Admin.utils.Utils
 import kotlinx.coroutines.launch
@@ -119,5 +121,31 @@ class OrderController : ViewModel() {
             }
         }
         return _isChanged
+    }
+
+    fun countOrder(): LiveData<countOrder> {
+        val _count = MutableLiveData<countOrder>()
+        viewModelScope.launch {
+            try {
+                val response = Utils.getRetrofit().create(OrderService::class.java).countOrder()
+                _count.value = response
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+        return _count
+    }
+
+    fun totalOrder(): LiveData<totalOrder> {
+        val _total = MutableLiveData<totalOrder>()
+        viewModelScope.launch {
+            try {
+                val response = Utils.getRetrofit().create(OrderService::class.java).totalOrder()
+                _total.value = response
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+        return _total
     }
 }

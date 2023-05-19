@@ -4,6 +4,7 @@ import uploadCloud from '../../middlewares/uploader.js';
 
 const router = express.Router();
 
+router.get('/count', PromotionAdminController.countPromotion)
 router.post(
   '/create',
   uploadCloud.single('image'),

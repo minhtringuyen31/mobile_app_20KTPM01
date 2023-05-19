@@ -3,6 +3,7 @@ import express from 'express';
 
 const router = express.Router();
 
+router.get('/count', RatingAdminController.countRating)
 router.post('/create', RatingAdminController.create)
 router.put('/update/:id', RatingAdminController.update)
 router.delete('/delete/:id', RatingAdminController.delete)

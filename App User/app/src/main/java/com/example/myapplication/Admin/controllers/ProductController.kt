@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.Admin.modals.Product
+import com.example.myapplication.Admin.modals.countProduct
 import com.example.myapplication.Admin.services.ProductService
 import com.example.myapplication.Admin.utils.Utils
 import kotlinx.coroutines.launch
@@ -192,6 +193,20 @@ class ProductController : ViewModel() {
             try {
                 val response =
                     Utils.getRetrofit().create(ProductService::class.java).unavailableProduct(id)
+                _product.value = response
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+        return _product
+    }
+
+    fun countProduct(): LiveData<countProduct> {
+        val _product = MutableLiveData<countProduct>()
+        viewModelScope.launch {
+            try {
+                val response =
+                    Utils.getRetrofit().create(ProductService::class.java).countProduct()
                 _product.value = response
             } catch (e: Exception) {
                 // handle error

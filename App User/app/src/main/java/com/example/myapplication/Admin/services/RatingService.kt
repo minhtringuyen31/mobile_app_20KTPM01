@@ -1,6 +1,7 @@
 package com.example.myapplication.Admin.services
 
 import com.example.myapplication.Admin.modals.Rating
+import com.example.myapplication.Admin.modals.countRating
 import retrofit2.http.*
 
 interface RatingService {
@@ -24,4 +25,7 @@ interface RatingService {
 
     @PUT("rating/enable/{id}")
     suspend fun enableRating(@Path("id") ratingId: Int): Boolean
+
+    @GET("rating/count")
+    suspend fun countRating(): countRating
 }

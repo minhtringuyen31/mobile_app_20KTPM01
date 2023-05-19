@@ -1,6 +1,7 @@
 package com.example.myapplication.Admin.services
 
 import com.example.myapplication.Admin.modals.Promotion
+import com.example.myapplication.Admin.modals.countPromotion
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -54,4 +55,7 @@ interface PromotionService {
 
     @PUT("promotion/enable/{id}")
     suspend fun enablePromotion(@Path("id") id: Int): Boolean
+
+    @GET("promotion/count")
+    suspend fun countPromotion(): countPromotion
 }

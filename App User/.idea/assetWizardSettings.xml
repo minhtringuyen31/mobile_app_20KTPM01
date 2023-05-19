@@ -23,7 +23,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/star/baseline_star_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/bar_chart/baseline_bar_chart_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -33,8 +33,7 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="ffe802" />
-                            <entry key="outputName" value="baseline_star_24" />
+                            <entry key="outputName" value="baseline_bar_chart_24" />
                             <entry key="sourceFile" value="D:\mobile_app_20KTPM01\App User" />
                           </map>
                         </option>

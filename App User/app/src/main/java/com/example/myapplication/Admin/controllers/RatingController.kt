@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.Admin.modals.Rating
+import com.example.myapplication.Admin.modals.countRating
 import com.example.myapplication.Admin.services.RatingService
 import com.example.myapplication.Admin.utils.Utils
 import com.google.gson.GsonBuilder
@@ -104,6 +105,20 @@ class RatingController :ViewModel() {
             try {
                 val response =
                     Utils.getRetrofit().create(RatingService::class.java).enableRating(id)
+                _rating.value = response
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+        return _rating
+    }
+
+    fun countRating(): LiveData<countRating> {
+        var _rating = MutableLiveData<countRating>()
+        viewModelScope.launch {
+            try {
+                val response =
+                    Utils.getRetrofit().create(RatingService::class.java).countRating()
                 _rating.value = response
             } catch (e: Exception) {
                 // handle error

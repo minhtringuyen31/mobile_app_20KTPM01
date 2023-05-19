@@ -1,6 +1,9 @@
 import ProductRepository from '../repositories/Product.repository.js';
 import { v2 as cloudinary } from 'cloudinary';
 const ProductServices = {
+  async countProduct() {
+    return await ProductRepository.countProduct();
+  },
   async changeStatus(id, status) {
     return await ProductRepository.changeStatus(id, status);
   },
@@ -153,11 +156,11 @@ const ProductServices = {
     return await ProductRepository.removeFavProduct(userId, productId);
   },
   async isExistedFavProduct(userId, productId) {
-    return await ProductRepository.isExistedFavProduct(userId, productId)
+    return await ProductRepository.isExistedFavProduct(userId, productId);
   },
   async getRating(productId) {
-    return await ProductRepository.getRating(productId)
-  }
+    return await ProductRepository.getRating(productId);
+  },
   // Cần method gì thì tự implements !!
 };
 export default ProductServices;

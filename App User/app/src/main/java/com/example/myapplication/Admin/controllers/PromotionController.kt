@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.Admin.modals.Promotion
+import com.example.myapplication.Admin.modals.countPromotion
 import com.example.myapplication.Admin.services.PromotionService
 import com.example.myapplication.Admin.utils.Utils
 import kotlinx.coroutines.launch
@@ -151,6 +152,20 @@ class PromotionController : ViewModel() {
             try {
                 val response =
                     Utils.getRetrofit().create(PromotionService::class.java).enablePromotion(id)
+                _promotion.value = response
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+        return _promotion
+    }
+
+    fun countPromotion(): LiveData<countPromotion> {
+        val _promotion = MutableLiveData<countPromotion>()
+        viewModelScope.launch {
+            try {
+                val response =
+                    Utils.getRetrofit().create(PromotionService::class.java).countPromotion()
                 _promotion.value = response
             } catch (e: Exception) {
                 // handle error

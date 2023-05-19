@@ -1,5 +1,8 @@
 import RatingRepository from '../repositories/Rating.repository.js';
 const RatingServices = {
+  async countRating() {
+    return await RatingRepository.countRating();
+  },
   async changeIsDisable(id, is_disable) {
     return await RatingRepository.changeIsDisable(id, is_disable);
   },

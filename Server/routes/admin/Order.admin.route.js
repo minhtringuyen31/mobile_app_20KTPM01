@@ -3,6 +3,8 @@ import express from 'express';
 
 const router = express.Router();
 
+router.get('/total', OrderAdminController.totalOrder);
+router.get('/count', OrderAdminController.countOrder);
 router.post('/create', OrderAdminController.create);
 router.put('/update/:id', OrderAdminController.update);
 router.delete('/delete/:id', OrderAdminController.delete);

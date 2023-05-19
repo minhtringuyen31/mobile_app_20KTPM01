@@ -3,6 +3,7 @@ import express from 'express';
 
 const router = express.Router();
 
+router.get('/count', UserAdminController.countUser);
 router.post('/create', UserAdminController.create);
 router.put('/update/:id', UserAdminController.update);
 router.delete('/delete/:id', UserAdminController.delete);

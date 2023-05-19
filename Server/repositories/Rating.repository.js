@@ -1,6 +1,16 @@
 import DB from '../configs/db.js';
 const RatingRepository = {
-  async changeIsDisable (id, is_disable) {
+  async countRating() {
+    const query = `SELECT COUNT(*) AS count FROM rating`;
+    try {
+      const [result] = await DB.pool().query(query);
+      return result[0].count;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async changeIsDisable(id, is_disable) {
     const query = `UPDATE rating SET is_disable=? WHERE id=?`;
     const values = [is_disable, id];
     try {
@@ -16,7 +26,7 @@ const RatingRepository = {
     const values = [user_id, user_name, user_image, product_id, score, comment];
     try {
       DB.pool().query(query, values);
-      console.log("rating here")
+      console.log('rating here');
       return true;
     } catch (error) {
       console.error(error);

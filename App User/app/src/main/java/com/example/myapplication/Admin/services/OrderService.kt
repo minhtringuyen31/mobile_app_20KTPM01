@@ -1,6 +1,8 @@
 package com.example.myapplication.Admin.services
 
 import com.example.myapplication.Admin.modals.Order
+import com.example.myapplication.Admin.modals.countOrder
+import com.example.myapplication.Admin.modals.totalOrder
 import retrofit2.http.*
 
 
@@ -28,4 +30,10 @@ interface OrderService {
 
     @PUT("order/accept/{id}")
     suspend fun changeAcceptStatus(@Path("id") orderId: Int): Boolean
+
+    @GET("order/count")
+    suspend fun countOrder(): countOrder
+
+    @GET("order/total")
+    suspend fun totalOrder(): totalOrder
 }

@@ -1,6 +1,22 @@
 import OrderServices from '../../services/Order.service.js';
 
 const OrderAdminController = {
+  totalOrder: async (req, res) => {
+    const total = await OrderServices.totalOrder();
+    if (total) {
+      res.status(200).send({ total });
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
+  countOrder: async (req, res) => {
+    const count = await OrderServices.countOrder();
+    if (count) {
+      res.status(200).send({ count });
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
   changeDenyStatus: async (req, res) => {
     const id = req.params.id;
     const status = await OrderServices.changeStatus(id, -1);

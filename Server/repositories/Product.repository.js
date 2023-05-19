@@ -1,6 +1,16 @@
 import { query } from 'express';
 import DB from '../configs/db.js';
 const ProductRepository = {
+  async countProduct() {
+    const query = `SELECT COUNT(*) AS count FROM product`;
+    try {
+      const [result] = await DB.pool().query(query);
+      return result[0].count;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
   async changeStatus(id, status) {
     const query = `UPDATE product SET status=? WHERE id=?`;
     const values = [status, id];
@@ -214,7 +224,7 @@ const ProductRepository = {
     }
   },
   async getRating(productId) {
-    const query = `SELECT avg(rating.score) FROM rating WHERE rating.product_id = ?`
+    const query = `SELECT avg(rating.score) FROM rating WHERE rating.product_id = ?`;
     try {
       const [rows] = await DB.pool().query(query, [productId]);
       return rows;
@@ -222,8 +232,7 @@ const ProductRepository = {
       console.error(error);
       return false;
     }
-  }
-
+  },
 };
 
 export default ProductRepository;

@@ -1,6 +1,14 @@
 import PromotionServices from '../../services/Promotion.service.js';
 
 const PromotionAdminController = {
+  countPromotion: async (req, res) => {
+    const count = await PromotionServices.countPromotion();
+    if (count) {
+      res.status(200).send({ count });
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
   disable: async (req, res) => {
     const id = req.params.id;
     const status = await PromotionServices.changeIsDisable(id, 1);

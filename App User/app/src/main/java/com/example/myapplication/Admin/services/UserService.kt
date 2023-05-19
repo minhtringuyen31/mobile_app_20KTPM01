@@ -1,6 +1,7 @@
 package com.example.myapplication.Admin.services
 
 import com.example.myapplication.Admin.modals.User
+import com.example.myapplication.Admin.modals.countUser
 import retrofit2.http.*
 
 interface UserService {
@@ -24,4 +25,7 @@ interface UserService {
 
     @PUT("user/enable/{id}")
     suspend fun enableUser(@Path("id") userId: Int): Boolean
+
+    @GET("user/count")
+    suspend fun countUser(): countUser
 }

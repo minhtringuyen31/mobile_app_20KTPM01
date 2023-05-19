@@ -1,5 +1,12 @@
 package com.example.myapplication.Admin.modals
 
+class countPromotion(
+    private var count: Int? = null
+) {
+    fun getCount(): Int? {
+        return this.count
+    }
+}
 class Promotion(
     private var id: Int? = null,
     private var name: String? = null,

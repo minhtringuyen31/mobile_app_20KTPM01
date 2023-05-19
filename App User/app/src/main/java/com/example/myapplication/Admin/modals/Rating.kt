@@ -1,6 +1,13 @@
 package com.example.myapplication.Admin.modals
 
 
+class countRating(
+    private var count: Int? = null
+) {
+    fun getCount(): Int? {
+        return this.count
+    }
+}
 class Rating(
     private var id: Int? = null,
     private var user_id: Int? = null,

@@ -1,6 +1,14 @@
 import RatingServices from '../../services/Rating.service.js';
 
 const RatingAdminController = {
+  countRating: async (req, res) => {
+    const count = await RatingServices.countRating();
+    if (count) {
+      res.status(200).send({ count });
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
   disable: async (req, res) => {
     const id = req.params.id;
     const ratingDisable = await RatingServices.changeIsDisable(id, 1);

@@ -2,6 +2,33 @@ package com.example.myapplication.Admin.modals
 
 import java.io.Serializable
 
+class countOrder(
+    private var count: Int? = null
+) {
+    // Getters of all
+    fun getCount(): Int? {
+        return count
+    }
+
+    // Setters of all
+    fun setCount(count: Int?) {
+        this.count = count
+    }
+}
+
+class totalOrder(
+    private var total: Double? = null
+) {
+    // Getters of all
+    fun getTotal(): Double? {
+        return total
+    }
+
+    // Setters of all
+    fun setTotal(total: Double?) {
+        this.total = total
+    }
+}
 
 class Order(
     private var id: Int? = null,

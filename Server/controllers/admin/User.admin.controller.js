@@ -1,6 +1,14 @@
 import UserServices from '../../services/User.service.js';
 
 const UserAdminController = {
+  countUser: async (req, res) => {
+    const countUser = await UserServices.countUser();
+    if (countUser) {
+      res.status(200).send({ count: countUser });
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
   disable: async (req, res) => {
     const userDisable = await UserServices.changeIsDisable(req.params.id, 1);
     if (userDisable) {

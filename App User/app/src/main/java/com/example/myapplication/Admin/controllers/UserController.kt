@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.Admin.modals.User
+import com.example.myapplication.Admin.modals.countUser
 import com.example.myapplication.Admin.services.UserService
 import com.example.myapplication.Admin.utils.Utils
 import kotlinx.coroutines.launch
@@ -98,6 +99,19 @@ class UserController : ViewModel() {
                 _user.value = response
             } catch (e: Exception) {
 
+            }
+        }
+        return _user
+    }
+
+    fun countUser(): LiveData<countUser> {
+        val _user = MutableLiveData<countUser>()
+        viewModelScope.launch {
+            try {
+                val response = Utils.getRetrofit().create(UserService::class.java).countUser()
+                _user.value = response
+            } catch (e: Exception) {
+                // handle error
             }
         }
         return _user
