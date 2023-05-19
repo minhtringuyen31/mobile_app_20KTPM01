@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.Admin.controllers.*
 import com.example.myapplication.Admin.pages.dashboard.Dashboard
 import com.example.myapplication.R
+import com.example.myapplication.utils.Utils
 
 class Statistics : AppCompatActivity() {
     @SuppressLint("SetTextI18n")
@@ -28,7 +29,8 @@ class Statistics : AppCompatActivity() {
             findViewById<TextView>(R.id.orderAmount).text = "${it.getCount()} orders"
         }
         orderViewProvider.totalOrder().observe(this) {
-            findViewById<TextView>(R.id.orderTotalSales).text = "${it.getTotal()} VND"
+            findViewById<TextView>(R.id.orderTotalSales).text = "${it.getTotal()
+                ?.let { it1 -> Utils.formatCurrency(it1) }} VND"
         }
         productViewProvider.countProduct().observe(this) {
             findViewById<TextView>(R.id.productAmount).text = it.getCount().toString()

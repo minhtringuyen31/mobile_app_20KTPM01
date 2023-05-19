@@ -15,6 +15,7 @@ import com.example.myapplication.Admin.controllers.CategoryController
 import com.example.myapplication.Admin.controllers.ProductController
 import com.example.myapplication.Admin.modals.Product
 import com.example.myapplication.R
+import com.example.myapplication.utils.Utils
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -120,11 +121,11 @@ class ProductDetail : AppCompatActivity() {
             findViewById<TextView>(R.id.detailProductName).text = it.getName()
             findViewById<TextView>(R.id.detailProductSize).text = it.getSize()
             findViewById<TextView>(R.id.priceSTv).text =
-                "Giá S: " + it.getPriceS().toString() + "Đ"
+                "Giá S: " + it.getPriceS()?.let { it1 -> Utils.formatCurrency(it1) } + "Đ"
             findViewById<TextView>(R.id.priceLTv).text =
-                "Giá L: " + it.getPriceL().toString() + "Đ"
+                "Giá L: " + it.getPriceL()?.let { it1 -> Utils.formatCurrency(it1) } + "Đ"
             findViewById<TextView>(R.id.priceMTv).text =
-                "Giá M: " + it.getPriceM().toString() + "Đ"
+                "Giá M: " + it.getPriceM()?.let { it1 -> Utils.formatCurrency(it1) } + "Đ"
             findViewById<TextView>(R.id.detailProductDesc).text = it.getDescription()
             it.getCategoryId()?.let { it1 ->
                 ViewModelProvider(this)[CategoryController::class.java].getCategory(it1)
