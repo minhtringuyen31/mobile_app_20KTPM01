@@ -21,6 +21,7 @@ import RatingAdminRouter from './routes/admin/Rating.admin.route.js';
 import UserAdminRouter from './routes/admin/User.admin.route.js';
 import ToppingAdminRouter from './routes/admin/Topping.admin.route.js';
 import OrderProductAdminRouter from './routes/admin/OrderProduct.admin.route.js';
+import PaymentMethodAdminRouter from './routes/admin/PaymentMethod.admin.route.js';
 
 import AuthenRoute from './routes/Authen.route.js';
 import ToppingRoute from './routes/Topping.route.js';
@@ -64,6 +65,7 @@ app.use('/api/admin/rating', RatingAdminRouter);
 app.use('/api/admin/user', UserAdminRouter);
 app.use('/api/admin/topping', ToppingAdminRouter);
 app.use('/api/admin/order_product', OrderProductAdminRouter);
+app.use('/api/admin/payment', PaymentMethodAdminRouter);
 app.use(Authentication)
 
 
