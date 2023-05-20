@@ -87,17 +87,15 @@ class OrderViewModel :ViewModel(){
                 _newOrder.postValue(response)
                 val id =response.getId();
 
-//                var refundData = RefundOrder(id,transactionId)
-//                println(refundData)
-//                createRefund(refundData)
-
+                var refundData = RefundOrder(id,transactionId)
+                println(refundData)
+                createRefund(refundData)
                 var gson = Gson()
                 var jsonString = gson.toJson(response)
                 SocketHandler.setSocket()
                 SocketHandler.establishConnection()
                 SocketHandler.mSocket = SocketHandler.getSocket()
                 SocketHandler.mSocket.emit("newOrder",jsonString)
-
 
                 cartItemCallAPI.forEach {
                     val product_ID = it.getProductId();

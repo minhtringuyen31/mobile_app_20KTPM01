@@ -1,14 +1,24 @@
 package com.example.myapplication.checkout
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.FormBody
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import okhttp3.RequestBody
 import org.json.JSONObject
 import java.text.SimpleDateFormat
-
 import java.util.*
+import java.util.concurrent.TimeUnit
 
-class Refund {
-    private class RefundData(amount: String) {
+class Refund:ViewModel() {
+    private val status = MutableLiveData<Boolean>()
+    val order: LiveData<Boolean> = status
+    private class RefundData(id:String,amount: String) {
         var AppId: String
         var ZpTransId: String
         var Amount: String
@@ -18,11 +28,10 @@ class Refund {
         var Description: String
 
         init {
-            val temp = "230505000007320"
             val timestamp = System.currentTimeMillis().toString()
             val uid = timestamp + (111 + Random().nextInt(999)).toString()
             AppId = AppInfo.APP_ID.toString()
-            ZpTransId = temp.toString()
+            ZpTransId = id
             Amount = amount
             RefundId = getCurrentTimeString("yyMMdd") + "_$AppId" + "_$uid"
             Description = "ZaloPay Intergration Demo"
@@ -45,21 +54,40 @@ class Refund {
     }
 
     @Throws(Exception::class)
-    fun refund(amount: String): JSONObject {
-        val input = RefundData(amount)
+    fun refund(id:String,amount: String) {
+        val input = RefundData(id,amount)
         println(input)
-        val formBody: RequestBody = FormBody.Builder()
-            .add("appid", input.AppId)
-            .add("mrefundid", input.RefundId)
-            .add("zptransid", input.ZpTransId)
-            .add("amount", input.Amount)
-            .add("timestamp", input.Timestamp)
-            .add("description", input.Description)
-            .add("mac", input.Mac)
-            .build()
-        val data = HttpProvider.sendPost(AppInfo.URL_REFUND_ORDER, formBody)
-        println(data)
-        return data!!
+        viewModelScope.launch(Dispatchers.IO){
+            val formBody: RequestBody = FormBody.Builder()
+                .add("appid", input.AppId)
+                .add("mrefundid", input.RefundId)
+                .add("zptransid", input.ZpTransId)
+                .add("amount", input.Amount)
+                .add("timestamp", input.Timestamp)
+                .add("description", input.Description)
+                .add("mac", input.Mac)
+                .build()
+
+            val client = OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.SECONDS) // Thiết lập timeout kết nối (10 giây)
+                .readTimeout(30, TimeUnit.SECONDS) // Thiết lập timeout đọc (30 giây)
+                .writeTimeout(30, TimeUnit.SECONDS) // Thiết lập timeout ghi (30 giây)
+                .build()
+
+            val request = Request.Builder()
+                .url(AppInfo.URL_REFUND_ORDER)
+                .post(formBody)
+                .build()
+            val response = client.newCall(request).execute()
+            val data = response.body?.string()
+            val jsonObject = JSONObject(data)
+            println(data)
+            if(jsonObject!=null)
+            {
+                status.postValue(true)
+            }
+
+        }
 
     }
 }

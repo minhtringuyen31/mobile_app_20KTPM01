@@ -124,7 +124,8 @@ const OrderController = {
     }
   },
   async findOneToken(req, res) {
-    const orderID = req.body.order_id;
+    const orderID = req.params.id;
+    console.log(orderID);
     const token = await OrdertService.findToken(orderID);
     if (token) {
       res.status(200).send(token);

@@ -46,7 +46,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mSocket: Socket
     private lateinit var tokenFB: TokenFirebaseViewModel
 
-
     private fun handleTokenFirebase() {
         tokenFB = ViewModelProvider(this)[TokenFirebaseViewModel::class.java]
         FirebaseMessaging.getInstance().token
@@ -54,7 +53,6 @@ class MainActivity : AppCompatActivity() {
                 if (!task.isSuccessful) {
                     return@OnCompleteListener
                 }
-
                 // Lấy token từ task.getResult() và lưu vào database
                 val token = task.result
                 println("tk"+token)

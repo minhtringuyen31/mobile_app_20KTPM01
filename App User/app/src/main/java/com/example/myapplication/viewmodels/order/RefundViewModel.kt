@@ -11,6 +11,8 @@ import kotlinx.coroutines.launch
 class RefundViewModel:ViewModel() {
     private val _newOrder = MutableLiveData<RefundOrder>()
     val order: LiveData<RefundOrder> = _newOrder
+    private val _Order = MutableLiveData<RefundOrder>()
+    val getorder: LiveData<RefundOrder> = _Order
     fun createRefund(orderProduct: RefundOrder) {
         viewModelScope.launch {
             try {
@@ -26,8 +28,8 @@ class RefundViewModel:ViewModel() {
         viewModelScope.launch {
             try {
                 val response = Utils.getRetrofit().create(com.example.myapplication.services.RefundOrder::class.java).getRefund(orderID);
-                println("View: $response")
-                _newOrder.postValue(response)
+                println("ViewGetTOken: $response")
+                _Order.postValue(response)
             } catch (e: Exception) {
                 // handle error
             }

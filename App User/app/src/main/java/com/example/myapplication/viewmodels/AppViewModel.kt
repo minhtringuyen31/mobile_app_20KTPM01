@@ -1,9 +1,12 @@
 package com.example.myapplication.viewmodels
 
 import android.view.View
-import androidx.lifecycle.*
-import com.example.myapplication.modals.*
-import com.example.myapplication.pages.fragments.OnGoingOrder
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewModelScope
+import com.example.myapplication.modals.CartItem
+import com.example.myapplication.modals.FavProductItem
 import com.example.myapplication.viewmodels.cart.CartItemViewModel
 import com.example.myapplication.viewmodels.category.CategoryViewModel
 import com.example.myapplication.viewmodels.order.OrderProductViewModel
@@ -27,7 +30,6 @@ class AppViewModel:ViewModel() {
     private lateinit var orderViewModel: OrderViewModel
     private lateinit var orderProductViewModel: OrderProductViewModel
     private lateinit var favProductViewModel: FavProductViewModel
-
 
      fun setUpViewModel(view: View,viewModelStoreOwner: ViewModelStoreOwner) {
          viewModelScope.launch {

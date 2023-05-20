@@ -19,11 +19,9 @@ import com.example.myapplication.Admin.controllers.OrderProductController
 import com.example.myapplication.Admin.controllers.UserController
 import com.example.myapplication.Admin.modals.Order
 import com.example.myapplication.R
-import com.example.myapplication.checkout.Refund
 import com.example.myapplication.socket.SocketHandler
 import com.example.myapplication.socket.SocketHandler.mSocket
 import com.google.gson.Gson
-import org.json.JSONObject
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
@@ -85,9 +83,9 @@ class EditOrder : AppCompatActivity() {
                 var gson = Gson()
                 var jsonString = gson.toJson(order)
                 mSocket.emit("cancelOrder",jsonString)
-                val refundAPI = Refund()
-                val data: JSONObject = refundAPI.refund("1000")
-                println(data)
+//                val refundAPI = Refund()
+//                val data: JSONObject = refundAPI.refund("1000")
+//                println(data)
                 val intent = Intent(this, Orders::class.java)
                 startActivity(intent)
 

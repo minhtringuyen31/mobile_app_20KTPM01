@@ -3,22 +3,25 @@ package com.example.myapplication.pages.activities.order
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
 import android.view.View
-import android.widget.HorizontalScrollView
-import android.widget.ImageView
-import android.widget.ProgressBar
-import android.widget.ScrollView
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
+import com.example.myapplication.Admin.controllers.OrderController
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
+import com.example.myapplication.checkout.Refund
 import com.example.myapplication.modals.OrderProductDetail
 import com.example.myapplication.pages.RatingActivity
 import com.example.myapplication.pages.apdaters.OrderProductListAdapter
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.order.OrderProductViewModel
+import com.example.myapplication.viewmodels.order.RefundViewModel
 import com.example.myapplication.viewmodels.promotion.PromotionViewModel
 
 
@@ -39,17 +42,23 @@ class OrderDetail : AppCompatActivity() {
     private lateinit var loading:ProgressBar
     private  var sum:Double=0.0
     private lateinit var scrollView: ScrollView
+    private lateinit var cancelOrderDetail:LinearLayout
+    private lateinit var cancelOrderDetailTV:TextView
+    private var orderId:Int=0
+    private lateinit var reFundViewModelProvider:RefundViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_detail)
+        val policy = ThreadPolicy.Builder().permitAll().build()
 
+        StrictMode.setThreadPolicy(policy)
 
         orderProductListAdapter = OrderProductListAdapter(arrayListOf())
         initViewModel()
         initUI()
-        val orderId = intent.getStringExtra("orderId").toString().toInt()
+        orderId = intent.getStringExtra("orderId").toString().toInt()
         println("Get String Extra: $orderId")
         orderPromotion = intent.getStringExtra("orderPromotion").toString()
         val orderTotalPrice = intent.getStringExtra("orderTotalPrice")
@@ -58,17 +67,21 @@ class OrderDetail : AppCompatActivity() {
         if(orderStatus=="0")
         {
             statusOrder.text="Đơn hàng đang chờ xác nhận"
+            cancelOrderDetail.visibility = View.VISIBLE
         }
         else if(orderStatus=="-1")
         {
             statusOrder.text="Đơn hàng bị huỷ"
+            cancelOrderDetail.visibility = View.GONE
         }else if (orderStatus=="1")
         {
             statusOrder.text="Đơn hàng được xác nhận !"
+            cancelOrderDetail.visibility = View.GONE
         }
         else if (orderStatus=="2")
         {
             statusOrder.text="Đơn hàng giao thành công"
+            cancelOrderDetail.visibility = View.GONE
         }
         if(methodPayment == "3")
         {
@@ -79,10 +92,13 @@ class OrderDetail : AppCompatActivity() {
 
     }
     private fun initViewModel(){
+        reFundViewModelProvider = ViewModelProvider(this)[RefundViewModel::class.java]
         promotionViewModel = ViewModelProvider(this)[PromotionViewModel::class.java]
     }
 
     private fun initUI(){
+        cancelOrderDetailTV = findViewById(R.id.cancelOrderDetailTV)
+        cancelOrderDetail=findViewById(R.id.cancelOrderDetail)
         scrollView = findViewById(R.id.viewAll)
         loading= findViewById(R.id.showLoading)
         methodPaymentTV = findViewById(R.id.methodPayment)
@@ -109,6 +125,55 @@ class OrderDetail : AppCompatActivity() {
 
         imgToolbarBtnBack.setOnClickListener {
             super.onBackPressed();
+        }
+        cancelOrderDetailTV.setOnClickListener {
+            SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Huỷ đơn hàng")
+                .setContentText("Bạn có chắc sẽ huỷ đơn hàng ?")
+                .setConfirmText("Đồng ý")
+                .setConfirmClickListener { sDialog ->
+                    val orderProvider = ViewModelProvider(this)[OrderController::class.java]
+                    orderProvider.changeDenyStatus(orderId).observe(this) {
+                    }
+                    var total1=0.0
+
+                    reFundViewModelProvider.getTokenByOrderID(orderId)
+                    orderProvider.getOrder(orderId).observe(this){
+                        val order=it
+                        reFundViewModelProvider.getorder.observe(this){
+                            println(it)
+                            if(it!=null)
+                            {
+                                val refundAPI = Refund()
+                                refundAPI.refund(it.getToken(),order.getTotal()!!.toInt().toString())
+                                if(  refundAPI.order.value == true)
+                                {
+                                    sDialog.dismissWithAnimation()
+                                    val intent = Intent(this, MainActivity::class.java)
+                                    startActivity(intent)
+                                    finish()
+                                }
+
+
+
+
+
+
+                            }
+                        }
+                    }
+
+
+
+
+                }.setCancelText("Huỷ")
+                .setCancelClickListener {
+
+                    it.dismissWithAnimation()
+                }
+                .show()
+
+
         }
     }
 

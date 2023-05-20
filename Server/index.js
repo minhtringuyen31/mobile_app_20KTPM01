@@ -55,7 +55,6 @@ app.use('/api/promotions', PromotionRoute);
 app.use('/api/authen', AuthenRoute);
 app.use('/api/toppings', ToppingRoute);
 app.use('/api/notifications', NotificationRoute);
-
 app.use('/api/admin/category', CategoryAdminRouter);
 app.use('/api/admin/order', OrderAdminRouter);
 app.use('/api/admin/product', ProductAdminRouter);

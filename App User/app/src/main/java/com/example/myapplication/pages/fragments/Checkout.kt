@@ -23,12 +23,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.checkout.CreateOrder
-import com.example.myapplication.checkout.Refund
 import com.example.myapplication.modals.CartItem
-import com.example.myapplication.modals.RefundOrder
 import com.example.myapplication.pages.activities.promotion.ListPromotion
 import com.example.myapplication.pages.apdaters.CheckoutApdater
-import com.example.myapplication.socket.SocketHandler
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.order.CheckoutViewModel
@@ -328,7 +325,8 @@ class Checkout : Fragment() {
             {
                 val orderApi = CreateOrder()
                 try {
-                    val data: JSONObject = orderApi.createOrder("1000")
+                    val temp=Utils.getDigitInString(total.text.toString())
+                    val data: JSONObject = orderApi.createOrder(temp.toInt().toString())
                     println(data)
                     val code = data.getString("returncode")
                     if (code == "1") {
@@ -340,20 +338,13 @@ class Checkout : Fragment() {
                                 transToken: String,
                                 appTransID: String
                             ) {
-
                                 SweetAlertDialog(view.context, SweetAlertDialog.SUCCESS_TYPE)
                                     .setTitleText("Đặt hàng thành công")
                                     .setContentText("Quay trở lại trang Order để theo dõi đơn hàng")
                                     .setConfirmText("Đồng ý")
                                     .setConfirmClickListener { sDialog ->
-
-
-
-
                                         val address = checkoutViewModel.getAddress()
-//
                                         val id = view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
-
                                         val userID = id.getString("userID", null)
                                         if(userID!=null){
                                             val newOrder =com.example.myapplication.modals.Order(userID.toInt(),checkoutViewModel.getTime(),address,Utils.getDigitInString(total.text.toString()),0,checkoutViewModel.getPromotionID(),3)
@@ -368,7 +359,6 @@ class Checkout : Fragment() {
                                             val sharedPreferences_phone = view.context.getSharedPreferences("phone", AppCompatActivity.MODE_PRIVATE)
                                             sharedPreferences_phone.edit().remove("phoneUser").apply()
                                             appModel.removeAllCart(userID.toInt())
-
                                             (view.context as FragmentActivity).supportFragmentManager
                                                 .beginTransaction()
                                                 .replace(R.id.flFragment, Activities(),"Activities").addToBackStack(null)

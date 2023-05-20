@@ -30,18 +30,21 @@
     <string name="changepass_newpass">New Password</string>
     <string name="changepass_confirm">Confirm New Password</string>
     <string name="button_changepass">Save change</string>
-
+    <string name="cancelOrderDetail">Cancel this Order</string>
     <string name="route_editprofile">Edit your profile</string>
     <string name="route_changepassword">Change your password</string>
     <string name="route_introstore">Introduction store</string>
+    <string name="okeCancel">Cancel</string>
     <string name="route_listpromotion">List all promotions</string>
     <string name="route_changelanguage">Change Language</string>
     <string name="button_logout">Logout</string>
+    <string name="httt">Payment Method</string>
+    <string name="ttdh">Status Order</string>
     <string name="textView13">Infinity Coffee is a coffee shop established in 2023, rooted in the love for Vietnamese coffee and the desire to give diners the best coffee taste. \n\nOur store is goal is to serve and contribute to the development of the Vietnamese coffee community by providing a convenient and enjoyable experience for customers. \n\nInfinity is 100% committed to quality, and will bring everyone the most memorable experience.\n</string>
     <string name="viewmap">View location of store</string>
 
     <string name="kmhc">Available Promotion</string>
-    <string name="ctdh">Oder Detail</string>
+    <string name="ctdh">Order Detail</string>
     <string name="tongtien">Total Price</string>
     <string name="km">Promotion</string>
     <string name="cckm">Promotion not applied yet</string>

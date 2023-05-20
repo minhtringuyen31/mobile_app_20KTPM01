@@ -14,7 +14,7 @@ OrderRoute.get("/:userId", OrderController.findByUserID)
 OrderRoute.get("/", OrderController.findAll)
 OrderRoute.post("/status/:id", OrderController.changeStatus)
 OrderRoute.post("/createRefund", OrderController.creatRefund)
-OrderRoute.post("/findToken", OrderController.findOneToken)
+OrderRoute.post("/findToken/:id", OrderController.findOneToken)
 
 export default OrderRoute;
 

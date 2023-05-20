@@ -54,6 +54,10 @@
     <string name="km">Khuyến mãi</string>
     <string name="cckm">Chưa áp dụng khuyến mãi</string>
     <string name="total">Tổng tiền phải trả</string>
+    <string name="cancelOrderDetail">Huỷ đơn hàng này</string>
+    <string name="okeCancel">Huỷ</string>
+    <string name="ttdh">Tình trạng đơn hàng</string>
+    <string name="httt">Hình thức thanh toán</string>
     <string name="map">Vị trí cửa hàng</string>
     <string name="editinfo">Chỉnh sửa thông tin cá nhân</string>
     <string name="ttcn">Chỉnh sửa thông tin</string>

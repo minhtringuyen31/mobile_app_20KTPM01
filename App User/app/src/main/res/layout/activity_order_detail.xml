@@ -52,251 +52,6 @@
             </LinearLayout>
 
         </androidx.appcompat.widget.Toolbar>
-<!--        <LinearLayout-->
-<!--            android:padding="10dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:background="@drawable/custom_border_checkout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:orientation="vertical"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingStart = "10dp">-->
-
-
-<!--            <LinearLayout-->
-<!--                android:padding="5dp"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:layout_height="wrap_content">-->
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:cardCornerRadius="@dimen/_10sdp">-->
-<!--                    <ImageView-->
-
-<!--                        android:layout_width="@dimen/_50sdp"-->
-<!--                        android:layout_height="@dimen/_50sdp"-->
-<!--                        android:layout_marginTop="8dp"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:background="@color/white"-->
-<!--                        android:src="@drawable/tra_sen_vang"-->
-<!--                        />-->
-<!--                </androidx.cardview.widget.CardView>-->
-
-<!--                <LinearLayout-->
-<!--                    android:padding="5dp"-->
-<!--                    android:layout_width="320dp"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:layout_height="wrap_content">-->
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_marginStart="10dp"-->
-<!--                    android:text="TRÀ SEN VÀNG CỦ NĂNG      Size: M"-->
-<!--                    android:textColor="@color/black"-->
-<!--                    android:textStyle="bold"/>-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        android:text="Quantity: 1"-->
-<!--                        android:textSize="11dp"-->
-<!--                        android:textColor="@color/black"/>-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        android:textSize="11dp"-->
-<!--                        android:text="Topping: Hạt sen, Thạch Củ Năng"-->
-<!--                        android:textColor="@color/black"/>-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        android:layout_marginTop="5dp"-->
-<!--                        android:text="Tổng cộng (1 sản phẩm):   50,000 đ"-->
-<!--                        android:textColor="@color/black"/>-->
-<!--                </LinearLayout>-->
-<!--            </LinearLayout>-->
-
-<!--            <LinearLayout-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:layout_gravity="end">-->
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="end"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:background="@drawable/custom_border_btn"-->
-<!--                    android:text="Đánh giá"-->
-<!--                    android:textColor="@color/white" />-->
-<!--                -->
-<!--                <TextView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_gravity="end"-->
-<!--                    android:layout_weight="1"-->
-<!--                    android:background="@drawable/custom_border_btn"-->
-<!--                    android:text="Đánh giá"-->
-<!--                    android:textColor="@color/white" />-->
-<!--            </LinearLayout>-->
-<!--        </LinearLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:padding="10dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:background="@drawable/custom_border_checkout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:orientation="vertical"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingStart = "10dp">-->
-
-
-<!--            <LinearLayout-->
-<!--                android:padding="5dp"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:layout_height="wrap_content">-->
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:cardCornerRadius="@dimen/_10sdp">-->
-<!--                    <ImageView-->
-
-<!--                        android:layout_width="@dimen/_50sdp"-->
-<!--                        android:layout_height="@dimen/_50sdp"-->
-<!--                        android:layout_marginTop="8dp"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:background="@color/white"-->
-<!--                        android:src="@drawable/phin_sua_da"-->
-<!--                        />-->
-<!--                </androidx.cardview.widget.CardView>-->
-
-<!--                <LinearLayout-->
-<!--                    android:padding="5dp"-->
-<!--                    android:layout_width="320dp"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:layout_height="wrap_content">-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        android:text="Phin Sữa Đá                               Size: S"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textStyle="bold"/>-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        android:text="Quantity: 1"-->
-<!--                        android:textSize="11dp"-->
-<!--                        android:textColor="@color/black"/>-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        android:textSize="11dp"-->
-<!--                        android:textColor="@color/black"/>-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        android:layout_marginTop="5dp"-->
-<!--                        android:text="Tổng cộng (1 sản phẩm):   35,000 đ"-->
-<!--                        android:textColor="@color/black"/>-->
-<!--                </LinearLayout>-->
-<!--            </LinearLayout>-->
-<!--            <TextView-->
-<!--                android:layout_gravity="end"-->
-<!--                android:layout_weight="1"-->
-<!--                android:background="@drawable/custom_border_btn"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Đánh giá" />-->
-<!--        </LinearLayout>-->
-
-<!--        <LinearLayout-->
-<!--            android:padding="10dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:background="@drawable/custom_border_checkout"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:orientation="vertical"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:paddingStart = "10dp">-->
-
-
-<!--            <LinearLayout-->
-<!--                android:padding="5dp"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:layout_height="wrap_content">-->
-<!--                <androidx.cardview.widget.CardView-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    app:cardCornerRadius="@dimen/_10sdp">-->
-<!--                    <ImageView-->
-
-<!--                        android:layout_width="@dimen/_50sdp"-->
-<!--                        android:layout_height="@dimen/_50sdp"-->
-<!--                        android:layout_marginTop="8dp"-->
-<!--                        android:layout_gravity="center"-->
-<!--                        android:background="@color/white"-->
-<!--                        android:src="@drawable/phindi_hanh_nhan"-->
-<!--                        />-->
-<!--                </androidx.cardview.widget.CardView>-->
-
-<!--                <LinearLayout-->
-<!--                    android:padding="5dp"-->
-<!--                    android:layout_width="320dp"-->
-<!--                    android:orientation="vertical"-->
-<!--                    android:layout_height="wrap_content">-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        android:text="Phindi Hạnh Nhân                    Size: M"-->
-<!--                        android:textColor="@color/black"-->
-<!--                        android:textStyle="bold"/>-->
-
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        android:text="Quantity: 1"-->
-<!--                        android:textSize="11dp"-->
-<!--                        android:textColor="@color/black"/>-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        android:textSize="11dp"-->
-<!--                        android:text="Topping: Thạch Cafe"-->
-<!--                        android:textColor="@color/black"/>-->
-<!--                    <TextView-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginStart="10dp"-->
-<!--                        android:layout_marginTop="5dp"-->
-<!--                        android:text="Tổng cộng (1 sản phẩm):   55,000 đ"-->
-<!--                        android:textColor="@color/black"/>-->
-<!--                </LinearLayout>-->
-<!--            </LinearLayout>-->
-<!--            <TextView-->
-<!--                android:layout_gravity="end"-->
-<!--                android:layout_weight="1"-->
-<!--                android:background="@drawable/custom_border_btn"-->
-<!--                android:textColor="@color/white"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="Đánh giá" />-->
-<!--        </LinearLayout>-->
-
-
-        <!-- Target view below -->
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -434,7 +189,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Tình trạng"
+                        android:text="@string/ttdh"
                         android:textColor="@color/black"
                         android:textStyle="bold"></TextView>
                     <View
@@ -474,7 +229,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Hình thức thanh toán"
+                        android:text="@string/httt"
                         android:textColor="@color/black"
                         android:textStyle="bold"></TextView>
                     <View
@@ -536,7 +291,51 @@
                         android:text="140,000 đ" />
                 </LinearLayout>
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cancelOrderDetail"
+                android:visibility="gone"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/custom_border_checkout"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+                <LinearLayout
+
+                    android:padding="5dp"
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:text="@string/cancelOrderDetail"
+                        android:layout_weight="1"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:layout_height="wrap_content">
+                    </TextView>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_weight="8"
+                        android:layout_height="0dp">
+                    </View>
+                    <TextView
+                        android:id="@+id/cancelOrderDetailTV"
+                        android:background="@drawable/custom_border_btn"
+                        android:layout_width="wrap_content"
+                        android:text="@string/okeCancel"
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:textStyle="bold"
+                        android:gravity="center"
+                        android:layout_height="wrap_content">
+                    </TextView>
+
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
+
 
 
     </LinearLayout>
