@@ -8,16 +8,27 @@
     android:orientation="vertical"
     tools:context=".Admin.pages.user.Users">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="User List"
+        android:textColor="@color/black"
+        android:textSize="40sp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/accountRV"
         android:layout_width="match_parent"
-        android:layout_height="600dp">
+        android:layout_height="0dp"
+        android:layout_weight="8">
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -25,8 +36,8 @@
             android:id="@+id/addUser"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_weight="1"
             android:layout_margin="20dp"
+            android:layout_weight="1"
             android:backgroundTint="#2196F3"
             android:text="Thêm tài khoản" />
 
@@ -34,8 +45,8 @@
             android:id="@+id/backUserBtn"
             android:layout_width="wrap_content"
             android:layout_height="60dp"
-            android:layout_weight="1"
             android:layout_margin="20dp"
+            android:layout_weight="1"
             android:backgroundTint="#FF5722"
             android:text="Quay về" />
     </LinearLayout>

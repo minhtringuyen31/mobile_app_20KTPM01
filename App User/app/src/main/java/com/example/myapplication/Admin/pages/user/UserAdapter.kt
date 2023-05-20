@@ -2,14 +2,18 @@ package com.example.myapplication.Admin.pages.user
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Admin.modals.User
 import com.example.myapplication.R
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
 class UserAdapter(private val context: Context, private val items: List<User>) :
@@ -37,6 +41,7 @@ class UserAdapter(private val context: Context, private val items: List<User>) :
         return items.size
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item: User = items[position]
         val imageView = holder.iconImageView
@@ -46,7 +51,11 @@ class UserAdapter(private val context: Context, private val items: List<User>) :
         val descTv = holder.descTextView
         descTv.text = item.getEmail()
         val dateTv = holder.createdTextView
-        dateTv.text = item.getDob()
+        dateTv.text = LocalDateTime.parse(
+            item.getDob().toString(),
+            DateTimeFormatter.ISO_DATE_TIME
+        )
+            .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
         val phoneTv = holder.phoneTextView
         phoneTv.text = item.getPhone()
         val disableIv = holder.disableTextView

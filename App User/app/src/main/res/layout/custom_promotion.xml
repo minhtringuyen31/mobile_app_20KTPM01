@@ -48,7 +48,7 @@
         android:layout_marginStart="20dp"
         android:layout_toEndOf="@id/imageview1"
         android:gravity="center"
-        android:text="Discount: 99%"
+        android:text="99%"
         android:textColor="#000000"
         android:textSize="15sp" />
 
@@ -66,7 +66,7 @@
 
     <TextView
         android:id="@+id/promotionEndDate"
-        android:layout_width="100dp"
+        android:layout_width="170dp"
         android:layout_height="30dp"
         android:layout_below="@+id/promotionName"
         android:layout_marginStart="20dp"
