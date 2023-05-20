@@ -1,5 +1,25 @@
 import DB from '../configs/db.js';
 const OrderRepository = {
+  async totalOrder() {
+    const query = `SELECT SUM(total) AS total FROM orders WHERE status = 2`;
+    try {
+      const [result] = await DB.pool().query(query);
+      return result[0].total;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async countOrder() {
+    const query = `SELECT COUNT(*) AS count FROM orders`;
+    try {
+      const [result] = await DB.pool().query(query);
+      return result[0].count;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
   async changeStatus(id, status) {
     const query = `UPDATE orders SET status=? WHERE id=?`;
     const values = [status, id];

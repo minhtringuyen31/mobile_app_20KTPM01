@@ -23,6 +23,9 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="tiramisu">
         <activity
+            android:name=".Admin.pages.statistics.Statistics"
+            android:exported="false" />
+        <activity
             android:name=".Admin.pages.user.UserDetail"
             android:exported="false" />
         <activity
@@ -94,6 +97,7 @@
         <activity
             android:name=".Admin.pages.category.AddCategory"
             android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="${MAPS_API_KEY}" />

@@ -1,10 +1,12 @@
 import PromotionRepository from '../repositories/Promotion.repository.js';
 import { v2 as cloudinary } from 'cloudinary';
 const PromotionServices = {
+  async countPromotion() {
+    return await PromotionRepository.countPromotion();
+  },
   async changeIsDisable(id, isDisable) {
     return await PromotionRepository.changeIsDisable(id, isDisable);
   },
-  // Đừng thắc mắc tại sao không gọi trực tiếp từ Respository --> Respository chỉ nơi CRUD database, còn services mình tự implement tuy thuộc vào yêu cầu !!
   async create(
     name,
     description,

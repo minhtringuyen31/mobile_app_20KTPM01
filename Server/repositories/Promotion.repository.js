@@ -1,5 +1,15 @@
 import DB from '../configs/db.js';
 const PromotionRepository = {
+  async countPromotion() {
+    const query = `SELECT COUNT(*) AS count FROM promotion`;
+    try {
+      const [result] = await DB.pool().query(query);
+      return result[0].count;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
   async changeIsDisable(id, isDisable) {
     const query = `UPDATE promotion SET is_disable=? WHERE id=?`;
     const values = [isDisable, id];

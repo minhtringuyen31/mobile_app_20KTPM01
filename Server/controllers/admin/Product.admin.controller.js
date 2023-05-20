@@ -1,6 +1,14 @@
 import ProductServices from '../../services/Product.service.js';
 
 const ProductAdminController = {
+  countProduct: async (req, res) => {
+    const count = await ProductServices.countProduct();
+    if (count) {
+      res.status(200).send({ count });
+    } else {
+      res.status(404).send({ status: 0, message: 'Failed' });
+    }
+  },
   disable: async (req, res) => {
     const id = req.params.id;
     const userDisable = await ProductServices.changeIsDisable(id, 1);

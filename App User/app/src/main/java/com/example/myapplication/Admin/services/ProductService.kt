@@ -1,6 +1,7 @@
 package com.example.myapplication.Admin.services
 
 import com.example.myapplication.Admin.modals.Product
+import com.example.myapplication.Admin.modals.countProduct
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.http.*
@@ -65,4 +66,7 @@ interface ProductService {
 
     @PUT("product/unavailable/{id}")
     suspend fun unavailableProduct(@Path("id") productId: Int): Boolean
+
+    @GET("product/count")
+    suspend fun countProduct(): countProduct
 }

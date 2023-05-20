@@ -112,6 +112,7 @@ class EditPromotion : AppCompatActivity() {
 
         findViewById<Button>(R.id.editPromotion_cancelBtn).setOnClickListener {
             val intent = Intent(this, PromotionDetail::class.java)
+            intent.putExtra("promotionId", promotionId)
             startActivity(intent)
         }
 
