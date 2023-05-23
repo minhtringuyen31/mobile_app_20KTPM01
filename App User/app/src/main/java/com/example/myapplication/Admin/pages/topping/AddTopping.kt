@@ -25,6 +25,7 @@ class AddTopping : AppCompatActivity() {
         val categoryViewProvider = ViewModelProvider(this)[CategoryController::class.java]
         categoryViewProvider.getAllCategory().observe(this) {
             categories = it
+            categories = categories.reversed()
             val toppingsListName = mutableListOf<String>()
             for (topping in categories) {
                 topping.getName()?.let { it1 -> toppingsListName.add(it1) }

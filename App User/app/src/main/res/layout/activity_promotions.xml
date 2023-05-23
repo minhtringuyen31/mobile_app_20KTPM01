@@ -8,11 +8,20 @@
     android:orientation="vertical"
     tools:context=".Admin.pages.promotion.Promotions">
 
+    <AutoCompleteTextView
+        android:id="@+id/searchPromotion"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_weight="1"
+        android:hint="Search..." />
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:gravity="center"
-        android:paddingBottom="30dp"
         android:text="Promotion List"
         android:textColor="@color/black"
         android:textSize="40sp" />
@@ -20,11 +29,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/promotionRV"
         android:layout_width="match_parent"
-        android:layout_height="600dp" />
+        android:layout_height="0dp"
+        android:layout_weight="7" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
         android:orientation="horizontal">
 
         <Button

@@ -4,13 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
     android:orientation="vertical"
     tools:context=".Admin.pages.order.Orders">
 
+    <Spinner
+        android:id="@+id/orderSpinner"
+        android:layout_marginEnd="20dp"
+        android:layout_gravity="end"
+        android:layout_width="150dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
         android:text="Order List"
@@ -23,18 +30,17 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/orderRV"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:layout_weight="8">
+        android:layout_height="0dp"
+        android:layout_weight="7">
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
         android:orientation="horizontal">
-
 
         <Button
             android:id="@+id/backOrderBtn"

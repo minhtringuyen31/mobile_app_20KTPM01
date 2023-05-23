@@ -64,6 +64,7 @@ class AddProduct : AppCompatActivity() {
         val categoryViewAdapter = ViewModelProvider(this)[CategoryController::class.java]
         categoryViewAdapter.getAllCategory().observe(this) {
             categories = it
+            categories = categories.reversed()
             val categoriesListName = mutableListOf<String>()
             for (category in categories) {
                 category.getName()?.let { it1 -> categoriesListName.add(it1) }
