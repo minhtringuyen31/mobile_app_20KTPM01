@@ -1,11 +1,11 @@
 package com.example.myapplication.pages.fragments
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentTransaction
 import androidx.viewpager.widget.ViewPager
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
@@ -73,10 +73,22 @@ class Activities : Fragment(){
         requireFragmentManager().beginTransaction()
             .add(OnGoingOrder(),"Cancel")
             .addToBackStack("Homepage").commit()
-        adapter.addFragment(fragmentOnGoing, "Đang xử lý")
-        adapter.addFragment(fragmentConfirmOrder, "Đơn hàng được xác nhận")
-        adapter.addFragment(fragmentHistory, "Giao hàng thành công")
-        adapter.addFragment(fragmentCancel, "Khác")
+        val sharedPreference=view.context.getSharedPreferences("Setting", Activity.MODE_PRIVATE)
+        val language=sharedPreference.getString("My_Lang","")
+        if (language != null&&language=="vn") {
+
+            adapter.addFragment(fragmentOnGoing, "Đang xử lý")
+            adapter.addFragment(fragmentConfirmOrder, "Đơn hàng được xác nhận")
+            adapter.addFragment(fragmentHistory, "Giao hàng thành công")
+            adapter.addFragment(fragmentCancel, "Khác")
+        }
+        else{
+            adapter.addFragment(fragmentOnGoing, "On Going")
+            adapter.addFragment(fragmentConfirmOrder, "Order confirmed")
+            adapter.addFragment(fragmentHistory, "Delivery successful")
+            adapter.addFragment(fragmentCancel, "Other")
+        }
+
 
         viewPager.adapter = adapter
     }

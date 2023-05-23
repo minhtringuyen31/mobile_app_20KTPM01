@@ -5,13 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.modals.Notification
-import com.example.myapplication.modals.Product
-import org.w3c.dom.Text
 
 class NotificationListAdapter(
     private var notificationList: ArrayList<Notification>
@@ -53,7 +50,7 @@ class NotificationListAdapter(
         val notificationDescription = holder.notificationDescriptionTV
 
         notificationSubTitle.text = notification.getSubTitle()
-        notificationTime.text = notification.getTime()
+        notificationTime.text = notification.getTime().take(10)
         notificationTitle.text = notification.getTitle()
         notificationDescription.text = notification.getDescription()
 

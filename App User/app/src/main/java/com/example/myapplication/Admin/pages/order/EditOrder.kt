@@ -14,9 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.example.myapplication.Admin.controllers.OrderController
-import com.example.myapplication.Admin.controllers.OrderProductController
-import com.example.myapplication.Admin.controllers.UserController
+import com.example.myapplication.Admin.controllers.*
 import com.example.myapplication.Admin.modals.Order
 import com.example.myapplication.R
 import com.example.myapplication.socket.SocketHandler
@@ -28,7 +26,7 @@ import java.time.format.DateTimeFormatter
 
 class EditOrder : AppCompatActivity() {
     private var orderStatus: Int? = null
-    private  var user_id:Int=0;
+    private var user_id: Int = 0;
 
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
@@ -62,7 +60,7 @@ class EditOrder : AppCompatActivity() {
 
                 var gson = Gson()
                 var jsonString = gson.toJson(order)
-                mSocket.emit("confirmOrder",jsonString)
+                mSocket.emit("confirmOrder", jsonString)
                 val intent = Intent(this, Orders::class.java)
                 startActivity(intent)
                 dialog.cancel()
@@ -105,7 +103,7 @@ class EditOrder : AppCompatActivity() {
                 orderProvider.changeDeliveredStatus(orderId!!.toInt()).observe(this) {}
                 var gson = Gson()
                 var jsonString = gson.toJson(order)
-                mSocket.emit("deliverySuccess",jsonString)
+                mSocket.emit("deliverySuccess", jsonString)
                 val intent = Intent(this, Orders::class.java)
                 startActivity(intent)
                 dialog.cancel()
@@ -126,7 +124,16 @@ class EditOrder : AppCompatActivity() {
                 Glide.with(this).load(user.getAvatar()).fitCenter()
                     .into(findViewById(R.id.userOrderImage))
             }
-
+            val promotionViewProvider = ViewModelProvider(this)[PromotionController::class.java]
+            val paymentMethodViewProvider =
+                ViewModelProvider(this)[PaymentMethodController::class.java]
+            promotionViewProvider.getPromotion(it.getPromotionId()!!).observe(this) { promotion ->
+                findViewById<TextView>(R.id.orderPromotion).text = promotion.getName()
+            }
+            paymentMethodViewProvider.getPaymentMethod(it.getPaymentMethodId()!!)
+                .observe(this) { paymentMethod ->
+                    findViewById<TextView>(R.id.orderPaymentMethod).text = paymentMethod.getName()
+                }
             findViewById<TextView>(R.id.orderDate).text =
                 LocalDateTime.parse(it.getOrderDate().toString(), DateTimeFormatter.ISO_DATE_TIME)
                     .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))

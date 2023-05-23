@@ -48,11 +48,13 @@
     <TextView
         android:id="@+id/orderStatus"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="20dp"
         android:text="Đang xử lý"
-        android:textColor="@color/black" />
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="@color/red" />
 
 </RelativeLayout>

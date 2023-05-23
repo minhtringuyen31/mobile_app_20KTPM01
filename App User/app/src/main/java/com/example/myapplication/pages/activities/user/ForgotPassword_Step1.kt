@@ -1,30 +1,19 @@
 package com.example.myapplication.pages.activities.user
+
 import android.content.Intent
-import android.content.SharedPreferences
-import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
 import com.example.myapplication.modals.ForgotPassRequest
 import com.example.myapplication.utils.Status
-import androidx.lifecycle.Observer
-import com.example.myapplication.viewmodels.user.ChangePassViewModel
-
 import com.example.myapplication.viewmodels.user.ForgotPasswordViewModel
-
-import java.util.*
-import javax.mail.*
-import javax.mail.internet.InternetAddress
-import javax.mail.internet.MimeMessage
-import android.util.Log
 import com.example.myapplication.viewmodels.user.UserViewModel
-import java.net.URL
-import java.security.Security
 
 
 class ForgotPassword_Step1 : AppCompatActivity() {
@@ -81,7 +70,7 @@ class ForgotPassword_Step1 : AppCompatActivity() {
                     when (resource.status) {
 // make more
                         Status.SUCCESS -> {
-                            Toast.makeText(this,"OTP đã gửi đến email của bạn!", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this,"OTP đã gửi đến email của bạn!", Toast.LENGTH_SHORT).show()
 
                             startActivity(Intent(this, ForgotPassword_Step2::class.java ).putExtra("email",fg_email.text.toString()))
                         }
@@ -96,12 +85,12 @@ class ForgotPassword_Step1 : AppCompatActivity() {
 
                             }
                             else{
-                                Toast.makeText(this, "Email không tồn tại.", Toast.LENGTH_LONG).show()
+                                Toast.makeText(this, "Email không tồn tại.", Toast.LENGTH_SHORT).show()
 
                             }
                         }
                         Status.LOADING -> {
-                            Toast.makeText(this, "Đang gửi yêu cầu", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Đang tiến hành", Toast.LENGTH_SHORT).show()
                         }
                         else -> {
 

@@ -7,17 +7,19 @@ import CartServices from '../services/Cart.service.js';
 const client = new OAuth2Client("315513977204-r4d598sk0sv9fifrhefveulu7ksi8fsg.apps.googleusercontent.com");
 const AuthenController = {
     async login(req, res) {
+        console.log(req.body);
         try {
             const [rows] = await DB.pool().query('SELECT * FROM user WHERE email = ?', [
                 req.body.email,
             ]);
             if (!rows.length) {
-                return res.status(401).json({ message: 'Invalid email or password' });
+                return res.json({ email: '', password: '', token: '', userID: -1, role: -1, status: -1 });
             }
             const user = rows[0];
+            console.log(user);
             const passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
             if (!passwordIsValid) {
-                return res.status(401).json({ message: 'Invalid email or password' });
+                return res.json({ email: '', password: '', token: '', userID: -1, role: -1, status: -2 });
             }
             const token = jwt.sign({ sub: user.id }, process.env.JWT_SECRET, {
                 expiresIn: '1h',
@@ -26,7 +28,7 @@ const AuthenController = {
             return res.json({ token: token, userId: user.id, role: user.role, status: 1 });
         } catch (err) {
             console.error(err);
-            return res.status(500).json({ message: 'Internal server error' });
+            return res.status(500).json({ email: '', password: '', token: '', userID: -1, role: -1, status: -3 });
         }
     },
 

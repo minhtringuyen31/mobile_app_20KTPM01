@@ -2,18 +2,17 @@ package com.example.myapplication.pages.activities.user
 
 import android.content.Intent
 import android.content.SharedPreferences
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.EditInfoRequest
-import com.example.myapplication.pages.fragments.Others
 import com.example.myapplication.utils.Status
 import com.example.myapplication.viewmodels.user.EditInfoViewModel
 
@@ -46,9 +45,6 @@ class EditProfile : AppCompatActivity() {
             intent.putExtra("FragmentToLoad", "Others")
             startActivity(intent)
         }
-
-
-
         button_saveedit.setOnClickListener {
             // {  name,email,gender,date_of_birth,address }
             val editInfoRequest=
@@ -68,21 +64,17 @@ class EditProfile : AppCompatActivity() {
                     when (resource.status) {
 
                         Status.SUCCESS -> {
-                            Toast.makeText(this,"Cập nhật thành công!", Toast.LENGTH_LONG).show()
-                            // CHUYEN HUONG VE FRAGMENT OTHERS
-//                            val fragment = Others()
-//                            val fragmentManager: FragmentManager = supportFragmentManager
-//                            val fragmentTransaction: FragmentTransaction =
-//                                fragmentManager.beginTransaction()
-//                            fragmentTransaction.add(R.id.flFragment, fragment)
-//                            fragmentTransaction.commit()
+                            Toast.makeText(this,"Cập nhật thành công!", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, MainActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            intent.putExtra("FragmentToLoad", "Others")
+                            startActivity(intent)
                         }
                         Status.ERROR -> {
-
-                            Toast.makeText(this,it.message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(this,it.message, Toast.LENGTH_SHORT).show()
                         }
                         Status.LOADING -> {
-                            Toast.makeText(this, "Loading", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Đang tiến hành", Toast.LENGTH_SHORT).show()
                         }
                         else -> {
 
@@ -94,11 +86,9 @@ class EditProfile : AppCompatActivity() {
         }
 
         button_canceledit.setOnClickListener {
-            val intent = Intent(
-                this,
-                // Signup::class.java
-                Others::class.java
-            )
+            val intent = Intent(this, MainActivity::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.putExtra("FragmentToLoad", "Others")
             startActivity(intent)
         }
 

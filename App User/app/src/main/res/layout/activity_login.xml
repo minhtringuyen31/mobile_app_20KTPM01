@@ -28,26 +28,24 @@
                 android:orientation="vertical"
                 tools:ignore="MissingConstraints">
 
-                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                <ImageView
                     android:id="@+id/floatingActionButton"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="24dp"
-                    android:layout_weight="1"
+                    android:layout_weight="0.5"
                     android:clickable="true"
                     android:contentDescription="TODO"
                     android:focusable="true"
-                    android:tint="@color/red"
-                    app:backgroundTint="@color/white"
-                    app:srcCompat="@drawable/baseline_keyboard_arrow_left_24" />
+                    android:background="@drawable/icon_hand_hi" />
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginStart="16dp"
-                    android:gravity="bottom"
-                    android:layout_weight="1.5"
+                    android:gravity="center"
+                    android:layout_weight="1.2"
                     android:fontFamily="sans-serif-medium"
                     android:text="@string/textView"
                     android:textColor="@color/white"

@@ -19,8 +19,8 @@
         android:layout_height="match_parent"
         android:fillViewport="true">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
@@ -42,8 +42,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/gray"
+
                 android:orientation="vertical">
                 <LinearLayout
                     android:layout_marginTop="10dp"
@@ -181,15 +182,19 @@
                 <ListView
                     android:id="@+id/checkboxlistView"
                     android:layout_width="match_parent"
-                    android:layout_height="150dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
+                    android:animationCache="false"
+                    android:divider="@null"
+                    android:scrollingCache="false"
+                    android:smoothScrollbar="true"
                     android:background="@drawable/custom_rounded_search" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:orientation="horizontal"
                     android:layout_margin="10dp"
-                    android:layout_height="40dp">
+                    android:layout_height="wrap_content">
                     <ImageView
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"

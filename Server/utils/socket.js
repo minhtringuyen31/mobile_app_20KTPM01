@@ -1,6 +1,7 @@
 import CategoryService from '../services/Category.service.js';
 import UserServices from '../services/User.service.js';
 import NotificationService from '../services/Notification.service.js';
+import hashcode from './hashcode.js';
 const listCategory = await CategoryService.findAll();
 const SocketListener = {
   start: function (io) {
@@ -28,11 +29,11 @@ const SocketListener = {
       });
       socket.on('confirmOrder', (data) => {
         const result = JSON.parse(data);
-
+        const name = hashcode.hashCode(result.id.toString());
         const messages = {
           data: {
             username: 'Thông báo đơn hàng',
-            description: 'Đơn hàng của bạn đã được xác nhận',
+            description: `Đơn hàng ${name} của bạn đã được xác nhận`,
           },
         };
         //id: any, user_id: any, title: any, sub_title: any, image: any, description: any, time: any, type: any, is_seen: any
@@ -42,7 +43,7 @@ const SocketListener = {
           0,
           result.user_id,
           'Xác nhận đơn hàng',
-          'Đơn hàng có mã  của bạn đã được xác nhận',
+          `Đơn hàng ${name} của bạn đã được xác nhận`,
           '',
           result.shipping_address,
           currentTime,
@@ -55,14 +56,14 @@ const SocketListener = {
       });
       socket.on('deliverySuccess', (data) => {
         const result = JSON.parse(data);
-
+        const name = hashcode.hashCode(result.id.toString())
         const currentTime = new Date();
 
         NotificationService.postNotification(
           0,
           result.user_id,
           'Giao hàng thành công',
-          'Đơn hàng có mã  của bạn đã được giao thành công',
+          `Đơn hàng có mã ${name} của bạn đã được giao thành công`,
           '',
           result.shipping_address,
           currentTime,
@@ -72,7 +73,7 @@ const SocketListener = {
         const messages = {
           data: {
             username: 'Thông báo đơn hàng',
-            description: 'Đơn hàng của bạn đã được giao thành công',
+            description: `Đơn hàng có mã ${name} của bạn đã được giao thành công`,
           },
         };
         //
@@ -82,20 +83,21 @@ const SocketListener = {
       });
       socket.on('cancelOrder', (data) => {
         const result = JSON.parse(data);
-
+        const name = hashcode.hashCode(result.id)
         const currentTime = new Date();
         const messages = {
           data: {
             username: 'Thông báo đơn hàng',
-            description: 'Đơn hàng của bạn đã bị hủy',
+            description: `Đơn hàng ${name}của bạn đã bị hủy`,
           },
         };
+
 
         NotificationService.postNotification(
           0,
           result.user_id,
           'Đơn hàng bị huỷ',
-          'Đơn hàng  của bạn bị huỷ',
+          `Đơn hàng ${name} của bạn bị huỷ`,
           '',
           result.shipping_address,
           currentTime,
@@ -107,10 +109,11 @@ const SocketListener = {
       });
       socket.on('refund', (data) => {
         const result = JSON.parse(data);
+        const name = hashcode.hashCode(result.id.toString())
         const messages = {
           data: {
             username: 'Thông báo đơn hàng',
-            description: 'Đơn hàng của bạn đã bị hủy',
+            description: `Đơn hàng ${name} của bạn đã bị hủy`,
           },
         };
         UserServices.handleTokenFireBase(result.user_id, messages, 'one');

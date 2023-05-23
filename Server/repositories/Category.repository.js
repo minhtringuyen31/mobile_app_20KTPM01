@@ -59,7 +59,7 @@ const CategoryRepository = {
   },
 
   async findAll() {
-    const query = `SELECT * FROM category ORDER BY id DESC`;
+    const query = `SELECT * FROM category `;
 
     try {
       const [rows] = await DB.pool().query(query);

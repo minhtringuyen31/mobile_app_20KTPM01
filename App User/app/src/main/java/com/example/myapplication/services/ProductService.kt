@@ -14,7 +14,8 @@ interface ProductService {
 
     @GET("products/")
     suspend fun getAllProduct(): ArrayList<Product>
-
+    @GET("products/sales")
+    suspend fun getAllProductSale(): ArrayList<Product>
     @GET("products/rating/{productId}")
     suspend fun getRating(@Path("productId") productId: Int) : Float
 

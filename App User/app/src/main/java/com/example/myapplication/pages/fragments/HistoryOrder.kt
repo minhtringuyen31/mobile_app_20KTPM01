@@ -78,7 +78,7 @@ class HistoryOrder : Fragment() {
          emptyCartTV1 = view.findViewById(R.id.emptyCartTV1)
          emptyCartTV2 = view.findViewById(R.id.emptyCartTV2)
         historyOrderListRecyclerView = view.findViewById(R.id.historyOderListRV)
-        historyOrderListAdapter = OrderListAdapter(arrayListOf())
+        historyOrderListAdapter = OrderListAdapter(arrayListOf(),2)
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
         historyOrderListRecyclerView.layoutManager = layoutManager
         historyOrderListRecyclerView.adapter=historyOrderListAdapter;

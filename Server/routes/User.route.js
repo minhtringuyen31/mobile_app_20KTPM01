@@ -20,6 +20,7 @@ UserRoute.post("/setotp",UserController.vertifyEmail)
 UserRoute.post("/checkotp",UserController.vertifyOTP)
 UserRoute.post("/sendotp",UserController. sendMail)
 //UserRoute.get("/:email",UserController.findEmail)
-
+UserRoute.post("/saveTokenFireBase", UserController.saveTokenFireBase)
+UserRoute.post("/findAllTokenFireBase", UserController.findAllTokenFireBase)
 export default UserRoute;
 

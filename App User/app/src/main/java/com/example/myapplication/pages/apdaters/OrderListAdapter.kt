@@ -6,14 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
-
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.modals.Order
 
 
 class OrderListAdapter(
-    private var orderList: ArrayList<Order>
+    private var orderList: ArrayList<Order>,
+    private var status:Int
 ): RecyclerView.Adapter<OrderListAdapter.ViewHolder>() {
     var onItemClick:((Order)-> Unit)? = null
     inner class ViewHolder(listItemView: View): RecyclerView.ViewHolder(listItemView){
@@ -40,7 +40,20 @@ class OrderListAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
-        val onGoingOrderView = inflater.inflate(R.layout.item_on_going_order, parent, false)
+        var onGoingOrderView =  inflater.inflate(R.layout.item_on_going_order, parent, false)
+        if(status==0)
+        {
+             onGoingOrderView = inflater.inflate(R.layout.item_on_going_order, parent, false)
+        }
+        else if(status==1) {
+             onGoingOrderView = inflater.inflate(R.layout.item_confirm_order, parent, false)
+        }
+        else if(status==2) {
+             onGoingOrderView = inflater.inflate(R.layout.item_success_order, parent, false)
+        }
+        else if(status==-1) {
+             onGoingOrderView = inflater.inflate(R.layout.item_cancel_order, parent, false)
+        }
         return ViewHolder(onGoingOrderView)
     }
 

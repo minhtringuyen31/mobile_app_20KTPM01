@@ -1,7 +1,5 @@
 package com.example.myapplication.viewmodels.authen
 
-import android.app.Application
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,22 +21,20 @@ class LoginViewModel():ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = Utils.getRetrofit().create(AuthenService::class.java).loginUser(request);
-                println(response)
+                println("Trả về "+response)
                 Resource.loading(data = null)
                 if(response.getStatusUser()==1){
-//                    val sharedPreferences = getApplication<Application>().getSharedPreferences("myPrefs", Context.MODE_PRIVATE)
-//                    val editor = sharedPreferences.edit()
-//                    editor.putString("userId", response.getUserId())
-//                    editor.apply()
-
                     _loginResult.postValue( Resource.success(data=response))
-
-
+                }
+//                else if(response.getStatusUser()==-1){
+//                    _loginResult.postValue( Resource.error(data=null, message = "Gmail chưa đăng kí tài khoản"))
+//                }
+                else if(response.getStatusUser()==-2){
+                    _loginResult.postValue( Resource.error(data=null, message = "Sai mật khẩu hoặc tên đăng nhập"))
                 }
                 else
                 {
-
-                    _loginResult.postValue( Resource.error(data=null, message = "No Found!"))
+                    _loginResult.postValue( Resource.error(data=null, message = "không tìm thấy tài khoản"))
                 }
 
             } catch (e: Exception) {
@@ -57,8 +53,7 @@ class LoginViewModel():ViewModel() {
                 }
                 else
                 {
-
-                    _loginResult.postValue( Resource.error(data=null, message = "No Found!"))
+                    _loginResult.postValue( Resource.error(data=null, message = "Không tìm thấy tài khoản"))
                 }
 
 

@@ -103,6 +103,15 @@ const ProductController = {
             res.status(404).send({ status: 0, message: "Failed" });
         }
     },
+    async findAllSales(req, res) {
+        console.log("dwgsdaf")
+        const orders = await ProductService.findAllSales();
+        if (orders) {
+            res.status(200).send(orders);
+        } else {
+            res.status(404).send({ status: 0, message: "Failed" });
+        }
+    },
     test(req, res) {
         res.send("Test API from Product")
     },

@@ -11,10 +11,10 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.modals.OrderProductDetail
 import com.example.myapplication.utils.Utils
-import org.w3c.dom.Text
 
 class OrderProductListAdapter(
-    private var orderProductList: ArrayList<OrderProductDetail>
+    private var orderProductList: ArrayList<OrderProductDetail>,
+    private var status:Int,
 ): RecyclerView.Adapter<OrderProductListAdapter.ViewHolder>(){
     var onRatingClick:((OrderProductDetail) -> Unit)? = null
     var onBuyAgainClick:((OrderProductDetail) -> Unit)? = null
@@ -28,10 +28,19 @@ class OrderProductListAdapter(
         val orderProductRatingBtn : TextView = listItemView.findViewById(R.id.orderDetailItemRatingBtn)
         val orderProductBuyAgainBtn : TextView = listItemView.findViewById(R.id.orderDetailItemBuyAgainBtn)
 
+
         init {
+            if(status==2){
+                orderProductRatingBtn.visibility =View.VISIBLE
+            }
+        }
+        init {
+
             orderProductRatingBtn.setOnClickListener {
+                println("123232323")
                 onRatingClick?.invoke(orderProductList[position])
             }
+
         }
 
         init {

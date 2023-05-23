@@ -38,6 +38,7 @@ class AppViewModel:ViewModel() {
                  categoryViewModel.getCategories()
                  productViewModel = ViewModelProvider(viewModelStoreOwner)[ProductViewModel::class.java]
                  productViewModel.getProducts()
+                 productViewModel.getProductsSales()
                  promotionViewModel = ViewModelProvider(viewModelStoreOwner)[PromotionViewModel::class.java]
                  promotionViewModel.getPromotions()
                  toppingViewModel = ViewModelProvider(viewModelStoreOwner)[ToppingViewModel::class.java]

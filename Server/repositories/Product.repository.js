@@ -172,6 +172,19 @@ const ProductRepository = {
       return false;
     }
   },
+  async updateSales(id) {
+    const queryOne = `SELECT * FROM product WHERE id = ?`;
+    const [rows] = await DB.pool().query(queryOne, [id]);
+    const sales = rows[0].sales + 1;
+    const query = `UPDATE product set sales=? WHERE id = ?`;
+    try {
+      const [rows] = await DB.pool().query(query, [sales, id]);
+      return rows[0];
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
   async findAllFavProduct(userId) {
     const query = `SELECT p.* FROM favorite_product AS fp JOIN product AS p ON fp.product_id = p.id WHERE fp.user_id = ?`;
     const value = [userId];
@@ -218,6 +231,17 @@ const ProductRepository = {
       const [id, fields] = await DB.pool().query(query, values);
       console.log(id);
       return id.length > 0;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async findAllSales() {
+    const query = `SELECT * FROM product WHERE sales != 0 ORDER BY sales DESC`;
+
+    try {
+      const [rows] = await DB.pool().query(query);
+      return rows;
     } catch (error) {
       console.error(error);
       return false;

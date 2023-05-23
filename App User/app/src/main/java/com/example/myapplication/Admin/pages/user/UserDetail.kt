@@ -2,18 +2,23 @@ package com.example.myapplication.Admin.pages.user
 
 import android.app.AlertDialog
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.os.Build
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.Admin.controllers.UserController
 import com.example.myapplication.Admin.modals.User
 import com.example.myapplication.R
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class UserDetail : AppCompatActivity() {
     private lateinit var user: User
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_user_detail)
@@ -28,7 +33,11 @@ class UserDetail : AppCompatActivity() {
             findViewById<TextView>(R.id.detailUserName).text = it.getName()
             findViewById<TextView>(R.id.detailUserEmail).text = it.getEmail()
             findViewById<TextView>(R.id.detailUserGender).text = it.getGender()
-            findViewById<TextView>(R.id.detailUserDob).text = it.getDob()
+            findViewById<TextView>(R.id.detailUserDob).text = LocalDateTime.parse(
+                it.getDob().toString(),
+                DateTimeFormatter.ISO_DATE_TIME
+            )
+                .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
             findViewById<TextView>(R.id.detailUserPhone).text = it.getPhone()
             findViewById<TextView>(R.id.detailUserAddress).text = it.getAddress()
 

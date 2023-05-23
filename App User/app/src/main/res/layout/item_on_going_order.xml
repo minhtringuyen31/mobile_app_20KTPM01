@@ -22,7 +22,7 @@
 
                 <ImageView
                     android:id="@+id/orderImage"
-                    android:src="@drawable/icon_order"
+                    android:src="@drawable/pending"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_70sdp"
                     android:layout_gravity="center"

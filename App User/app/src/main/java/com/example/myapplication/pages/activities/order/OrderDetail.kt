@@ -55,7 +55,7 @@ class OrderDetail : AppCompatActivity() {
 
         StrictMode.setThreadPolicy(policy)
 
-        orderProductListAdapter = OrderProductListAdapter(arrayListOf())
+        orderProductListAdapter = OrderProductListAdapter(arrayListOf(),0)
         initViewModel()
         initUI()
         orderId = intent.getStringExtra("orderId").toString().toInt()
@@ -66,20 +66,34 @@ class OrderDetail : AppCompatActivity() {
         val methodPayment = intent.getStringExtra("paymentMethodID").toString()
         if(orderStatus=="0")
         {
+            orderProductListAdapter = OrderProductListAdapter(arrayListOf(),0)
             statusOrder.text="Đơn hàng đang chờ xác nhận"
             cancelOrderDetail.visibility = View.VISIBLE
+
         }
         else if(orderStatus=="-1")
         {
+            orderProductListAdapter = OrderProductListAdapter(arrayListOf(),-1)
             statusOrder.text="Đơn hàng bị huỷ"
             cancelOrderDetail.visibility = View.GONE
         }else if (orderStatus=="1")
         {
+            orderProductListAdapter = OrderProductListAdapter(arrayListOf(),1)
             statusOrder.text="Đơn hàng được xác nhận !"
             cancelOrderDetail.visibility = View.GONE
         }
         else if (orderStatus=="2")
         {
+            orderProductListAdapter = OrderProductListAdapter(arrayListOf(),2)
+            orderProductListAdapter.onRatingClick = { rating ->
+                val intent = Intent(
+                    this,
+                    RatingActivity::class.java
+                )
+                intent.putExtra("productId", rating.getProductId().toString())
+                startActivity(intent)
+
+            }
             statusOrder.text="Đơn hàng giao thành công"
             cancelOrderDetail.visibility = View.GONE
         }
@@ -109,15 +123,8 @@ class OrderDetail : AppCompatActivity() {
         totalTV = findViewById(R.id.totalValueTV)
         orderDetailListRV = findViewById(R.id.orderDetailRV)
 
-        orderProductListAdapter.onRatingClick = { rating ->
-            val intent = Intent(
-                this,
-                RatingActivity::class.java
-            )
-            intent.putExtra("productId", rating.getProductId().toString())
-            startActivity(intent)
 
-        }
+
 
         orderProductListAdapter.onBuyAgainClick = {product ->
 
@@ -153,18 +160,9 @@ class OrderDetail : AppCompatActivity() {
                                     startActivity(intent)
                                     finish()
                                 }
-
-
-
-
-
-
                             }
                         }
                     }
-
-
-
 
                 }.setCancelText("Huỷ")
                 .setCancelClickListener {

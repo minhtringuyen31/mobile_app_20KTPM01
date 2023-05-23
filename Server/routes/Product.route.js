@@ -6,7 +6,7 @@ const ProductRoute = express.Router();
 
 ProductRoute.get("/favorite/check", ProductController.isExistedFavProduct)
 ProductRoute.get("/favorite/:userId", ProductController.findAllFavProduct)
-
+ProductRoute.get("/sales", ProductController.findAllSales)
 // Ở đây mọi người có thể sử dụng,get,post,delete,update --> Tuỳ vào mục đích để sử dụng
 // ProductRoute.get("/testAPI", ProductController.test)
 ProductRoute.post("/create", ProductController.create)

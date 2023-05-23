@@ -1,11 +1,11 @@
 package com.example.myapplication.pages.activities.user
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.R
@@ -38,7 +38,7 @@ class Signup : AppCompatActivity() {
                         when (resource.status) {
 
                             Status.SUCCESS -> {
-                                Toast.makeText(this,"Sign up Success!", Toast.LENGTH_LONG).show()
+                                Toast.makeText(this,"Đăng kí thành công", Toast.LENGTH_SHORT).show()
                                 val intent = Intent(
                                     this,
                                     Login::class.java
@@ -54,12 +54,12 @@ class Signup : AppCompatActivity() {
                                     Toast.makeText(this, "Không được để trống mật khẩu", Toast.LENGTH_SHORT).show()
                                 }
                                 else{
-                                    Toast.makeText(this, "Email đã tồn tại.", Toast.LENGTH_LONG).show()
+                                    Toast.makeText(this, "Email đã tồn tại.", Toast.LENGTH_SHORT).show()
 //                                Toast.makeText(this,it.message, Toast.LENGTH_LONG).show()
                                 }
                             }
                             Status.LOADING -> {
-                                Toast.makeText(this, "Đang gửi yêu cầu", Toast.LENGTH_LONG).show()
+                                Toast.makeText(this, "Đang tiến hành", Toast.LENGTH_SHORT).show()
                             }
                             else -> {
 

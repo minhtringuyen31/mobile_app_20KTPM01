@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:textColor="@color/black"
-                android:text="Yêu quán từ món đầu tiên"
+                android:text="@string/yqntd"
                 android:textStyle="bold"
                 android:textSize="15dp"
                 android:visibility="gone"/>
@@ -88,7 +88,7 @@
                 android:layout_marginTop="5dp"
                 android:layout_gravity="center"
                 android:textColor="@color/black"
-                android:text="Món ngon hấp dẫn chiếm trọn trái tim! \nThả tim ngay để lưu quán bạn yêu nhé"/>
+                android:text="@string/yqntd2"/>
         </LinearLayout>
     </LinearLayout>
 

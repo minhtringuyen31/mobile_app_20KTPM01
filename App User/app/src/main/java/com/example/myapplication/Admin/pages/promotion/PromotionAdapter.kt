@@ -52,7 +52,7 @@ class PromotionAdapter(private val context: Context, private val items: List<Pro
 
         Glide.with(context).load(promotion.getImage()).fitCenter().into(promotionImage)
         promotionName.text = promotion.getName()
-        promotionDiscount.text = "Discount: " + promotion.getDiscount().toString() + "%"
+        promotionDiscount.text = promotion.getDiscount().toString() + "%"
         promotionEndDate.text = "Expired: " + LocalDateTime.parse(
             promotion.getEndDate().toString(),
             DateTimeFormatter.ISO_DATE_TIME

@@ -85,7 +85,7 @@ class OnGoingOrder : Fragment() {
         emptyCartTV1 = view.findViewById(R.id.emptyCartTV1)
         emptyCartTV2 = view.findViewById(R.id.emptyCartTV2)
         onGoingOrderListRecyclerView = view.findViewById(R.id.onGoingOderListRV)
-        onGoingOrderListAdapter = OrderListAdapter(arrayListOf())
+        onGoingOrderListAdapter = OrderListAdapter(arrayListOf(),0)
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         onGoingOrderListRecyclerView.layoutManager = layoutManager
         onGoingOrderListRecyclerView.adapter = onGoingOrderListAdapter;

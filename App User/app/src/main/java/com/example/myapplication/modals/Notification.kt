@@ -1,7 +1,5 @@
 package com.example.myapplication.modals
 
-import kotlin.reflect.typeOf
-
 class Notification(
     private var id: Int,
     private var user_id: Int,
@@ -34,7 +32,7 @@ class Notification(
         return description
     }
     fun getTime():String{
-        return time
+        return time.take(10)
     }
     fun getType():Int{
         return type

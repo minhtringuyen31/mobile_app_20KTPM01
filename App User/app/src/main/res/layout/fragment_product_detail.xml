@@ -71,6 +71,7 @@
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollView"
+        android:fillViewport="true"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
@@ -264,13 +265,22 @@
 
             </LinearLayout>
 
-
             <ListView
                 android:id="@+id/checkboxlistView"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+
+                android:visibility="gone"
                 android:background="@drawable/custom_rounded_search" />
+            <TextView
+                android:id="@+id/Notopping"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:text="Không có topping"
+                ></TextView>
 
             <LinearLayout
                 android:layout_width="match_parent"

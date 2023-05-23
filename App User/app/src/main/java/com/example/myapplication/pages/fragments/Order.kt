@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
+import android.widget.ImageView
 import android.widget.SearchView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -49,7 +49,9 @@ class Order : Fragment() {
     private lateinit var productViewModel: ProductViewModel
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
     private lateinit var  searchView:SearchView;
-
+    private lateinit var changeLayout: ImageView;
+    private var isLinearLayoutManager = true
+    private var checkChangeLayout:Boolean =true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -98,18 +100,65 @@ class Order : Fragment() {
     }
     private fun initUI(view:View){
 
+        changeLayout = view.findViewById(R.id.changeLayout)
         (activity as MainActivity).setSelectedIcon(1)
         (activity as MainActivity).showToolbarAndNavigationBar(true)
         currentCategory = view.findViewById(R.id.currentCategoryTV)
         categoryRecyclerView = view.findViewById(R.id.listCategoryRV)
         productRecyclerView = view.findViewById(R.id.listProductRV)
         searchView = view.findViewById(R.id.searchView)
-        val isLinearLayoutManager = true
+
 //        setUpProductRecyclerAdapter(view,listProduct,isLinearLayoutManager!!)
         if (isLinearLayoutManager)
             productRecyclerView.layoutManager = LinearLayoutManager(context)
         else
-            productRecyclerView.layoutManager = GridLayoutManager(context, 2)
+            productRecyclerView.layoutManager = GridLayoutManager(context,3)
+
+
+        setUpProductRecyclerAdapter(view, arrayListOf(),isLinearLayoutManager)
+        changeLayout.setOnClickListener {
+            productViewModel =  appModel.getProductViewModel()
+            if(checkChangeLayout)
+            {
+                checkChangeLayout=false;
+                productViewModel.products.observe(viewLifecycleOwner) {
+                    val products = it as ArrayList<Product>
+                    println(products)
+                    if (products.isEmpty()) {
+
+                        productRecyclerView.layoutManager = GridLayoutManager(context,3)
+                        setUpProductRecyclerAdapter(view, arrayListOf(),false)
+
+                    } else {
+
+                        productRecyclerView.layoutManager = GridLayoutManager(context,3)
+                        setUpProductRecyclerAdapter(view,products,false)
+
+                    }
+
+                }
+            }
+            else{
+                checkChangeLayout=true;
+                productViewModel.products.observe(viewLifecycleOwner) {
+                    val products = it as ArrayList<Product>
+                    println(products)
+                    if (products.isEmpty()) {
+
+                        productRecyclerView.layoutManager = LinearLayoutManager(context)
+                        setUpProductRecyclerAdapter(view, arrayListOf(),true)
+
+                    } else {
+
+                        productRecyclerView.layoutManager = LinearLayoutManager(context)
+                        setUpProductRecyclerAdapter(view,products,true)
+
+                    }
+
+                }
+            }
+
+        }
 
     }
     private fun setUpProductRecyclerAdapter(view:View,data: ArrayList<Product>, isLinearLayoutManager: Boolean) {

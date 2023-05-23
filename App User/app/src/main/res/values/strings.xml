@@ -21,6 +21,8 @@
     <string name="signup_confirmpass">Nhập lại mật khẩu</string>
     <string name="button_signup">Đăng ký</string>
     <string name="textView5">hay</string>
+    <string name="yqntd">Yêu quán từ món đầu tiên</string>
+    <string name="yqntd2">Món ngon hấp dẫn chiếm trọn trái tim! \nĐặt hàng ngay để cùng thưởng thức bạn yêu nhé</string>
     <string name="textView3">Bạn đã có tài khoản?</string>
     <string name="route_login">Đăng nhập</string>
     <string name="icon_home">Trang Chủ</string>
@@ -58,6 +60,8 @@
     <string name="okeCancel">Huỷ</string>
     <string name="ttdh">Tình trạng đơn hàng</string>
     <string name="httt">Hình thức thanh toán</string>
+    <string name="tcsp">Tất cả sản phẩm</string>
+    <string name="tksp">Tìm kiếm sản phẩm</string>
     <string name="map">Vị trí cửa hàng</string>
     <string name="editinfo">Chỉnh sửa thông tin cá nhân</string>
     <string name="ttcn">Chỉnh sửa thông tin</string>
@@ -85,10 +89,8 @@
     <string name="pttt">Phương thức thanh toán</string>
     <string name="cpttt">Chọn phương thức thanh toán</string>
     <string name="cart">Giỏ hàng của bạn</string>
-    <string name="delcart">Xóa giỏ hàng</string>
+    <string name="delcart">Xóa</string>
     <string name="dh">Đặt hàng</string>
-
-
     <string name="lsp">Loại sản phẩm</string>
     <string name="gy">Đề xuất cho bạn</string>
     <string name="chao">Chúc bạn một ngày tốt lành!</string>

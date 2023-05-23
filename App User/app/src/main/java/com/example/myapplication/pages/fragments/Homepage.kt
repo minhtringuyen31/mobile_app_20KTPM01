@@ -14,6 +14,7 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -35,6 +36,7 @@ import com.example.myapplication.pages.apdaters.interfaces.OnItemClickPromotion
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
 import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
+import com.example.myapplication.viewmodels.user.UserViewModel
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
@@ -65,6 +67,7 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnI
     private lateinit var progressBar: ProgressBar
     private val appModel: AppViewModel by activityViewModels()
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
+    private lateinit var UserProfile: UserViewModel
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,12 +90,22 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnI
         return view
     }   
     private  fun setUpViewModel(){
+
         (activity as MainActivity).showToolbarAndNavigationBar(true)
         appModel.setUpViewModel(view,this)
         val sharedPreferences: SharedPreferences =
             view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getString("userID", null)
         if(userId!=null) { appModel.setUpCartItemViewModel(this, userId.toString().toInt())
+
+            UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
+            UserProfile.getUser(userId.toInt())
+            UserProfile.user.observe(viewLifecycleOwner) {
+                val editor = sharedPreferences.edit()
+                editor.putString("name",it.getName() )
+                editor.putString("phone",it.getPhone() )
+                editor.apply()
+            };
 
         }
 
@@ -186,7 +199,7 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnI
 
        }
         //Product
-        appModel.getProductViewModel().products.observe(viewLifecycleOwner) {
+        appModel.getProductViewModel().productsSales.observe(viewLifecycleOwner) {
             if(it!=null)
             {
                 val products = it as ArrayList<Product>

@@ -7,13 +7,15 @@ import androidx.lifecycle.viewModelScope
 import com.example.myapplication.modals.Product
 import com.example.myapplication.services.ProductService
 import com.example.myapplication.utils.Utils
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class ProductViewModel: ViewModel(){
 
     private val _products = MutableLiveData<ArrayList<Product>>()
     val products: LiveData<ArrayList<Product>> = _products
+    private val _productsSales = MutableLiveData<ArrayList<Product>>()
+    val productsSales: LiveData<ArrayList<Product>> = _productsSales
     private val _product = MutableLiveData<Product>()
     val product: LiveData<Product> = _product
 
@@ -46,6 +48,18 @@ class ProductViewModel: ViewModel(){
                 val response = Utils.getRetrofit().create(ProductService::class.java).getAllProduct()
 //                val response=Utils.getRetrofit().create(ProductService::class.java).getAllProduct()
                 _products.postValue(response)
+            } catch (e: Exception) {
+                println("View: $e")
+            }
+        }
+    }
+    fun getProductsSales() {
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val response = Utils.getRetrofit().create(ProductService::class.java).getAllProductSale()
+//                val response=Utils.getRetrofit().create(ProductService::class.java).getAllProduct()
+                _productsSales.postValue(response)
+                println("Sale"+response)
             } catch (e: Exception) {
                 println("View: $e")
             }

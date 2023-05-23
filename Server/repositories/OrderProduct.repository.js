@@ -4,6 +4,7 @@ const OrderProductRepository = {
 
     console.log("Repository" + note + order_id + product_id + price + size + topping + quantity)
     const query = `INSERT INTO order_product (note, order_id, product_id,price,size,topping,quantity) VALUES (?, ?, ?, ?, ?,?,?)`;
+      
     const values = [note, order_id, product_id, price, size, topping, quantity];
     try {
       await DB.pool().query(query, values);

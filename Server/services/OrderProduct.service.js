@@ -1,9 +1,11 @@
 import OrderProductRepository from '../repositories/OrderProduct.repository.js';
+import ProductServices from './Product.service.js';
 const OrderProductServices = {
   // Đừng thắc mắc tại sao không gọi trực tiếp từ Respository --> Respository chỉ nơi CRUD database, còn services mình tự implement tuy thuộc vào yêu cầu !!
   async create(note, order_id, product_id, quantity, price, size, topping) {
 
     console.log(note, order_id, product_id, quantity, price, size, topping);
+    await ProductServices.updateSales(product_id);
     return await OrderProductRepository.create(
       note,
       order_id,

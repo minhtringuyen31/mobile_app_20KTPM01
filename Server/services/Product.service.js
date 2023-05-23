@@ -158,6 +158,12 @@ const ProductServices = {
   async isExistedFavProduct(userId, productId) {
     return await ProductRepository.isExistedFavProduct(userId, productId);
   },
+  async findAllSales() {
+    return await ProductRepository.findAllSales();
+  },
+  async updateSales(product_id) {
+    return await ProductRepository.updateSales(product_id);
+  },
   async getRating(productId) {
     return await ProductRepository.getRating(productId);
   },

@@ -19,20 +19,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-    <SearchView
-        app:submitBackground="@null"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="10dp"
-        android:id="@+id/searchView"
-        android:background="@drawable/custom_rounded_search"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:queryBackground="@null"
-        android:iconifiedByDefault="false"
-        android:layout_marginBottom="10dp"
-        android:queryHint="Tìm kiếm sản phẩm"
-        android:theme="@style/searchView"
+        android:orientation="horizontal"
         android:layout_height="wrap_content">
-    </SearchView>
+        <SearchView
+            app:submitBackground="@null"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="10dp"
+            android:id="@+id/searchView"
+            android:background="@drawable/custom_rounded_search"
+            android:layout_width="0dp"
+            android:layout_weight="9"
+            android:queryBackground="@null"
+            android:iconifiedByDefault="false"
+            android:layout_marginBottom="10dp"
+            android:queryHint="@string/tksp"
+            android:theme="@style/searchView"
+            android:layout_height="wrap_content">
+        </SearchView>
+        <ImageView
+            android:id="@+id/changeLayout"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/baseline_view_quilt_24"
+            android:layout_height="30dp">
+
+        </ImageView>
+    </LinearLayout>
+
     <TextView
         android:id="@+id/currentCategoryTV"
         android:layout_width="wrap_content"
@@ -41,15 +57,16 @@
         android:layout_marginTop="15dp"
         android:textColor="@color/brownHighland"
         android:textSize="@dimen/_14sdp"
-        android:text="TẤT CẢ SẢN PHẨM"
+        android:text="@string/tcsp"
         app:layout_constraintStart_toStartOf="@+id/listProductRV"
         app:layout_constraintTop_toBottomOf="@+id/listCategoryRV" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listProductRV"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="15dp"
+        android:layout_marginBottom="50dp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -3,21 +3,17 @@ package com.example.myapplication.pages.activities.user
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-
 import android.widget.*
-
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.Admin.pages.dashboard.Dashboard
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
-
 import com.example.myapplication.modals.LoginRequest
 import com.example.myapplication.utils.Status
 import com.example.myapplication.viewmodels.authen.LoginViewModel
 import com.example.myapplication.viewmodels.authen.SignupViewModel
-import com.example.myapplication.viewmodels.user.UserViewModel
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -42,7 +38,7 @@ class Login : AppCompatActivity() {
     private lateinit var gsc:GoogleSignInClient
     private lateinit var signupViewModel: SignupViewModel
     private var account:GoogleSignInAccount ? = null
-    private lateinit var UserProfile: UserViewModel
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -69,7 +65,6 @@ class Login : AppCompatActivity() {
            gotoSignIn()
 
         }
-
         buttonLogin.setOnClickListener {
             val preferences: SharedPreferences = this.getSharedPreferences("user", 0)
             val loginRequest =
@@ -77,15 +72,13 @@ class Login : AppCompatActivity() {
             loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
             println(loginRequest)
             loginViewModel.loginUser(loginRequest);
+            println("tưass")
             loginViewModel.statusLogin.observe(this, Observer {
                 it?.let { resource ->
                     when (resource.status) {
 
                         Status.SUCCESS -> {
-                            println(resource.data)
                             Toast.makeText(this,"Đăng nhập thành công!", Toast.LENGTH_SHORT).show()
-
-
                             if(resource.data!!.getRole()==1)
                             {
                                 val intent = Intent(
@@ -106,14 +99,6 @@ class Login : AppCompatActivity() {
                                 val editor = sharedPreferences.edit()
                                 editor.putString("userID", resource.data.getUserID().toString()).apply()
                                 editor.putString("role", "0").apply()
-                                UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
-                                UserProfile.getUser( resource.data?.getUserID()!!.toInt())
-                                UserProfile.user.observe(this) {
-                                    val editor = sharedPreferences.edit()
-                                    editor.putString("name",it.getName() )
-                                    editor.putString("phone",it.getPhone() )
-                                    editor.apply()
-                                };
 
                                 val intent = Intent(
                                     this,
@@ -134,11 +119,12 @@ class Login : AppCompatActivity() {
                                 Toast.makeText(this, "Không được để trống mật khẩu", Toast.LENGTH_SHORT).show()
                             }
                             else{
-                            Toast.makeText(this, "Sai mật khẩu hoặc tài khoản. Nếu nó đúng, hãy kiểm tra kết nối.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this, resource.message, Toast.LENGTH_SHORT).show()
                             }
+
                         }
                         Status.LOADING -> {
-                            Toast.makeText(this, "Đang đọc dữ liệu", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Đang tiến hành", Toast.LENGTH_SHORT).show()
                         }
                         else -> {
 
@@ -199,31 +185,21 @@ class Login : AppCompatActivity() {
                                     val editor = sharedPreferences.edit()
                                     editor.putString("userID", resource.data?.getUserID().toString()).apply()
                                     editor.putString("role", "0").apply()
-                                    UserProfile = ViewModelProvider(this)[UserViewModel::class.java]
-                                    UserProfile.getUser( resource.data?.getUserID()!!.toInt())
-                                    UserProfile.user.observe(this) {
-                                        if(it!=null){
-                                            val editor = sharedPreferences.edit()
-                                            editor.putString("name",it.getName() )
-                                            editor.putString("phone",it.getPhone() )
-                                            editor.apply()
 
-                                            runBlocking {
-                                                delay(2000) // Đợi 2 giây
-                                                println("Delay completed")
-                                            }
-                                            val intent = Intent(
-                                                this,
-                                                MainActivity::class.java
-                                            )
-
-                                            intent.putExtra("status","1")
-                                            startActivity(intent)
-                                            finish();
-
+                                        runBlocking {
+                                            delay(2000) // Đợi 2 giây
+                                            println("Delay completed")
                                         }
+                                        val intent = Intent(
+                                            this,
+                                            MainActivity::class.java
+                                        )
 
-                                    };
+                                        intent.putExtra("status","1")
+                                        startActivity(intent)
+                                        finish();
+
+
 
 
                                 }

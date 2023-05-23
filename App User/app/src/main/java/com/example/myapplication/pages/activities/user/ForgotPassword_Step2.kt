@@ -1,11 +1,11 @@
 package com.example.myapplication.pages.activities.user
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -50,7 +50,7 @@ class ForgotPassword_Step2 : AppCompatActivity() {
                         when (resource.status) {
 // make more
                             Status.SUCCESS -> {
-                                Toast.makeText(this, "Xác thực thành công!", Toast.LENGTH_LONG)
+                                Toast.makeText(this, "Xác thực thành công!", Toast.LENGTH_SHORT)
                                     .show()
                                 val intent = Intent(
                                     this,
@@ -72,13 +72,13 @@ class ForgotPassword_Step2 : AppCompatActivity() {
                                     Toast.makeText(
                                         this,
                                         "Mã xác thực không đúng.",
-                                        Toast.LENGTH_LONG
+                                        Toast.LENGTH_SHORT
                                     ).show()
 
                                 }
                             }
                             Status.LOADING -> {
-                                Toast.makeText(this, "Đang gửi yêu cầu", Toast.LENGTH_LONG).show()
+                                Toast.makeText(this, "Đang tiến hành", Toast.LENGTH_SHORT).show()
                             }
                             else -> {
 

@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.ChangePassRequest
-import com.example.myapplication.pages.fragments.Others
 import com.example.myapplication.utils.Status
 import com.example.myapplication.viewmodels.user.ChangePassViewModel
 
@@ -46,23 +45,27 @@ class ChangePassword : AppCompatActivity() {
             val userID = sharedPreferences.getString("userID", null)
 
             if (userID != null) {
-                println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+
                 changePassViewModel.ChangePass(userID.toInt(),changePassRequest)
 
             } // phai tim duoc id cua nguoi dung dang dang nhap
             changePassViewModel.changePass.observe(this, Observer{
                 it?.let { resource ->
-                    println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
+
                     when (resource.status) {
                         Status.SUCCESS -> {
-                            Toast.makeText(this,"Cập nhật thành công!", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this,"Cập nhật thành công!", Toast.LENGTH_SHORT).show()
+                            val intent = Intent(this, MainActivity::class.java)
+                            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                            intent.putExtra("FragmentToLoad", "Others")
+                            startActivity(intent)
                         }
                         Status.ERROR -> {
 
-                            Toast.makeText(this,it.message, Toast.LENGTH_LONG).show()
+                            Toast.makeText(this,it.message, Toast.LENGTH_SHORT).show()
                         }
                         Status.LOADING -> {
-                            Toast.makeText(this, "Loading", Toast.LENGTH_LONG).show()
+                            Toast.makeText(this, "Đang tiến hành", Toast.LENGTH_SHORT).show()
                         }
                         else -> {
 

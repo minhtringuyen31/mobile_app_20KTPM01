@@ -40,6 +40,7 @@ class MyFirebaseMessagingService :FirebaseMessagingService() {
         println(title)
         sendNotifycation(title,strMessage)
     }
+
     private fun sendNotifycation(title: String?, strMessage: String?) {
         val intent = Intent(this, MainActivity::class.java).apply {
             this.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -70,6 +71,7 @@ class MyFirebaseMessagingService :FirebaseMessagingService() {
             }
             notify(0, builder.build())
         }
+
     }
 
 

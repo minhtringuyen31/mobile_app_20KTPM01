@@ -58,6 +58,7 @@ const OrderServices = {
   async findAll() {
     return await OrderRepository.findAll();
   },
+ 
   async findByUserId(userId) {
     return await OrderRepository.findByUserId(userId);
   },

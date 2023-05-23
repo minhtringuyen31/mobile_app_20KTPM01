@@ -1,7 +1,7 @@
 import DB from '../configs/db.js';
 const NotificationRepository = {
     async getAllByUserId(userId) {
-        const query = `SELECT * FROM notification WHERE notification.user_id = ?`
+        const query = `SELECT * FROM notification WHERE notification.user_id = ? ORDER BY time DESC `
         try {
             const [rows] = await DB.pool().query(query, [userId]);
             console.log(rows)

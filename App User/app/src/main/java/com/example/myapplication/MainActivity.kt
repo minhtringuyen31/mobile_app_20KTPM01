@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -19,7 +18,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -66,7 +64,6 @@ class MainActivity : AppCompatActivity() {
 
             })
     }
-
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
@@ -111,22 +108,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showNotification() {
-//         Create an explicit intent for an Activity in your app
-        val intent = Intent(this, MainActivity::class.java).apply {
-            intent.putExtra("FragmentToOpen", "Activities") // Truyền tên Fragment cần mở
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        }
-        val pendingIntent: PendingIntent =
-            PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
-        createNotificationChannel()
-        val builder = NotificationCompat.Builder(this, "123")
-            .setSmallIcon(R.drawable.baseline_notifications_active_24)
-            .setContentTitle("My notification")
-            .setContentText("Hello World!")
-            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-            // Set the intent that will fire when the user taps the notification
-            .setContentIntent(pendingIntent)
-            .setAutoCancel(true)
+////         Create an explicit intent for an Activity in your app
+//        val intent = Intent(this, MainActivity::class.java).apply {
+//            intent.putExtra("FragmentToOpen", "Activities") // Truyền tên Fragment cần mở
+//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+//        }
+//        val pendingIntent: PendingIntent =
+//            PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+//        createNotificationChannel()
+//        val builder = NotificationCompat.Builder(this, "123")
+//            .setSmallIcon(R.drawable.baseline_notifications_active_24)
+//            .setContentTitle("My notification")
+//            .setContentText("Hello World!")
+//            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+//            // Set the intent that will fire when the user taps the notification
+//            .setContentIntent(pendingIntent)
+//            .setAutoCancel(true)
         with(NotificationManagerCompat.from(this)) {
             // notificationId is a unique int for each notification that you must define
             if (ActivityCompat.checkSelfPermission(
@@ -140,8 +137,13 @@ class MainActivity : AppCompatActivity() {
                     11111
                 )
             }
-            notify(0, builder.build())
+//            notify(0, builder.build())
         }
+    }
+    private fun isNotificationPermissionGranted(): Boolean {
+        // Kiểm tra xem quyền thông báo đã được cấp hay chưa
+        val notificationManagerCompat = NotificationManagerCompat.from(this)
+        return notificationManagerCompat.areNotificationsEnabled()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -154,13 +156,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
+
+
+        // Kiểm tra xem quyền thông báo đã được cấp hay chưa
+
         val intentStatus = intent
 
         val rootView = getWindow().getDecorView().getRootView();
 
         val status = intentStatus.getStringExtra("status")
 
-
+        if (!isNotificationPermissionGranted()) {
+            createNotificationChannel()
+            showNotification()
+        }
         toolbar = findViewById(R.id.myToolBar)
         bottomNavigationView = findViewById(R.id.bottom_nav)
         currentFragment = findViewById(R.id.flFragment)
@@ -182,12 +191,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
         Utils.activeToolbar(this, rootView)
-
-
+        handleTokenFirebase();
         val sharedPreferences =
             getSharedPreferences("user", MODE_PRIVATE)
         var role = sharedPreferences.getString("role", null)
-
 
         val userID = sharedPreferences.getString("userID", null)
         if (userID != null && userID.isNotEmpty() && role != null && role.toString() == "0") {
@@ -200,6 +207,7 @@ class MainActivity : AppCompatActivity() {
                 Dashboard::class.java
             )
             startActivity(intent)
+            finish()
         }
         else{
             if (status.toString() == "1") {
@@ -211,15 +219,16 @@ class MainActivity : AppCompatActivity() {
 
             }
             activeNavigationBar()
+
         }
-        if (intent.extras != null) {
-            val fragmentToLoad = intent.extras!!.getString("FragmentToLoad")
-            if (fragmentToLoad == "Others") {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.flFragment, Others())
-                    .commit()
-            }
-        }
+//        if (intent.extras != null) {
+//            val fragmentToLoad = intent.extras!!.getString("FragmentToLoad")
+//            if (fragmentToLoad == "Others") {
+//                supportFragmentManager.beginTransaction()
+//                    .replace(R.id.flFragment, Others())
+//                    .commit()
+//            }
+//        }
 
 //        if (intent.extras != null) {
 //            val fragmentToLoad = intent.extras!!.getString("FragmentToLoad")
@@ -237,7 +246,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        handleTokenFirebase();
+
 
     }
 
@@ -248,7 +257,6 @@ class MainActivity : AppCompatActivity() {
         if (fragment is Checkout) {
             fragment.handleNewIntent(intent)
         }
-
         if (intent != null) {
             println(intent.getStringExtra("FragmentToOpen"))
         }

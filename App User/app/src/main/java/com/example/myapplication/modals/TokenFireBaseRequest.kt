@@ -4,6 +4,7 @@ class TokenFireBaseRequest(
     private var user_id:Int,
     private var token:String,
 ) {
+    private var id:Int=0
     fun setUserID(id:String)
     {
         this.user_id=id.toInt()
