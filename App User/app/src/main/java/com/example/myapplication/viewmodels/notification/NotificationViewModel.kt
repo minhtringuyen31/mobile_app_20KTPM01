@@ -6,10 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.modals.Notification
 import com.example.myapplication.services.NotificationService
-import com.example.myapplication.services.ProductService
-import com.example.myapplication.utils.Utils
+import com.example.myapplication.utils.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
 
 class NotificationViewModel: ViewModel() {
     private val _notifications = MutableLiveData<ArrayList<Notification>>()
@@ -17,12 +17,12 @@ class NotificationViewModel: ViewModel() {
 
     private val _success = MutableLiveData<Boolean>()
     val success: LiveData<Boolean> = _success
-
+    private val retrofit: Retrofit = RetrofitClient.instance!!
     fun getNotification(userId: Int){
         viewModelScope.launch(Dispatchers.Main) {
             try {
                 val response =
-                    Utils.getRetrofit().create(NotificationService::class.java).getNotification(userId)
+                    retrofit.create(NotificationService::class.java).getNotification(userId)
                 _notifications.postValue(response)
                 println("notification $_notifications")
             } catch (e: Exception) {
@@ -35,7 +35,7 @@ class NotificationViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.Main) {
             try {
                 val response =
-                    Utils.getRetrofit().create(NotificationService::class.java).postNotification(notification)
+                    retrofit.create(NotificationService::class.java).postNotification(notification)
                 _success.postValue(response)
                 println("notification $_notifications")
             } catch (e: Exception) {

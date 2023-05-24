@@ -3,6 +3,7 @@ package com.example.myapplication
 import android.app.Application
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -10,11 +11,15 @@ import com.example.myapplication.socket.SocketHandler
 
 
 class MyApplication: Application() {
+    private val receiver: BroadcastReceiver? = null
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
         val intent = Intent(this, SocketHandler::class.java)
         startService(intent)
+
+        // Dừng máy chủ
+
     }
     private fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because

@@ -5,6 +5,8 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
@@ -19,6 +21,7 @@ import com.example.myapplication.Admin.modals.Order
 import com.example.myapplication.R
 import com.example.myapplication.socket.SocketHandler
 import com.example.myapplication.socket.SocketHandler.mSocket
+import com.example.myapplication.utils.Utils
 import com.google.gson.Gson
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -27,7 +30,10 @@ import java.time.format.DateTimeFormatter
 class EditOrder : AppCompatActivity() {
     private var orderStatus: Int? = null
     private var user_id: Int = 0;
-
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        recreate()
+    }
     @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,20 +42,19 @@ class EditOrder : AppCompatActivity() {
         SocketHandler.setSocket()
         SocketHandler.establishConnection()
         mSocket = SocketHandler.getSocket()
-
         val orderId = intent.getStringExtra("orderId")
         val order = intent.getSerializableExtra("order") as Order
         val acceptBtn = findViewById<Button>(R.id.orderDetail_AcceptBtn)
         val denyBtn = findViewById<Button>(R.id.orderDetail_DenyBtn)
         val statusBtn = findViewById<Button>(R.id.orderDetail_StatusBtn)
-
-
         val orderProvider = ViewModelProvider(this)[OrderController::class.java]
         val orderProductProvider = ViewModelProvider(this)[OrderProductController::class.java]
         val userProvider = ViewModelProvider(this)[UserController::class.java]
         findViewById<Button>(R.id.orderCancelBtn).setOnClickListener {
             val intent = Intent(this, Orders::class.java)
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent)
+            finish()
         }
         acceptBtn.setOnClickListener {
             val builder = AlertDialog.Builder(this)
@@ -60,10 +65,22 @@ class EditOrder : AppCompatActivity() {
 
                 var gson = Gson()
                 var jsonString = gson.toJson(order)
-                mSocket.emit("confirmOrder", jsonString)
+
                 val intent = Intent(this, Orders::class.java)
-                startActivity(intent)
-                dialog.cancel()
+
+                val handler = Handler(Looper.getMainLooper())
+                val loadingDialog = Utils.Companion.CustomLoadingDialog(this@EditOrder)
+                loadingDialog.show()
+                handler.postDelayed(Runnable {
+
+                    mSocket.emit("confirmOrder", jsonString)
+                    loadingDialog.dismiss()
+                    startActivity(intent)
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    dialog.cancel()
+                    finish()
+                }, 3000)
+
             }
             builder.setPositiveButton("Không") { dialog, which ->
                 dialog.cancel()
@@ -77,17 +94,27 @@ class EditOrder : AppCompatActivity() {
             builder.setCancelable(true)
             builder.setNegativeButton("Có") { dialog, which ->
                 orderProvider.changeDenyStatus(orderId!!.toInt()).observe(this) {}
-
                 var gson = Gson()
                 var jsonString = gson.toJson(order)
-                mSocket.emit("cancelOrder",jsonString)
+
 //                val refundAPI = Refund()
 //                val data: JSONObject = refundAPI.refund("1000")
 //                println(data)
                 val intent = Intent(this, Orders::class.java)
-                startActivity(intent)
+                val handler = Handler(Looper.getMainLooper())
+                val loadingDialog = Utils.Companion.CustomLoadingDialog(this@EditOrder)
+                loadingDialog.show()
+                handler.postDelayed(Runnable {
 
-                dialog.cancel()
+
+                     mSocket.emit("cancelOrder",jsonString)
+                    loadingDialog.dismiss()
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                    startActivity(intent)
+                    dialog.cancel()
+                    finish()
+                }, 3000)
+
             }
             builder.setPositiveButton("Không") { dialog, which ->
                 dialog.cancel()
@@ -103,10 +130,22 @@ class EditOrder : AppCompatActivity() {
                 orderProvider.changeDeliveredStatus(orderId!!.toInt()).observe(this) {}
                 var gson = Gson()
                 var jsonString = gson.toJson(order)
-                mSocket.emit("deliverySuccess", jsonString)
+
                 val intent = Intent(this, Orders::class.java)
-                startActivity(intent)
-                dialog.cancel()
+                val handler = Handler(Looper.getMainLooper())
+                val loadingDialog = Utils.Companion.CustomLoadingDialog(this@EditOrder)
+                loadingDialog.show()
+                handler.postDelayed(Runnable {
+
+
+                    mSocket.emit("deliverySuccess", jsonString)
+                    loadingDialog.dismiss()
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+                    startActivity(intent)
+                    dialog.cancel()
+                    finish()
+                }, 3000)
+
             }
             builder.setPositiveButton("Không") { dialog, which ->
                 dialog.cancel()

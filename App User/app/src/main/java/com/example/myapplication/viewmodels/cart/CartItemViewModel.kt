@@ -6,9 +6,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.modals.CartItem
 import com.example.myapplication.services.CartItemService
-import com.example.myapplication.utils.Utils
+import com.example.myapplication.utils.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
 
 class CartItemViewModel:ViewModel() {
     private val _cartItems = MutableLiveData<ArrayList<CartItem>>()
@@ -19,6 +20,8 @@ class CartItemViewModel:ViewModel() {
 
     private val _newCartItem = MutableLiveData<CartItem>()
     val newCategory: LiveData<CartItem> = _newCartItem
+    private val retrofit: Retrofit = RetrofitClient.instance!!
+
 
 //    fun getAllItemsCart() {
 //        // App 2 thread MainThread(UI Thread) và Background Thread --> ANR
@@ -38,7 +41,7 @@ class CartItemViewModel:ViewModel() {
         // App 2 thread MainThread(UI Thread) và Background Thread --> ANR
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = Utils.getRetrofit().create(CartItemService::class.java).getCartItem(userId)
+                val response = retrofit.create(CartItemService::class.java).getCartItem(userId)
                 _cartItems.postValue(response) // để đảm bảo rằng các giá trị được cập nhật trên luồng phụ (background thread).
                 println(response)
             } catch (e: Exception) {
@@ -50,7 +53,7 @@ class CartItemViewModel:ViewModel() {
     fun deleteCartItem(id:Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = Utils.getRetrofit().create(CartItemService::class.java).deleteCartItem(id)
+                val response = retrofit.create(CartItemService::class.java).deleteCartItem(id)
                 _status.postValue(response)
             } catch (e: Exception) {
                 // handle error
@@ -60,7 +63,7 @@ class CartItemViewModel:ViewModel() {
     fun removeAllCartItem(userID:Int){
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = Utils.getRetrofit().create(CartItemService::class.java).removeAll(userID)
+                val response = retrofit.create(CartItemService::class.java).removeAll(userID)
                 _status.postValue(response)
             } catch (e: Exception) {
                 // handle error
@@ -72,7 +75,7 @@ class CartItemViewModel:ViewModel() {
     fun createCartItem(cartItem:CartItem) {
         viewModelScope.launch {
             try {
-                val response = Utils.getRetrofit().create(CartItemService::class.java).createCartItem(cartItem)
+                val response =retrofit.create(CartItemService::class.java).createCartItem(cartItem)
                 println("View: $response")
                 _newCartItem.postValue(response)
             } catch (e: Exception) {
@@ -83,7 +86,7 @@ class CartItemViewModel:ViewModel() {
     fun updateCartItem(id:Int,cartItem:CartItem) {
         viewModelScope.launch {
             try {
-                val response = Utils.getRetrofit().create(CartItemService::class.java).updateCartItem(id,cartItem)
+                val response = retrofit.create(CartItemService::class.java).updateCartItem(id,cartItem)
                 println("View: $response")
                 _newCartItem.postValue(response)
             } catch (e: Exception) {

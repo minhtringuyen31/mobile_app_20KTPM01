@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.modals.OrderProduct
 import com.example.myapplication.services.CheckoutService
-import com.example.myapplication.utils.Utils
+import com.example.myapplication.utils.RetrofitClient
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
 
 class CheckoutViewModel:ViewModel() {
 
@@ -21,7 +22,7 @@ class CheckoutViewModel:ViewModel() {
     private var fromWhere = ""
     private val _newOrderProduct = MutableLiveData<OrderProduct>()
     val newOrderProduct: LiveData<OrderProduct> = _newOrderProduct
-
+    private val retrofit: Retrofit = RetrofitClient.instance!!
     fun setpromontionID(id:String)
     {
         this.promontionID = id.toInt()
@@ -81,7 +82,7 @@ class CheckoutViewModel:ViewModel() {
     fun createOrderProduct(orderProduct: OrderProduct) {
         viewModelScope.launch {
             try {
-                val response = Utils.getRetrofit().create(CheckoutService::class.java).createOrderProduct(orderProduct);
+                val response = retrofit.create(CheckoutService::class.java).createOrderProduct(orderProduct);
                 println("View: $response")
                 _newOrderProduct.postValue(response)
             } catch (e: Exception) {

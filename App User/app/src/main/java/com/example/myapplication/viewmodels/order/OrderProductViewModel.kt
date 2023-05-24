@@ -4,20 +4,16 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.myapplication.modals.Order
-import com.example.myapplication.modals.OrderProduct
 import com.example.myapplication.modals.OrderProductDetail
-import com.example.myapplication.modals.Product
 import com.example.myapplication.services.OrderProductService
-import com.example.myapplication.services.ProductService
-import com.example.myapplication.utils.Utils
+import com.example.myapplication.utils.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import retrofit2.create
+import retrofit2.Retrofit
 
 class OrderProductViewModel: ViewModel() {
     private val _orderProduct = MutableLiveData<ArrayList<OrderProductDetail>>()
-
+    private val retrofit: Retrofit = RetrofitClient.instance!!
     val orderProduct: LiveData<ArrayList<OrderProductDetail>> = _orderProduct
 
 
@@ -25,7 +21,7 @@ class OrderProductViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.IO){
             try{
 
-                val response = Utils.getRetrofit().create(OrderProductService::class.java).getAddProductOfOrder(orderId)
+                val response = retrofit.create(OrderProductService::class.java).getAddProductOfOrder(orderId)
                 _orderProduct.postValue(response)
                 println(_orderProduct)
 

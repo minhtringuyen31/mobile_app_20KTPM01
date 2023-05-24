@@ -155,9 +155,6 @@ class MainActivity : AppCompatActivity() {
 
         setContentView(R.layout.activity_main)
 
-
-
-
         // Kiểm tra xem quyền thông báo đã được cấp hay chưa
 
         val intentStatus = intent
@@ -202,6 +199,7 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(
                 this,
                 Dashboard::class.java
+
             )
             startActivity(intent)
             finish()

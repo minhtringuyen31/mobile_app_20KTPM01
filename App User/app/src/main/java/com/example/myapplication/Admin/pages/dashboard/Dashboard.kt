@@ -18,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Admin.modals.DashboardItems
 import com.example.myapplication.R
 import com.example.myapplication.pages.activities.user.Login
+import com.example.myapplication.socket.SocketHandler
+import com.tapadoo.alerter.Alerter
 
 
 class Dashboard : AppCompatActivity() {
@@ -108,6 +110,23 @@ class Dashboard : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
+        SocketHandler.setSocket()
+        SocketHandler.establishConnection()
+        SocketHandler.mSocket = SocketHandler.getSocket()
+        SocketHandler.mSocket.emit("login","41")
+
+        SocketHandler.mSocket.on("confirmSocket"){ args ->
+            if (args[0] != null) {
+                val counter = args[0]
+                Alerter.create(this)
+                    .setTitle("Đơn hàng")
+                    .setIcon(R.drawable.confirm)
+                    .setText(counter.toString())
+                    .setBackgroundColorRes(R.color.redHighland) //
+                    .show()
+            }
+        }
+
         if (!isNotificationPermissionGranted()) {
             createNotificationChannel()
             showNotification()
@@ -141,5 +160,11 @@ class Dashboard : AppCompatActivity() {
         rvDashboard.adapter = adapter
 
         rvDashboard.layoutManager = GridLayoutManager(this, 2)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+
     }
 }

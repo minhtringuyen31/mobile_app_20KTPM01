@@ -7,20 +7,22 @@ import androidx.lifecycle.viewModelScope
 import com.example.myapplication.modals.LoginRequest
 import com.example.myapplication.services.AuthenService
 import com.example.myapplication.utils.Resource
-import com.example.myapplication.utils.Utils
+import com.example.myapplication.utils.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
 
 
 class LoginViewModel():ViewModel() {
     private var _loginResult: MutableLiveData<Resource<LoginRequest>> = MutableLiveData()
     val statusLogin: LiveData<Resource<LoginRequest>> = _loginResult
+    private val retrofit: Retrofit = RetrofitClient.instance!!
 
 //application: Application
     fun loginUser(request: LoginRequest) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = Utils.getRetrofit().create(AuthenService::class.java).loginUser(request);
+                val response = retrofit.create(AuthenService::class.java).loginUser(request);
                 println("Trả về "+response)
                 Resource.loading(data = null)
                 if(response.getStatusUser()==1){
@@ -46,7 +48,7 @@ class LoginViewModel():ViewModel() {
     fun signIn(idToken:String){
         viewModelScope.launch(Dispatchers.Main) {
             try {
-                val response =Utils.getRetrofit().create(AuthenService::class.java).signIn(idToken)
+                val response =retrofit.create(AuthenService::class.java).signIn(idToken)
                 Resource.loading(data = null)
                 if(response.getStatusUser()==1){
                     _loginResult.postValue( Resource.success(data=response))

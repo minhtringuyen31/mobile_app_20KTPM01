@@ -45,10 +45,7 @@ class AppViewModel:ViewModel() {
                  toppingViewModel.getToppings()
                  cartItemViewModel = ViewModelProvider(viewModelStoreOwner)[CartItemViewModel::class.java]
 //                 cartItemViewModel.getItemsCart()
-
                  favProductViewModel = ViewModelProvider(viewModelStoreOwner)[FavProductViewModel::class.java]
-
-                 println("Current view-model: ${Thread.currentThread().name}")
              }
          }
     }
@@ -57,7 +54,6 @@ class AppViewModel:ViewModel() {
             withContext(Dispatchers.IO) {
                 categoryViewModel = ViewModelProvider(viewModelStoreOwner)[CategoryViewModel::class.java]
                 categoryViewModel.getCategories()
-                println("Current view-model: ${Thread.currentThread().name}")
             }
         }
 
@@ -67,7 +63,6 @@ class AppViewModel:ViewModel() {
             withContext(Dispatchers.IO) {
                 productViewModel = ViewModelProvider(viewModelStoreOwner)[ProductViewModel::class.java]
                 productViewModel.getProducts()
-                println("Current view-model: ${Thread.currentThread().name}")
             }
         }
 
@@ -80,7 +75,6 @@ class AppViewModel:ViewModel() {
             withContext(Dispatchers.IO) {
                 promotionViewModel = ViewModelProvider(viewModelStoreOwner)[PromotionViewModel::class.java]
                 promotionViewModel.getPromotions()
-                println("Current viewmodel: ${Thread.currentThread().name}")
             }
         }
 
@@ -92,8 +86,6 @@ class AppViewModel:ViewModel() {
             withContext(Dispatchers.Main) {
                 cartItemViewModel = ViewModelProvider(viewModelStoreOwner)[CartItemViewModel::class.java]
                 cartItemViewModel.getItemsCart(userId)
-
-                println("Current view-model: ${Thread.currentThread().name}")
             }
         }
     }
@@ -146,7 +138,6 @@ class AppViewModel:ViewModel() {
             withContext(Dispatchers.Main){
                 ratingViewModel = ViewModelProvider(viewModelStoreOwner)[RatingViewModel::class.java]
                 ratingViewModel.getRating(productId)
-                println("Current view-model: ${Thread.currentThread().name}")
             }
         }
     }
@@ -157,13 +148,12 @@ class AppViewModel:ViewModel() {
             withContext(Dispatchers.IO) {
                 toppingViewModel = ViewModelProvider(viewModelStoreOwner)[ToppingViewModel::class.java]
                 toppingViewModel.getToppings()
-                println("Current view-model: ${Thread.currentThread().name}")
+
             }
         }
 
 
     }
-
 
     fun getCategoryViewModel(): CategoryViewModel {
         return this.categoryViewModel

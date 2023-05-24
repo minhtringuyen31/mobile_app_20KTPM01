@@ -11,17 +11,18 @@ import com.example.myapplication.modals.RefundOrder
 import com.example.myapplication.services.CheckoutService
 import com.example.myapplication.services.OrderService
 import com.example.myapplication.socket.SocketHandler
-import com.example.myapplication.utils.Utils
+import com.example.myapplication.utils.RetrofitClient
 import com.google.gson.Gson
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
 
 class OrderViewModel :ViewModel(){
     private val _orderProduct = MutableLiveData<ArrayList<Order>>()
     val orderProduct: LiveData<ArrayList<Order>> = _orderProduct
     private val _newOrder = MutableLiveData<Order>()
     val order: LiveData<Order> = _newOrder
-
+    private val retrofit: Retrofit = RetrofitClient.instance!!
 
     private val _newOrder1 = MutableLiveData<RefundOrder>()
     val order1: LiveData<RefundOrder> = _newOrder1
@@ -31,7 +32,7 @@ class OrderViewModel :ViewModel(){
         // App 2 thread; MainThread(UI Thread) và Background Thread --> ANR
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = Utils.getRetrofit().create(OrderService::class.java).getOrder(userId)
+                val response = retrofit.create(OrderService::class.java).getOrder(userId)
                 _orderProduct.postValue(response) // để đảm bảo rằng các giá trị được cập nhật trên luồng phụ (background thread).
                 println(response)
 //                println(_orderProduct)
@@ -45,7 +46,7 @@ class OrderViewModel :ViewModel(){
         // App 2 thread; MainThread(UI Thread) và Background Thread --> ANR
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val response = Utils.getRetrofit().create(OrderService::class.java).getAllOnGoingOrder()
+                val response = retrofit.create(OrderService::class.java).getAllOnGoingOrder()
                 _orderProduct.postValue(response) // để đảm bảo rằng các giá trị được cập nhật trên luồng phụ (background thread).
                 println(response)
             } catch (e: Exception) {
@@ -58,7 +59,7 @@ class OrderViewModel :ViewModel(){
     fun createOrderProduct(orderProduct: OrderProduct) {
         viewModelScope.launch {
             try {
-                val response = Utils.getRetrofit().create(CheckoutService::class.java).createOrderProduct(orderProduct);
+                val response = retrofit.create(CheckoutService::class.java).createOrderProduct(orderProduct);
                 println("View: $response")
                 _newOrderProduct.postValue(response)
             } catch (e: Exception) {
@@ -69,7 +70,7 @@ class OrderViewModel :ViewModel(){
     fun createRefund(orderProduct: RefundOrder) {
         viewModelScope.launch {
             try {
-                val response = Utils.getRetrofit().create(com.example.myapplication.services.RefundOrder::class.java).createRefund(orderProduct);
+                val response =retrofit.create(com.example.myapplication.services.RefundOrder::class.java).createRefund(orderProduct);
                 println("View2222: $response")
                 _newOrder1.postValue(response)
             } catch (e: Exception) {
@@ -83,7 +84,7 @@ class OrderViewModel :ViewModel(){
 
         viewModelScope.launch {
             try {
-                val response = Utils.getRetrofit().create(OrderService::class.java).createOrder(order);
+                val response = retrofit.create(OrderService::class.java).createOrder(order);
                 _newOrder.postValue(response)
                 val id =response.getId();
 

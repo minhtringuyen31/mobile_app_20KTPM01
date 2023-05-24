@@ -6,11 +6,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.modals.ForgotPassRequest
 import com.example.myapplication.services.UserService
-
 import com.example.myapplication.utils.Resource
-import com.example.myapplication.utils.Utils
+import com.example.myapplication.utils.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
 
 class ForgotPasswordViewModel:ViewModel() {
 
@@ -19,12 +19,12 @@ class ForgotPasswordViewModel:ViewModel() {
 
     private var _checkotp: MutableLiveData<Resource<ForgotPassRequest>> = MutableLiveData()
     val checkotp: LiveData<Resource<ForgotPassRequest>> = _checkotp
-
+    private val retrofit: Retrofit = RetrofitClient.instance!!
     fun SetOTP(request:ForgotPassRequest){
         viewModelScope.launch(Dispatchers.IO) {
             try {
 
-                val response = Utils.getRetrofit().create(UserService::class.java).SetOTP(request)
+                val response = retrofit.create(UserService::class.java).SetOTP(request)
                 Resource.loading(data = null)
                 println("test"+response)
 
@@ -49,7 +49,7 @@ class ForgotPasswordViewModel:ViewModel() {
             try {
 
                 println(request)
-                val response = Utils.getRetrofit().create(UserService::class.java).CheckOTP(request)
+                val response = retrofit.create(UserService::class.java).CheckOTP(request)
                 Resource.loading(data = null)
                 println("test"+response)
 

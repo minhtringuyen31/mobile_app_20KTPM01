@@ -7,3 +7,16 @@ class Cart {
         return "Cart(id=$id, user_id=$user_id)"
     }
 }
+
+class CartSingleton private constructor() {
+    companion object {
+        private var instance: Cart? = null
+
+        fun getInstance(): Cart {
+            if (instance == null) {
+                instance = Cart()
+            }
+            return instance!!
+        }
+    }
+}

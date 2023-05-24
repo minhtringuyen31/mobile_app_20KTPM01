@@ -194,6 +194,11 @@ class Others : Fragment() {
             sharedPreferencesTime.edit().remove("time").apply()
             val sharedPreferences_phone = view.context.getSharedPreferences("phone", AppCompatActivity.MODE_PRIVATE)
             sharedPreferences_phone.edit().remove("phoneUser").apply()
+
+
+            val sharedPreferences_runOne = view.context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+            val isFirstRun = sharedPreferences_runOne.getBoolean("isFirstRun", true)
+            sharedPreferences_runOne.edit().putBoolean("isFirstRun", true).apply()
             val intent = Intent(
                 view.context,
                 Login::class.java

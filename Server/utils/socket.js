@@ -27,6 +27,19 @@ const SocketListener = {
         UserServices.handleTokenFireBase(41, messages, 'one');
         console.log('Có 1 đơn hàng mới từ khách hàng có ID' + s);
       });
+
+      socket.on('_confirmSocket', (data) => {
+        console.log(global.userActive[data]);
+        socket.to(global.userActive[data]).emit("confirmSocket", "Bạn có đơn hàng cần xác nhận")
+      });
+      socket.on('_deliverySocket', (data) => {
+        console.log(global.userActive[data]);
+        socket.to(global.userActive[data]).emit("deliverySocket", "Đơn hàng giao thành công")
+      });
+      socket.on('_cancelSocket', (data) => {
+        console.log(global.userActive[data]);
+        socket.to(global.userActive[data]).emit("cancelSocket", "Đơn hàng bị huỷ")
+      });
       socket.on('confirmOrder', (data) => {
         const result = JSON.parse(data);
         const name = hashcode.hashCode(result.id.toString());

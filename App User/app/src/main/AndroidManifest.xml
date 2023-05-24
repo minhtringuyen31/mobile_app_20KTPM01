@@ -185,6 +185,9 @@
             </intent-filter>
         </service>
 
+        <service android:name=".Admin.notifications.AlerterService"
+            android:exported="false"/>
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

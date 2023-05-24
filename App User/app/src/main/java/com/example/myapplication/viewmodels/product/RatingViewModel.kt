@@ -3,21 +3,23 @@ package com.example.myapplication.viewmodels.product
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.myapplication.modals.Rating
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.modals.Rating
 import com.example.myapplication.services.RatingService
-import com.example.myapplication.utils.Utils
+import com.example.myapplication.utils.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
 
 class RatingViewModel : ViewModel(){
     private val _ratings = MutableLiveData<ArrayList<Rating>>()
     val ratings: LiveData<ArrayList<Rating>> = _ratings
+    private val retrofit: Retrofit = RetrofitClient.instance!!
 
     fun getRating(productId: Int){
         viewModelScope.launch(Dispatchers.IO){
             try{
-                val response = Utils.getRetrofit().create(RatingService::class.java).getRating(productId)
+                val response = retrofit.create(RatingService::class.java).getRating(productId)
                 _ratings.postValue(response)
                 println("Views: $response")
             } catch (e:Exception){
@@ -30,7 +32,7 @@ class RatingViewModel : ViewModel(){
         viewModelScope.launch(Dispatchers.IO){
             try{
                 println("AAAA")
-                val response = Utils.getRetrofit().create(RatingService::class.java).postRating(rating)
+                val response = retrofit.create(RatingService::class.java).postRating(rating)
                 println("Rating: $response")
             } catch (e:Exception) {
                 println("Views: $e")

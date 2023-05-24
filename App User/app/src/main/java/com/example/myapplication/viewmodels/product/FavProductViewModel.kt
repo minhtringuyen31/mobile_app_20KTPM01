@@ -1,18 +1,16 @@
 package com.example.myapplication.viewmodels.product
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.myapplication.modals.FavProductItem
-import com.example.myapplication.modals.Order
 import com.example.myapplication.modals.Product
-import com.example.myapplication.services.CartItemService
 import com.example.myapplication.services.ProductService
-import com.example.myapplication.utils.Utils
+import com.example.myapplication.utils.RetrofitClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import retrofit2.Retrofit
 
 
 class FavProductViewModel: ViewModel() {
@@ -26,12 +24,12 @@ class FavProductViewModel: ViewModel() {
 
     private val _check = MutableLiveData<Boolean>()
     val check: LiveData<Boolean> = _check
-
+    private val retrofit: Retrofit = RetrofitClient.instance!!
     fun getAllFavProducts(userId: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response =
-                    Utils.getRetrofit().create(ProductService::class.java).getAllFavProduct(userId)
+                    retrofit.create(ProductService::class.java).getAllFavProduct(userId)
                 _products.postValue(response)
                 println("fav product $_products")
             } catch (e: Exception) {
@@ -44,7 +42,7 @@ class FavProductViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.Main) {
             try {
                 val response =
-                    Utils.getRetrofit().create(ProductService::class.java).addFavProduct(favProduct)
+                    retrofit.create(ProductService::class.java).addFavProduct(favProduct)
                 println("response add fav $response")
                 _product.postValue(response)
             } catch (e: Exception) {
@@ -57,7 +55,7 @@ class FavProductViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.Main) {
             try {
                 val response =
-                    Utils.getRetrofit().create(ProductService::class.java).removeFavProduct(favProduct)
+                    retrofit.create(ProductService::class.java).removeFavProduct(favProduct)
                 _status.postValue(response)
             } catch (e: Exception) {
                 println("View : $e")
@@ -69,7 +67,7 @@ class FavProductViewModel: ViewModel() {
         viewModelScope.launch(Dispatchers.Main) {
             try {
                 val response =
-                    Utils.getRetrofit().create(ProductService::class.java).findAFavProduct(userId, productId)
+                    retrofit.create(ProductService::class.java).findAFavProduct(userId, productId)
                 _check.postValue(response)
             } catch (e: Exception) {
                 println("View : $e")

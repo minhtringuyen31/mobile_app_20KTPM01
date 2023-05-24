@@ -33,6 +33,7 @@ import com.example.myapplication.pages.apdaters.PromotionApdapter
 import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
 import com.example.myapplication.pages.apdaters.interfaces.OnItemClickProductHomepage
 import com.example.myapplication.pages.apdaters.interfaces.OnItemClickPromotion
+import com.example.myapplication.socket.SocketHandler
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
 import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
@@ -40,6 +41,7 @@ import com.example.myapplication.viewmodels.user.UserViewModel
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType
 import com.smarteist.autoimageslider.SliderAnimations
 import com.smarteist.autoimageslider.SliderView
+import com.tapadoo.alerter.Alerter
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -135,7 +137,27 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnI
                 }
             }
     }
+    fun runOnce(context: Context) {
+        val sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
+        val isFirstRun = sharedPreferences.getBoolean("isFirstRun", true)
+        if (isFirstRun) {
+            Alerter.create(activity as MainActivity)
+                .setTitle("Xin chào")
+                .setIcon(R.drawable.icon_hand_hi)
+                .setText("Chào mừng bạn đến với cửa hàng")
+                .setBackgroundColorRes(R.color.redHighland) //
+                .show()
+            // Thực hiện các công việc chỉ cần chạy một lần ở đây
+            sharedPreferences.edit().putBoolean("isFirstRun", false).apply()
+        }
+    }
     private fun initUI(view: View) {
+
+        runOnce(requireContext())
+        SocketHandler.setSocket()
+        SocketHandler.establishConnection()
+        SocketHandler.mSocket = SocketHandler.getSocket()
+        SocketHandler.mSocket.emit("_confirmSocket","41")
         progressBar = view.findViewById(R.id.showLoading)
         val screenWidth = context?.let { Utils.getScreenWidth(it) }
         //Product

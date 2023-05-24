@@ -92,6 +92,7 @@ dependencies {
     // ggmap
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation platform('com.google.firebase:firebase-bom:32.0.0')
+    implementation 'com.github.tapadoo:alerter:7.2.4'
 
     // send email
 //   implementation 'com.sun.mail:javax.mail:1.6.2'

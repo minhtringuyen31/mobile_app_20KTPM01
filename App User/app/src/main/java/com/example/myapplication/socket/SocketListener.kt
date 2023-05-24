@@ -8,7 +8,7 @@ import io.socket.client.Socket
 import java.io.IOException
 import java.net.URISyntaxException
 
-
+// Được Trong ví dụ trên, SocketHandler được khai báo là một object, cho phép tạo một thể hiện duy nhất của nó. Bạn có thể truy cập vào thể hiện duy nhất này thông qua tên lớp SocketHandler.
 object SocketHandler:Service() {
 
     lateinit var mSocket: Socket

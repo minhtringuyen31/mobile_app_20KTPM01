@@ -21,7 +21,7 @@ class Orders : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_orders)
-
+        println("new intetnt by order")
         val rvOrder = findViewById<RecyclerView>(R.id.orderRV)
         val orderSpinner = findViewById<Spinner>(R.id.orderSpinner)
         val orderStatusList = mutableListOf<String>()
@@ -41,6 +41,7 @@ class Orders : AppCompatActivity() {
         findViewById<Button>(R.id.backOrderBtn).setOnClickListener {
             val intent = Intent(this, Dashboard::class.java)
             startActivity(intent)
+
         }
         rvOrder.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         ViewModelProvider(this)[OrderController::class.java].getAllOrder().observe(this) {

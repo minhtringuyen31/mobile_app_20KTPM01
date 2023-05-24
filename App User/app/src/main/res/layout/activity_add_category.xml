@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Admin.pages.category.AddCategory">
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="match_parent"
@@ -17,7 +16,6 @@
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="parent" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
@@ -28,14 +26,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline4">
-
         <androidx.cardview.widget.CardView
             android:id="@+id/productEditImage"
             android:layout_width="200dp"
             android:layout_height="140dp"
             android:layout_marginTop="50dp"
             app:cardCornerRadius="40dp">
-
             <ImageView
                 android:id="@+id/addCategoryImage"
                 android:layout_width="200dp"
