@@ -6,6 +6,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -17,6 +19,7 @@ import com.example.myapplication.Admin.controllers.PromotionController
 import com.example.myapplication.Admin.modals.Promotion
 import com.example.myapplication.Admin.utils.RealPathUtil
 import com.example.myapplication.R
+import com.example.myapplication.utils.Utils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -189,8 +192,17 @@ class EditPromotion : AppCompatActivity() {
             }
 
 
-            val intent = Intent(this, PromotionDetail::class.java)
-            startActivity(intent)
+            val handler = Handler(Looper.getMainLooper())
+            val loadingDialog = Utils.Companion.CustomLoadingDialog(this@EditPromotion)
+            loadingDialog.show()
+            handler.postDelayed(Runnable {
+
+                loadingDialog.dismiss()
+                val intent = Intent(this, PromotionDetail::class.java)
+                startActivity(intent)
+            }, 3000)
+
+
         }
     }
 

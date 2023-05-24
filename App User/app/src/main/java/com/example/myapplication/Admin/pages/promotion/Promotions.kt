@@ -17,19 +17,26 @@ import com.example.myapplication.R
 
 class Promotions : AppCompatActivity() {
     private lateinit var promotionList: List<Promotion>
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        println("new intent promotion")
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_promotions)
-
+        println("new intent oncreaete promotion")
         val rvPromotion = findViewById<RecyclerView>(R.id.promotionRV)
         val searchPromotion = findViewById<AutoCompleteTextView>(R.id.searchPromotion)
         findViewById<Button>(R.id.addPromotion).setOnClickListener {
             val intent = Intent(this, AddPromotion::class.java)
             startActivity(intent)
+            finish()
         }
         findViewById<Button>(R.id.backPromotionBtn).setOnClickListener {
             val intent = Intent(this, Dashboard::class.java)
             startActivity(intent)
+            finish()
         }
         rvPromotion.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 

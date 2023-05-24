@@ -23,7 +23,7 @@
                 android:id="@+id/textDashboard"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Dashboard"
+                android:text="Trang tổng quan"
                 android:textColor="#121111"
                 android:textSize="22sp" />
 
@@ -35,14 +35,12 @@
                 android:text="Dashboard"
                 android:textColor="#526FFF"
                 android:textSize="14sp" />
-
             <ImageView
                 android:id="@+id/logoAvatar"
                 android:layout_width="62dp"
                 android:layout_height="62dp"
                 android:layout_alignParentEnd="true"
                 android:src="@drawable/baseline_person_24" />
-
         </RelativeLayout>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -26,10 +26,12 @@ class Categories : AppCompatActivity() {
         findViewById<Button>(R.id.addCategory).setOnClickListener {
             val intent = Intent(this, AddCategory::class.java)
             startActivity(intent)
+            finish()
         }
         findViewById<Button>(R.id.backCategoryBtn).setOnClickListener {
             val intent = Intent(this, Dashboard::class.java)
             startActivity(intent)
+            finish()
         }
         categoryRv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         val categoryViewProvider = ViewModelProvider(this)[CategoryController::class.java]

@@ -16,18 +16,15 @@ class ToppingAdapter(private val context: Context, private val toppings: List<To
         val toppingName = itemView.findViewById<TextView>(R.id.toppingName)
         val toppingPrice = itemView.findViewById<TextView>(R.id.toppingPrice)
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
         val orderView = inflater.inflate(R.layout.custom_topping, parent, false)
         return ViewHolder(orderView)
     }
-
     override fun getItemCount(): Int {
         return toppings.size
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val topping: Topping = toppings[position]
         val toppingName = holder.toppingName

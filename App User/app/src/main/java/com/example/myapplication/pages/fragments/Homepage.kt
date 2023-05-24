@@ -84,6 +84,11 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnI
     ): View {
         // Inflate the layout for this fragment
         view= inflater.inflate(R.layout.fragment_homepage, container, false)
+
+        if (!(activity as MainActivity).isNotificationPermissionGranted()) {
+            (activity as MainActivity).createNotificationChannel()
+            (activity as MainActivity).showNotification()
+        }
         setUpViewModel()
         initUI(view) // Khởi tạo UI , cung cấp data rỗng cho apdapter để render --> Chưa có dữ liệu
         setUpObserver(view) // Quan sát kết quả trả về từ API rồi gán giá trị cho apdapter

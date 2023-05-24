@@ -8,6 +8,17 @@
     android:orientation="vertical"
     tools:context=".Admin.pages.user.Users">
 
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Danh sách tài khoản"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="30sp" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -29,17 +40,8 @@
             android:layout_marginEnd="20dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:hint="Search..." />
+            android:hint="Tìm kiếm..." />
     </LinearLayout>
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="User List"
-        android:textColor="@color/black"
-        android:textSize="40sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/accountRV"

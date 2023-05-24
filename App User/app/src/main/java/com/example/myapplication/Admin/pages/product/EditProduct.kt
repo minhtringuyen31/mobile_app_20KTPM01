@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -18,6 +20,7 @@ import com.example.myapplication.Admin.modals.Category
 import com.example.myapplication.Admin.modals.Product
 import com.example.myapplication.Admin.utils.RealPathUtil
 import com.example.myapplication.R
+import com.example.myapplication.utils.Utils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -133,7 +136,7 @@ class EditProduct : AppCompatActivity() {
                 )
                 val requestSize = RequestBody.create(
                     "multipart/form-data".toMediaTypeOrNull(),
-                    productSize.selectedItemPosition.let { it1 -> arrayOf("S", "M", "L")[it1] }
+                    "M"
                 )
                 val requestSizeS = RequestBody.create(
                     "multipart/form-data".toMediaTypeOrNull(),
@@ -174,8 +177,16 @@ class EditProduct : AppCompatActivity() {
 
                 }
             }
-            val intent1 = Intent(this, Products::class.java)
-            startActivity(intent1)
+
+            val handler = Handler(Looper.getMainLooper())
+            val loadingDialog = Utils.Companion.CustomLoadingDialog(this@EditProduct)
+            loadingDialog.show()
+            handler.postDelayed(Runnable {
+
+                loadingDialog.dismiss()
+                val intent1 = Intent(this, Products::class.java)
+                startActivity(intent1)
+            }, 3000)
         }
 
         productImageBtn.setOnClickListener {

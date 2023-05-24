@@ -6,26 +6,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".Admin.pages.order.Orders">
-
-    <Spinner
-        android:id="@+id/orderSpinner"
-        android:layout_marginEnd="20dp"
-        android:layout_gravity="end"
-        android:layout_width="150dp"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
     <TextView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:gravity="center"
-        android:text="Order List"
+        android:text="Danh sách đơn hàng"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="30sp"
         android:textStyle="bold">
-
     </TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="0.5"
+        android:layout_height="0dp">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:textSize="20dp"
+            android:textColor="@color/darkGray"
+            android:gravity="center_vertical|center_horizontal"
+            android:textStyle="bold"
+            android:text="Tìm kiếm theo trạng thái đơn hàng "
+            android:layout_height="fill_parent">
+        </TextView>
+        <Spinner
+            android:id="@+id/orderSpinner"
+            android:layout_gravity="end"
+
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"/>
+    </LinearLayout>
+
+
+
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/orderRV"

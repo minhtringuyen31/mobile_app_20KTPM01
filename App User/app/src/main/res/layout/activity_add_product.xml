@@ -27,7 +27,7 @@
                 android:layout_height="140dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/baseline_person_24" />
+                android:src="@drawable/productadd" />
         </androidx.cardview.widget.CardView>
 
         <Button
@@ -91,6 +91,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:visibility="gone"
                 android:id="@+id/relativeScroll15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -100,6 +101,7 @@
                 android:background="@drawable/border_layout">
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/sizeTv"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
@@ -111,6 +113,7 @@
                     tools:ignore="RtlCompat" />
 
                 <Spinner
+                    android:visibility="gone"
                     android:id="@+id/addProductSize"
                     android:layout_width="0dp"
                     android:layout_height="60dp"
@@ -269,6 +272,7 @@
                     android:layout_toEndOf="@+id/genderTv"
                     android:background="@null"
                     android:gravity="fill_vertical"
+                    android:inputType="numberDecimal"
                     android:hint="100000"
                     android:textAlignment="textEnd"
                     android:textColor="#000000"

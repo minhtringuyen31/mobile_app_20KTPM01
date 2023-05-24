@@ -3,12 +3,7 @@ package com.example.myapplication.Admin.pages.topping
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.Spinner
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
@@ -22,10 +17,16 @@ import com.example.myapplication.R
 
 class Toppings : AppCompatActivity() {
     private lateinit var toppingList: List<Topping>
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        println("new intent topping")
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_toppings)
 
+        println("new intent topping on create")
         val toppingRv = findViewById<RecyclerView>(R.id.toppingRV)
         val searchTopping = findViewById<AutoCompleteTextView>(R.id.searchTopping)
         val toppingSpinner = findViewById<Spinner>(R.id.toppingSpinner)
@@ -34,11 +35,13 @@ class Toppings : AppCompatActivity() {
         findViewById<Button>(R.id.addTopping).setOnClickListener {
             val intent = Intent(this, AddTopping::class.java)
             startActivity(intent)
+            finish()
         }
 
         findViewById<Button>(R.id.backToppingBtn).setOnClickListener {
             val intent = Intent(this, Dashboard::class.java)
             startActivity(intent)
+            finish()
         }
 
         ViewModelProvider(this)[CategoryController::class.java].getAllCategory().observe(this) {

@@ -8,6 +8,19 @@
     android:orientation="vertical"
     tools:context=".Admin.pages.product.Products">
 
+
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Danh sách sản phẩm"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="30sp" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -22,7 +35,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:hint="Search..." />
+            android:hint="Tìm kiếm..." />
 
         <Spinner
             android:id="@+id/productSpinner"
@@ -31,16 +44,6 @@
             android:layout_marginEnd="20dp"
             android:layout_weight="1" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/textView21"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="Product List"
-        android:textColor="@color/black"
-        android:textSize="40sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productRV"

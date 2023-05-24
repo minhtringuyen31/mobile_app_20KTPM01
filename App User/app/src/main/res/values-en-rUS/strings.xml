@@ -46,7 +46,6 @@
     <string name="ttdh">Status Order</string>
     <string name="textView13">Infinity Coffee is a coffee shop established in 2023, rooted in the love for Vietnamese coffee and the desire to give diners the best coffee taste. \n\nOur store is goal is to serve and contribute to the development of the Vietnamese coffee community by providing a convenient and enjoyable experience for customers. \n\nInfinity is 100% committed to quality, and will bring everyone the most memorable experience.\n</string>
     <string name="viewmap">View location of store</string>
-
     <string name="kmhc">Available Promotion</string>
     <string name="ctdh">Order Detail</string>
     <string name="tongtien">Total Price</string>
@@ -82,7 +81,6 @@
     <string name="cart">Your cart</string>
     <string name="delcart">Delete cart</string>
     <string name="dh">Place to order</string>
-
     <string name="lsp">Category</string>
     <string name="gy">Recommended for you</string>
     <string name="chao">Wish you have a good day!</string>

@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -15,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.Admin.controllers.CategoryController
 import com.example.myapplication.Admin.utils.RealPathUtil
 import com.example.myapplication.R
+import com.example.myapplication.utils.Utils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -54,8 +57,19 @@ class AddCategory : AppCompatActivity() {
             val categoryViewProvider = ViewModelProvider(this)[CategoryController::class.java]
             categoryViewProvider.createCategory(requestBodyName, image)
 
-            val intent = Intent(this, Categories::class.java)
-            startActivity(intent)
+
+            val handler = Handler(Looper.getMainLooper())
+            val loadingDialog = Utils.Companion.CustomLoadingDialog(this@AddCategory)
+            loadingDialog.show()
+            handler.postDelayed(Runnable {
+
+
+//
+                loadingDialog.dismiss()
+                val intent = Intent(this, Categories::class.java)
+                startActivity(intent)
+            }, 4000)
+
         }
 
         categoryImageBtn.setOnClickListener {

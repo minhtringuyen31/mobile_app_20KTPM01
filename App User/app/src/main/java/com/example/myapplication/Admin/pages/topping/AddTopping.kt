@@ -43,6 +43,7 @@ class AddTopping : AppCompatActivity() {
         findViewById<Button>(R.id.addTopping_cancelBtn).setOnClickListener {
             val intent = Intent(this, Toppings::class.java)
             startActivity(intent)
+            finish()
         }
 
         findViewById<Button>(R.id.addTopping_saveBtn).setOnClickListener {

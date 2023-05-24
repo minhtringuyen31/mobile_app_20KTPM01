@@ -8,6 +8,17 @@
     android:orientation="vertical"
     tools:context=".Admin.pages.promotion.Promotions">
 
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Danh sách khuyến mãi"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="30sp" />
+
     <AutoCompleteTextView
         android:id="@+id/searchPromotion"
         android:layout_width="match_parent"
@@ -15,16 +26,8 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_weight="1"
-        android:hint="Search..." />
+        android:hint="Tìm kiếm..." />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:text="Promotion List"
-        android:textColor="@color/black"
-        android:textSize="40sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/promotionRV"

@@ -2,10 +2,10 @@ package com.example.myapplication.Admin.pages.statistics
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.Admin.controllers.*
 import com.example.myapplication.Admin.pages.dashboard.Dashboard
@@ -26,7 +26,7 @@ class Statistics : AppCompatActivity() {
 
         orderViewProvider.countOrder().observe(this) {
             println(it)
-            findViewById<TextView>(R.id.orderAmount).text = "${it.getCount()} orders"
+            findViewById<TextView>(R.id.orderAmount).text = "${it.getCount()} đơn hàng"
         }
         orderViewProvider.totalOrder().observe(this) {
             findViewById<TextView>(R.id.orderTotalSales).text = "${it.getTotal()

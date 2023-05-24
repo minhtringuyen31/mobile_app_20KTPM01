@@ -24,79 +24,104 @@
         tools:targetApi="tiramisu">
         <activity
             android:name=".Admin.pages.statistics.Statistics"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.user.UserDetail"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.user.EditUser"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.user.AddUser"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.user.Users"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.topping.ToppingDetail"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.topping.EditTopping"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.topping.AddTopping"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.topping.Toppings"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.rating.EditRating"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.rating.Ratings"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.promotion.PromotionDetail"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.promotion.AddPromotion"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.promotion.EditPromotion"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.promotion.Promotions"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.product.Products"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.product.ProductDetail"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.product.EditProduct"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.product.AddProduct"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.order.Orders"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.order.EditOrder"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.dashboard.Dashboard"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.category.EditCategory"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.category.Categories"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
         <activity
             android:name=".Admin.pages.category.AddCategory"
-            android:exported="false" />
+            android:launchMode="singleTask"
+            android:exported="true" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

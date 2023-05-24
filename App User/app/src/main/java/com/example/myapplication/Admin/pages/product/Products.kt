@@ -3,11 +3,7 @@ package com.example.myapplication.Admin.pages.product
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
-import android.widget.Button
-import android.widget.Spinner
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProvider
@@ -22,6 +18,11 @@ import com.example.myapplication.R
 
 class Products : AppCompatActivity() {
     private lateinit var productList: List<Product>
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        println("new intent")
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_products)
@@ -32,10 +33,12 @@ class Products : AppCompatActivity() {
         findViewById<Button>(R.id.addProduct).setOnClickListener {
             val intent = Intent(this, AddProduct::class.java)
             startActivity(intent)
+            finish()
         }
         findViewById<Button>(R.id.backProductBtn).setOnClickListener {
             val intent = Intent(this, Dashboard::class.java)
             startActivity(intent)
+            finish()
         }
         rvProduct.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
 

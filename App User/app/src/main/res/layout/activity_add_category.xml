@@ -11,9 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:gravity="center"
-        android:text="Add Category"
+        android:text="Thêm danh mục"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textStyle="bold"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,12 +43,12 @@
                 android:adjustViewBounds="true"
                 android:background="@drawable/custom_edittext"
                 android:scaleType="centerCrop"
-                android:src="@drawable/profile" />
+                android:src="@drawable/categoryicon" />
         </androidx.cardview.widget.CardView>
 
         <Button
             android:id="@+id/addCategoryImageBtn"
-            android:text="image"
+            android:text="Hình ảnh"
             android:textColor="@color/black"
             android:backgroundTint="@color/white"
             android:layout_width="wrap_content"

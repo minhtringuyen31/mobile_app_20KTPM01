@@ -31,7 +31,6 @@ class AddUser : AppCompatActivity() {
             val dob = findViewById<EditText>(R.id.addUserDob).text.toString()
             val address = findViewById<EditText>(R.id.addUserAddress).text.toString()
             val avatar = findViewById<ImageView>(R.id.addUserAvatar).resources.toString()
-
             if (password == confirmPassword) {
                 val userViewModel = ViewModelProvider(this)[UserController::class.java]
                 val newUser = User(

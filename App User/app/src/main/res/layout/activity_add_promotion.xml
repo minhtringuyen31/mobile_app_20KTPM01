@@ -28,7 +28,7 @@
                 android:layout_height="140dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
-                android:src="@drawable/baseline_person_24"
+                android:src="@drawable/voucheradd"
                 android:contentDescription="TODO"
                 android:clickable="true" />
 
@@ -37,7 +37,7 @@
             android:id="@+id/addPromotionImageBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="image"
+            android:text="Hình ảnh"
             android:textColor="@color/black"
             android:backgroundTint="@color/white"/>
     </LinearLayout>
@@ -146,7 +146,7 @@
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="Start:"
+                    android:text="Ngày bắt đầu :"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -164,7 +164,7 @@
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:text="End:"
+                    android:text="Ngày kết thúc:"
                     android:textColor="@color/black"
                     android:textSize="15sp" />
 
@@ -206,7 +206,7 @@
                     android:layout_height="60dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="Discount"
+                    android:hint="Giảm giá"
                     android:inputType="number"/>
 
                 <NumberPicker

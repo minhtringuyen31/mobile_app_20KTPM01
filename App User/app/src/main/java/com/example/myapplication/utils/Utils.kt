@@ -1,14 +1,16 @@
 package com.example.myapplication.utils
 
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.util.DisplayMetrics
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
+import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.cardview.widget.CardView
-import com.example.myapplication.R
 import com.example.myapplication.pages.activities.notification.NotificationList
 import com.example.myapplication.pages.activities.promotion.ListPromotion
 import com.google.android.material.appbar.AppBarLayout
@@ -19,6 +21,7 @@ import java.text.DecimalFormat
 import java.text.Normalizer
 import java.text.NumberFormat
 import java.util.regex.Pattern
+
 
 class Utils : AppCompatActivity() {
     companion object {
@@ -35,7 +38,7 @@ class Utils : AppCompatActivity() {
                 .build()
         }
         fun activeToolbar(context: Context,view: View){
-            val toolBar: AppBarLayout = view.findViewById(R.id.myToolBar)
+            val toolBar: AppBarLayout = view.findViewById(com.example.myapplication.R.id.myToolBar)
 //            (context as AppCompatActivity).setSupportActionBar(toolBar)
 //            val avatar: CircleImageView = view.findViewById(R.id.avatarUser)
 //            val search_icon: View = view.findViewById(R.id.search_icon)
@@ -52,9 +55,9 @@ class Utils : AppCompatActivity() {
 //                    "Clicked Search Icon", Toast.LENGTH_LONG).show();
 //            }
 
-            val welcomeTitle : TextView = view.findViewById(R.id.welcomeTV)
-            val promotionBtn : CardView = view.findViewById(R.id.promotionBtn)
-            val notificationBtn : CardView = view.findViewById(R.id.notificationBtn)
+            val welcomeTitle : TextView = view.findViewById(com.example.myapplication.R.id.welcomeTV)
+            val promotionBtn : CardView = view.findViewById(com.example.myapplication.R.id.promotionBtn)
+            val notificationBtn : CardView = view.findViewById(com.example.myapplication.R.id.notificationBtn)
             promotionBtn.setOnClickListener{
                 val intent= Intent(
                     context,
@@ -97,6 +100,30 @@ class Utils : AppCompatActivity() {
             val pattern: Pattern = Pattern.compile("\\p{InCombiningDiacriticalMarks}+")
             return pattern.matcher(temp).replaceAll("")
         }
+
+        class CustomLoadingDialog(context: Context?) {
+            private val dialog: Dialog
+            private val progressBar: ProgressBar
+
+            init {
+                dialog = Dialog(context!!)
+                dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+                dialog.setCancelable(false)
+                dialog.getWindow()!!.setBackgroundDrawableResource(android.R.color.transparent);
+                dialog.setContentView(com.example.myapplication.R.layout.custom_loading)
+                progressBar = dialog.findViewById(com.example.myapplication.R.id.progressBar)
+            }
+
+            fun show() {
+                progressBar.visibility = View.VISIBLE
+                dialog.show()
+            }
+
+            fun dismiss() {
+                dialog.dismiss()
+            }
+        }
+
 
 
 

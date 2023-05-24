@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -17,6 +19,7 @@ import com.example.myapplication.Admin.controllers.CategoryController
 import com.example.myapplication.Admin.modals.Category
 import com.example.myapplication.Admin.utils.RealPathUtil
 import com.example.myapplication.R
+import com.example.myapplication.utils.Utils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -91,8 +94,17 @@ class EditCategory : AppCompatActivity() {
                 ).observe(this) {}
             }
 
-            val intent = Intent(this, Categories::class.java)
-            startActivity(intent)
+
+            val handler = Handler(Looper.getMainLooper())
+            val loadingDialog = Utils.Companion.CustomLoadingDialog(this@EditCategory)
+            loadingDialog.show()
+            handler.postDelayed(Runnable {
+                loadingDialog.dismiss()
+                val intent = Intent(this, Categories::class.java)
+                startActivity(intent)
+            }, 4000)
+
+
         }
 
         findViewById<Button>(R.id.editCategory_cancelBtn).setOnClickListener {

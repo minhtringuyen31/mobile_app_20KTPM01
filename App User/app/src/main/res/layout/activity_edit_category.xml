@@ -11,9 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:gravity="center"
-        android:text="Edit Category"
+        android:text="Chỉnh sửa danh mục"
         android:textColor="@color/black"
-        android:textSize="40sp"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline8"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,7 +48,7 @@
 
         <Button
             android:id="@+id/editCategoryImageBtn"
-            android:text="image"
+            android:text="Hình ảnh"
             android:textColor="@color/black"
             android:backgroundTint="@color/white"
             android:layout_width="wrap_content"

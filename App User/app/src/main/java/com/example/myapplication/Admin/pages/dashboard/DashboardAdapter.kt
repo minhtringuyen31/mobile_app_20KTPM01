@@ -77,7 +77,10 @@ class DashboardAdapter(private val context: Context, private val items: List<Das
                     intent = Intent(context, Statistics::class.java)
                 }
             }
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             context.startActivity(intent)
+
         }
     }
 }

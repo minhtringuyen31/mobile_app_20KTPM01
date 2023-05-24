@@ -5,6 +5,8 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -16,6 +18,7 @@ import com.example.myapplication.Admin.controllers.ProductController
 import com.example.myapplication.Admin.modals.Category
 import com.example.myapplication.Admin.utils.RealPathUtil
 import com.example.myapplication.R
+import com.example.myapplication.utils.Utils
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -90,8 +93,7 @@ class AddProduct : AppCompatActivity() {
             )
             val requestSize = RequestBody.create(
                 "multipart/form-data".toMediaTypeOrNull(),
-                productSize.selectedItemPosition.let { it1 -> arrayOf("S", "M", "L")[it1] }
-            )
+                "M")
             val requestSizeS = RequestBody.create(
                 "multipart/form-data".toMediaTypeOrNull(),
                 productSizeS.text.toString()
@@ -138,8 +140,21 @@ class AddProduct : AppCompatActivity() {
             ).observe(this) {
 
             }
-            val intent = Intent(this, Products::class.java)
-            startActivity(intent)
+
+            val handler = Handler(Looper.getMainLooper())
+            val loadingDialog = Utils.Companion.CustomLoadingDialog(this@AddProduct)
+            loadingDialog.show()
+            handler.postDelayed(Runnable {
+
+
+//
+                loadingDialog.dismiss()
+                val intent = Intent(this, Products::class.java)
+                startActivity(intent)
+            }, 4000)
+
+
+
         }
 
         findViewById<Button>(R.id.addProduct_cancelBtn).setOnClickListener {

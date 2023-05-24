@@ -8,23 +8,26 @@
     android:orientation="vertical"
     tools:context=".Admin.pages.category.Categories">
 
-    <AutoCompleteTextView
-        android:id="@+id/searchCategory"
-        android:layout_width="match_parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_height="0dp"
-        android:hint="Search..."
-        android:layout_weight="1"/>
 
     <TextView
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="Category List"
+        android:text="Danh mục sản phẩm"
         android:textColor="@color/black"
-        android:textSize="40sp" />
+        android:textStyle="bold"
+        android:textSize="30sp" />
+
+    <AutoCompleteTextView
+        android:id="@+id/searchCategory"
+        android:layout_width="match_parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_height="0dp"
+        android:hint="Tìm kiếm..."
+        android:layout_weight="1"/>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/categoryRV"

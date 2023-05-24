@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
             })
     }
-    private fun createNotificationChannel() {
+    fun createNotificationChannel() {
         // Create the NotificationChannel, but only on API 26+ because
         // the NotificationChannel class is new and not in the support library
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -107,7 +107,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun showNotification() {
+    fun showNotification() {
 ////         Create an explicit intent for an Activity in your app
 //        val intent = Intent(this, MainActivity::class.java).apply {
 //            intent.putExtra("FragmentToOpen", "Activities") // Truyền tên Fragment cần mở
@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity() {
 //            notify(0, builder.build())
         }
     }
-    private fun isNotificationPermissionGranted(): Boolean {
+    fun isNotificationPermissionGranted(): Boolean {
         // Kiểm tra xem quyền thông báo đã được cấp hay chưa
         val notificationManagerCompat = NotificationManagerCompat.from(this)
         return notificationManagerCompat.areNotificationsEnabled()
@@ -166,10 +166,7 @@ class MainActivity : AppCompatActivity() {
 
         val status = intentStatus.getStringExtra("status")
 
-        if (!isNotificationPermissionGranted()) {
-            createNotificationChannel()
-            showNotification()
-        }
+
         toolbar = findViewById(R.id.myToolBar)
         bottomNavigationView = findViewById(R.id.bottom_nav)
         currentFragment = findViewById(R.id.flFragment)

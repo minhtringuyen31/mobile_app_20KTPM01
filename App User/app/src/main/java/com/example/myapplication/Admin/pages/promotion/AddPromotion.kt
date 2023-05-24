@@ -5,6 +5,8 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.widget.*
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -13,11 +15,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.myapplication.Admin.controllers.PromotionController
 import com.example.myapplication.Admin.utils.RealPathUtil
 import com.example.myapplication.R
+import com.example.myapplication.utils.Utils.Companion.CustomLoadingDialog
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import java.io.File
 import java.util.*
+
 
 class AddPromotion : AppCompatActivity() {
     private val IMAGE_PICK_CODE = 1000
@@ -136,8 +140,22 @@ class AddPromotion : AppCompatActivity() {
             ).observe(this) {
 
             }
-            val intent = Intent(this, Promotions::class.java)
-            startActivity(intent)
+
+            val handler = Handler(Looper.getMainLooper())
+            val loadingDialog = CustomLoadingDialog(this@AddPromotion)
+            loadingDialog.show()
+            handler.postDelayed(Runnable {
+
+
+//
+                loadingDialog.dismiss()
+                val intent = Intent(this, Promotions::class.java)
+                startActivity(intent)
+            }, 3000)
+
+            // Khi bạn muốn ẩn biểu tượng loading
+
+
 
 
         }
