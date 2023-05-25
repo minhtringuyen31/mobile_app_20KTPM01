@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Admin.pages.order.Orders">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="Thống kê chi tiết"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:textStyle="bold">
+    </TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_weight="0.5"
+        android:layout_height="0dp">
+        <TextView
+            android:id="@+id/totalPrice"
+            android:layout_width="0dp"
+            android:layout_weight="10"
+            android:textSize="20dp"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/darkGray"
+            android:gravity="start"
+            android:textStyle="bold"
+            android:text="Tổng tiền:"
+            android:layout_height="fill_parent">
+        </TextView>
+        <Spinner
+            android:id="@+id/orderSpinner"
+            android:layout_gravity="end"
+
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight="2"/>
+    </LinearLayout>
+
+
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/orderRV"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <LinearLayout
+        android:id="@+id/layoutEmptyAdmin"
+        android:layout_width="match_parent"
+        android:gravity="center"
+
+        android:orientation="vertical"
+        android:layout_marginVertical="100dp"
+        android:layout_weight="6"
+        android:layout_height="0dp">
+        <ImageView
+            android:id="@+id/image_Emptylayout"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:src="@drawable/icon_order">
+        </ImageView>
+        <TextView
+            android:id="@+id/textEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Không có đơn hàng"
+            android:textStyle="bold"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/backOrderBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:backgroundTint="#FF5722"
+            android:text="Quay về" />
+    </LinearLayout>
+
+</LinearLayout>

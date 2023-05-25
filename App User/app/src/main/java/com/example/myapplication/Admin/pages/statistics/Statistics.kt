@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
+import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -11,8 +12,8 @@ import com.example.myapplication.Admin.controllers.*
 import com.example.myapplication.Admin.pages.dashboard.Dashboard
 import com.example.myapplication.R
 import com.example.myapplication.utils.Utils
-
 class Statistics : AppCompatActivity() {
+    private lateinit var detailStatisticRE:RelativeLayout
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +24,13 @@ class Statistics : AppCompatActivity() {
         val promotionViewProvider = ViewModelProvider(this)[PromotionController::class.java]
         val ratingViewProvider = ViewModelProvider(this)[RatingController::class.java]
         val userViewProvider = ViewModelProvider(this)[UserController::class.java]
+        detailStatisticRE = findViewById(R.id.detailStatistic)
+        detailStatisticRE.setOnClickListener {
+            val intent = Intent(this, detail_statistic::class.java)
+            startActivity(intent)
+//            println("111")
 
+        }
         orderViewProvider.countOrder().observe(this) {
             println(it)
             findViewById<TextView>(R.id.orderAmount).text = "${it.getCount()} đơn hàng"

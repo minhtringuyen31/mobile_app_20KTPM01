@@ -40,6 +40,50 @@ class OrderController : ViewModel() {
         return _orders
     }
 
+    fun getAllOrderByDate(): LiveData<List<Order>> {
+        val _orders = MutableLiveData<List<Order>>()
+        viewModelScope.launch {
+            try {
+                val response =
+                    Utils.getRetrofit().create(OrderService::class.java).getAllOrderByDate()
+                _orders.value = response
+                println(response[0].getId())
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+        return _orders
+    }
+    fun getAllOrderByWeek(): LiveData<List<Order>> {
+        val _orders = MutableLiveData<List<Order>>()
+        viewModelScope.launch {
+            try {
+                val response =
+                    Utils.getRetrofit().create(OrderService::class.java).getAllOrderByWeek()
+                _orders.value = response
+                println(response[0].getId())
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+        return _orders
+    }
+
+    fun getAllOrderByMonth(): LiveData<List<Order>> {
+        val _orders = MutableLiveData<List<Order>>()
+        viewModelScope.launch {
+            try {
+                val response =
+                    Utils.getRetrofit().create(OrderService::class.java).getAllOrderByMonth()
+                _orders.value = response
+                println(response[0].getId())
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+        return _orders
+    }
+
     fun createOrder(orderNew: Order): LiveData<Order> {
         val _order = MutableLiveData<Order>()
         viewModelScope.launch {

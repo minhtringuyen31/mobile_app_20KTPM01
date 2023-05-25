@@ -35,15 +35,12 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.messaging.FirebaseMessaging
 import io.socket.client.Socket
 import java.util.*
-
-
 class MainActivity : AppCompatActivity() {
     private lateinit var toolbar: AppBarLayout
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var currentFragment: FrameLayout
     private lateinit var mSocket: Socket
     private lateinit var tokenFB: TokenFirebaseViewModel
-
     private fun handleTokenFirebase() {
         tokenFB = ViewModelProvider(this)[TokenFirebaseViewModel::class.java]
         FirebaseMessaging.getInstance().token
@@ -151,19 +148,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         supportActionBar?.hide()
-
-
         setContentView(R.layout.activity_main)
-
         // Kiểm tra xem quyền thông báo đã được cấp hay chưa
-
         val intentStatus = intent
-
         val rootView = getWindow().getDecorView().getRootView();
-
         val status = intentStatus.getStringExtra("status")
-
-
         toolbar = findViewById(R.id.myToolBar)
         bottomNavigationView = findViewById(R.id.bottom_nav)
         currentFragment = findViewById(R.id.flFragment)

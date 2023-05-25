@@ -9,6 +9,33 @@ const OrderAdminController = {
       res.status(404).send({ status: 0, message: 'Failed' });
     }
   },
+  findAllByDate: async (req, res) => {
+    console.log("dwgsdaf")
+    const orders = await OrderServices.findAllByDate();
+    if (orders) {
+      res.status(200).send(orders);
+    } else {
+      res.status(404).send({ status: 0, message: "Failed" });
+    }
+  },
+  findAllByWeek: async (req, res) => {
+    console.log("dwgsdaf")
+    const orders = await OrderServices.findAllByWeek();
+    if (orders) {
+      res.status(200).send(orders);
+    } else {
+      res.status(404).send({ status: 0, message: "Failed" });
+    }
+  },
+  findAllByMonth: async (req, res) => {
+    console.log("dwgsdafmonth")
+    const orders = await OrderServices.findAllByMonth();
+    if (orders) {
+      res.status(200).send(orders);
+    } else {
+      res.status(404).send({ status: 0, message: "Failed" });
+    }
+  },
   countOrder: async (req, res) => {
     const count = await OrderServices.countOrder();
     if (count) {

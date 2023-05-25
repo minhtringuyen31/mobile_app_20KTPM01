@@ -2,7 +2,9 @@ import OrderAdminController from '../../controllers/admin/Order.admin.controller
 import express from 'express';
 
 const router = express.Router();
-
+router.get("/bydate", OrderAdminController.findAllByDate)
+router.get("/byweek", OrderAdminController.findAllByWeek)
+router.get("/bymonth", OrderAdminController.findAllByMonth)
 router.get('/total', OrderAdminController.totalOrder);
 router.get('/count', OrderAdminController.countOrder);
 router.post('/create', OrderAdminController.create);

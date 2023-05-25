@@ -13,6 +13,13 @@ interface OrderService {
     @GET("order/")
     suspend fun getAllOrder(): List<Order>
 
+    @GET("order/bydate")
+    suspend fun getAllOrderByDate(): List<Order>
+    @GET("order/byweek")
+    suspend fun getAllOrderByWeek(): List<Order>
+    @GET("order/bymonth")
+    suspend fun getAllOrderByMonth(): List<Order>
+
     @POST("order/create")
     suspend fun createOrder(@Body order: Order): Order
 

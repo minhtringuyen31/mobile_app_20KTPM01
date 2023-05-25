@@ -58,7 +58,6 @@ const OrderServices = {
   async findAll() {
     return await OrderRepository.findAll();
   },
- 
   async findByUserId(userId) {
     return await OrderRepository.findByUserId(userId);
   },
@@ -70,6 +69,15 @@ const OrderServices = {
   },
   async findToken(orderId) {
     return await OrderRepository.findTokenByOrderId(orderId);
+  },
+  async findAllByDate() {
+    return await OrderRepository.findAllByDate();
+  },
+  async findAllByWeek() {
+    return await OrderRepository.findAllByWeek();
+  },
+  async findAllByMonth() {
+    return await OrderRepository.findAllByMonth();
   },
   // Cần method gì thì tự implements !!
 };

@@ -82,7 +82,6 @@ const OrderController = {
       res.status(404).send({ status: 0, message: "Failed" });
     }
   },
- 
   test(req, res) {
     res.send("Test API from Order");
   },

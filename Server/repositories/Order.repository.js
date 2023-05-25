@@ -85,7 +85,37 @@ const OrderRepository = {
       return false;
     }
   },
- 
+  async findAllByDate() {
+    const query = `SELECT *  FROM orders WHERE DATE(order_date) = CURDATE()`;
+    try {
+      const [rows] = await DB.pool().query(query);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async findAllByWeek() {
+    const query = `SELECT * FROM orders WHERE YEARWEEK(order_date) = YEARWEEK(CURDATE())`;
+    try {
+      const [rows] = await DB.pool().query(query);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+  async findAllByMonth() {
+    const query = `SELECT * FROM orders WHERE MONTH(order_date) = MONTH(CURDATE())`;
+    try {
+      const [rows] = await DB.pool().query(query);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  },
+
 
   async findByUserId(userId) {
     const query = `SELECT * FROM orders WHERE user_id = ? ORDER BY order_date DESC`;
