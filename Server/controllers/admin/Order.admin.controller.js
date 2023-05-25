@@ -18,6 +18,16 @@ const OrderAdminController = {
       res.status(404).send({ status: 0, message: "Failed" });
     }
   },
+  findAllByMonthAndYear: async (req, res) => {
+    console.log("dwgsdaf")
+    const value = req.params
+    const orders = await OrderServices.findAllByMonthAndYear(value.month, value.year);
+    if (orders) {
+      res.status(200).send(orders);
+    } else {
+      res.status(404).send({ status: 0, message: "Failed" });
+    }
+  },
   findAllByWeek: async (req, res) => {
     console.log("dwgsdaf")
     const orders = await OrderServices.findAllByWeek();

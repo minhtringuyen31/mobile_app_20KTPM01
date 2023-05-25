@@ -270,11 +270,19 @@ const OrderRepository = {
       console.error(error);
       return null;
     }
+  },
+
+  async findAllByMonthAndYear(month, year) {
+    const query = `SELECT * FROM orders WHERE MONTH(order_date) = ? AND YEAR(order_date) = ?`;
+    const values = [month, year];
+    try {
+      const [rows] = await DB.pool().query(query, values);
+      return rows;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
   }
-
-
-
-
 
 
 };

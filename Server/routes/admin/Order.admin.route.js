@@ -2,6 +2,7 @@ import OrderAdminController from '../../controllers/admin/Order.admin.controller
 import express from 'express';
 
 const router = express.Router();
+router.get("/bymonth/:month/:year", OrderAdminController.findAllByMonthAndYear)
 router.get("/bydate", OrderAdminController.findAllByDate)
 router.get("/byweek", OrderAdminController.findAllByWeek)
 router.get("/bymonth", OrderAdminController.findAllByMonth)

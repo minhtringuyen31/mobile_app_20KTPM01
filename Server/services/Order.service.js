@@ -79,6 +79,12 @@ const OrderServices = {
   async findAllByMonth() {
     return await OrderRepository.findAllByMonth();
   },
+  async findAllByMonthAndYear(month,year) {
+    return await OrderRepository.findAllByMonthAndYear(month,year);
+  },
+
+
+  
   // Cần method gì thì tự implements !!
 };
 export default OrderServices;
