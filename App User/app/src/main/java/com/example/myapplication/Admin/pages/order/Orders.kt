@@ -1,6 +1,7 @@
 package com.example.myapplication.Admin.pages.order
 
 import android.content.Intent
+import android.content.IntentFilter
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -14,13 +15,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Admin.controllers.OrderController
 import com.example.myapplication.Admin.modals.Order
 import com.example.myapplication.Admin.pages.dashboard.Dashboard
+import com.example.myapplication.Admin.pages.dashboard.SocketReceiver
 import com.example.myapplication.R
 
 class Orders : AppCompatActivity() {
     private lateinit var orderList: List<Order>
+    private val socketReceiver = SocketReceiver()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_orders)
+
+        val intentFilter = IntentFilter("confirmSocket")
+        registerReceiver(socketReceiver, intentFilter)
         println("new intetnt by order")
         val rvOrder = findViewById<RecyclerView>(R.id.orderRV)
         val orderSpinner = findViewById<Spinner>(R.id.orderSpinner)

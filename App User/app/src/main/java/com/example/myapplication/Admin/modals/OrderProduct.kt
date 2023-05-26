@@ -7,7 +7,8 @@ class OrderProduct(
     private var order_id: Int? = null,
     private var product_id: Int? = null,
     private var quantity: Int? = null,
-    private var price: Double? = null
+    private var price: Double? = null,
+    private var topping:String?= null,
 ) {
     // Getters of all
     fun getId(): Int? {
@@ -16,6 +17,12 @@ class OrderProduct(
 
     fun getNote(): String? {
         return note
+    }
+    fun setTopping(topping:String){
+        this.topping = topping
+    }
+    fun getTopping():String?{
+        return this.topping;
     }
 
     fun getOrderId(): Int? {

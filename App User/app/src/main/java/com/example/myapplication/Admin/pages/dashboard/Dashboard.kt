@@ -1,10 +1,13 @@
 package com.example.myapplication.Admin.pages.dashboard
 
 import android.Manifest
+import android.app.Activity
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -22,9 +25,26 @@ import com.example.myapplication.socket.SocketHandler
 import com.tapadoo.alerter.Alerter
 
 
+class SocketReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context?, intent: Intent?) {
+        if (intent?.action == "confirmSocket") {
+            val data = intent.getStringExtra("confirmSocket")
+            // Xử lý dữ liệu nhận được từ Service tại đây
+            Alerter.create(context as Activity)
+                .setTitle("Đơn hàng")
+                .setDuration(10000)
+                .enableSwipeToDismiss()
+                .setIcon(R.drawable.icon_order)
+                .setText(data.toString())
+                .setBackgroundColorRes(cn.pedant.SweetAlert.R.color.main_blue_color) //
+                .show()
+        }
+    }
+}
 class Dashboard : AppCompatActivity() {
     private val dashboardItems = ArrayList<DashboardItems>()
     private lateinit var logo:ImageView
+    private val socketReceiver = SocketReceiver()
 
     private fun showNotification() {
 ////         Create an explicit intent for an Activity in your app
@@ -106,26 +126,20 @@ class Dashboard : AppCompatActivity() {
         val notificationManagerCompat = NotificationManagerCompat.from(this)
         return notificationManagerCompat.areNotificationsEnabled()
     }
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_dashboard)
 
-        SocketHandler.setSocket()
-        SocketHandler.establishConnection()
-        SocketHandler.mSocket = SocketHandler.getSocket()
-        SocketHandler.mSocket.emit("login","41")
+//        val intent = Intent(this, SocketHandler::class.java)
+//        startService(intent)
 
-        SocketHandler.mSocket.on("confirmSocket"){ args ->
-            if (args[0] != null) {
-                val counter = args[0]
-                Alerter.create(this)
-                    .setTitle("Đơn hàng")
-                    .setIcon(R.drawable.confirm)
-                    .setText(counter.toString())
-                    .setBackgroundColorRes(R.color.redHighland) //
-                    .show()
-            }
-        }
+        val intent = Intent(this, SocketHandler::class.java)
+        startService(intent)
+
+        val intentFilter = IntentFilter("confirmSocket")
+        registerReceiver(socketReceiver, intentFilter)
 
         if (!isNotificationPermissionGranted()) {
             createNotificationChannel()
@@ -163,6 +177,7 @@ class Dashboard : AppCompatActivity() {
     }
 
     override fun onDestroy() {
+        unregisterReceiver(socketReceiver)
         super.onDestroy()
 
 

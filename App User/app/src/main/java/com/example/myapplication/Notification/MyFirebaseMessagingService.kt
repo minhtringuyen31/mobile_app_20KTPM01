@@ -26,12 +26,6 @@ class MyFirebaseMessagingService :FirebaseMessagingService() {
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
-//        var notification: RemoteMessage.Notification? = message.notification
-//        if(notification==null){
-//            return
-//        }
-//        var title = notification.title;
-//        var strMessage = notification.body
 
         var dataNotifyCation = mapOf<String , String>()
         dataNotifyCation =  message.data

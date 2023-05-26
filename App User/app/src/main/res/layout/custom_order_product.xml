@@ -35,6 +35,18 @@
         android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/productTopping"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/orderProductName"
+        android:layout_marginStart="20dp"
+        android:gravity="bottom"
+        android:maxLines="2"
+        android:text="Thạch cà phê"
+        android:textColor="#000000"
+        android:textSize="15sp" />
+
+    <TextView
         android:id="@+id/productPrice"
         android:layout_width="wrap_content"
         android:layout_height="30dp"

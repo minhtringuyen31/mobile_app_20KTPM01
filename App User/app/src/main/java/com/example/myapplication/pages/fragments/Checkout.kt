@@ -26,6 +26,7 @@ import com.example.myapplication.checkout.CreateOrder
 import com.example.myapplication.modals.CartItem
 import com.example.myapplication.pages.activities.promotion.ListPromotion
 import com.example.myapplication.pages.apdaters.CheckoutApdater
+import com.example.myapplication.socket.SocketHandler
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.AppViewModel
 import com.example.myapplication.viewmodels.order.CheckoutViewModel
@@ -359,6 +360,10 @@ class Checkout : Fragment() {
                                             val sharedPreferences_phone = view.context.getSharedPreferences("phone", AppCompatActivity.MODE_PRIVATE)
                                             sharedPreferences_phone.edit().remove("phoneUser").apply()
                                             appModel.removeAllCart(userID.toInt())
+                                            val socketHandler = SocketHandler.getInstance()
+                                            socketHandler.setSocket()
+                                            socketHandler.establishConnection()
+                                            socketHandler.mSocket.emit("_confirmSocket","41")
                                             (view.context as FragmentActivity).supportFragmentManager
                                                 .beginTransaction()
                                                 .replace(R.id.flFragment, Activities(),"Activities").addToBackStack(null)
@@ -492,7 +497,7 @@ class Checkout : Fragment() {
                 ViewGroup.LayoutParams.WRAP_CONTENT
             )
             dialog.setCancelable(true)
-            dialog.window!!.attributes.windowAnimations = R.style.CustomBottomSheetDialogTheme
+            dialog.window!!.attributes.windowAnimations = R.style.CustomBottomSheetStyle
             closeButton.setOnClickListener {
                 dialog.dismiss()
             }

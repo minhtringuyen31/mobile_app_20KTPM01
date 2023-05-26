@@ -53,7 +53,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="12dp"
-                android:text="Tổng doanh thu"
+                android:text="Tổng doanh thu - chi tiết"
                 android:textColor="#146C94"
                 android:textSize="20sp"
                 android:textStyle="italic" />

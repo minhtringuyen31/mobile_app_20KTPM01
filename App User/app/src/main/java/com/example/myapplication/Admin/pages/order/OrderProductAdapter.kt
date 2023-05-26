@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Admin.controllers.ProductController
 import com.example.myapplication.Admin.modals.OrderProduct
 import com.example.myapplication.R
+import com.example.myapplication.utils.Utils
 
 
 class OrderProductAdapter(
@@ -22,6 +23,7 @@ class OrderProductAdapter(
         val orderProductPrice = listItemView.findViewById<TextView>(R.id.productPrice)
         val orderProductQuantity = listItemView.findViewById<TextView>(R.id.productQuantity)
         val productNote = listItemView.findViewById<TextView>(R.id.productNote)
+        val productTopping= listItemView.findViewById<TextView>(R.id.productTopping)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -46,10 +48,22 @@ class OrderProductAdapter(
             }
         }
         val orderProductPrice = holder.orderProductPrice
-        orderProductPrice.text = orderProduct.getPrice().toString()
+        orderProductPrice.text =  Utils.formatCurrency(orderProduct.getPrice()!!) +" VND"
         val orderProductQuantity = holder.orderProductQuantity
-        orderProductQuantity.text = orderProduct.getQuantity().toString()
+        orderProductQuantity.text = "x"+orderProduct.getQuantity().toString()
         val productNote = holder.productNote
-        productNote.text = orderProduct.getNote()
+        if(orderProduct.getNote()!!.isEmpty()){
+            productNote.text = "Không có ghi chú"
+        }else{
+            productNote.text = orderProduct.getNote()
+        }
+        if(orderProduct.getTopping().toString().isEmpty()){
+            holder.productTopping.text = "Không có món thêm"
+        }
+        else{
+            holder.productTopping.text =  orderProduct.getTopping().toString();
+        }
+
+
     }
 }

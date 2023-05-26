@@ -2,6 +2,7 @@ package com.example.myapplication.Admin.pages.order
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +13,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Admin.controllers.UserController
 import com.example.myapplication.Admin.modals.Order
 import com.example.myapplication.R
+import com.example.myapplication.utils.Utils
 
 
 class OrderAdapter(private val context: Context, private val items: List<Order>) :
     RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
     inner class ViewHolder(listItemView: View) : RecyclerView.ViewHolder(listItemView) {
+        val idOrder = listItemView.findViewById<TextView>(R.id.idOrder)
         val customerOrderName = listItemView.findViewById<TextView>(R.id.customerOrderName)
         val orderAddress = listItemView.findViewById<TextView>(R.id.orderAddress)
         val totalOrder = listItemView.findViewById<TextView>(R.id.totalOrder)
@@ -44,18 +47,23 @@ class OrderAdapter(private val context: Context, private val items: List<Order>)
                 }
         }
         val orderAddress = holder.orderAddress
+        holder.idOrder.text = "Đơn hàng mã số "+ item.getId().toString().hashCode()
         orderAddress.text = item.getShippingAddress()
         val totalOrder = holder.totalOrder
-        totalOrder.text = item.getTotal().toString()
+        totalOrder.text = Utils.formatCurrency(item.getTotal()!!)
         val orderStatus = holder.orderStatus
         if (item.getStatus() == 0) {
             orderStatus.text = "Đang xử lý"
+            orderStatus.setTextColor(Color.parseColor("#f89115"))
         } else if (item.getStatus() == 1) {
             orderStatus.text = "Đang giao"
+            orderStatus.setTextColor(Color.parseColor("#164b6d"))
         } else if (item.getStatus() == 2) {
             orderStatus.text = "Đã giao"
+            orderStatus.setTextColor(Color.parseColor("#5cb85b"))
         } else if (item.getStatus() == -1) {
             orderStatus.text = "Đã hủy"
+            orderStatus.setTextColor(Color.parseColor("#e30804"))
         }
         holder.itemView.setOnClickListener {
             val intent = Intent(context, EditOrder::class.java)

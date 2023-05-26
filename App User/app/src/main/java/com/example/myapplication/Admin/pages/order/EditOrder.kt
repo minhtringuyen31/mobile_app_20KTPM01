@@ -20,7 +20,6 @@ import com.example.myapplication.Admin.controllers.*
 import com.example.myapplication.Admin.modals.Order
 import com.example.myapplication.R
 import com.example.myapplication.socket.SocketHandler
-import com.example.myapplication.socket.SocketHandler.mSocket
 import com.example.myapplication.utils.Utils
 import com.google.gson.Gson
 import java.time.LocalDateTime
@@ -39,9 +38,10 @@ class EditOrder : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_order)
-        SocketHandler.setSocket()
-        SocketHandler.establishConnection()
-        mSocket = SocketHandler.getSocket()
+        val socketHandler = SocketHandler.getInstance()
+        socketHandler.setSocket()
+        socketHandler.establishConnection()
+//        val mSocketClient = msocket.getSocket()
         val orderId = intent.getStringExtra("orderId")
         val order = intent.getSerializableExtra("order") as Order
         val acceptBtn = findViewById<Button>(R.id.orderDetail_AcceptBtn)
@@ -73,7 +73,7 @@ class EditOrder : AppCompatActivity() {
                 loadingDialog.show()
                 handler.postDelayed(Runnable {
 
-                    mSocket.emit("confirmOrder", jsonString)
+                    socketHandler.mSocket.emit("confirmOrder", jsonString)
                     loadingDialog.dismiss()
                     startActivity(intent)
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -107,7 +107,7 @@ class EditOrder : AppCompatActivity() {
                 handler.postDelayed(Runnable {
 
 
-                     mSocket.emit("cancelOrder",jsonString)
+                    socketHandler.mSocket.emit("cancelOrder",jsonString)
                     loadingDialog.dismiss()
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
@@ -138,7 +138,7 @@ class EditOrder : AppCompatActivity() {
                 handler.postDelayed(Runnable {
 
 
-                    mSocket.emit("deliverySuccess", jsonString)
+                    socketHandler.mSocket.emit("deliverySuccess", jsonString)
                     loadingDialog.dismiss()
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     startActivity(intent)
@@ -171,12 +171,12 @@ class EditOrder : AppCompatActivity() {
             }
             paymentMethodViewProvider.getPaymentMethod(it.getPaymentMethodId()!!)
                 .observe(this) { paymentMethod ->
-                    findViewById<TextView>(R.id.orderPaymentMethod).text = paymentMethod.getName()
+                    findViewById<TextView>(R.id.orderPaymentMethod).text = "PTTT:"+paymentMethod.getName()
                 }
             findViewById<TextView>(R.id.orderDate).text =
                 LocalDateTime.parse(it.getOrderDate().toString(), DateTimeFormatter.ISO_DATE_TIME)
                     .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
-            findViewById<TextView>(R.id.orderAddress).text = it.getShippingAddress()
+            findViewById<TextView>(R.id.orderAddress).text = "Địa chỉ: "+it.getShippingAddress()
             findViewById<TextView>(R.id.orderTotal).text = "Tổng tiền: " + it.getTotal().toString()
             findViewById<TextView>(R.id.orderStatus).text = when (it.getStatus()) {
                 0 -> "Đang xử lý"

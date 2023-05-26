@@ -15,10 +15,8 @@ class MyApplication: Application() {
     override fun onCreate() {
         super.onCreate()
         createNotificationChannel()
-        val intent = Intent(this, SocketHandler::class.java)
-        startService(intent)
 
-        // Dừng máy chủ
+        // Dừng máy chủx
 
     }
     private fun createNotificationChannel() {

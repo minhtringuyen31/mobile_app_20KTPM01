@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.Admin.modals.Topping
 import com.example.myapplication.R
+import com.example.myapplication.utils.Utils
 
 class ToppingAdapter(private val context: Context, private val toppings: List<Topping>) :
     RecyclerView.Adapter<ToppingAdapter.ViewHolder>() {
@@ -29,8 +30,8 @@ class ToppingAdapter(private val context: Context, private val toppings: List<To
         val topping: Topping = toppings[position]
         val toppingName = holder.toppingName
         toppingName.text = topping.getName()
-        val toppingPrice = holder.toppingPrice
-        toppingPrice.text = topping.getPrice().toString()
+        val toppingPrice =   holder.toppingPrice
+        toppingPrice.text = Utils.formatCurrency(topping.getPrice()!!) + " VND"
         holder.itemView.setOnClickListener {
             val intent = Intent(context, ToppingDetail::class.java)
             intent.putExtra("toppingId", topping.getId().toString())

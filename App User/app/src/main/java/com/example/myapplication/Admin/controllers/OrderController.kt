@@ -83,6 +83,20 @@ class OrderController : ViewModel() {
         }
         return _orders
     }
+    fun getAllOrderByMonthAndYear(month:String,year:String): LiveData<List<Order>> {
+        val _orders = MutableLiveData<List<Order>>()
+        viewModelScope.launch {
+            try {
+                val response =
+                    Utils.getRetrofit().create(OrderService::class.java).getAllOrderByMonthAndYear(month,year)
+                _orders.value = response
+                println(response[0].getId())
+            } catch (e: Exception) {
+                // handle error
+            }
+        }
+        return _orders
+    }
 
     fun createOrder(orderNew: Order): LiveData<Order> {
         val _order = MutableLiveData<Order>()

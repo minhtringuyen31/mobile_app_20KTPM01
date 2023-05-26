@@ -49,6 +49,7 @@
             android:id="@+id/userOrderName"
             android:layout_width="200dp"
             android:layout_height="30dp"
+            android:textStyle="bold"
             android:layout_marginStart="20dp"
             android:layout_toEndOf="@+id/imageview1"
             android:ellipsize="end"
@@ -101,6 +102,7 @@
             android:textSize="15sp" />
 
         <TextView
+            android:textStyle="bold"
             android:id="@+id/orderDate"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
@@ -114,6 +116,7 @@
         <TextView
             android:id="@+id/orderAddress"
             android:layout_width="370dp"
+            android:textStyle="bold"
             android:layout_height="wrap_content"
             android:layout_below="@+id/orderPromotion"
             android:layout_marginStart="20dp"
@@ -131,14 +134,26 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:maxLines="2"
+            android:textStyle="italic"
             android:text="Tong tien: 100.000 VND"
             android:textColor="@color/black"
             android:textSize="15sp" />
 
     </RelativeLayout>
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/darkGray"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:layout_marginStart="18dp"
+        android:text="Sản phẩm">
+
+    </TextView>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/orderProductRv"
+        android:background="@color/gray"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

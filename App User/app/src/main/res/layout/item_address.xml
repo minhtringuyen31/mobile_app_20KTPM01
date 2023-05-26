@@ -25,8 +25,8 @@
             android:layout_width="0dp"
             android:text="Address Example"
             android:textColor="@color/black"
-            android:layout_height="wrap_content">
-
+            android:maxLines="2"
+            android:layout_height="fill_parent">
         </TextView>
         <ImageView
             android:id="@+id/iconDeleteAddres"

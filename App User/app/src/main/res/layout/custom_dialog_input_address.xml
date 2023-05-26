@@ -3,10 +3,12 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:padding="10dp"
+    android:backgroundTint="@color/transparent"
     android:background="@drawable/custom_rounded_search"
     android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
+
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:elevation="16dp"
@@ -43,7 +45,7 @@
 
     <EditText
         android:layout_marginTop="10dp"
-        android:background="@drawable/custom_btn_add_to_card"
+        android:background="@drawable/rounded_border"
         android:textColorHint="@color/darkGray"
         android:id="@+id/addressUser"
         android:padding="10dp"

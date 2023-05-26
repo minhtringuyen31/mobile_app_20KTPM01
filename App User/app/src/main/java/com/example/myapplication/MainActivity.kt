@@ -33,13 +33,11 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.messaging.FirebaseMessaging
-import io.socket.client.Socket
 import java.util.*
 class MainActivity : AppCompatActivity() {
     private lateinit var toolbar: AppBarLayout
     private lateinit var bottomNavigationView: BottomNavigationView
     private lateinit var currentFragment: FrameLayout
-    private lateinit var mSocket: Socket
     private lateinit var tokenFB: TokenFirebaseViewModel
     private fun handleTokenFirebase() {
         tokenFB = ViewModelProvider(this)[TokenFirebaseViewModel::class.java]
@@ -157,16 +155,16 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView = findViewById(R.id.bottom_nav)
         currentFragment = findViewById(R.id.flFragment)
 //        handleTokenFirebase()
-        SocketHandler.setSocket()
-        SocketHandler.establishConnection()
-        mSocket = SocketHandler.getSocket()
-        mSocket.on("server-send-message") { args ->
+        val socketHandler = SocketHandler.getInstance()
+        socketHandler.setSocket()
+        socketHandler.establishConnection()
+        socketHandler.mSocket.on("server-send-message") { args ->
             if (args[0] != null) {
                 val counter = args[0]
                 println(counter);
             }
         }
-        mSocket.on("statusOrder") { args ->
+        socketHandler.mSocket.on("statusOrder") { args ->
             ;
             if (args[0] != null) {
                 val counter = args[0]
@@ -181,7 +179,7 @@ class MainActivity : AppCompatActivity() {
 
         val userID = sharedPreferences.getString("userID", null)
         if (userID != null && userID.isNotEmpty() && role != null && role.toString() == "0") {
-            mSocket.emit("login", userID)
+            socketHandler.mSocket.emit("login", userID)
             setCurrentFragment(Homepage(), "Homepage")
             activeNavigationBar()
         } else if(userID != null && userID.isNotEmpty() && role != null && role.toString() == "1"){

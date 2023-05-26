@@ -44,6 +44,18 @@
 
 
 
+    <TextView
+        android:id="@+id/textShowTime"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_margin="10dp"
+        android:padding="10dp"
+        android:text="Chọn khoảng thời gian"
+        android:textColor="@color/darkGray"
+        android:textStyle="bold"
+        android:background="@drawable/rounded_border"
+        android:layout_height="wrap_content">
+    </TextView>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -52,7 +64,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7">
-
     </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout

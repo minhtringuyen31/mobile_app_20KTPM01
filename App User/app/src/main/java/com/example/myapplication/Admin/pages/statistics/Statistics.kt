@@ -28,8 +28,6 @@ class Statistics : AppCompatActivity() {
         detailStatisticRE.setOnClickListener {
             val intent = Intent(this, detail_statistic::class.java)
             startActivity(intent)
-//            println("111")
-
         }
         orderViewProvider.countOrder().observe(this) {
             println(it)
@@ -37,7 +35,7 @@ class Statistics : AppCompatActivity() {
         }
         orderViewProvider.totalOrder().observe(this) {
             findViewById<TextView>(R.id.orderTotalSales).text = "${it.getTotal()
-                ?.let { it1 -> Utils.formatCurrency(it1) }} VND"
+                ?.let { it1 -> Utils.formatCurrency(it1) }} VND "
         }
         productViewProvider.countProduct().observe(this) {
             findViewById<TextView>(R.id.productAmount).text = it.getCount().toString()

@@ -20,6 +20,9 @@ interface OrderService {
     @GET("order/bymonth")
     suspend fun getAllOrderByMonth(): List<Order>
 
+    @GET("order/bymonth/{month}/{year}")
+    suspend fun getAllOrderByMonthAndYear(@Path("month") month: String,@Path("year") year: String): List<Order>
+
     @POST("order/create")
     suspend fun createOrder(@Body order: Order): Order
 

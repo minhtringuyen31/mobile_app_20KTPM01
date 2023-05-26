@@ -33,7 +33,6 @@ import com.example.myapplication.pages.apdaters.PromotionApdapter
 import com.example.myapplication.pages.apdaters.interfaces.OnItemClickListener
 import com.example.myapplication.pages.apdaters.interfaces.OnItemClickProductHomepage
 import com.example.myapplication.pages.apdaters.interfaces.OnItemClickPromotion
-import com.example.myapplication.socket.SocketHandler
 import com.example.myapplication.utils.Utils
 import com.example.myapplication.viewmodels.*
 import com.example.myapplication.viewmodels.sharedata.ProductCartViewModel
@@ -154,10 +153,6 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnI
     private fun initUI(view: View) {
 
         runOnce(requireContext())
-        SocketHandler.setSocket()
-        SocketHandler.establishConnection()
-        SocketHandler.mSocket = SocketHandler.getSocket()
-        SocketHandler.mSocket.emit("_confirmSocket","41")
         progressBar = view.findViewById(R.id.showLoading)
         val screenWidth = context?.let { Utils.getScreenWidth(it) }
         //Product
