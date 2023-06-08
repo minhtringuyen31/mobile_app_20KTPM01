@@ -70,8 +70,8 @@ class Refund:ViewModel() {
 
             val client = OkHttpClient.Builder()
                 .connectTimeout(10, TimeUnit.SECONDS) // Thiết lập timeout kết nối (10 giây)
-                .readTimeout(30, TimeUnit.SECONDS) // Thiết lập timeout đọc (30 giây)
-                .writeTimeout(30, TimeUnit.SECONDS) // Thiết lập timeout ghi (30 giây)
+                .readTimeout(15, TimeUnit.SECONDS) // Thiết lập timeout đọc (30 giây)
+                .writeTimeout(15, TimeUnit.SECONDS) // Thiết lập timeout ghi (30 giây)
                 .build()
 
             val request = Request.Builder()
@@ -86,6 +86,7 @@ class Refund:ViewModel() {
             {
                 status.postValue(true)
             }
+
 
         }
 

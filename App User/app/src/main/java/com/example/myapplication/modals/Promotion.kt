@@ -1,8 +1,11 @@
 package com.example.myapplication.modals
 
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
 import com.example.myapplication.pages.activities.promotion.PromotionData
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 
 class Promotion( private var id:Int,
                  private var name:String,
@@ -56,7 +59,7 @@ class Promotion( private var id:Int,
         this.name=name;
     }
     fun getDisable():Int{
-        return this.id;
+        return this.is_disable;
     }
     fun setDisable(status:Int){
         this.is_disable=status;
@@ -67,6 +70,25 @@ class Promotion( private var id:Int,
     }
     fun setDisCount(discount:Double){
         this.discount=discount;
+    }
+    fun getRemainingDays(endDate: LocalDate): Long {
+        val startDate = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            LocalDate.now()
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        }
+        return ChronoUnit.DAYS.between(startDate, endDate)
+    }
+    fun checkExp():Boolean{
+        var day: Long = 10L
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+
+            day =getRemainingDays(LocalDate.parse(this.getEndDay()))
+        }
+        if(day<=0) {
+            return true
+        }
+        return false;
     }
     fun setBeginDay(begin:String){
         this.start_date=begin;

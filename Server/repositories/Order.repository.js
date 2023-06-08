@@ -217,7 +217,7 @@ const OrderRepository = {
   },
 
   async findAll() {
-    const query = `SELECT * FROM orders`;
+    const query = `SELECT * FROM orders ORDER BY order_date DESC`;
 
     try {
       const [rows] = await DB.pool().query(query);

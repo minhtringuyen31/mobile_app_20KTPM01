@@ -17,7 +17,7 @@ class CheckoutViewModel:ViewModel() {
     private  var address:String="None"
     private var time:String="Current time"
     private var discount:String="None"
-    private var promontionID:Int=0;
+    private var promontionID:Int=-1;
     private var percentVoucher:Double=0.0;
     private var fromWhere = ""
     private val _newOrderProduct = MutableLiveData<OrderProduct>()
@@ -83,7 +83,7 @@ class CheckoutViewModel:ViewModel() {
         viewModelScope.launch {
             try {
                 val response = retrofit.create(CheckoutService::class.java).createOrderProduct(orderProduct);
-                println("View: $response")
+
                 _newOrderProduct.postValue(response)
             } catch (e: Exception) {
                 // handle error

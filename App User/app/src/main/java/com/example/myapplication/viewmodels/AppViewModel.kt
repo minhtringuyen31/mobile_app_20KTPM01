@@ -110,7 +110,7 @@ class AppViewModel:ViewModel() {
             withContext(Dispatchers.Main) {
                 favProductViewModel = ViewModelProvider(viewModelStoreOwner)[FavProductViewModel::class.java]
                 favProductViewModel.getAllFavProducts(userId)
-                println("Current view-model: ${Thread.currentThread().name}")
+
             }
         }
     }

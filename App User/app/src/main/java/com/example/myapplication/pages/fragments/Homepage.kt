@@ -209,9 +209,10 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnI
             if(it!=null)
             {
                 val categoryList = it as ArrayList<Category>
-                categoryAdapter.addCategory(categoryList)
+                categoryAdapter.addCategory(categoryList.filter { it.getDisable() ==0  } as ArrayList)
                 categoryAdapter.notifyDataSetChanged()
-                println("Loading category")
+
+
                 progressBar.visibility = View.GONE
             }
            else
@@ -225,9 +226,9 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnI
             if(it!=null)
             {
                 val products = it as ArrayList<Product>
-                productAdapter.addProducts(products)
+                productAdapter.addProducts(products.filter { it.getDisable()== 0  } as ArrayList<Product>)
                 productAdapter.notifyDataSetChanged()
-                println("Loading product")
+
                 progressBar.visibility = View.GONE
             }
             else
@@ -242,9 +243,9 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnI
             if(it!=null)
             {
                 val promotions = it as ArrayList<Promotion>
-                promotionAdapter.addPromotions(promotions)
+                promotionAdapter.addPromotions(promotions.filter { it.getDisable() == 0 && it.checkExp() == false } as ArrayList<Promotion>)
                 promotionAdapter.notifyDataSetChanged()
-                println("Loading promotion")
+
                 progressBar.visibility = View.GONE
             }
             else
@@ -255,7 +256,7 @@ class Homepage : Fragment(), OnItemClickListener, OnItemClickProductHomepage,OnI
         }
         appModel.getCartItemViewModel().cartItems.observe(viewLifecycleOwner){
             counterFab.count= it.size
-            println("Loading cart")
+
         }
 
         counterFab.setOnClickListener {

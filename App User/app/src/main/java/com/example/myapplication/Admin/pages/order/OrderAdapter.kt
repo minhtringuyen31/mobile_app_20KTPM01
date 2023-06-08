@@ -50,7 +50,7 @@ class OrderAdapter(private val context: Context, private val items: List<Order>)
         holder.idOrder.text = "Đơn hàng mã số "+ item.getId().toString().hashCode()
         orderAddress.text = item.getShippingAddress()
         val totalOrder = holder.totalOrder
-        totalOrder.text = Utils.formatCurrency(item.getTotal()!!)
+        totalOrder.text = Utils.formatCurrency(item.getTotal()!!) + " d"
         val orderStatus = holder.orderStatus
         if (item.getStatus() == 0) {
             orderStatus.text = "Đang xử lý"

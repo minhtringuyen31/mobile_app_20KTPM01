@@ -122,7 +122,7 @@ const SocketListener = {
       });
       socket.on('refund', (data) => {
         const result = JSON.parse(data);
-        const name = hashcode.hashCode(result.id.toString())
+        const name = hashcode.hashCode(result.id)
         const messages = {
           data: {
             username: 'Thông báo đơn hàng',

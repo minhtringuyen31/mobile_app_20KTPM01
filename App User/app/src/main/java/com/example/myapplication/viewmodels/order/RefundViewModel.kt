@@ -19,7 +19,7 @@ class RefundViewModel:ViewModel() {
         viewModelScope.launch {
             try {
                 val response = retrofit.create(com.example.myapplication.services.RefundOrder::class.java).createRefund(orderProduct);
-                println("View2222: $response")
+
                 _newOrder.postValue(response)
             } catch (e: Exception) {
                 // handle error

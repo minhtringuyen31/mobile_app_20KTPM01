@@ -79,7 +79,6 @@ class NotificationList : AppCompatActivity() {
             if(it!=null)
             {
                 notificationListAdapter.addNotification(it as ArrayList<Notification>)
-                println(notificationListAdapter.itemCount)
                 if(notificationListAdapter.itemCount==0)
                 {
                     imagEmpty.visibility = View.VISIBLE

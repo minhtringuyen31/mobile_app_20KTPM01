@@ -20,6 +20,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.text.DecimalFormat
 import java.text.Normalizer
 import java.text.NumberFormat
+import java.text.SimpleDateFormat
+import java.util.*
 import java.util.regex.Pattern
 
 
@@ -36,6 +38,14 @@ class Utils : AppCompatActivity() {
                 .baseUrl(URL)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
+        }
+        fun convertDate(chuoiThoiGian: String): String {
+            val dinhDangNhap = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault())
+            val dinhDangXuat = SimpleDateFormat("HH:mm 'ngày' dd/MM/yyyy", Locale.getDefault())
+
+            val thoiGian = dinhDangNhap.parse(chuoiThoiGian)
+
+            return dinhDangXuat.format(thoiGian)
         }
         fun activeToolbar(context: Context,view: View){
             val toolBar: AppBarLayout = view.findViewById(com.example.myapplication.R.id.myToolBar)

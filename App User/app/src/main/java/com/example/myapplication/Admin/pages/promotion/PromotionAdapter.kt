@@ -26,9 +26,8 @@ class PromotionAdapter(private val context: Context, private val items: List<Pro
         val promotionDiscount = listItemView.findViewById<TextView>(R.id.promotionDiscount)
         val promotionEndDate = listItemView.findViewById<TextView>(R.id.promotionEndDate)
         val promotionStatus = listItemView.findViewById<ImageView>(R.id.isDisablePromotion)
-        val promotionQuantity = listItemView.findViewById<TextView>(R.id.promotionQuantity)
+//        val promotionQuantity = listItemView.findViewById<TextView>(R.id.promotionQuantity)
     }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = LayoutInflater.from(context)
@@ -48,7 +47,7 @@ class PromotionAdapter(private val context: Context, private val items: List<Pro
         val promotionDiscount = holder.promotionDiscount
         val promotionEndDate = holder.promotionEndDate
         val promotionStatus = holder.promotionStatus
-        val promotionQuantity = holder.promotionQuantity
+//        val promotionQuantity = holder.promotionQuantity
 
         Glide.with(context).load(promotion.getImage()).fitCenter().into(promotionImage)
         promotionName.text = promotion.getName()
@@ -58,7 +57,7 @@ class PromotionAdapter(private val context: Context, private val items: List<Pro
             DateTimeFormatter.ISO_DATE_TIME
         )
             .format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString()
-        promotionQuantity.text = promotion.getQuantity().toString()
+//        promotionQuantity.text = promotion.getQuantity().toString()
         if (promotion.getIsDisable() == 1)
             promotionStatus.setImageResource(R.drawable.baseline_disable_24)
         else

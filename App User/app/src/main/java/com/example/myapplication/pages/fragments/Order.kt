@@ -48,10 +48,11 @@ class Order : Fragment() {
     private lateinit var categoryViewModel: CategoryViewModel
     private lateinit var productViewModel: ProductViewModel
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
-    private lateinit var  searchView:SearchView;
-    private lateinit var changeLayout: ImageView;
+    private lateinit var  searchView:SearchView
+    private lateinit var changeLayout: ImageView
     private var isLinearLayoutManager = true
     private var checkChangeLayout:Boolean =true
+    private lateinit  var listproduct:ArrayList<Product>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -75,7 +76,7 @@ class Order : Fragment() {
             if (categories.isEmpty()) {
                 setUpCategoryRecyclerAdapter(view, arrayListOf())
             } else {
-                setUpCategoryRecyclerAdapter(view,categories)
+                setUpCategoryRecyclerAdapter(view,categories.filter { it.getDisable()==0 } as ArrayList)
             }
         }
 
@@ -85,7 +86,7 @@ class Order : Fragment() {
                 setUpProductRecyclerAdapter(view, arrayListOf(),true)
 
             } else {
-                setUpProductRecyclerAdapter(view,products,true)
+                setUpProductRecyclerAdapter(view,products.filter { it.getDisable() ==0  } as ArrayList,true)
 
             }
 
@@ -93,9 +94,14 @@ class Order : Fragment() {
 
     }
     private fun setUpViewModel(view: View){
+        listproduct=ArrayList<Product>();
         appModel.setUpViewModel(view,this)
         categoryViewModel =  appModel.getCategoryViewModel()
         productViewModel =  appModel.getProductViewModel()
+        productViewModel.products.observe(viewLifecycleOwner) {
+            listproduct = it.filter { it.getDisable()==0  } as ArrayList<Product>;
+        }
+
 
     }
     private fun initUI(view:View){
@@ -107,8 +113,6 @@ class Order : Fragment() {
         categoryRecyclerView = view.findViewById(R.id.listCategoryRV)
         productRecyclerView = view.findViewById(R.id.listProductRV)
         searchView = view.findViewById(R.id.searchView)
-
-//        setUpProductRecyclerAdapter(view,listProduct,isLinearLayoutManager!!)
         if (isLinearLayoutManager)
             productRecyclerView.layoutManager = LinearLayoutManager(context)
         else
@@ -117,43 +121,30 @@ class Order : Fragment() {
 
         setUpProductRecyclerAdapter(view, arrayListOf(),isLinearLayoutManager)
         changeLayout.setOnClickListener {
-            productViewModel =  appModel.getProductViewModel()
             if(checkChangeLayout)
             {
                 checkChangeLayout=false;
-                productViewModel.products.observe(viewLifecycleOwner) {
-                    val products = it as ArrayList<Product>
-                    println(products)
-                    if (products.isEmpty()) {
+                if (listproduct.isEmpty()) {
+                    productRecyclerView.layoutManager = GridLayoutManager(context,3)
+                    setUpProductRecyclerAdapter(view, arrayListOf(),false)
 
-                        productRecyclerView.layoutManager = GridLayoutManager(context,3)
-                        setUpProductRecyclerAdapter(view, arrayListOf(),false)
-
-                    } else {
-
-                        productRecyclerView.layoutManager = GridLayoutManager(context,3)
-                        setUpProductRecyclerAdapter(view,products,false)
-
-                    }
+                } else {
+                    productRecyclerView.layoutManager = GridLayoutManager(context,3)
+                    setUpProductRecyclerAdapter(view,listproduct.filter { it.getDisable() ==0 } as ArrayList,false)
 
                 }
+
             }
             else{
                 checkChangeLayout=true;
-                productViewModel.products.observe(viewLifecycleOwner) {
-                    val products = it as ArrayList<Product>
-                    println(products)
-                    if (products.isEmpty()) {
+                if (listproduct.isEmpty()) {
+                    productRecyclerView.layoutManager = LinearLayoutManager(context)
+                    setUpProductRecyclerAdapter(view, arrayListOf(),true)
 
-                        productRecyclerView.layoutManager = LinearLayoutManager(context)
-                        setUpProductRecyclerAdapter(view, arrayListOf(),true)
+                } else {
 
-                    } else {
-
-                        productRecyclerView.layoutManager = LinearLayoutManager(context)
-                        setUpProductRecyclerAdapter(view,products,true)
-
-                    }
+                    productRecyclerView.layoutManager = LinearLayoutManager(context)
+                    setUpProductRecyclerAdapter(view,listproduct.filter { it.getDisable() ==0 } as ArrayList,true)
 
                 }
             }
@@ -162,7 +153,7 @@ class Order : Fragment() {
 
     }
     private fun setUpProductRecyclerAdapter(view:View,data: ArrayList<Product>, isLinearLayoutManager: Boolean) {
-        productListAdapter = ProductListAdapter(data, isLinearLayoutManager)
+        productListAdapter = ProductListAdapter(data.filter { it.getDisable() ==0  } as ArrayList, isLinearLayoutManager)
         productRecyclerView.adapter = productListAdapter
 
         productListAdapter.onItemClick = { product ->
@@ -195,7 +186,7 @@ class Order : Fragment() {
                 val result =data.filter {
                     Utils.removeAccent(it.getName()).matches(regex)
                 }
-                productListAdapter = ProductListAdapter(result as ArrayList<Product>, isLinearLayoutManager)
+                productListAdapter = ProductListAdapter(result.filter { it.getDisable() ==0 } as ArrayList<Product>, isLinearLayoutManager)
                 productRecyclerView.adapter = productListAdapter
                 productListAdapter.onItemClick = { product ->
                     productCartViewModel.setId(product.getId())
@@ -221,7 +212,7 @@ class Order : Fragment() {
                     Utils.removeAccent(it.getName()).matches(regex)
                 }
 
-                productListAdapter = ProductListAdapter(result as ArrayList<Product>, isLinearLayoutManager)
+                productListAdapter = ProductListAdapter(result.filter { it.getDisable() ==0 } as ArrayList<Product>, isLinearLayoutManager)
                 productRecyclerView.adapter = productListAdapter
                 productListAdapter.onItemClick = { product ->
                     productCartViewModel.setId(product.getId())
@@ -248,15 +239,17 @@ class Order : Fragment() {
         categoryRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         categoryListAdapter.onItemClick = { category ->
             currentCategory.text = category.getName()
+            checkChangeLayout=true;
             productViewModel.products.observe(viewLifecycleOwner) {
                 val products = it as ArrayList<Product>
+                productRecyclerView.layoutManager = LinearLayoutManager(context)
                 var productsWithCategoryOne = it as ArrayList<Product>
                 productsWithCategoryOne = products.filter { it.getCategory_id() == category.getId() } as ArrayList<Product>
+                listproduct =productsWithCategoryOne.filter { it.getDisable() ==0 } as ArrayList;
                 if (productsWithCategoryOne.isEmpty()) {
                     setUpProductRecyclerAdapter(view, arrayListOf(),true)
-
                 } else {
-                    setUpProductRecyclerAdapter(view,productsWithCategoryOne,true)
+                    setUpProductRecyclerAdapter(view,listproduct.filter { it.getDisable() ==0 } as ArrayList,true)
                 }
             }
 

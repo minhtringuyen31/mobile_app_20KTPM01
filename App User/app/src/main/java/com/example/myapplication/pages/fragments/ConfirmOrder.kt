@@ -70,7 +70,7 @@ class ConfirmOrder : Fragment() {
         }
         initUI(view)
 
-        println("Confirm Order")
+
         return view
     }
 
@@ -92,7 +92,7 @@ class ConfirmOrder : Fragment() {
                 OrderDetail::class.java
             )
             intent.putExtra("orderId", order.getId().toString())
-            println("Order ID " + order.getId())
+
             intent.putExtra("orderPromotion", order.getPromotionId().toString())
             intent.putExtra("orderTotalPrice", order.getTotal().toString())
             intent.putExtra("orderStatus", order.getStatus().toString())

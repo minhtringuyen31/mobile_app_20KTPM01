@@ -24,7 +24,7 @@ class NotificationViewModel: ViewModel() {
                 val response =
                     retrofit.create(NotificationService::class.java).getNotification(userId)
                 _notifications.postValue(response)
-                println("notification $_notifications")
+
             } catch (e: Exception) {
                 println("View : $e")
             }
@@ -37,7 +37,6 @@ class NotificationViewModel: ViewModel() {
                 val response =
                     retrofit.create(NotificationService::class.java).postNotification(notification)
                 _success.postValue(response)
-                println("notification $_notifications")
             } catch (e: Exception) {
                 println("View : $e")
             }

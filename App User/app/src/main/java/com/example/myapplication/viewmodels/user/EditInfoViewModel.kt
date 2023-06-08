@@ -19,13 +19,13 @@ class EditInfoViewModel:ViewModel() {
     fun EditInfo(id:Int, request: EditInfoRequest){
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                //println(request)
+
                 val response = retrofit.create(UserService::class.java).EditInfo(id,request)
                 Resource.loading(data = null)
-                //println("test"+response)
+
 
                 if(response.getName()!=null){
-                    //println("test"+response)
+
                     _editInfo.postValue( Resource.success(data=response))
                 }
                 else

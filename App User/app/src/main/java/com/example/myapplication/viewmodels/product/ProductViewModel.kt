@@ -22,15 +22,6 @@ class ProductViewModel: ViewModel(){
     private val retrofit: Retrofit = RetrofitClient.instance!!
     private val _rating = MutableLiveData<Float>()
     val rating: LiveData<Float> = _rating
-//
-//    private val _status = MutableLiveData<Int>()
-//    val status: LiveData<Int> = _status
-//
-//    private val _newproduct = MutableLiveData<Product>()
-//    val newproduct: LiveData<Product> = _newproduct
-//
-//    private val _updateproduct = MutableLiveData<Product>()
-//    val updateproduct: LiveData<Product> = _updateproduct
 
     fun getRating(productId: Int) {
         viewModelScope.launch(Dispatchers.Main) {
@@ -58,9 +49,7 @@ class ProductViewModel: ViewModel(){
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = retrofit.create(ProductService::class.java).getAllProductSale()
-//                val response=Utils.getRetrofit().create(ProductService::class.java).getAllProduct()
                 _productsSales.postValue(response)
-                println("Sale"+response)
             } catch (e: Exception) {
                 println("View: $e")
             }
@@ -72,7 +61,7 @@ class ProductViewModel: ViewModel(){
             try {
                 val response =retrofit.create(ProductService::class.java).getProduct(id);
                 _product.value = response
-                println("Product: $response")
+
             } catch (e: Exception) {
                 // handle error
 
@@ -90,43 +79,4 @@ class ProductViewModel: ViewModel(){
             }
         }
     }
-//    fun deleteProduct(id:Int) {
-//        viewModelScope.launch {
-//            try {
-//                val response = Utils.getRetrofit().create(ProductService::class.java).deleteProduct(id);
-//                _status.value=response;
-//            } catch (e: Exception) {
-//                // handle error
-//            }
-//        }
-//    }
-//    fun updateProduct(id:Int){
-//
-//        viewModelScope.launch {
-//            try {
-//                val response = Utils.getRetrofit().create(ProductService::class.java).updateProduct(id,
-//                    Product(7,"Phildi Chôc","Đồ uống",56.0,"M",12.0,12.0,12.0,"Blabla","images/product/product16.png",true,"123","12/02/2002","12.",1,0)
-//                );
-//
-//                _updateproduct.value=response;
-//
-//
-//            } catch (e: Exception) {
-//                // handle error
-//            }
-//        }
-//
-//    }
-//    fun createproduct() {
-//        viewModelScope.launch {
-//            try {
-//                val newproduct= Product(6,"Phildi Chôc","Đồ uống",56.0,"M",12.0,12.0,12.0,"Blabla","images/product/product16.png",true,"123","12/02/2002","12.",1,0)
-//                val response = Utils.getRetrofit().create(ProductService::class.java).createProduct(newproduct);
-//                println("View: $response")
-//                _newproduct.value=response;
-//            } catch (e: Exception) {
-//                // handle error
-//            }
-//        }
-//    }
 }

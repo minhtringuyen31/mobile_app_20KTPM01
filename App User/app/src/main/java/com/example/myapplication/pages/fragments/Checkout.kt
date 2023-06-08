@@ -1,5 +1,6 @@
 package com.example.myapplication.pages.fragments
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
@@ -114,11 +115,25 @@ class Checkout : Fragment() {
         }
     }
     fun updateVoucher(percent1:String,idPromotion:String){
-        var getandShowPercent = view.findViewById<TextView>(R.id.getandShowPercent);
-        getandShowPercent.text = " - "+(percent1.toDouble()/100).toString() + " % "
-        checkoutViewModel.setPercentVoucher(percent1.toDouble()/100)
-        checkoutViewModel.setpromontionID(idPromotion)
-        total.text =  Utils.formatCurrency( (checkoutViewModel.subTotal.value!!-(checkoutViewModel.subTotal.value!!*checkoutViewModel.getPercentVoucher()))) + " đ"
+        if(idPromotion=="-1") {
+            var getandShowPercent = view.findViewById<TextView>(R.id.getandShowPercent);
+            val sharedPreference =
+                view.context.getSharedPreferences("Setting", Activity.MODE_PRIVATE)
+            val language = sharedPreference.getString("My_Lang", "")
+            if (language != null && language == "vn") {
+                getandShowPercent.text = "Thêm khuyến mãi"
+            } else {
+                getandShowPercent.text = "Add voucher";
+            }
+        }
+        else{
+            var getandShowPercent = view.findViewById<TextView>(R.id.getandShowPercent);
+            getandShowPercent.text = " - "+(percent1.toDouble()/100).toString() + " % "
+            checkoutViewModel.setPercentVoucher(percent1.toDouble()/100)
+            checkoutViewModel.setpromontionID(idPromotion)
+            total.text =  Utils.formatCurrency( (checkoutViewModel.subTotal.value!!-(checkoutViewModel.subTotal.value!!*checkoutViewModel.getPercentVoucher()))) + " đ"
+        }
+
     }
 
     @SuppressLint("ResourceAsColor", "SimpleDateFormat")
@@ -126,7 +141,7 @@ class Checkout : Fragment() {
         SingleDateAndTimePickerDialog.Builder(context)
             .bottomSheet()
             .curved()
-            .titleTextColor(Color.BLACK)
+            .titleTextColor(Color.RED)
             .backgroundColor(Color.rgb(240,248,250))
             .title("Hãy chọn thời gian đặt hàng")
             .listener {
@@ -171,8 +186,6 @@ class Checkout : Fragment() {
     ): View {
 
 
-        println(checkoutViewModel)
-
 
 
         view=inflater.inflate(R.layout.fragment_checkout, container, false)
@@ -195,7 +208,6 @@ class Checkout : Fragment() {
         setUpViewModel()
         initUI(view)
         setupObserve()
-        println(checkoutViewModel)
 
         return view
     }
@@ -259,12 +271,12 @@ class Checkout : Fragment() {
             val paypal = viewitem.findViewById<LinearLayout>(R.id.paypal)
             momo.setOnClickListener {
                 methodSelected.text= "ZaloPay"
-                checkoutViewModel.setpromontionID("3")
+//                checkoutViewModel.setpromontionID("3")
                 dialog.dismiss()
             }
             paypal.setOnClickListener {
                 methodSelected.text= "Paypal"
-                checkoutViewModel.setpromontionID("1")
+//                checkoutViewModel.setpromontionID("1")
                 dialog.dismiss()
             }
             dialog.setContentView(viewitem)
@@ -281,7 +293,7 @@ class Checkout : Fragment() {
             checkoutViewModel.subTotal.value=subtotal
             subTotal.text= Utils.formatCurrency(checkoutViewModel.subTotal.value!!) + " đ"
 
-            println(checkoutViewModel.getPercentVoucher())
+
             total.text =  Utils.formatCurrency( (checkoutViewModel.subTotal.value!!-(checkoutViewModel.subTotal.value!!*checkoutViewModel.getPercentVoucher()))) + " đ"
             checkoutAdapter.apply {
                 addItems(items)
@@ -312,13 +324,13 @@ class Checkout : Fragment() {
             phoneUser.setOnClickListener {
                 val dialog = CustomDialog(view.context)
                 dialog.setUpDialogPhone()
-                println(checkoutViewModel)
+
             }
         }
         updatePhone.setOnClickListener {
             val dialog = CustomDialog(view.context)
             dialog.setUpDialogPhone()
-            println(checkoutViewModel)
+
         }
 
         btnCheckout.setOnClickListener {
@@ -328,7 +340,7 @@ class Checkout : Fragment() {
                 try {
                     val temp=Utils.getDigitInString(total.text.toString())
                     val data: JSONObject = orderApi.createOrder(temp.toInt().toString())
-                    println(data)
+
                     val code = data.getString("returncode")
                     if (code == "1") {
                         val myActivity = activity as MainActivity
@@ -349,12 +361,15 @@ class Checkout : Fragment() {
                                         val userID = id.getString("userID", null)
                                         if(userID!=null){
                                             val newOrder =com.example.myapplication.modals.Order(userID.toInt(),checkoutViewModel.getTime(),address,Utils.getDigitInString(total.text.toString()),0,checkoutViewModel.getPromotionID(),3)
-                                            println("new"+newOrder)
+//                                            dataItem= ArrayList();
+//                                            adddressAdapter.addAddress(dataItem)
+//                                            sharedPreferencesAdress.edit().putString("nameAddress", gson.toJson(dataItem)).apply()
                                             orderViewModel.createOrder(newOrder,cartItemCallAPI, transactionId)
                                             val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
                                             sharedPreferences.edit().remove("productID").apply()
                                             val sharedPreferences_address = view.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
                                             sharedPreferences_address.edit().remove("addressSelected").apply()
+
                                             val sharedPreferencesTime = view.context.getSharedPreferences("timeShip", AppCompatActivity.MODE_PRIVATE)
                                             sharedPreferencesTime.edit().remove("time").apply()
                                             val sharedPreferences_phone = view.context.getSharedPreferences("phone", AppCompatActivity.MODE_PRIVATE)
@@ -445,13 +460,13 @@ class Checkout : Fragment() {
         addressCheckout.setOnClickListener {
           val dialog = CustomDialog(view.context)
             dialog.setUpDialog()
-            println(checkoutViewModel)
+
 
         }
 
         timeCheckout.setOnClickListener{
             handleGetTime()
-            println(checkoutViewModel)
+
         }
 
         addItem.setOnClickListener {
@@ -503,6 +518,7 @@ class Checkout : Fragment() {
             }
 
             adddressAdapter.addAddress(dataItem)
+
             addressListView.adapter=adddressAdapter
             val addAddres = dialog.findViewById<TextView>(R.id.add_Address)
             val edtAddress = dialog.findViewById<EditText>(R.id.addressUser)

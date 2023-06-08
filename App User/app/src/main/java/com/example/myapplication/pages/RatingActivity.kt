@@ -1,25 +1,22 @@
 package com.example.myapplication.pages
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.SharedPreferences
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.modals.Rating
-import com.example.myapplication.modals.User
 import com.example.myapplication.viewmodels.product.ProductViewModel
 import com.example.myapplication.viewmodels.product.RatingViewModel
 import com.example.myapplication.viewmodels.user.UserViewModel
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class RatingActivity : AppCompatActivity() {
     private lateinit var ratingBar: RatingBar
@@ -36,6 +33,7 @@ class RatingActivity : AppCompatActivity() {
     private lateinit var ratingViewModel: RatingViewModel
     private lateinit var sharedPreferences: SharedPreferences
     private lateinit var productID:String
+    private lateinit var orderID:String
     private lateinit var imgToolbarBtnBack : ImageView
     private lateinit var productRatingImgIV: ImageView
     private lateinit var productRatingNameTV : TextView
@@ -48,10 +46,6 @@ class RatingActivity : AppCompatActivity() {
         getUserViewModelInformation()
 
         getProductViewModelInformation(productID.toInt())
-
-        println(productID)
-
-
         submitBtn.setOnClickListener {
             submitRatingBtnActionClickListener()
         }
@@ -88,7 +82,7 @@ class RatingActivity : AppCompatActivity() {
         productViewModel = ViewModelProvider(this)[ProductViewModel::class.java]
         productViewModel.getProduct(productId)
         productViewModel.product.observe(this){
-            println("here")
+
             currentProductImg= it.getImage()
             currentProductName = it.getName()
             productRatingNameTV.text = currentProductName
@@ -106,7 +100,7 @@ class RatingActivity : AppCompatActivity() {
         val ratingValue = ratingBar.rating
         val comment = commentTV.text.toString()
         val rating = Rating(
-            currentUserId,
+            currentUserId.toInt(),
             currentUserName,
             currentUserAvatar,
             productID.toInt(),
@@ -117,6 +111,9 @@ class RatingActivity : AppCompatActivity() {
         )
         ratingViewModel = ViewModelProvider(this)[RatingViewModel::class.java]
         ratingViewModel.postRating(rating)
+        val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
         finish()
     }
 }

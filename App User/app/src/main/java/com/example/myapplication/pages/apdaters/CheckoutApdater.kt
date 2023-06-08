@@ -8,12 +8,11 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.modals.CartItem
-import com.example.myapplication.modals.Topping
 import com.example.myapplication.pages.fragments.Checkout
+import com.example.myapplication.utils.Utils
 
 
 class CheckoutApdater(
@@ -69,7 +68,7 @@ class CheckoutApdater(
 
         val item: CartItem = getItem(position)
         viewHolder.txtName.text = item.getName()
-        viewHolder.txtPrice.text = item.getPrice().toString()
+        viewHolder.txtPrice.text =   Utils.formatCurrency(item.getPrice()) + " đ"
         viewHolder.topping.text = item.getTopping()
             Glide.with(view)
                 .load(item.getImage()).fitCenter()

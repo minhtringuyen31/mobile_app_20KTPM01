@@ -70,9 +70,7 @@ class Login : AppCompatActivity() {
             val loginRequest =
                 LoginRequest(login_phone.text.toString(), login_pass.text.toString(), 0);
             loginViewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-            println(loginRequest)
             loginViewModel.loginUser(loginRequest);
-            println("tưass")
             loginViewModel.statusLogin.observe(this, Observer {
                 it?.let { resource ->
                     when (resource.status) {
@@ -188,7 +186,7 @@ class Login : AppCompatActivity() {
 
                                         runBlocking {
                                             delay(2000) // Đợi 2 giây
-                                            println("Delay completed")
+
                                         }
                                         val intent = Intent(
                                             this,
@@ -226,7 +224,7 @@ class Login : AppCompatActivity() {
                 gotoHomePage()
 
             }catch (e:Exception){
-                println(e.message)
+
                 Toast.makeText(this,e.message, Toast.LENGTH_LONG).show()
             }
         }

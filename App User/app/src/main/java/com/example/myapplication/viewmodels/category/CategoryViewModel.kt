@@ -43,9 +43,7 @@ class CategoryViewModel :ViewModel(){
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = retrofit.create(CategoryService::class.java).getCategory(id);
-                println("Init app catgory: $response")
                 _category.postValue(response)
-                println("Current viewmodel: ${Thread.currentThread().name}")
             } catch (e: Exception) {
                 // handle error
             }
@@ -83,7 +81,6 @@ class CategoryViewModel :ViewModel(){
             try {
                 val newCategory=Category(0,"Cà phê truyền thống","images/categories/Caphett.png",0)
                 val response = retrofit.create(CategoryService::class.java).createCategory(newCategory);
-                println("View: $response")
                 _newcategory.postValue(response);
             } catch (e: Exception) {
                 // handle error

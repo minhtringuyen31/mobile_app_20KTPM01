@@ -21,6 +21,7 @@ import com.example.myapplication.R
 class Orders : AppCompatActivity() {
     private lateinit var orderList: List<Order>
     private val socketReceiver = SocketReceiver()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_orders)

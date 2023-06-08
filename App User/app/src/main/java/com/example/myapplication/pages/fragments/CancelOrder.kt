@@ -70,7 +70,8 @@ class CancelOrder : Fragment() {
         }
         initUI(view)
 
-        println("Cancel Order")
+
+
         return view
     }
 
@@ -85,14 +86,14 @@ class CancelOrder : Fragment() {
         onGoingOrderListAdapter = OrderListAdapter(arrayListOf(),-1)
         layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         onGoingOrderListRecyclerView.layoutManager = layoutManager
-        onGoingOrderListRecyclerView.adapter = onGoingOrderListAdapter;
+        onGoingOrderListRecyclerView.adapter = onGoingOrderListAdapter
         onGoingOrderListAdapter.onItemClick = {order ->
             val intent  = Intent(
                 requireContext(),
                 OrderDetail::class.java
             )
             intent.putExtra("orderId", order.getId().toString())
-            println("Order ID " + order.getId())
+
             intent.putExtra("orderPromotion", order.getPromotionId().toString())
             intent.putExtra("orderTotalPrice", order.getTotal().toString())
             intent.putExtra("orderStatus", order.getStatus().toString())

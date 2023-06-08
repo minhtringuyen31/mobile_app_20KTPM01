@@ -19,8 +19,10 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.Admin.controllers.*
 import com.example.myapplication.Admin.modals.Order
 import com.example.myapplication.R
+import com.example.myapplication.checkout.Refund
 import com.example.myapplication.socket.SocketHandler
 import com.example.myapplication.utils.Utils
+import com.example.myapplication.viewmodels.order.RefundViewModel
 import com.google.gson.Gson
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -29,6 +31,7 @@ import java.time.format.DateTimeFormatter
 class EditOrder : AppCompatActivity() {
     private var orderStatus: Int? = null
     private var user_id: Int = 0;
+    private lateinit var reFundViewModelProvider: RefundViewModel
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         recreate()
@@ -43,6 +46,7 @@ class EditOrder : AppCompatActivity() {
         socketHandler.establishConnection()
 //        val mSocketClient = msocket.getSocket()
         val orderId = intent.getStringExtra("orderId")
+        reFundViewModelProvider = ViewModelProvider(this)[RefundViewModel::class.java]
         val order = intent.getSerializableExtra("order") as Order
         val acceptBtn = findViewById<Button>(R.id.orderDetail_AcceptBtn)
         val denyBtn = findViewById<Button>(R.id.orderDetail_DenyBtn)
@@ -75,8 +79,9 @@ class EditOrder : AppCompatActivity() {
 
                     socketHandler.mSocket.emit("confirmOrder", jsonString)
                     loadingDialog.dismiss()
+
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
                     startActivity(intent)
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
                     dialog.cancel()
                     finish()
                 }, 3000)
@@ -97,23 +102,36 @@ class EditOrder : AppCompatActivity() {
                 var gson = Gson()
                 var jsonString = gson.toJson(order)
 
-//                val refundAPI = Refund()
-//                val data: JSONObject = refundAPI.refund("1000")
-//                println(data)
-                val intent = Intent(this, Orders::class.java)
                 val handler = Handler(Looper.getMainLooper())
                 val loadingDialog = Utils.Companion.CustomLoadingDialog(this@EditOrder)
                 loadingDialog.show()
                 handler.postDelayed(Runnable {
 
-
-                    socketHandler.mSocket.emit("cancelOrder",jsonString)
-                    loadingDialog.dismiss()
-                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
-                    dialog.cancel()
-                    finish()
+                    reFundViewModelProvider.getTokenByOrderID(orderId.toInt())
+                    orderProvider.getOrder(orderId.toInt()).observe(this){
+                        val order=it
+                        reFundViewModelProvider.getorder.observe(this){
+                            if(it!=null)
+                            {
+                                val refundAPI = Refund()
+                                refundAPI.refund(it.getToken(),order.getTotal()!!.toInt().toString())
+                                if(refundAPI.order.value == true)
+                                {
+                                    socketHandler.mSocket.emit("cancelOrder",jsonString)
+                                    loadingDialog.dismiss()
+                                    dialog.cancel()
+                                    val intent = Intent(this, Orders::class.java)
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK)
+                                    startActivity(intent)
+                                    finish()
+                                }
+                            }
+                        }
+                    }
                 }, 3000)
+
+
+
 
             }
             builder.setPositiveButton("Không") { dialog, which ->
@@ -167,7 +185,7 @@ class EditOrder : AppCompatActivity() {
             val paymentMethodViewProvider =
                 ViewModelProvider(this)[PaymentMethodController::class.java]
             promotionViewProvider.getPromotion(it.getPromotionId()!!).observe(this) { promotion ->
-                findViewById<TextView>(R.id.orderPromotion).text = promotion.getName()
+                findViewById<TextView>(R.id.orderPromotion).text = "Ưu đãi:"+ promotion.getName()
             }
             paymentMethodViewProvider.getPaymentMethod(it.getPaymentMethodId()!!)
                 .observe(this) { paymentMethod ->
@@ -177,7 +195,7 @@ class EditOrder : AppCompatActivity() {
                 LocalDateTime.parse(it.getOrderDate().toString(), DateTimeFormatter.ISO_DATE_TIME)
                     .format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
             findViewById<TextView>(R.id.orderAddress).text = "Địa chỉ: "+it.getShippingAddress()
-            findViewById<TextView>(R.id.orderTotal).text = "Tổng tiền: " + it.getTotal().toString()
+            findViewById<TextView>(R.id.orderTotal).text = "Tổng tiền: " + Utils.formatCurrency(it.getTotal()!!) + " d"
             findViewById<TextView>(R.id.orderStatus).text = when (it.getStatus()) {
                 0 -> "Đang xử lý"
                 1 -> "Đang giao"

@@ -5,6 +5,9 @@ class Category(
     private var image: String,
     private var is_disable: Int
 ) {
+    fun getDisable():Int{
+        return this.is_disable;
+    }
 
     fun setID(id:Int){
         this.id=id;

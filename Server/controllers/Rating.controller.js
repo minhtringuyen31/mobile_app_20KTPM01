@@ -33,6 +33,7 @@ const RatingController = {
     },
     async findRating(req, res) {
         const id = req.params.id;
+
         const rating = await RatingService.findRating(id);
         if (rating) {
             res.status(200).send(rating)

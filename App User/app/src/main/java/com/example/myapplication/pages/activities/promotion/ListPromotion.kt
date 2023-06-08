@@ -1,16 +1,11 @@
 package com.example.myapplication.pages.activities.promotion
 
-import android.app.Activity
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Parcelable
-import android.view.View
-import android.widget.Button
 import android.widget.Toast
-import androidx.activity.viewModels
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatImageView
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,10 +13,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.viewmodels.promotion.PromotionViewModel
-import com.example.myapplication.modals.Promotion
-import com.example.myapplication.pages.fragments.Homepage
-import com.example.myapplication.pages.fragments.Others
-import com.example.myapplication.viewmodels.order.CheckoutViewModel
 
 //import com.example.myapplication.pages.activities.promotion.Promotions
 
@@ -40,7 +31,6 @@ class ListPromotion : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_promotion)
         val forward = intent.getStringExtra("source")
-        println(forward)
         promotionRecycleview = findViewById(R.id.recycleview_promotion)
         promotionRecycleview.setHasFixedSize(true)
         promotionRecycleview.layoutManager = LinearLayoutManager(this)
@@ -55,7 +45,7 @@ class ListPromotion : AppCompatActivity() {
                 if (resources.isEmpty()) {
                     Toast.makeText(this, "Have No Promotion!", Toast.LENGTH_SHORT).show()
                 } else {
-                    promotionAdapterList.promotionList = resources
+                    promotionAdapterList.promotionList = resources.filter { it.getDisable()==0 && it.checkExp() ==false}
                     promotionAdapterList.notifyDataSetChanged()
                 }
             }

@@ -31,7 +31,7 @@ class FavProductViewModel: ViewModel() {
                 val response =
                     retrofit.create(ProductService::class.java).getAllFavProduct(userId)
                 _products.postValue(response)
-                println("fav product $_products")
+
             } catch (e: Exception) {
                 println("View : $e")
             }
@@ -43,7 +43,7 @@ class FavProductViewModel: ViewModel() {
             try {
                 val response =
                     retrofit.create(ProductService::class.java).addFavProduct(favProduct)
-                println("response add fav $response")
+
                 _product.postValue(response)
             } catch (e: Exception) {
                 println("View : $e")

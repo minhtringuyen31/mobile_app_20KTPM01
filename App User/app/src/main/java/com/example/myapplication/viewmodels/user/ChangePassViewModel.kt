@@ -19,13 +19,13 @@ class ChangePassViewModel:ViewModel() {
     fun ChangePass(id:Int, request:ChangePassRequest){
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                println(request)
+
                 val response = retrofit.create(UserService::class.java).ChangePass(id,request)
                 Resource.loading(data = null)
-                println("test"+response)
+
 
                 if(response.getNewPass()!=null){
-                    println("test"+response)
+
                     _changePass.postValue( Resource.success(data=response))
                 }
                 else

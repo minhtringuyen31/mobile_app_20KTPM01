@@ -1,5 +1,6 @@
 package com.example.myapplication.pages.activities.promotion
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.modals.Promotion
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 
 class PromotionAdapterList(var promotionList: List<Promotion>):RecyclerView.Adapter<PromotionAdapterList.PromotionViewHolder>(){
     var onItemClick:((Promotion) -> Unit)? = null
@@ -19,6 +22,7 @@ class PromotionAdapterList(var promotionList: List<Promotion>):RecyclerView.Adap
             val start_date: TextView = itemView.findViewById(R.id.start_date)
             val end_date: TextView = itemView.findViewById(R.id.end_date)
             val img_promotion: ImageView = itemView.findViewById(R.id.img_promotion)
+            val countDay :TextView = itemView.findViewById(R.id.countDay)
         init {
             itemView.setOnClickListener {
                 onItemClick?.invoke(promotionList[adapterPosition])
@@ -36,6 +40,15 @@ class PromotionAdapterList(var promotionList: List<Promotion>):RecyclerView.Adap
         val view=LayoutInflater.from(parent.context).inflate(R.layout.item_promotion_list,parent,false)
         return PromotionViewHolder(view)
     }
+    fun getRemainingDays(endDate: LocalDate): Long {
+        val startDate = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            LocalDate.now()
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        }
+        return ChronoUnit.DAYS.between(startDate, endDate)
+    }
+
 
     override fun getItemCount(): Int {
         return promotionList.size
@@ -47,6 +60,9 @@ class PromotionAdapterList(var promotionList: List<Promotion>):RecyclerView.Adap
         holder.start_date.text = item.getBeginDay()
         holder.end_date.text = item.getEndDay()
         holder.discount_promotion.text=item.getDiscount().toString()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            holder.countDay.text = "Còn "+getRemainingDays( LocalDate.parse(item.getEndDay())).toString() + " ngày"
+        }
 
         Glide.with(holder.itemView)
             .load(promotionList[position].getImage())

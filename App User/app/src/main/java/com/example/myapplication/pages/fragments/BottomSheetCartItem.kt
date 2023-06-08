@@ -2,7 +2,6 @@ package com.example.myapplication.pages.fragments
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -163,7 +162,6 @@ private const val ARG_PARAM2 = "param2"
             priceMRadio.isChecked = false
             priceSRadio.isChecked = true
             item[0]=Utils.getDigitInString(priceS.text.toString())
-            println(Utils.getDigitInString(priceS.text.toString()))
             itemCount.total = calculateTotalPrice()
             itemCount.size="S"
             updatePriceTotal()
@@ -203,7 +201,7 @@ private const val ARG_PARAM2 = "param2"
             AdapterView.OnItemClickListener { adapterView, view, position, id -> // Handle item click here
                 val checkboxTopping = adapterView.getItemAtPosition(position) as Topping
                 checkboxTopping.setChecked(if (checkboxTopping.getChecked()==1) 0 else 1)
-                println(checkboxTopping)
+
                 if(checkboxTopping.getChecked()==1) {
                     adapterView[position].findViewById<CheckBox>(R.id.checkbox).isChecked=true
                     item[1]+=Utils.getDigitInString(checkboxTopping.getPrice().toInt().toString())
@@ -319,8 +317,7 @@ private const val ARG_PARAM2 = "param2"
             val item: Topping = getItem(position)
             viewHolder.txtName.text = item.getName()
             viewHolder.txtPrice.text = Utils.formatCurrency(item.getPrice()) + " đ"
-            println(checkedItem.contains( item.getName(),ignoreCase = true))
-            print(checkedItem)
+
             viewHolder.checkBox.isChecked = item.getChecked() != 0
             if(checkedItem.contains( item.getName(),ignoreCase = true)){
                 viewHolder.checkBox.isChecked = true

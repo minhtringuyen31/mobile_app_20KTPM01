@@ -1,6 +1,9 @@
 package com.example.myapplication.pages.activities.promotion
+import android.os.Build
 import android.os.Parcel
 import android.os.Parcelable
+import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 
 
 class PromotionData(
@@ -58,6 +61,7 @@ class PromotionData(
     fun getImage():String{
         return  this.image;
     }
+
     fun getBeginDay():String{
         return this.start_date.take(10);
     }
@@ -69,6 +73,9 @@ class PromotionData(
     }
     fun getDescription():String{
         return this.description
+    }
+    fun getDisable():Int{
+        return this.is_disable;
     }
 
 }

@@ -51,7 +51,6 @@ class Cart : Fragment(), OnItemClickListener {
     private val appModel: AppViewModel by activityViewModels()
     private val productCartViewModel: ProductCartViewModel by activityViewModels()
     private lateinit var btnback:ImageView
-//    private lateinit var emptyList:ImageView
     private lateinit var emptyCartImg:ImageView
     private lateinit var emptyCartTV1: TextView
     private lateinit var emptyCartTV2: TextView
@@ -71,10 +70,11 @@ class Cart : Fragment(), OnItemClickListener {
         setUpViewModel()
         initUI(view)
         setupObserve()
-
         return view
     }
     private fun setUpViewModel(){
+        (activity as MainActivity).showToolbarAndNavigationBar(false)
+        (activity as MainActivity).showNavigationBar(true)
         val sharedPreferences: SharedPreferences =
             view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
         val userId = sharedPreferences.getString("userID", null)
@@ -82,8 +82,7 @@ class Cart : Fragment(), OnItemClickListener {
         {
             appModel.setUpCartItemViewModel(this, userId.toString().toInt())
         }
-        (activity as MainActivity).showToolbarAndNavigationBar(false)
-        (activity as MainActivity).showNavigationBar(true)
+
 
     }
     private fun initUI(view:View){
@@ -99,11 +98,35 @@ class Cart : Fragment(), OnItemClickListener {
         emptyCartTV2 = view.findViewById(R.id.emptyCartTV2)
         icon_deletecard = view.findViewById(R.id.icon_deletecard)
     }
+    private fun updateCheckExist(sharedPreferences:SharedPreferences, dataItem:ArrayList<Int>, listID:ArrayList<CartItem>){
+
+        listID.forEach {
+            if(!dataItem.contains(it.getProductId())){
+                dataItem.add(it.getProductId())
+                sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
+            }
+        }
+        println(dataItem)
+
+
+    }
     @SuppressLint("NotifyDataSetChanged")
     fun setupObserve(){
+        val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
+//            val preferences: SharedPreferences = view.context.getSharedPreferences("cart", 0)
+//            preferences.edit().remove("productID").apply()
+        val gson = Gson()
+        val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
+        val carts=sharedPreferences.getString("productID", null)
+        var dataItem = gson.fromJson<ArrayList<Int>>(carts, type)
+
+        if (dataItem == null) {
+            dataItem = ArrayList()
+        }
         appModel.getCartItemViewModel().cartItems.observe(viewLifecycleOwner){
                 val cartItem = it as ArrayList<CartItem>
                 cartAdapter.addCartItem(cartItem)
+                updateCheckExist(sharedPreferences,dataItem,cartItem)
                 cartAdapter.notifyDataSetChanged()
                  btnPlaceOrder.visibility = View.VISIBLE
                 if(cartItem.isEmpty()){
@@ -196,20 +219,20 @@ class Cart : Fragment(), OnItemClickListener {
                     context, "Delete successfully",
                     Toast.LENGTH_SHORT).show()
 
-                cartAdapter.deleteItem(position);
+                cartAdapter.deleteItem(position)
                 appModel.removeItemCart(cartItem.getId())
                 val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
                 val gson = Gson()
                 val type: Type = object : TypeToken<ArrayList<Int>>() {}.type
                 val carts=sharedPreferences.getString("productID", null)
-                var dataItem = gson.fromJson<ArrayList<Int>>(carts, type);
+                var dataItem = gson.fromJson<ArrayList<Int>>(carts, type)
 
                 if (dataItem == null) {
                     dataItem = ArrayList<Int>()
                 }
-                dataItem.removeIf {
+                dataItem.removeIf { it ->
                     it==cartItem.getProductId()
-                };
+                }
                 sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
                 if(cartAdapter.itemCount==0){
 //                    emptyList.visibility = view.visibility
@@ -233,7 +256,7 @@ class Cart : Fragment(), OnItemClickListener {
 
         appModel.getProductViewModel().getProduct(cartItem.getProductId())
         appModel.getProductViewModel().product.observe(this) {
-            val product = it;
+            val product = it
             productCartViewModel.setCartItemID(cartItem.getID())
             productCartViewModel.setId(product.getId())
             productCartViewModel.setName(product.getName())
@@ -247,18 +270,14 @@ class Cart : Fragment(), OnItemClickListener {
             productCartViewModel.setSize(cartItem.getSize())
             productCartViewModel.setPrice(cartItem.getPrice())
             productCartViewModel.setQuantiTy(cartItem.getQuantity())
-            productCartViewModel.setNameFragment("cart");
-            productCartViewModel.setNote(cartItem.getNotes());
+            productCartViewModel.setNameFragment("cart")
+            productCartViewModel.setNote(cartItem.getNotes())
             (view.context as FragmentActivity).supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.flFragment, ProductDetail()).addToBackStack(null)
                 .commit()
         }
 
-        }
-
-
-
-
+    }
 
 }

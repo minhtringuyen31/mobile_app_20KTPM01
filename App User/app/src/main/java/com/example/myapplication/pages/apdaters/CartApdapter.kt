@@ -72,7 +72,7 @@ class CartApdapter(
 
 
         holder.itemView.setOnClickListener{
-           println(product)
+
 
             listener.onCartItemClickUpdate(position,product)
 

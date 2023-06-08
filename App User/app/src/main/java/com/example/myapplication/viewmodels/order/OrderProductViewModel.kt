@@ -23,7 +23,7 @@ class OrderProductViewModel: ViewModel() {
 
                 val response = retrofit.create(OrderProductService::class.java).getAddProductOfOrder(orderId)
                 _orderProduct.postValue(response)
-                println(_orderProduct)
+
 
             }catch (e: Exception) {
                 // handle error

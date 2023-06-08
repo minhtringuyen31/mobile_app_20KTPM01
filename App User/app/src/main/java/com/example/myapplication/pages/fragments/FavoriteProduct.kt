@@ -70,7 +70,7 @@ class FavoriteProduct : Fragment() {
         // Inflate the layout for this fragment
         val view =inflater.inflate(R.layout.fragment_favorite_product, container, false)
 
-        println("Favorite Product")
+
 
         val sharedPreferences: SharedPreferences =
             view.context.getSharedPreferences("user", Context.MODE_PRIVATE)
@@ -176,7 +176,7 @@ class FavoriteProduct : Fragment() {
             if(curUser!=null){
                 favProduct = FavProductItem(curUser.toString().toInt(), product.getId())
             }
-            println("fav $curUser +  $curProduct")
+
 
             appModel.removeFavProduct(favProduct)
         }

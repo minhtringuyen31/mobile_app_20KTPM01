@@ -77,6 +77,7 @@ class ProductDetail : Fragment() {
     private lateinit var noteEdit:EditText
     private  var cartItemID:Int=0
     private lateinit var notopping:TextView
+    private  var currentState:String = "home";
 
 //    private var favProductViewModel : FavProductViewModel by activityViewModels()
 
@@ -119,7 +120,6 @@ class ProductDetail : Fragment() {
 
         appModel.getProductViewModel().rating.observe(viewLifecycleOwner){
             val rating = it as Float
-            println("rating $rating")
             ratingStartRB.rating = rating
         }
 
@@ -132,7 +132,6 @@ class ProductDetail : Fragment() {
     private  fun setUpViewModel(){
 
         appModel.setUpRatingViewMode(this, productCartViewModel.getId())
-        println( productCartViewModel.getId())
         appModel.setUpToppingViewModel(this)
         itemCount= ViewModelProvider(this)[CountItemInBottomSheet::class.java]
     }
@@ -181,6 +180,7 @@ class ProductDetail : Fragment() {
         displayCount()
         if(productCartViewModel.getNameFragment()=="cart"){
 
+            currentState = "cart"
             item[0]=productCartViewModel.getPrice()
 
             val sizeSelected= productCartViewModel.getSize()
@@ -202,19 +202,26 @@ class ProductDetail : Fragment() {
             noteEdit.setText(productCartViewModel.getNote())
             itemCount.total=calculateTotalPrice()
             btnAddtoCart.text = "Cập nhật GH - " +  Utils.formatCurrency( itemCount.total) + " đ"
+            updatePriceTotal("cart");
         }
         else {
 
             item[0]=productCartViewModel.getPriceL()
             itemCount.total=calculateTotalPrice()
-           updatePriceTotal()
+            updatePriceTotal("home");
         }
 
         ratingRecyclerView = view.findViewById(R.id.listRatingRV)
     }
     @SuppressLint("SetTextI18n")
-    private fun updatePriceTotal() {
-        btnAddtoCart.text = "Thêm vào GH - " +  Utils.formatCurrency( itemCount.total) + " đ"
+    private fun updatePriceTotal(currentState:String) {
+        if(currentState=="home"){
+            btnAddtoCart.text = "Thêm vào GH - " +  Utils.formatCurrency( itemCount.total) + " đ"
+        }
+        else{
+            btnAddtoCart.text = "Cập nhật GH - " +  Utils.formatCurrency( itemCount.total) + " đ"
+        }
+
     }
     private fun displayCount() {
         text_quantity.text = itemCount.count.toString()
@@ -230,7 +237,7 @@ class ProductDetail : Fragment() {
             item[0]=Utils.getDigitInString(priceL.text.toString())
             itemCount.total = calculateTotalPrice()
             itemCount.size="L"
-            updatePriceTotal()
+            updatePriceTotal(currentState)
         }
         priceM_radio.setOnClickListener {
             priceL_radio.isChecked = false
@@ -239,17 +246,16 @@ class ProductDetail : Fragment() {
             item[0]=Utils.getDigitInString(priceM.text.toString())
             itemCount.total = calculateTotalPrice()
             itemCount.size="M"
-            updatePriceTotal()
+            updatePriceTotal(currentState)
         }
         priceS_radio.setOnClickListener {
             priceL_radio.isChecked = false
             priceM_radio.isChecked = false
             priceS_radio.isChecked = true
             item[0]=Utils.getDigitInString(priceS.text.toString())
-            println(Utils.getDigitInString(priceS.text.toString()))
             itemCount.total = calculateTotalPrice()
             itemCount.size="S"
-            updatePriceTotal()
+            updatePriceTotal(currentState)
         }
     }
     private fun setUpObserve(view:View){
@@ -259,7 +265,7 @@ class ProductDetail : Fragment() {
             displayCount()
             item[2]= itemCount.count.toDouble()
             itemCount.total = calculateTotalPrice()
-            updatePriceTotal()
+            updatePriceTotal(currentState)
 
         }
         minusBtn.setOnClickListener {
@@ -270,7 +276,7 @@ class ProductDetail : Fragment() {
             displayCount()
             item[2]= itemCount.count.toDouble()
             itemCount.total = calculateTotalPrice()
-            updatePriceTotal()
+            updatePriceTotal(currentState)
         }
         appModel.getToppingViewModel().toppings.observe(viewLifecycleOwner){
             val toppings=it
@@ -304,7 +310,7 @@ class ProductDetail : Fragment() {
                     itemCount.nameTopping=""
                 }
                 itemCount.total=calculateTotalPrice()
-                updatePriceTotal()
+                updatePriceTotal(currentState)
             }
         btnAddtoCart.setOnClickListener {
 
@@ -348,7 +354,6 @@ class ProductDetail : Fragment() {
                             activity, "Thêm thành công vào giỏ hàng",
                             Toast.LENGTH_SHORT
                         ).show()
-                        val tempData = carts;
                         dataItem.add(product_id);
                         sharedPreferences.edit().putString("productID",dataItem.toString()).apply()
                         val myFragment = parentFragmentManager.findFragmentByTag("Homepage") as Homepage?
@@ -381,11 +386,11 @@ class ProductDetail : Fragment() {
 
         appModel.getRatingViewModel().ratings.observe(viewLifecycleOwner){
             val ratings = it as ArrayList<Rating>
-            println(ratings)
             if (ratings.isEmpty()) {
                 setUpRatingRecyclerAdapter(view, arrayListOf())
 
             } else {
+
 
                 setUpRatingRecyclerAdapter(view, ratings)
             }
@@ -414,12 +419,11 @@ class ProductDetail : Fragment() {
             }
 
             if (favProductToggleBtn.isChecked()){
-                println("Liked")
-                println("Here")
+
                 appModel.addFavProduct(favProduct)
 
             } else{
-                println("Unliked")
+
                 appModel.removeFavProduct(favProduct)
             }
         }
@@ -427,7 +431,7 @@ class ProductDetail : Fragment() {
 
 
     private fun setUpRatingRecyclerAdapter(view: View, data: ArrayList<Rating>) {
-        ratingListAdapter = RatingListAdapter(data)
+        ratingListAdapter = RatingListAdapter(data.filter { it.getDisable()==0 } as ArrayList<Rating>)
         ratingRecyclerView.adapter = ratingListAdapter
         ratingRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         ratingListAdapter.onItemClick = {

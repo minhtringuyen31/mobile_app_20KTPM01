@@ -8,15 +8,3 @@ class Cart {
     }
 }
 
-class CartSingleton private constructor() {
-    companion object {
-        private var instance: Cart? = null
-
-        fun getInstance(): Cart {
-            if (instance == null) {
-                instance = Cart()
-            }
-            return instance!!
-        }
-    }
-}

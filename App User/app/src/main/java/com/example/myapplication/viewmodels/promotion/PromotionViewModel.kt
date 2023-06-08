@@ -23,8 +23,6 @@ class PromotionViewModel :ViewModel(){
             try {
                 val response = retrofit.create(PromotionService::class.java).getAllPromotion()
                 _promotions.postValue(response) // để đảm bảo rằng các giá trị được cập nhật trên luồng phụ (background thread).
-                println("Init app promotion: $response")
-                println("Current viewmodel: ${Thread.currentThread().name}")
             } catch (e: Exception) {
                 // handle error
             }
@@ -35,7 +33,6 @@ class PromotionViewModel :ViewModel(){
             try {
                 val response =retrofit.create(PromotionService::class.java).getPromotion(id)
                 _promotion.postValue(response) // để đảm bảo rằng các giá trị được cập nhật trên luồng phụ (background thread).
-                println("Current viewmodel: ${Thread.currentThread().name}")
             } catch (e: Exception) {
                 // handle error
             }

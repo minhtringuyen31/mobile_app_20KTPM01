@@ -19,7 +19,7 @@ class UserViewModel:ViewModel() {
         viewModelScope.launch {
             try {
                 val response =retrofit.create(UserService::class.java).getUser(id);
-                println("View: $response")
+
                 _user.value=response
             } catch (e: Exception) {
                 // handle error

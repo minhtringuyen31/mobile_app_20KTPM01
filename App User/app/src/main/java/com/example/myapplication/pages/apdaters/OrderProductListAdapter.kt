@@ -15,6 +15,7 @@ import com.example.myapplication.utils.Utils
 class OrderProductListAdapter(
     private var orderProductList: ArrayList<OrderProductDetail>,
     private var status:Int,
+    private var isRating:Int,
 ): RecyclerView.Adapter<OrderProductListAdapter.ViewHolder>(){
     var onRatingClick:((OrderProductDetail) -> Unit)? = null
     var onBuyAgainClick:((OrderProductDetail) -> Unit)? = null
@@ -30,14 +31,16 @@ class OrderProductListAdapter(
 
 
         init {
-            if(status==2){
+            if(status==2&&isRating==1){
                 orderProductRatingBtn.visibility =View.VISIBLE
             }
         }
         init {
 
             orderProductRatingBtn.setOnClickListener {
-                println("123232323")
+
+
+
                 onRatingClick?.invoke(orderProductList[position])
             }
 
@@ -75,7 +78,7 @@ class OrderProductListAdapter(
 
         itemName.text = orderProductItem.getProductName()
         itemSize.text = orderProductItem.getSize()
-        itemQuantity.text = orderProductItem.getQuantity().toString()
+        itemQuantity.text = "x"+orderProductItem.getQuantity().toString()
 
         if(orderProductItem.getTopping().isNotEmpty())
         {
@@ -101,6 +104,6 @@ class OrderProductListAdapter(
             orderProductList.addAll(orderProduct)
             notifyDataSetChanged()
         }
-        println(orderProductList)
+
     }
 }

@@ -26,10 +26,10 @@ class ForgotPasswordViewModel:ViewModel() {
 
                 val response = retrofit.create(UserService::class.java).SetOTP(request)
                 Resource.loading(data = null)
-                println("test"+response)
+
 
                 if(response.getEmail()!=null){
-                    println("test"+response)
+
                     _setotp.postValue( Resource.success(data=response))
                 }
                 else

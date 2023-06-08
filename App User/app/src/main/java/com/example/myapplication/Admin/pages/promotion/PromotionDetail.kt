@@ -85,6 +85,7 @@ class PromotionDetail : AppCompatActivity() {
                 if (promotion.getIsDisable() == 0) {
                     promotionViewProvider.disablePromotion(promotionId).observe(this) {
 
+
                     }
                 } else {
                     promotionViewProvider.enablePromotion(promotionId).observe(this) {
@@ -93,6 +94,8 @@ class PromotionDetail : AppCompatActivity() {
                 }
 
                 val intent = Intent(this, Promotions::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+
                 startActivity(intent)
 
                 dialog.cancel()

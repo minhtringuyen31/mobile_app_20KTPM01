@@ -1,6 +1,5 @@
 package com.example.myapplication.pages.apdaters
 
-import android.media.Image
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,9 +7,9 @@ import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.modals.Rating
+import com.example.myapplication.utils.Utils
 
 
 class RatingListAdapter (
@@ -55,6 +54,6 @@ class RatingListAdapter (
 //            .into(ratingUserImage)
         ratingScore.rating = rating.getScore()
         ratingDescription.text = rating.getComment()
-        ratingDatePost.text = rating.getDatePost()
+        ratingDatePost.text =  Utils.convertDate(rating.getDatePost())
     }
 }

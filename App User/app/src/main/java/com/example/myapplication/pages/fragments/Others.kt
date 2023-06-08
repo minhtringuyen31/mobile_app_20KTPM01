@@ -181,11 +181,12 @@ class Others : Fragment() {
             val account = GoogleSignIn.getLastSignedInAccount(view.context)
             gsc.signOut();
             val preferences: SharedPreferences = view.context.getSharedPreferences("user", AppCompatActivity.MODE_PRIVATE)
-
             preferences.edit().remove("userID").apply()
             preferences.edit().remove("name").apply()
             preferences.edit().remove("phone").apply()
             preferences.edit().remove("role").apply()
+            val sharedPreferencesAdress = view.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)
+            sharedPreferencesAdress.edit().remove("nameAddress").apply()
             val sharedPreferences = view.context.getSharedPreferences("cart", AppCompatActivity.MODE_PRIVATE)
             sharedPreferences.edit().remove("productID").apply()
             val sharedPreferences_address = view.context.getSharedPreferences("address", AppCompatActivity.MODE_PRIVATE)

@@ -161,7 +161,7 @@ class MainActivity : AppCompatActivity() {
         socketHandler.mSocket.on("server-send-message") { args ->
             if (args[0] != null) {
                 val counter = args[0]
-                println(counter);
+
             }
         }
         socketHandler.mSocket.on("statusOrder") { args ->
@@ -235,16 +235,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
+
         val fragment = supportFragmentManager.findFragmentByTag("checkout")
         if (fragment is Checkout) {
             fragment.handleNewIntent(intent)
         }
         if (intent != null) {
-            println(intent.getStringExtra("FragmentToOpen"))
+
         }
         if (intent!!.getStringExtra("FragmentToOpen")=="Activities") {
             setCurrentFragment(Activities(),"Activities")
         }
+        if (intent!!.getStringExtra("refund")=="true") {
+            setCurrentFragment(Activities(),"Activities")
+        }
+
         val percent=intent.getStringExtra("percent")
         val des=intent.getStringExtra("to")
         val idPromotion=intent.getStringExtra("idPromotion")

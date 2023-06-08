@@ -24,7 +24,6 @@ import com.example.myapplication.viewmodels.order.OrderProductViewModel
 import com.example.myapplication.viewmodels.order.RefundViewModel
 import com.example.myapplication.viewmodels.promotion.PromotionViewModel
 
-
 class OrderDetail : AppCompatActivity() {
     private lateinit var subTotalTV : TextView
     private lateinit var discountTV : TextView
@@ -34,18 +33,19 @@ class OrderDetail : AppCompatActivity() {
     private lateinit var orderProductListAdapter: OrderProductListAdapter
     private lateinit var imgToolbarBtnBack : ImageView
     private lateinit  var orderStatus:String;
-    private var  subtotal:Double = 0.0
+    private var subtotal:Double = 0.0
     private lateinit var statusOrder:TextView
     private lateinit var methodPaymentTV:TextView
     private lateinit var promotionViewModel:PromotionViewModel
     private lateinit var orderPromotion:String
     private lateinit var loading:ProgressBar
-    private  var sum:Double=0.0
+    private var sum:Double=0.0
     private lateinit var scrollView: ScrollView
     private lateinit var cancelOrderDetail:LinearLayout
     private lateinit var cancelOrderDetailTV:TextView
     private var orderId:Int=0
     private lateinit var reFundViewModelProvider:RefundViewModel
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,36 +55,36 @@ class OrderDetail : AppCompatActivity() {
 
         StrictMode.setThreadPolicy(policy)
 
-        orderProductListAdapter = OrderProductListAdapter(arrayListOf(),0)
+        orderProductListAdapter = OrderProductListAdapter(arrayListOf(),0,0)
         initViewModel()
         initUI()
         orderId = intent.getStringExtra("orderId").toString().toInt()
-        println("Get String Extra: $orderId")
         orderPromotion = intent.getStringExtra("orderPromotion").toString()
         val orderTotalPrice = intent.getStringExtra("orderTotalPrice")
         orderStatus = intent.getStringExtra("orderStatus").toString()
         val methodPayment = intent.getStringExtra("paymentMethodID").toString()
         if(orderStatus=="0")
         {
-            orderProductListAdapter = OrderProductListAdapter(arrayListOf(),0)
+            orderProductListAdapter = OrderProductListAdapter(arrayListOf(),0,0)
             statusOrder.text="Đơn hàng đang chờ xác nhận"
             cancelOrderDetail.visibility = View.VISIBLE
 
         }
         else if(orderStatus=="-1")
         {
-            orderProductListAdapter = OrderProductListAdapter(arrayListOf(),-1)
+            orderProductListAdapter = OrderProductListAdapter(arrayListOf(),-1,0)
             statusOrder.text="Đơn hàng bị huỷ"
             cancelOrderDetail.visibility = View.GONE
         }else if (orderStatus=="1")
         {
-            orderProductListAdapter = OrderProductListAdapter(arrayListOf(),1)
+            orderProductListAdapter = OrderProductListAdapter(arrayListOf(),1,0)
             statusOrder.text="Đơn hàng được xác nhận !"
             cancelOrderDetail.visibility = View.GONE
         }
         else if (orderStatus=="2")
         {
-            orderProductListAdapter = OrderProductListAdapter(arrayListOf(),2)
+
+            orderProductListAdapter = OrderProductListAdapter(arrayListOf(),2,1)
             orderProductListAdapter.onRatingClick = { rating ->
                 val intent = Intent(
                     this,
@@ -101,7 +101,7 @@ class OrderDetail : AppCompatActivity() {
         {
             methodPaymentTV.text = "ZaloPay"
         }
-        totalTV.text = orderTotalPrice
+        totalTV.text = Utils.formatCurrency(orderTotalPrice!!.toDouble())  +  " VND"
         setUpObserve(orderId)
 
     }
@@ -122,10 +122,6 @@ class OrderDetail : AppCompatActivity() {
         discountTV = findViewById(R.id.discountValueTV)
         totalTV = findViewById(R.id.totalValueTV)
         orderDetailListRV = findViewById(R.id.orderDetailRV)
-
-
-
-
         orderProductListAdapter.onBuyAgainClick = {product ->
 
         }
@@ -148,18 +144,21 @@ class OrderDetail : AppCompatActivity() {
                     orderProvider.getOrder(orderId).observe(this){
                         val order=it
                         reFundViewModelProvider.getorder.observe(this){
-                            println(it)
                             if(it!=null)
                             {
                                 val refundAPI = Refund()
                                 refundAPI.refund(it.getToken(),order.getTotal()!!.toInt().toString())
-                                if(  refundAPI.order.value == true)
+                                sDialog.dismissWithAnimation()
+                                if(refundAPI.order.value == true)
                                 {
-                                    sDialog.dismissWithAnimation()
+
                                     val intent = Intent(this, MainActivity::class.java)
+                                    intent.putExtra("refund","true");
+                                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or  Intent.FLAG_ACTIVITY_NEW_TASK)
                                     startActivity(intent)
                                     finish()
                                 }
+
                             }
                         }
                     }
@@ -180,7 +179,7 @@ class OrderDetail : AppCompatActivity() {
         orderProductViewModel = ViewModelProvider(this)[OrderProductViewModel::class.java]
         orderProductViewModel.getAllProductOfOrder(orderId)
         orderProductViewModel.orderProduct.observe(this){
-            println(it)
+
 
             if(it!=null)
             {
@@ -207,6 +206,7 @@ class OrderDetail : AppCompatActivity() {
         promotionViewModel.promotion.observe(this) {
             if (it != null) {
                 discountTV.text = it.getDiscount().toString() + "%"
+
                 loading.visibility = View.GONE
 
             } else {

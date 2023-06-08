@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.modals.Order
+import com.example.myapplication.utils.Utils
 
 
 class OrderListAdapter(
@@ -71,7 +72,7 @@ class OrderListAdapter(
 
         orderId.text = "Mã đơn hàng "+ onGoingOrder.getId().toString().hashCode()
         orderAddressShipping.text = onGoingOrder.getShippingAddress()
-        orderDate.text = onGoingOrder.getOrderDate()
+        orderDate.text =  Utils.convertDate( onGoingOrder.getOrderDate())
         orderPrice.text = onGoingOrder.getTotal().toString()
 
 //        orderAddressShipping.text = onGoingOrder.getShippingAddress()

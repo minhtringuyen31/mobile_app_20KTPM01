@@ -9,6 +9,7 @@ class OrderProduct(
     private var quantity: Int? = null,
     private var price: Double? = null,
     private var topping:String?= null,
+    private var size:String?= null,
 ) {
     // Getters of all
     fun getId(): Int? {
@@ -31,6 +32,9 @@ class OrderProduct(
 
     fun getProductId(): Int? {
         return product_id
+    }
+    fun getSize():String?{
+        return size;
     }
 
     fun getQuantity(): Int? {

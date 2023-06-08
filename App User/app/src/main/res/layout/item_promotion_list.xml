@@ -28,20 +28,42 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@drawable/ic_launcher_background" />
 
-        <TextView
-            android:id="@+id/name_promotion"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="8dp"
-            android:text="TextView"
-            android:textColor="@color/red"
-            android:textSize="16sp"
-            android:textStyle="bold"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@+id/textView20"
+
             app:layout_constraintStart_toEndOf="@+id/img_promotion"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/name_promotion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
+
+                android:layout_marginBottom="8dp"
+                android:text="TextView"
+                android:textColor="@color/red"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/countDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="8dp"
+                android:text="TextView"
+                android:textColor="@color/red"
+                android:textSize="14sp"
+                android:textStyle="italic" />
+
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/textView26"

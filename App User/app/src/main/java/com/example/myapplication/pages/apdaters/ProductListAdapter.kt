@@ -36,7 +36,6 @@ class ProductListAdapter(
         if (isLinearLayoutManager) {
             productView = inflater.inflate(R.layout.item_product_list_linear_layout, parent, false)
         } else {
-            println("Vao gridLayout")
             productView = inflater.inflate(R.layout.item_product_list_grid_layout, parent, false)
         }
         return ViewHolder(productView)

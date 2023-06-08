@@ -11,7 +11,6 @@ import android.widget.ToggleButton
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
-import com.example.myapplication.modals.Order
 import com.example.myapplication.modals.Product
 
 class FavoriteProductListAdapter(
@@ -88,7 +87,6 @@ class FavoriteProductListAdapter(
             clear()
             favoriteProductList.addAll(product)
             notifyDataSetChanged()
-            println("add fav product adapter $product")
         }
     }
 

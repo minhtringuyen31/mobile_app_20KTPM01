@@ -62,7 +62,7 @@ class NotificationListAdapter(
             clear()
             notificationList.addAll(notification)
             notifyDataSetChanged()
-            println("add notification item in adapter $notification")
+
         }
     }
 

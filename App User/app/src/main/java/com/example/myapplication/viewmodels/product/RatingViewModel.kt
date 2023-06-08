@@ -21,9 +21,9 @@ class RatingViewModel : ViewModel(){
             try{
                 val response = retrofit.create(RatingService::class.java).getRating(productId)
                 _ratings.postValue(response)
-                println("Views: $response")
+
             } catch (e:Exception){
-                println("Views: $e")
+                println("Views2: $e")
             }
         }
     }
@@ -31,9 +31,9 @@ class RatingViewModel : ViewModel(){
     fun postRating(rating: Rating){
         viewModelScope.launch(Dispatchers.IO){
             try{
-                println("AAAA")
+
                 val response = retrofit.create(RatingService::class.java).postRating(rating)
-                println("Rating: $response")
+
             } catch (e:Exception) {
                 println("Views: $e")
             }

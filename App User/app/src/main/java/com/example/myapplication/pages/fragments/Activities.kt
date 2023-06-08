@@ -48,7 +48,7 @@ class Activities : Fragment(){
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         view=inflater.inflate(R.layout.fragment_activities, container, false)
         // Inflate the layout for this fragment
         (activity as MainActivity).showToolbarAndNavigationBar(true)
@@ -101,24 +101,6 @@ class Activities : Fragment(){
 
         tabLayout?.setupWithViewPager(viewPager)
 
-//        (view.context as FragmentActivity).supportFragmentManager
-//            .beginTransaction()
-//            .replace(R.id.flFragment, OnGoingOrder()).addToBackStack(null)
-//            .commit()
-
-//
-//        btnOn.setOnClickListener {
-//            (view.context as FragmentActivity).supportFragmentManager
-//                .beginTransaction()
-//                .replace(R.id.flFragment, OnGoingOrder()).addToBackStack(null)
-//                .commit()
-//        }
-//        btnHis.setOnClickListener {
-//            (view.context as FragmentActivity).supportFragmentManager
-//                .beginTransaction()
-//                .replace(R.id.flFragment, HistoryOrder()).addToBackStack(null)
-//                .commit()
-//        }
 
 
     }

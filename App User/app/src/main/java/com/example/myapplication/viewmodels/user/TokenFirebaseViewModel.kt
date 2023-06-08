@@ -19,7 +19,7 @@ class TokenFirebaseViewModel:ViewModel() {
             try {
                 val response = retrofit.create(TokenFirebase::class.java).createTokenFB(value);
                 _newToken.postValue(response)
-                 println(response)
+
             } catch (e: Exception) {
             }
         }

@@ -72,7 +72,6 @@ class OnGoingOrder : Fragment() {
         initUI(view)
 
 
-        println("On Going")
         return view
     }
 
@@ -95,7 +94,6 @@ class OnGoingOrder : Fragment() {
                 OrderDetail::class.java
             )
             intent.putExtra("orderId", order.getId().toString())
-            println("Order ID " + order.getId())
             intent.putExtra("orderPromotion", order.getPromotionId().toString())
             intent.putExtra("orderTotalPrice", order.getTotal().toString())
             intent.putExtra("orderStatus", order.getStatus().toString())

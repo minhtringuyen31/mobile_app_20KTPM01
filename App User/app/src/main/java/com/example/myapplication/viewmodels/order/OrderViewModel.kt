@@ -34,7 +34,7 @@ class OrderViewModel :ViewModel(){
             try {
                 val response = retrofit.create(OrderService::class.java).getOrder(userId)
                 _orderProduct.postValue(response) // để đảm bảo rằng các giá trị được cập nhật trên luồng phụ (background thread).
-                println(response)
+
 //                println(_orderProduct)
             } catch (e: Exception) {
                 // handle error
@@ -48,7 +48,7 @@ class OrderViewModel :ViewModel(){
             try {
                 val response = retrofit.create(OrderService::class.java).getAllOnGoingOrder()
                 _orderProduct.postValue(response) // để đảm bảo rằng các giá trị được cập nhật trên luồng phụ (background thread).
-                println(response)
+
             } catch (e: Exception) {
                 // handle error
             }
@@ -60,7 +60,7 @@ class OrderViewModel :ViewModel(){
         viewModelScope.launch {
             try {
                 val response = retrofit.create(CheckoutService::class.java).createOrderProduct(orderProduct);
-                println("View: $response")
+
                 _newOrderProduct.postValue(response)
             } catch (e: Exception) {
                 // handle error
@@ -71,7 +71,7 @@ class OrderViewModel :ViewModel(){
         viewModelScope.launch {
             try {
                 val response =retrofit.create(com.example.myapplication.services.RefundOrder::class.java).createRefund(orderProduct);
-                println("View2222: $response")
+
                 _newOrder1.postValue(response)
             } catch (e: Exception) {
                 // handle error
@@ -89,7 +89,7 @@ class OrderViewModel :ViewModel(){
                 val id =response.getId();
 
                 var refundData = RefundOrder(id,transactionId)
-                println(refundData)
+
                 createRefund(refundData)
                 var gson = Gson()
                 var jsonString = gson.toJson(response)

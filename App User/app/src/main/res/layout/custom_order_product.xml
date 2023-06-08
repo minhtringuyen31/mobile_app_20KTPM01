@@ -58,6 +58,18 @@
         android:textSize="15sp" />
 
     <TextView
+        android:id="@+id/productSize"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@+id/productPrice"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="10dp"
+        android:gravity="start"
+        android:text="Size:L"
+        android:textStyle="bold"
+        android:textSize="15sp" />
+
+    <TextView
         android:id="@+id/productQuantity"
         android:layout_width="wrap_content"
         android:layout_height="20dp"

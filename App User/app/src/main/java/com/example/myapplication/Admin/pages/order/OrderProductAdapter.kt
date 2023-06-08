@@ -24,6 +24,7 @@ class OrderProductAdapter(
         val orderProductQuantity = listItemView.findViewById<TextView>(R.id.productQuantity)
         val productNote = listItemView.findViewById<TextView>(R.id.productNote)
         val productTopping= listItemView.findViewById<TextView>(R.id.productTopping)
+        val productSize= listItemView.findViewById<TextView>(R.id.productSize)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -52,6 +53,7 @@ class OrderProductAdapter(
         val orderProductQuantity = holder.orderProductQuantity
         orderProductQuantity.text = "x"+orderProduct.getQuantity().toString()
         val productNote = holder.productNote
+        holder.productSize.text = "Size: "+orderProduct.getSize().toString();
         if(orderProduct.getNote()!!.isEmpty()){
             productNote.text = "Không có ghi chú"
         }else{

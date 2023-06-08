@@ -23,7 +23,7 @@ class LoginViewModel():ViewModel() {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 val response = retrofit.create(AuthenService::class.java).loginUser(request);
-                println("Trả về "+response)
+
                 Resource.loading(data = null)
                 if(response.getStatusUser()==1){
                     _loginResult.postValue( Resource.success(data=response))
